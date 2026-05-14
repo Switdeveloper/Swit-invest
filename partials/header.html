@@ -1,4 +1,4 @@
-<header class="bg-white/80 backdrop-blur-sm border-b border-gray-100">
+<header class="bg-white/80 backdrop-blur-sm border-b border-gray-100 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <div class="flex items-center">
@@ -7,22 +7,32 @@
                 </div>
                 <div class="hidden md:block ml-10">
                     <div class="flex space-x-4">
-                        <a href="index.html" class="text-gray-500 hover:text-primary-red font-medium transition-colors">Home</a>
-                        <a href="services.html" class="text-gray-500 hover:text-primary-red font-medium transition-colors">Services</a>
-                        <a href="about.html" class="text-gray-500 hover:text-primary-red font-medium transition-colors">About</a>
-                        <a href="services.html" class="text-gray-500 hover:text-primary-red font-medium transition-colors">Portfolio</a>
-                        <a href="contact.html" class="text-gray-500 hover:text-primary-red font-medium transition-colors">Contact</a>
+                        <a href="index.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
+                            Home
+                        </a>
+                        <a href="services.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
+                            Services
+                        </a>
+                        <a href="about.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
+                            About
+                        </a>
+                        <a href="services.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
+                            Portfolio
+                        </a>
+                        <a href="contact.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
+                            Contact
+                        </a>
                     </div>
                 </div>
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
-                    <button id="mobileMenuBtn" class="text-gray-500 hover:text-primary-red">
+                    <button id="mobileMenuBtn" class="text-gray-600 hover:text-primary-red transition-all duration-200">
                         <i class="fas fa-bars fa-2x"></i>
                     </button>
                 </div>
             </div>
             <div class="flex items-center">
-                <a href="#" class="bg-primary-red text-white px-6 py-2 rounded font-medium hover:bg-red-800 transition-colors">
+                <a href="#" class="bg-primary-red text-white px-6 py-2 rounded font-medium hover:bg-red-800 transition-all duration-200 shadow-hover">
                     Get Started
                 </a>
             </div>
@@ -30,35 +40,35 @@
     </div>
 
     <!-- Mobile menu (hidden by default) -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100">
+    <div id="mobileMenu" class="hidden md:hidden bg-white/96 backdrop-blur-md border-t border-gray-100">
         <div class="px-6 pt-6 pb-4 space-y-2">
             <!-- Menu header -->
             <div class="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
-                <h2 class="text-xl font-bold text-dark-blue">Menu</h2>
-                <button id="mobileMenuClose" class="text-gray-500 hover:text-primary-red">
+                <h2 class="text-xl font-bold text-dark-blue serif">Menu</h2>
+                <button id="mobileMenuClose" class="text-gray-600 hover:text-primary-red transition-all duration-200">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
             <!-- Menu items -->
             <nav class="space-y-2">
-                <a href="index.html" class="flex items-center px-3 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-200">
+                <a href="index.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
                     <i class="fas fa-home me-3"></i>
                     <span>Home</span>
                 </a>
-                <a href="services.html" class="flex items-center px-3 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-200">
+                <a href="services.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
                     <i class="fas fa-briefcase me-3"></i>
                     <span>Services</span>
                 </a>
-                <a href="about.html" class="flex items-center px-3 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-200">
+                <a href="about.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
                     <i class="fas fa-info-circle me-3"></i>
                     <span>About</span>
                 </a>
-                <a href="services.html" class="flex items-center px-3 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-200">
+                <a href="services.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
                     <i class="fas fa-portfolio me-3"></i>
                     <span>Portfolio</span>
                 </a>
-                <a href="contact.html" class="flex items-center px-3 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-200">
+                <a href="contact.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
                     <i class="fas fa-envelope me-3"></i>
                     <span>Contact</span>
                 </a>
@@ -68,7 +78,7 @@
             <div class="my-4 h-px bg-gray-200"></div>
             
             <!-- Call to action button -->
-            <a href="#" class="w-full flex items-center justify-center px-4 py-3 bg-primary-red text-white rounded-lg font-medium hover:bg-red-800 transition-all duration-200">
+            <a href="#" class="w-full flex items-center justify-center px-4 py-3 bg-primary-red text-white rounded-lg font-medium hover:bg-red-800 transition-all duration-300 shadow-hover serif">
                 Get Started <i class="fas fa-rocket ms-2"></i>
             </a>
         </div>
