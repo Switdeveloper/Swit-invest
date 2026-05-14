@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const headerHTML = await response.text();
             headerContainer.innerHTML = headerHTML;
             
+            // Header remains in normal document flow - no scroll-based behavior to prevent "entering inside"
             // Add mobile menu toggle after header loads
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
