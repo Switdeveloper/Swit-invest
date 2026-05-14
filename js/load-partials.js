@@ -11,9 +11,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Add mobile menu toggle after header loads
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            
             if (mobileMenuBtn && mobileMenu) {
                 mobileMenuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.remove('hidden');
+                });
+            }
+            
+            if (mobileMenuClose && mobileMenu) {
+                mobileMenuClose.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
                 });
             }
         } catch (e) {
