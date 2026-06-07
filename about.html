@@ -33,6 +33,20 @@
         .hover\:text-primary-red:hover { color: #c91414; }
         .fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .fade-in-section.visible { opacity: 1; transform: translateY(0); }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+        .delay-500 { transition-delay:0.5s; }
+        .delay-600 { transition-delay:0.6s; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
@@ -52,17 +66,17 @@
                 <div class="flex items-center text-xs font-bold tracking-wider text-primary-red mb-6 uppercase">
                     <i class="fas fa-info-circle mr-2 text-white/70"></i> <a href="index.html" class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</a> / <span class="ml-2">ABOUT</span>
                 </div>
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
+                <h1 class="reveal text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
                     About SwitInvest<br>
                     <span class="text-primary-red">Where Technology Meets Marketing</span>
                 </h1>
-                <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">
+                <p class="reveal delay-100 text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">
                     We are a Digital Marketing & AI Automation Agency dedicated to helping businesses grow through cutting-edge technology, data-driven strategies, and intelligent automation.
                 </p>
-                <a href="#our-story" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
+                <a href="#our-story" class="reveal delay-200 bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
                     Discover Our Story <i class="fas fa-scroll ml-3 text-sm"></i>
                 </a>
-                <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8 mt-10">
+                <div class="reveal delay-300 flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8 mt-10">
                     <div class="flex items-center">
                         <i class="fas fa-map-marker-alt text-primary-red text-xl mr-2"></i>
                         <span><strong class="text-white">Based in Miami, FL</strong></span>
@@ -93,7 +107,7 @@
                     <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50/10">
                         OUR STORY
                     </div>
-                    <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
+                    <h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">
                         Founded to Help Businesses <span class="text-primary-red">Grow With Technology</span>
                     </h2>
                     <p class="text-gray-300 mb-6 leading-relaxed">
@@ -135,15 +149,15 @@
                 <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
                     MISSION & VISION
                 </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                    What Drives Us Forward
-                </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Our mission is to empower businesses with intelligent digital solutions that combine creative marketing with the power of artificial intelligence.
-                </p>
+<h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">
+                        What Drives Us Forward
+                    </h2>
+<p class="reveal delay-100 text-gray-600 max-w-2xl mx-auto">
+                        Our mission is to empower businesses with intelligent digital solutions that combine creative marketing with the power of artificial intelligence.
+                    </p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-gray-50 rounded-2xl p-8 md:p-12 border border-gray-100">
+                <div class="reveal-left bg-gray-50 rounded-2xl p-8 md:p-12 border border-gray-100" style="transition-delay:0.1s">
                     <div class="w-16 h-16 bg-primary-red rounded-full flex items-center justify-center text-white text-3xl mb-6">
                         <i class="fas fa-bullseye"></i>
                     </div>
@@ -166,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-50 rounded-2xl p-8 md:p-12 border border-gray-100">
+                <div class="reveal-right bg-gray-50 rounded-2xl p-8 md:p-12 border border-gray-100" style="transition-delay:0.2s">
                     <div class="w-16 h-16 bg-primary-red rounded-full flex items-center justify-center text-white text-3xl mb-6">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -200,15 +214,15 @@
                 <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
                     OUR TEAM
                 </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                    Meet the Minds Behind the Magic
-                </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
+<h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">
+                        Meet the Minds Behind the Magic
+                    </h2>
+                <p class="reveal delay-100 text-gray-600 max-w-2xl mx-auto">
                     A diverse team of marketers, developers, designers, and AI specialists united by a passion for helping businesses grow.
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="reveal bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition" style="transition-delay:0.1s">
                     <div class="h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Alex Martinez" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
@@ -218,7 +232,7 @@
                         <p class="text-gray-500 text-sm">Visionary leader with 15+ years in digital marketing and AI innovation.</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="reveal bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition" style="transition-delay:0.2s">
                     <div class="h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face" alt="Sarah Chen" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
@@ -228,7 +242,7 @@
                         <p class="text-gray-500 text-sm">Award-winning marketer specializing in data-driven growth strategies.</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="reveal bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition" style="transition-delay:0.3s">
                     <div class="h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" alt="David Kim" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
@@ -238,7 +252,7 @@
                         <p class="text-gray-500 text-sm">AI engineer and automation expert with a passion for intelligent systems.</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="reveal bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition" style="transition-delay:0.4s">
                     <div class="h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face" alt="Emily Rodriguez" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
@@ -259,33 +273,33 @@
                 <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50/10">
                     OUR IMPACT
                 </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                    Numbers That Speak for Themselves
-                </h2>
+<h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">
+                        Numbers That Speak for Themselves
+                    </h2>
                 <p class="text-gray-300 max-w-2xl mx-auto">
                     Every number represents a business we've helped transform, a campaign we've optimized, or a relationship we've built.
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="flex flex-col items-center">
+                <div class="reveal flex flex-col items-center" style="transition-delay:0.1s">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
                         <span class="counter" data-target="150" data-suffix="+">0</span>
                     </div>
                     <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Clients Served</div>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="reveal flex flex-col items-center" style="transition-delay:0.2s">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
                         <span class="counter" data-target="500" data-suffix="+">0</span>
                     </div>
                     <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Projects Delivered</div>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="reveal flex flex-col items-center" style="transition-delay:0.3s">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
                         <span class="counter" data-target="6" data-suffix="+">0</span>
                     </div>
                     <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Years Experience</div>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="reveal flex flex-col items-center" style="transition-delay:0.4s">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
                         <span class="counter" data-target="50" data-suffix="+">0</span>
                     </div>
@@ -302,50 +316,50 @@
                 <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
                     WHY CHOOSE US
                 </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                    What Sets SwitInvest Apart
-                </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
+<h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">
+                        What Sets SwitInvest Apart
+                    </h2>
+                <p class="reveal delay-100 text-gray-600 max-w-2xl mx-auto">
                     We combine creative marketing expertise with cutting-edge AI technology to deliver results that matter.
                 </p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                <div class="reveal text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white" style="transition-delay:0.1s">
                     <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
                         <i class="fas fa-brain"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 serif">AI-First Approach</h3>
                     <p class="text-gray-500 text-sm">We leverage artificial intelligence and machine learning in everything we do, from strategy development to campaign optimization.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                <div class="reveal text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white" style="transition-delay:0.2s">
                     <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 serif">Data-Driven Results</h3>
                     <p class="text-gray-500 text-sm">Every decision is backed by real data and analytics. We don't guess — we measure, analyze, and optimize for maximum ROI.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                <div class="reveal text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white" style="transition-delay:0.3s">
                     <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
                         <i class="fas fa-cogs"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 serif">Full-Service Solutions</h3>
                     <p class="text-gray-500 text-sm">From SEO and PPC to custom AI agents and website development, we handle every aspect of your digital presence under one roof.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                <div class="reveal text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white" style="transition-delay:0.4s">
                     <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
                         <i class="fas fa-handshake"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 serif">Partnership Mindset</h3>
                     <p class="text-gray-500 text-sm">We don't just work for you — we work with you. Your success is our success, and we're invested in your long-term growth.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                <div class="reveal text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white" style="transition-delay:0.5s">
                     <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 serif">Fast Execution</h3>
                     <p class="text-gray-500 text-sm">Our streamlined processes and automated workflows mean we move fast without sacrificing quality. Results in weeks, not months.</p>
                 </div>
-                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                <div class="reveal text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white" style="transition-delay:0.6s">
                     <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -359,23 +373,23 @@
     <!-- Final CTA Section -->
     <section class="py-16 md:py-24 bg-dark-blue text-white">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50/10">
-                LET'S WORK TOGETHER
-            </div>
-            <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                Ready to Transform Your Digital Presence?
-            </h2>
-            <p class="text-gray-300 mb-10 max-w-2xl mx-auto text-lg">
-                Let's discuss how SwitInvest can help your business grow with AI-powered marketing and automation solutions.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="contact.html" class="bg-primary-red text-white px-12 py-5 rounded-xl font-bold text-xl hover:bg-red-800 transition shadow-lg inline-flex items-center justify-center">
-                    <i class="fas fa-paper-plane mr-3"></i> Get in Touch
-                </a>
-                <a href="services.html" class="bg-white/10 backdrop-blur text-white px-12 py-5 rounded-xl font-bold text-xl hover:bg-white/20 transition border border-white/20 inline-flex items-center justify-center">
-                    <i class="fas fa-briefcase mr-3"></i> View Our Services
-                </a>
-            </div>
+<div class="reveal inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50/10">
+                        LET'S WORK TOGETHER
+                    </div>
+                    <h2 class="reveal delay-100 text-3xl md:text-5xl font-bold mb-6 serif">
+                        Ready to Transform Your Digital Presence?
+                    </h2>
+                    <p class="reveal delay-200 text-gray-300 mb-10 max-w-2xl mx-auto text-lg">
+                        Let's discuss how SwitInvest can help your business grow with AI-powered marketing and automation solutions.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="contact.html" class="reveal delay-300 bg-primary-red text-white px-12 py-5 rounded-xl font-bold text-xl hover:bg-red-800 transition shadow-lg inline-flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-3"></i> Get in Touch
+                        </a>
+                        <a href="services.html" class="reveal delay-400 bg-white/10 backdrop-blur text-white px-12 py-5 rounded-xl font-bold text-xl hover:bg-white/20 transition border border-white/20 inline-flex items-center justify-center">
+                            <i class="fas fa-briefcase mr-3"></i> View Our Services
+                        </a>
+                    </div>
         </div>
     </section>
 
@@ -417,5 +431,17 @@
         });
     </script>
 
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
 </body>
 </html>

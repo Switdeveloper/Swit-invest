@@ -52,6 +52,20 @@
         .faq-toggle.active .fa-chevron-down {
             transform: rotate(180deg);
         }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+        .delay-500 { transition-delay:0.5s; }
+        .delay-600 { transition-delay:0.6s; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
@@ -68,8 +82,8 @@
         </div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
             <div class="max-w-3xl">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white serif mb-6">Frequently Asked Questions</h1>
-                <p class="text-lg md:text-xl text-gray-300 leading-relaxed">Find answers to common questions about our digital marketing, AI automation, and web development services. Can't find what you're looking for? Reach out to our team.</p>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white serif mb-6 reveal" style="transition-delay:0.2s">Frequently Asked Questions</h1>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed reveal" style="transition-delay:0.3s">Find answers to common questions about our digital marketing, AI automation, and web development services. Can't find what you're looking for? Reach out to our team.</p>
             </div>
         </div>
     </section>
@@ -79,18 +93,18 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-16">
-                <span class="text-primary-red font-semibold tracking-wider uppercase text-sm">Got Questions?</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark-blue serif mt-3">We Have Answers</h2>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Browse our most frequently asked questions below. If you still need help, don't hesitate to contact us.</p>
+                <span class="text-primary-red font-semibold tracking-wider uppercase text-sm reveal" style="transition-delay:0.1s">Got Questions?</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-blue serif mt-3 reveal" style="transition-delay:0.2s">We Have Answers</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto reveal" style="transition-delay:0.3s">Browse our most frequently asked questions below. If you still need help, don't hesitate to contact us.</p>
             </div>
 
             <!-- Category: Digital Marketing -->
             <div class="mb-12">
-                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center reveal-left" style="transition-delay:0.1s">
                     <i class="fas fa-chart-line text-primary-red mr-3"></i> Digital Marketing
                 </h3>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.1s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">What digital marketing services does SwitInvest offer?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -99,7 +113,7 @@
                             SwitInvest offers a full suite of digital marketing services including social media management, pay-per-click advertising, content marketing, email campaigns, influencer marketing, and comprehensive brand strategy. We tailor every campaign to your business goals, target audience, and industry to maximize ROI.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.2s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How do you measure the success of a marketing campaign?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -108,7 +122,7 @@
                             We track key performance indicators (KPIs) such as conversion rates, cost per acquisition, return on ad spend, engagement metrics, website traffic, and lead generation. Our team provides detailed monthly reports with actionable insights, and we continuously optimize campaigns based on real-time data.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.3s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How long does it take to see results from digital marketing?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -122,11 +136,11 @@
 
             <!-- Category: SEO -->
             <div class="mb-12">
-                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center reveal-left" style="transition-delay:0.1s">
                     <i class="fas fa-search text-primary-red mr-3"></i> SEO Optimization
                 </h3>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.1s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">What is included in your SEO services?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -135,7 +149,7 @@
                             Our SEO packages include comprehensive keyword research, on-page optimization, technical SEO audits, content strategy, link building, local SEO setup, performance tracking, and competitor analysis. We follow white-hat practices that comply with Google's guidelines for sustainable, long-term rankings.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.2s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How long does SEO take to show results?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -144,7 +158,7 @@
                             SEO is a long-term investment. Most clients see noticeable improvements in ranking and traffic within 3-6 months. However, competitive industries may take 6-12 months to achieve top positions. We provide monthly progress reports so you can track our impact every step of the way.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.3s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">Do you guarantee first-page rankings on Google?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -158,11 +172,11 @@
 
             <!-- Category: Web Development -->
             <div class="mb-12">
-                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center reveal-left" style="transition-delay:0.1s">
                     <i class="fas fa-code text-primary-red mr-3"></i> Web Development
                 </h3>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.1s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">What types of websites do you build?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -171,7 +185,7 @@
                             We build custom websites including business websites, e-commerce stores, landing pages, membership portals, and web applications. We use modern technologies like React, Next.js, Tailwind CSS, and Node.js to create fast, responsive, and SEO-optimized websites tailored to your brand.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.2s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How long does it take to develop a website?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -180,7 +194,7 @@
                             A typical business website takes 4-8 weeks from design to launch. E-commerce sites may take 8-12 weeks depending on complexity. We follow an agile development process with regular check-ins, so you're never left wondering about progress. Rush delivery options are available for urgent projects.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.3s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">Will my website be mobile-friendly?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -194,11 +208,11 @@
 
             <!-- Category: AI Agents -->
             <div class="mb-12">
-                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center reveal-left" style="transition-delay:0.1s">
                     <i class="fas fa-robot text-primary-red mr-3"></i> AI Agent Development
                 </h3>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.1s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">What are AI agents and how can they help my business?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -207,7 +221,7 @@
                             AI agents are intelligent software programs that automate tasks, interact with customers, and process data autonomously. They can handle customer support, lead qualification, appointment scheduling, data entry, and more. By deploying AI agents, businesses reduce operational costs, improve response times, and scale without hiring additional staff.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.2s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">What platforms do you use to build AI agents?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -216,7 +230,7 @@
                             We build AI agents using platforms like OpenAI's GPT, custom LLMs, LangChain, and automation frameworks. Our solutions integrate seamlessly with your existing tools including CRMs, chatbots, email platforms, and business management systems for a unified workflow.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.3s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How much does an AI agent cost to develop?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -230,11 +244,11 @@
 
             <!-- Category: Marketing Automation -->
             <div class="mb-12">
-                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center reveal-left" style="transition-delay:0.1s">
                     <i class="fas fa-cogs text-primary-red mr-3"></i> Marketing Automation
                 </h3>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.1s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">What is marketing automation and do I need it?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -243,7 +257,7 @@
                             Marketing automation uses software to automate repetitive marketing tasks like email sequences, social media posting, lead scoring, and customer segmentation. If you're spending too much time on manual marketing tasks or struggling to nurture leads effectively, automation can save you hours each week while improving conversion rates.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.2s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">Which automation tools do you work with?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -252,7 +266,7 @@
                             We work with leading platforms including HubSpot, ActiveCampaign, Mailchimp, Klaviyo, Zapier, Make (formerly Integromat), and custom-built solutions. We'll recommend the best platform based on your business size, budget, and specific automation needs.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.3s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">Can you integrate automation with my existing CRM?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -266,11 +280,11 @@
 
             <!-- Category: Mobile Apps -->
             <div class="mb-12">
-                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center reveal-left" style="transition-delay:0.1s">
                     <i class="fas fa-mobile-alt text-primary-red mr-3"></i> Mobile App Development
                 </h3>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.1s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">Do you build iOS, Android, or cross-platform apps?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -279,7 +293,7 @@
                             We build all three. For most clients, we recommend cross-platform development using React Native or Flutter, which allows a single codebase to run on both iOS and Android. This reduces development time and cost while maintaining native-level performance.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.2s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How much does it cost to develop a mobile app?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -293,11 +307,11 @@
 
             <!-- Category: General / Pricing -->
             <div class="mb-12">
-                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center reveal-left" style="transition-delay:0.1s">
                     <i class="fas fa-question-circle text-primary-red mr-3"></i> General & Pricing
                 </h3>
                 <div class="space-y-3">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.1s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How do you price your services?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -306,7 +320,7 @@
                             We offer flexible pricing models including project-based quotes, monthly retainers, and performance-based packages. Each quote is customized based on your specific needs, scope of work, and desired outcomes. We'll work with you to find a pricing structure that fits your budget.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.2s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">Do you offer ongoing support after project completion?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -315,7 +329,7 @@
                             Yes. We offer ongoing maintenance and support packages for all our services. This includes regular updates, performance monitoring, content updates, security patches, and priority support. We're committed to being your long-term technology and marketing partner.
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden reveal" style="transition-delay:0.3s">
                         <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
                             <span class="text-lg font-semibold text-gray-800">How do I get started with SwitInvest?</span>
                             <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
@@ -337,9 +351,9 @@
             <div class="absolute bottom-10 right-10 w-96 h-96 bg-primary-red rounded-full blur-3xl"></div>
         </div>
         <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white serif mb-6">Still Have Questions?</h2>
-            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">Our team is ready to help. Whether you need clarification on a service or want a custom quote, we're just a message away.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white serif mb-6 reveal" style="transition-delay:0.1s">Still Have Questions?</h2>
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto reveal" style="transition-delay:0.2s">Our team is ready to help. Whether you need clarification on a service or want a custom quote, we're just a message away.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="transition-delay:0.3s">
                 <a href="contact.html" class="bg-primary-red text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-red-800 transition-all duration-200 inline-flex items-center justify-center">
                     <i class="fas fa-envelope mr-2"></i> Contact Us
                 </a>
@@ -374,6 +388,19 @@
                 }
             });
         });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+            revealObserver.observe(el);
+        });
+    });
     </script>
 
 </body>

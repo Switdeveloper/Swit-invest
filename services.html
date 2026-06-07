@@ -29,6 +29,48 @@
         .text-dark-blue { color: #0d152e; }
         .bg-primary-red { background-color: #c91414; }
         .text-primary-red { color: #c91414; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-600 { transition-delay: 0.6s; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
@@ -47,14 +89,14 @@
                 <div class="flex items-center text-xs font-bold tracking-wider text-primary-red mb-6 uppercase">
                     <i class="fas fa-briefcase mr-2 text-white/70"></i> <span class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</span> / <span class="ml-2">SERVICES</span>
                 </div>
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif reveal">
                     Our Services<br>
                     <span class="text-primary-red">Digital Solutions That Drive Results</span>
                 </h1>
-                <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">
+                <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl reveal" style="transition-delay:0.2s">
                     From strategy to execution, we cover every aspect of your digital presence. AI-powered, data-driven, and built for growth.
                 </p>
-                <a href="contact.html" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
+                <a href="contact.html" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center reveal" style="transition-delay:0.4s">
                     Start Your Project <i class="fas fa-rocket ml-3 text-sm"></i>
                 </a>
             </div>
@@ -69,7 +111,7 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.1s">
                     <div class="p-8">
                         <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                             <i class="fas fa-chart-line text-2xl"></i>
@@ -86,7 +128,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.2s">
                     <div class="p-8">
                         <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                             <i class="fas fa-search text-2xl"></i>
@@ -103,7 +145,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.3s">
                     <div class="p-8">
                         <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                             <i class="fas fa-code text-2xl"></i>
@@ -120,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.4s">
                     <div class="p-8">
                         <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                             <i class="fas fa-robot text-2xl"></i>
@@ -137,7 +179,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.5s">
                     <div class="p-8">
                         <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                             <i class="fas fa-cogs text-2xl"></i>
@@ -154,7 +196,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.6s">
                     <div class="p-8">
                         <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                             <i class="fas fa-mobile-alt text-2xl"></i>
@@ -176,11 +218,11 @@
 
     <section class="py-20 bg-dark-blue text-white">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Ready to Transform Your Business?</h2>
-            <p class="text-gray-300 mb-10 max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 serif reveal">Ready to Transform Your Business?</h2>
+            <p class="text-gray-300 mb-10 max-w-2xl mx-auto reveal" style="transition-delay:0.2s">
                 Let's discuss how our AI-powered digital solutions can help you achieve your goals.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <div class="flex flex-col sm:flex-row justify-center gap-4 reveal">
                 <a href="contact.html" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
                     Start Your Project <i class="fas fa-arrow-right ml-3"></i>
                 </a>
@@ -193,5 +235,19 @@
 
     <div id="footer-container"></div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
 </body>
 </html>

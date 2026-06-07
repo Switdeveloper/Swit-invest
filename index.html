@@ -69,6 +69,51 @@
             overflow: hidden;
             width: 100%;
         }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-600 { transition-delay: 0.6s; }
+        .delay-700 { transition-delay: 0.7s; }
+        .delay-800 { transition-delay: 0.8s; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
@@ -89,20 +134,20 @@
                     <i class="fas fa-robot mr-2 text-white/70"></i> <span class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</span> / <span class="ml-2">SWITINVEST</span>
                 </div>
 
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif reveal" style="transition-delay:0.1s">
                     Accelerate Your Growth<br>
                     <span class="text-primary-red">With AI-Powered Marketing</span>
                 </h1>
 
-                <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">We combine cutting-edge AI automation with proven digital marketing strategies to help businesses scale faster, work smarter, and dominate their markets.</p>
+                <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl reveal" style="transition-delay:0.2s">We combine cutting-edge AI automation with proven digital marketing strategies to help businesses scale faster, work smarter, and dominate their markets.</p>
 
-                <div class="mb-10">
+                <div class="mb-10 reveal" style="transition-delay:0.3s">
                     <a href="contact.html" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
                         Get Started <i class="fas fa-rocket ml-3 text-sm"></i>
                     </a>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8 reveal" style="transition-delay:0.4s">
                     <div class="flex items-center">
                         <i class="fas fa-check-circle text-primary-red text-xl mr-2"></i>
                         <span>Average client ROI <strong class="text-white">350%+</strong></span>
@@ -140,28 +185,28 @@
 
     <section class="bg-[#0d152e] text-white py-16 md:py-24 relative -mt-1">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-5xl font-bold mb-16 serif">Results That Speak for Themselves</h2>
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 serif reveal">Results That Speak for Themselves</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center reveal" style="transition-delay:0.1s">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
                         <span class="counter" data-target="500" data-suffix="+">0</span>
                     </div>
                     <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Clients Served</div>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center reveal" style="transition-delay:0.2s">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
                         <span class="counter" data-target="1200" data-suffix="+">0</span>
                     </div>
                     <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Projects Completed</div>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center reveal" style="transition-delay:0.3s">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
                         <span class="counter" data-target="350" data-suffix="+">0</span>
                     </div>
                     <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Websites Launched</div>
                 </div>
-                <div class="flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center justify-center reveal" style="transition-delay:0.4s">
                     <div class="flex mb-3 items-center justify-center h-[60px] md:h-[72px]">
                         <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
                         <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
@@ -183,17 +228,17 @@
 
     <section class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
+            <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50 reveal">
                 Our Services
             </div>
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Full-Service Digital Agency</h2>
-            <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif reveal">Full-Service Digital Agency</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto reveal" style="transition-delay:0.2s">
                 From strategy to execution, we cover every aspect of your digital presence. Explore our full range of solutions below.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
                 <!-- Card 1 - Digital Marketing Strategy -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.1s">
                     <div class="relative h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -208,7 +253,7 @@
                 </div>
 
                 <!-- Card 2 - SEO Optimization -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.2s">
                     <div class="relative h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -223,7 +268,7 @@
                 </div>
 
                 <!-- Card 3 - Website Development -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.3s">
                     <div class="relative h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -238,7 +283,7 @@
                 </div>
 
                 <!-- Card 4 - AI Agent Development -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.4s">
                     <div class="relative h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -253,7 +298,7 @@
                 </div>
 
                 <!-- Card 5 - Marketing Automation -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.5s">
                     <div class="relative h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -268,7 +313,7 @@
                 </div>
 
                 <!-- Card 6 - Mobile App Development -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.6s">
                     <div class="relative h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -283,7 +328,7 @@
                 </div>
             </div>
 
-            <div class="mt-12">
+            <div class="mt-12 reveal">
                 <a href="services.html" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
                     View All Our Services
                 </a>
@@ -293,18 +338,18 @@
 
     <section class="py-16 md:py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
+            <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50 reveal">
                 HOW IT WORKS
             </div>
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Four Simple Steps to Digital Success</h2>
-            <p class="text-gray-600 mb-16 max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif reveal">Four Simple Steps to Digital Success</h2>
+            <p class="text-gray-600 mb-16 max-w-2xl mx-auto reveal" style="transition-delay:0.2s">
                 Skip the complex processes and endless meetings. Our streamlined approach gets you results faster, not slower.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
                 <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-[2px] bg-gray-200 -z-10"></div>
 
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center reveal" style="transition-delay:0.1s">
                     <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                         <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                             <i class="fas fa-lightbulb"></i>
@@ -317,7 +362,7 @@
                     <p class="text-gray-500 text-sm">We analyze your business, audience, and competition to create a customized digital strategy.</p>
                 </div>
 
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center reveal" style="transition-delay:0.2s">
                     <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                         <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                             <i class="fas fa-pencil-alt"></i>
@@ -330,7 +375,7 @@
                     <p class="text-gray-500 text-sm">Our team creates stunning designs and develops custom solutions tailored to your brand.</p>
                 </div>
 
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center reveal" style="transition-delay:0.3s">
                     <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                         <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                             <i class="fas fa-robot"></i>
@@ -343,7 +388,7 @@
                     <p class="text-gray-500 text-sm">We implement AI agents and automation tools to streamline your operations and maximize efficiency.</p>
                 </div>
 
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center reveal" style="transition-delay:0.4s">
                     <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                         <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                             <i class="fas fa-chart-line"></i>
@@ -368,12 +413,12 @@
     <section class="py-16 md:py-24 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 serif">Our AI-Powered Solutions</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Cutting-edge artificial intelligence tools that transform how businesses operate and engage with customers.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 serif reveal">Our AI-Powered Solutions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto reveal" style="transition-delay:0.2s">Cutting-edge artificial intelligence tools that transform how businesses operate and engage with customers.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.1s">
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
@@ -388,7 +433,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.2s">
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
@@ -403,7 +448,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.3s">
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
@@ -418,7 +463,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.4s">
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
@@ -433,7 +478,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.5s">
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
@@ -448,7 +493,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition reveal" style="transition-delay:0.6s">
                     <div class="p-6">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
@@ -471,30 +516,30 @@
             <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-gray-50">
                 TRUSTED BY
             </div>
-            <h2 class="text-3xl md:text-5xl font-bold mb-8 serif">Industry Leaders Who Trust Us</h2>
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 serif reveal">Industry Leaders Who Trust Us</h2>
 
             <div class="flex flex-wrap justify-center gap-6">
-                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm reveal" style="transition-delay:0.1s">
                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop" alt="Tech Company" class="w-16 h-16 rounded-full object-cover mr-3">
                     <span class="text-gray-600 font-medium">TechStart Inc.</span>
                 </div>
-                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm reveal" style="transition-delay:0.2s">
                     <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop" alt="E-commerce Brand" class="w-16 h-16 rounded-full object-cover mr-3">
                     <span class="text-gray-600 font-medium">ShopEase</span>
                 </div>
-                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm reveal" style="transition-delay:0.3s">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Marketing Agency" class="w-16 h-16 rounded-full object-cover mr-3">
                     <span class="text-gray-600 font-medium">GrowthHackers</span>
                 </div>
-                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm reveal" style="transition-delay:0.4s">
                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="SaaS Company" class="w-16 h-16 rounded-full object-cover mr-3">
                     <span class="text-gray-600 font-medium">CloudSolutions</span>
                 </div>
-                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm reveal" style="transition-delay:0.5s">
                     <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop" alt="Finance Company" class="w-16 h-16 rounded-full object-cover mr-3">
                     <span class="text-gray-600 font-medium">Finova Corp</span>
                 </div>
-                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm reveal" style="transition-delay:0.6s">
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Healthcare Company" class="w-16 h-16 rounded-full object-cover mr-3">
                     <span class="text-gray-600 font-medium">MediCore Health</span>
                 </div>
@@ -505,11 +550,11 @@
     <section class="py-16 md:py-24 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 serif">Ready to Transform Your Business?</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Let's discuss how our AI-powered digital solutions can help you achieve your goals and dominate your market.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 serif reveal">Ready to Transform Your Business?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto reveal" style="transition-delay:0.2s">Let's discuss how our AI-powered digital solutions can help you achieve your goals and dominate your market.</p>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <div class="flex flex-col sm:flex-row justify-center gap-4 reveal" style="transition-delay:0.3s">
                 <a href="contact.html" class="bg-primary-red text-white px-8 py-3 rounded font-bold hover:bg-red-800 transition transform hover:-translate-y-1">
                     Start Your Project <i class="fas fa-play ml-2"></i>
                 </a>
@@ -539,6 +584,18 @@
                     }
                     counter.textContent = prefix + count + suffix;
                 }, 20);
+            });
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+                revealObserver.observe(el);
             });
         });
     </script>
