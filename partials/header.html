@@ -7,18 +7,31 @@
                     <img class="h-10 w-auto" src="https://images.unsplash.com/photo-1620712948291-b86ae799d79a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="SwitInvest Logo">
                 </div>
                 <div class="hidden md:block ml-10">
-                    <div class="flex space-x-4">
+                    <div class="flex items-center space-x-4">
                         <a href="index.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
                             Home
                         </a>
-                        <a href="services.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
-                            Services
-                        </a>
+                        <!-- Services Dropdown -->
+                        <div class="relative group">
+                            <a href="services.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full inline-flex items-center">
+                                Services
+                                <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+                            </a>
+                            <div class="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="py-2">
+                                    <a href="services.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-red-50 hover:text-primary-red font-medium transition-all">All Services</a>
+                                    <div class="mx-3 my-1 h-px bg-gray-100"></div>
+                                    <a href="auto-insurance.html" class="block px-4 py-2.5 text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all"><i class="fas fa-chart-line w-5 text-primary-red"></i> Digital Marketing Strategy</a>
+                                    <a href="business-insurance.html" class="block px-4 py-2.5 text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all"><i class="fas fa-search w-5 text-primary-red"></i> SEO Optimization</a>
+                                    <a href="home-insurance.html" class="block px-4 py-2.5 text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all"><i class="fas fa-code w-5 text-primary-red"></i> Website Development</a>
+                                    <a href="flood-insurance.html" class="block px-4 py-2.5 text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all"><i class="fas fa-robot w-5 text-primary-red"></i> AI Agent Development</a>
+                                    <a href="life-insurance.html" class="block px-4 py-2.5 text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all"><i class="fas fa-cogs w-5 text-primary-red"></i> Marketing Automation</a>
+                                    <a href="premium-financing.html" class="block px-4 py-2.5 text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all"><i class="fas fa-mobile-alt w-5 text-primary-red"></i> Mobile App Development</a>
+                                </div>
+                            </div>
+                        </div>
                         <a href="about.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
                             About
-                        </a>
-                        <a href="services.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
-                            Portfolio
                         </a>
                         <a href="contact.html" class="text-gray-600 hover:text-primary-red font-medium transition-all duration-200 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary-red after:transition-all after:duration-200 hover:after:w-full">
                             Contact
@@ -33,7 +46,7 @@
                 </div>
             </div>
             <div class="flex items-center">
-                <a href="#" class="bg-primary-red text-white px-6 py-2 rounded font-medium hover:bg-red-800 transition-all duration-200 shadow-hover">
+                <a href="contact.html" class="bg-primary-red text-white px-6 py-2 rounded font-medium hover:bg-red-800 transition-all duration-200 shadow-hover">
                     Get Started
                 </a>
             </div>
@@ -57,17 +70,35 @@
                     <i class="fas fa-home me-3"></i>
                     <span>Home</span>
                 </a>
-                <a href="services.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
-                    <i class="fas fa-briefcase me-3"></i>
-                    <span>Services</span>
-                </a>
+                <div class="space-y-1">
+                    <a href="services.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
+                        <i class="fas fa-briefcase me-3"></i>
+                        <span>Services</span>
+                    </a>
+                    <div class="ml-9 space-y-1 border-l-2 border-gray-100 pl-3">
+                        <a href="auto-insurance.html" class="flex items-center px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all duration-200">
+                            <i class="fas fa-chart-line w-4 text-primary-red mr-2"></i> Digital Marketing Strategy
+                        </a>
+                        <a href="business-insurance.html" class="flex items-center px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all duration-200">
+                            <i class="fas fa-search w-4 text-primary-red mr-2"></i> SEO Optimization
+                        </a>
+                        <a href="home-insurance.html" class="flex items-center px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all duration-200">
+                            <i class="fas fa-code w-4 text-primary-red mr-2"></i> Website Development
+                        </a>
+                        <a href="flood-insurance.html" class="flex items-center px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all duration-200">
+                            <i class="fas fa-robot w-4 text-primary-red mr-2"></i> AI Agent Development
+                        </a>
+                        <a href="life-insurance.html" class="flex items-center px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all duration-200">
+                            <i class="fas fa-cogs w-4 text-primary-red mr-2"></i> Marketing Automation
+                        </a>
+                        <a href="premium-financing.html" class="flex items-center px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-red-50 hover:text-primary-red transition-all duration-200">
+                            <i class="fas fa-mobile-alt w-4 text-primary-red mr-2"></i> Mobile App Development
+                        </a>
+                    </div>
+                </div>
                 <a href="about.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
                     <i class="fas fa-info-circle me-3"></i>
                     <span>About</span>
-                </a>
-                <a href="services.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
-                    <i class="fas fa-portfolio me-3"></i>
-                    <span>Portfolio</span>
                 </a>
                 <a href="contact.html" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-red hover:text-white transition-all duration-300 serif">
                     <i class="fas fa-envelope me-3"></i>
@@ -79,7 +110,7 @@
             <div class="my-4 h-px bg-gray-200"></div>
             
             <!-- Call to action button -->
-            <a href="#" class="w-full flex items-center justify-center px-4 py-3 bg-primary-red text-white rounded-lg font-medium hover:bg-red-800 transition-all duration-300 shadow-hover serif">
+            <a href="contact.html" class="w-full flex items-center justify-center px-4 py-3 bg-primary-red text-white rounded-lg font-medium hover:bg-red-800 transition-all duration-300 shadow-hover serif">
                 Get Started <i class="fas fa-rocket ms-2"></i>
             </a>
         </div>
