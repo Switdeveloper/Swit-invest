@@ -6,57 +6,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const headerHTML = await response.text();
             headerContainer.innerHTML = headerHTML;
 
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuClose = document.getElementById('mobileMenuClose');
-            const mobileNavLinks = mobileMenu ? mobileMenu.querySelectorAll('a[href]:not([href="#"])') : [];
-
-            const toggleMenu = (show) => {
-                if (!mobileMenu || !mobileMenuBtn) return;
-                if (show === undefined) {
-                    mobileMenu.classList.toggle('hidden');
-                } else if (show) {
-                    mobileMenu.classList.remove('hidden');
-                } else {
-                    mobileMenu.classList.add('hidden');
-                }
-                const icon = mobileMenuBtn.querySelector('i');
-                if (icon) {
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.className = 'fas fa-bars fa-2x';
-                    } else {
-                        icon.className = 'fas fa-times fa-2x';
-                    }
-                }
-            };
-
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    toggleMenu();
-                });
-            }
-
-            if (mobileMenuClose && mobileMenu) {
-                mobileMenuClose.addEventListener('click', () => {
-                    toggleMenu(false);
-                });
-            }
-
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', () => toggleMenu(false));
-            });
-
-            document.addEventListener('click', (e) => {
-                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    const header = document.querySelector('header');
-                    if (header && !header.contains(e.target)) {
-                        toggleMenu(false);
-                    }
-                }
-            });
+            setupDesktopDropdown();
+            setupMobileMenu();
+            setupMobileServices();
         } catch (e) {
             console.log('Header loaded inline');
+            setupDesktopDropdown();
+            setupMobileMenu();
+            setupMobileServices();
         }
     }
 
@@ -71,3 +28,83 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 });
+
+function setupDesktopDropdown() {
+    const dropdownBtn = document.getElementById('servicesDropdownBtn');
+    const menu = document.getElementById('servicesMenu');
+    const arrow = document.getElementById('servicesArrow');
+
+    if (!dropdownBtn || !menu) return;
+
+    dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        if (arrow) {
+            arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('desktopServicesDropdown');
+        if (wrapper && !wrapper.contains(e.target) && !menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+        }
+    });
+}
+
+function setupMobileMenu() {
+    const btn = document.getElementById('mobileMenuBtn');
+    const menu = document.getElementById('mobileMenu');
+
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+        const icon = btn.querySelector('i');
+        if (icon) {
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fas fa-bars fa-lg';
+            } else {
+                icon.className = 'fas fa-times fa-lg';
+            }
+        }
+    });
+
+    const mobileNavLinks = menu.querySelectorAll('a:not([href="#"])');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            const icon = btn.querySelector('i');
+            if (icon) icon.className = 'fas fa-bars fa-lg';
+            const servicesSub = document.getElementById('mobileServicesSub');
+            if (servicesSub) servicesSub.classList.add('hidden');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        const header = document.querySelector('header');
+        if (menu && !menu.classList.contains('hidden') && header && !header.contains(e.target)) {
+            menu.classList.add('hidden');
+            const icon = btn.querySelector('i');
+            if (icon) icon.className = 'fas fa-bars fa-lg';
+        }
+    });
+}
+
+function setupMobileServices() {
+    const toggle = document.getElementById('mobileServicesToggle');
+    const sub = document.getElementById('mobileServicesSub');
+    const arrow = document.getElementById('mobileServicesArrow');
+
+    if (!toggle || !sub) return;
+
+    toggle.addEventListener('click', () => {
+        sub.classList.toggle('hidden');
+        if (arrow) {
+            arrow.style.transform = sub.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+    });
+}
