@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - SwitInvest</title>
+    <title>About Us - SwitInvest | Digital Marketing & AI Automation Agency</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,103 +31,53 @@
         .text-primary-red { color: #c91414; }
         .hover\:bg-red-800:hover { background-color: #991b1b; }
         .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
+        .fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-section.visible { opacity: 1; transform: translateY(0); }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
 </head>
 <body class="overflow-x-hidden">
 
     <div id="header-container"></div>
 
-    <!-- Hero Section with About Focus -->
-    <section class="relative bg-gray-100 pt-16 pb-32 overflow-hidden">
-        <!-- Background image placeholder -->
+    <!-- Hero Section -->
+    <section class="relative bg-gray-100 pt-20 pb-32 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="About Background" class="w-full h-full object-cover object-center">
-            <!-- Overlay -->
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="About SwitInvest" class="w-full h-full object-cover object-center">
             <div class="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-transparent"></div>
         </div>
-        
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="max-w-2xl text-white">
                 <div class="flex items-center text-xs font-bold tracking-wider text-primary-red mb-6 uppercase">
-                    <i class="fas fa-info-circle mr-2 text-white/70"></i> <span class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</span> / <span class="ml-2">ABOUT US</span>
+                    <i class="fas fa-info-circle mr-2 text-white/70"></i> <a href="index.html" class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</a> / <span class="ml-2">ABOUT</span>
                 </div>
-                
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
                     About SwitInvest<br>
-                    <span class="text-primary-red">Our Story & Mission</span>
+                    <span class="text-primary-red">Where Technology Meets Marketing</span>
                 </h1>
-                
                 <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">
-                    We're a passionate team of digital experts dedicated to helping businesses thrive in the digital age through innovative solutions and personalized service.
+                    We are a Digital Marketing & AI Automation Agency dedicated to helping businesses grow through cutting-edge technology, data-driven strategies, and intelligent automation.
                 </p>
-                
-                <div class="mb-10">
-                    <a href="#our-story" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
-                        Learn Our Story <i class="fas fa-scroll ml-3 text-sm"></i>
-                    </a>
-                </div>
-                
-                <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8">
+                <a href="#our-story" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
+                    Discover Our Story <i class="fas fa-scroll ml-3 text-sm"></i>
+                </a>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8 mt-10">
                     <div class="flex items-center">
                         <i class="fas fa-map-marker-alt text-primary-red text-xl mr-2"></i>
-                        <span><strong class="text-white">Based in Tampa, FL</strong></span>
+                        <span><strong class="text-white">Based in Miami, FL</strong></span>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-users-cog text-primary-red text-xl mr-2"></i>
-                        <span><strong class="text-white">Team of 50+ Experts</strong></span>
+                        <span><strong class="text-white">Award-Winning Team</strong></span>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-clock text-primary-red text-xl mr-2"></i>
-                        <span><strong class="text-white">Serving Clients Since 2018</strong></span>
+                        <span><strong class="text-white">Serving Clients Since 2019</strong></span>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Angled bottom border -->
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
             <svg class="relative block w-full h-[60px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M1200 120L0 120 0 0 1200 120z" class="fill-[#0d152e]"></path>
@@ -136,268 +86,106 @@
     </section>
 
     <!-- Our Story Section -->
-    <section class="py-16 md:py-24 bg-white fade-in-section" id="our-story">
+    <section class="py-16 md:py-24 bg-dark-blue text-white fade-in-section" id="our-story">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
-                    OUR STORY
-                </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                    From Humble Beginnings to Digital Leaders
-                </h2>
-                <p class="text-gray-600 mb-10 max-w-2xl mx-auto">
-                    Founded in 2018 by a group of digital marketing enthusiasts, SwitInvest started as a small agency with a big vision: to help businesses succeed online through cutting-edge technology and personalized service.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                <!-- Timeline -->
-                <div class="space-y-8">
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-red rounded-full flex items-center justify-center text-white text-lg mr-4 flex-shrink-0">
-                            2018
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Founded</h3>
-                            <p class="text-gray-500">
-                                SwitInvest was founded with a mission to provide affordable, high-quality digital marketing services to small and medium businesses.
-                            </p>
-                        </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50/10">
+                        OUR STORY
                     </div>
-                    
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-red rounded-full flex items-center justify-center text-white text-lg mr-4 flex-shrink-0">
-                            2019
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
+                        Founded to Help Businesses <span class="text-primary-red">Grow With Technology</span>
+                    </h2>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        SwitInvest was founded in 2019 with a simple but powerful vision: to bridge the gap between digital marketing and artificial intelligence. We believe that businesses of all sizes deserve access to the same cutting-edge technology that drives the world's biggest brands.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        What started as a small team of marketing enthusiasts and AI developers has grown into a full-service digital agency serving clients across the United States. Our unique blend of creative marketing expertise and technical AI development allows us to deliver solutions that are not only innovative but also measurable and scalable.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <div class="bg-white/10 backdrop-blur rounded-lg px-5 py-3 border border-white/10">
+                            <div class="text-2xl font-bold text-primary-red">2019</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-wider">Founded</div>
                         </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">First Major Client</h3>
-                            <p class="text-gray-500">
-                                Secured our first enterprise client, helping them increase online revenue by 150% in just 6 months.
-                            </p>
+                        <div class="bg-white/10 backdrop-blur rounded-lg px-5 py-3 border border-white/10">
+                            <div class="text-2xl font-bold text-primary-red">150+</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-wider">Clients Served</div>
                         </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-red rounded-full flex items-center justify-center text-white text-lg mr-4 flex-shrink-0">
-                            2020
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Expansion</h3>
-                            <p class="text-gray-500">
-                                Expanded our team and service offerings to include SEO, PPC, and social media marketing.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-red rounded-full flex items-center justify-center text-white text-lg mr-4 flex-shrink-0">
-                            2021
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Technology Focus</h3>
-                            <p class="text-gray-500">
-                                Began integrating AI and automation tools into our service offerings to provide cutting-edge solutions.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-red rounded-full flex items-center justify-center text-white text-lg mr-4 flex-shrink-0">
-                            2022
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Growth Milestone</h3>
-                            <p class="text-gray-500">
-                                Reached 100+ active clients and launched our first proprietary AI chatbot platform.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-red rounded-full flex items-center justify-center text-white text-lg mr-4 flex-shrink-0">
-                            2023
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">AI Innovation</h3>
-                            <p class="text-gray-500">
-                                Launched our AI Agent Development division, becoming one of the first agencies to offer custom AI agents for businesses.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="w-12 h-12 bg-primary-red rounded-full flex items-center justify-center text-white text-lg mr-4 flex-shrink-0">
-                            2024
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Industry Recognition</h3>
-                            <p class="text-gray-500">
-                                Awarded "Best Digital Marketing Agency" at the Florida Business Awards and expanded nationwide.
-                            </p>
+                        <div class="bg-white/10 backdrop-blur rounded-lg px-5 py-3 border border-white/10">
+                            <div class="text-2xl font-bold text-primary-red">50+</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-wider">Team Members</div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Image -->
-                <div class="hidden lg:block">
-                    <div class="aspect-w-16 aspect-h-9">
-                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team working" class="w-full h-full object-cover rounded-lg shadow-lg">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SwitInvest Team" class="w-full rounded-xl shadow-2xl">
+                    <div class="absolute -bottom-6 -left-6 bg-primary-red rounded-xl p-6 shadow-xl hidden lg:block">
+                        <div class="text-3xl font-bold text-white">6+</div>
+                        <div class="text-sm text-white/80">Years of Innovation</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission & Values Section -->
-    <section class="py-16 md:py-24 bg-gray-50">
+    <!-- Mission & Vision Section -->
+    <section class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
-                    MISSION & VALUES
+                    MISSION & VISION
                 </div>
                 <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                    What Drives Us
+                    What Drives Us Forward
                 </h2>
-                <p class="text-gray-600 mb-10 max-w-2xl mx-auto">
-                    Our mission is simple: to empower businesses of all sizes to achieve their full potential through innovative digital solutions and unwavering dedication to client success.
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Our mission is to empower businesses with intelligent digital solutions that combine creative marketing with the power of artificial intelligence.
                 </p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Mission -->
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 h-full">
-                    <div class="flex items-start mb-6">
-                        <div class="w-14 h-14 bg-primary-red rounded-full flex items-center justify-center text-white text-2xl mr-4 flex-shrink-0">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2 serif">Our Mission</h3>
-                            <p class="text-gray-500">
-                                To empower businesses through innovative digital solutions that drive measurable results and sustainable growth.
-                            </p>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 rounded-2xl p-8 md:p-12 border border-gray-100">
+                    <div class="w-16 h-16 bg-primary-red rounded-full flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="fas fa-bullseye"></i>
                     </div>
-                    <div class="border-t border-gray-200 pt-6">
-                        <h3 class="text-lg font-bold mb-4 serif">Our Core Values</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Innovation:</strong> We constantly seek new and better ways to serve our clients.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Integrity:</strong> We build relationships based on trust and transparency.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Excellence:</strong> We strive for nothing less than exceptional results.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Partnership:</strong> We see ourselves as an extension of your team.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Results:</strong> We measure our success by your success.</p>
-                                </div>
-                            </div>
+                    <h3 class="text-2xl font-bold mb-4 serif">Our Mission</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        To democratize access to advanced digital marketing and AI technologies, enabling businesses of every size to compete, grow, and thrive in the digital economy. We deliver measurable results through transparent practices, innovative thinking, and an unwavering commitment to client success.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-red mr-3"></i>
+                            <span class="text-gray-700">Data-driven marketing strategies</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-red mr-3"></i>
+                            <span class="text-gray-700">AI-powered automation solutions</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-red mr-3"></i>
+                            <span class="text-gray-700">Measurable ROI for every client</span>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Vision -->
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 h-full">
-                    <div class="flex items-start mb-6">
-                        <div class="w-14 h-14 bg-primary-red rounded-full flex items-center justify-center text-white text-2xl mr-4 flex-shrink-0">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2 serif">Our Vision</h3>
-                            <p class="text-gray-500">
-                                To be the leading digital marketing agency known for transforming businesses through cutting-edge technology and unparalleled client service.
-                            </p>
-                        </div>
+                <div class="bg-gray-50 rounded-2xl p-8 md:p-12 border border-gray-100">
+                    <div class="w-16 h-16 bg-primary-red rounded-full flex items-center justify-center text-white text-3xl mb-6">
+                        <i class="fas fa-eye"></i>
                     </div>
-                    <div class="border-t border-gray-200 pt-6">
-                        <h3 class="text-lg font-bold mb-4 serif">What Makes Us Different</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">AI-Powered Solutions:</strong> We leverage artificial intelligence to deliver smarter, more efficient marketing.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Custom Approach:</strong> No cookie-cutter solutions - every strategy is tailored to your unique business needs.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Transparent Reporting:</strong> You'll always know exactly how your campaigns are performing.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Dedicated Support:</strong> Your success is our priority - we're here for you every step of the way.</p>
-                                </div>
-                            </div>
+                    <h3 class="text-2xl font-bold mb-4 serif">Our Vision</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        To become the world's most trusted digital marketing and AI automation agency, recognized for transforming businesses through innovation, integrity, and exceptional results. We envision a future where every business has seamless access to the technology it needs to succeed.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-red mr-3"></i>
+                            <span class="text-gray-700">Global leader in AI marketing</span>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Team -->
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 h-full">
-                    <div class="flex items-start mb-6">
-                        <div class="w-14 h-14 bg-primary-red rounded-full flex items-center justify-center text-white text-2xl mr-4 flex-shrink-0">
-                            <i class="fas fa-users"></i>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-red mr-3"></i>
+                            <span class="text-gray-700">Innovation-driven agency culture</span>
                         </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2 serif">Meet Our Team</h3>
-                            <p class="text-gray-500">
-                                Our diverse team brings together experts in digital marketing, AI development, design, and strategy to provide comprehensive solutions for your business.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="border-t border-gray-200 pt-6">
-                        <h3 class="text-lg font-bold mb-4 serif">Our Expertise</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Digital Marketing:</strong> SEO, PPC, social media, content marketing, and more.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">AI Development:</strong> Custom AI agents, chatbots, and automation tools.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Design & Development:</strong> Custom websites, mobile apps, and user experiences.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-5 h-5 bg-primary-red rounded-full flex-shrink-0 mt-1"></div>
-                                <div class="ml-3">
-                                    <p class="text-gray-600"><strong class="text-dark-blue">Analytics & Strategy:</strong> Data-driven decision making and performance optimization.</p>
-                                </div>
-                            </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-red mr-3"></i>
+                            <span class="text-gray-700">Long-term client partnerships</span>
                         </div>
                     </div>
                 </div>
@@ -405,87 +193,197 @@
         </div>
     </section>
 
-    <!-- Statistics Section -->
-    <section class="py-16 md:py-24 bg-white">
+    <!-- Team Section -->
+    <section class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
+                    OUR TEAM
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
+                    Meet the Minds Behind the Magic
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    A diverse team of marketers, developers, designers, and AI specialists united by a passion for helping businesses grow.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Alex Martinez" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-lg font-bold mb-1 serif">Alex Martinez</h3>
+                        <p class="text-primary-red text-sm font-semibold mb-3">CEO & Founder</p>
+                        <p class="text-gray-500 text-sm">Visionary leader with 15+ years in digital marketing and AI innovation.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face" alt="Sarah Chen" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-lg font-bold mb-1 serif">Sarah Chen</h3>
+                        <p class="text-primary-red text-sm font-semibold mb-3">Chief Marketing Officer</p>
+                        <p class="text-gray-500 text-sm">Award-winning marketer specializing in data-driven growth strategies.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" alt="David Kim" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-lg font-bold mb-1 serif">David Kim</h3>
+                        <p class="text-primary-red text-sm font-semibold mb-3">Head of AI Development</p>
+                        <p class="text-gray-500 text-sm">AI engineer and automation expert with a passion for intelligent systems.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face" alt="Emily Rodriguez" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-lg font-bold mb-1 serif">Emily Rodriguez</h3>
+                        <p class="text-primary-red text-sm font-semibold mb-3">Creative Director</p>
+                        <p class="text-gray-500 text-sm">Design thinker crafting beautiful, user-centric digital experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 md:py-20 bg-dark-blue text-white">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <div class="mb-12">
-                <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
+                <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50/10">
                     OUR IMPACT
                 </div>
                 <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
-                    Numbers That Speak Louder Than Words
+                    Numbers That Speak for Themselves
                 </h2>
-                <p class="text-gray-600 mb-10 max-w-2xl mx-auto">
-                    We don't just talk about results - we deliver them. Here's a glimpse of the impact we've made for our clients.
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Every number represents a business we've helped transform, a campaign we've optimized, or a relationship we've built.
                 </p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="flex flex-col items-center">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
-                        <span class="counter" data-target="500" data-suffix="+">0</span>
+                        <span class="counter" data-target="150" data-suffix="+">0</span>
                     </div>
                     <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Clients Served</div>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
-                        <span class="counter" data-target="1200" data-prefix="$" data-suffix="M+">0</span>
+                        <span class="counter" data-target="500" data-suffix="+">0</span>
                     </div>
-                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Revenue Generated</div>
+                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Projects Delivered</div>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
-                        <span class="counter" data-target="850" data-suffix="K+">0</span>
+                        <span class="counter" data-target="6" data-suffix="+">0</span>
                     </div>
-                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Hours Saved</div>
+                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Years Experience</div>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
-                        <span class="counter" data-target="98" data-suffix="%">0</span>
+                        <span class="counter" data-target="50" data-suffix="+">0</span>
                     </div>
-                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Client Retention Rate</div>
+                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Team Members</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action Section -->
+    <!-- Why Choose Us Section -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
+                    WHY CHOOSE US
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
+                    What Sets SwitInvest Apart
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    We combine creative marketing expertise with cutting-edge AI technology to deliver results that matter.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 serif">AI-First Approach</h3>
+                    <p class="text-gray-500 text-sm">We leverage artificial intelligence and machine learning in everything we do, from strategy development to campaign optimization.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 serif">Data-Driven Results</h3>
+                    <p class="text-gray-500 text-sm">Every decision is backed by real data and analytics. We don't guess — we measure, analyze, and optimize for maximum ROI.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 serif">Full-Service Solutions</h3>
+                    <p class="text-gray-500 text-sm">From SEO and PPC to custom AI agents and website development, we handle every aspect of your digital presence under one roof.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 serif">Partnership Mindset</h3>
+                    <p class="text-gray-500 text-sm">We don't just work for you — we work with you. Your success is our success, and we're invested in your long-term growth.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 serif">Fast Execution</h3>
+                    <p class="text-gray-500 text-sm">Our streamlined processes and automated workflows mean we move fast without sacrificing quality. Results in weeks, not months.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl border border-gray-100 hover:shadow-lg transition bg-white">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-primary-red text-3xl mx-auto mb-5">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 serif">Transparent Reporting</h3>
+                    <p class="text-gray-500 text-sm">You get full visibility into your campaigns with real-time dashboards, regular reports, and open communication every step of the way.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
     <section class="py-16 md:py-24 bg-dark-blue text-white">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-5xl font-bold mb-6 serif text-yellow-500">
-                Ready to Work With a Team That Cares?
+            <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50/10">
+                LET'S WORK TOGETHER
+            </div>
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">
+                Ready to Transform Your Digital Presence?
             </h2>
-            <p class="text-gray-300 mb-10 max-w-2xl mx-auto">
-                Let's discuss how we can help you achieve your business goals with our personalized approach.
+            <p class="text-gray-300 mb-10 max-w-2xl mx-auto text-lg">
+                Let's discuss how SwitInvest can help your business grow with AI-powered marketing and automation solutions.
             </p>
-            <a href="contact.html" class="inline-flex items-center bg-primary-red text-white px-12 py-5 rounded-xl font-bold text-2xl hover:bg-red-800 transition shadow-lg">
-                <i class="fas fa-handshake mr-4"></i> Get Started Today
-            </a>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="contact.html" class="bg-primary-red text-white px-12 py-5 rounded-xl font-bold text-xl hover:bg-red-800 transition shadow-lg inline-flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-3"></i> Get in Touch
+                </a>
+                <a href="services.html" class="bg-white/10 backdrop-blur text-white px-12 py-5 rounded-xl font-bold text-xl hover:bg-white/20 transition border border-white/20 inline-flex items-center justify-center">
+                    <i class="fas fa-briefcase mr-3"></i> View Our Services
+                </a>
+            </div>
         </div>
     </section>
 
     <div id="footer-container"></div>
 
     <script>
-        // Load header and footer
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('partials/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-container').innerHTML = data;
-                });
-                
-            fetch('partials/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-container').innerHTML = data;
-                });
-        });
-        
-        // Fade-in sections on scroll
         document.addEventListener('DOMContentLoaded', function() {
             const fadeInSections = document.querySelectorAll('.fade-in-section');
-            
             const checkVisibility = () => {
                 const windowBottom = window.innerHeight + window.pageYOffset;
                 fadeInSections.forEach(section => {
@@ -495,12 +393,10 @@
                     }
                 });
             };
-            
             window.addEventListener('scroll', checkVisibility);
-            checkVisibility(); // Check on initial load
+            checkVisibility();
         });
-        
-        // Counter animation
+
         document.addEventListener('DOMContentLoaded', function() {
             const counters = document.querySelectorAll('.counter');
             counters.forEach(counter => {
@@ -520,5 +416,6 @@
             });
         });
     </script>
+
 </body>
 </html>

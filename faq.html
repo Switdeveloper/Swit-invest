@@ -1,78 +1,5 @@
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,2328 +31,350 @@
         .text-primary-red { color: #c91414; }
         .hover\:bg-red-800:hover { background-color: #991b1b; }
         .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
+
+        .faq-answer {
+            max-height: 0;
             overflow: hidden;
-            width: 100%;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .faq-answer.open {
+            max-height: 500px;
+            opacity: 1;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .faq-toggle .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+        .faq-toggle.active .fa-chevron-down {
+            transform: rotate(180deg);
         }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="relative bg-dark-blue overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="FAQ Banner" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark-blue via-dark-blue/90 to-transparent"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white serif mb-6">Frequently Asked Questions</h1>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed">Find answers to common questions about our digital marketing, AI automation, and web development services. Can't find what you're looking for? Reach out to our team.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center mb-16">
+                <span class="text-primary-red font-semibold tracking-wider uppercase text-sm">Got Questions?</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark-blue serif mt-3">We Have Answers</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Browse our most frequently asked questions below. If you still need help, don't hesitate to contact us.</p>
+            </div>
+
+            <!-- Category: Digital Marketing -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                    <i class="fas fa-chart-line text-primary-red mr-3"></i> Digital Marketing
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">What digital marketing services does SwitInvest offer?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            SwitInvest offers a full suite of digital marketing services including social media management, pay-per-click advertising, content marketing, email campaigns, influencer marketing, and comprehensive brand strategy. We tailor every campaign to your business goals, target audience, and industry to maximize ROI.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How do you measure the success of a marketing campaign?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            We track key performance indicators (KPIs) such as conversion rates, cost per acquisition, return on ad spend, engagement metrics, website traffic, and lead generation. Our team provides detailed monthly reports with actionable insights, and we continuously optimize campaigns based on real-time data.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How long does it take to see results from digital marketing?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Results vary depending on the strategy. PPC campaigns can generate leads within days, while organic SEO and content marketing typically show meaningful results within 3-6 months. We set realistic expectations and provide early indicators of campaign performance within the first 30 days.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: SEO -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                    <i class="fas fa-search text-primary-red mr-3"></i> SEO Optimization
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">What is included in your SEO services?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Our SEO packages include comprehensive keyword research, on-page optimization, technical SEO audits, content strategy, link building, local SEO setup, performance tracking, and competitor analysis. We follow white-hat practices that comply with Google's guidelines for sustainable, long-term rankings.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How long does SEO take to show results?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            SEO is a long-term investment. Most clients see noticeable improvements in ranking and traffic within 3-6 months. However, competitive industries may take 6-12 months to achieve top positions. We provide monthly progress reports so you can track our impact every step of the way.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">Do you guarantee first-page rankings on Google?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            No ethical SEO agency can guarantee first-page rankings, as Google's algorithms are complex and constantly evolving. What we guarantee is a data-driven strategy, transparent reporting, and continuous optimization to improve your visibility. Our track record shows we consistently deliver strong ranking improvements for our clients.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: Web Development -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                    <i class="fas fa-code text-primary-red mr-3"></i> Web Development
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">What types of websites do you build?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            We build custom websites including business websites, e-commerce stores, landing pages, membership portals, and web applications. We use modern technologies like React, Next.js, Tailwind CSS, and Node.js to create fast, responsive, and SEO-optimized websites tailored to your brand.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How long does it take to develop a website?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            A typical business website takes 4-8 weeks from design to launch. E-commerce sites may take 8-12 weeks depending on complexity. We follow an agile development process with regular check-ins, so you're never left wondering about progress. Rush delivery options are available for urgent projects.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">Will my website be mobile-friendly?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Absolutely. Every website we build is fully responsive and mobile-optimized. We design with a mobile-first approach, ensuring your site looks and performs perfectly on smartphones, tablets, and desktops. Google's mobile-first indexing means this is essential for SEO as well.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: AI Agents -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                    <i class="fas fa-robot text-primary-red mr-3"></i> AI Agent Development
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">What are AI agents and how can they help my business?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            AI agents are intelligent software programs that automate tasks, interact with customers, and process data autonomously. They can handle customer support, lead qualification, appointment scheduling, data entry, and more. By deploying AI agents, businesses reduce operational costs, improve response times, and scale without hiring additional staff.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">What platforms do you use to build AI agents?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            We build AI agents using platforms like OpenAI's GPT, custom LLMs, LangChain, and automation frameworks. Our solutions integrate seamlessly with your existing tools including CRMs, chatbots, email platforms, and business management systems for a unified workflow.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How much does an AI agent cost to develop?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Costs vary based on complexity, from simple chatbot agents starting at $2,500 to advanced multi-agent systems ranging from $10,000-$50,000+. We offer a free consultation to assess your needs and provide a detailed quote. Most clients see ROI within the first 3 months of deployment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: Marketing Automation -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                    <i class="fas fa-cogs text-primary-red mr-3"></i> Marketing Automation
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">What is marketing automation and do I need it?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Marketing automation uses software to automate repetitive marketing tasks like email sequences, social media posting, lead scoring, and customer segmentation. If you're spending too much time on manual marketing tasks or struggling to nurture leads effectively, automation can save you hours each week while improving conversion rates.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">Which automation tools do you work with?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            We work with leading platforms including HubSpot, ActiveCampaign, Mailchimp, Klaviyo, Zapier, Make (formerly Integromat), and custom-built solutions. We'll recommend the best platform based on your business size, budget, and specific automation needs.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">Can you integrate automation with my existing CRM?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Yes. We specialize in integrating marketing automation with popular CRMs like Salesforce, HubSpot, Pipedrive, Zoho, and others. We ensure seamless data flow between systems so your sales and marketing teams have a unified view of every lead and customer interaction.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: Mobile Apps -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                    <i class="fas fa-mobile-alt text-primary-red mr-3"></i> Mobile App Development
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">Do you build iOS, Android, or cross-platform apps?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            We build all three. For most clients, we recommend cross-platform development using React Native or Flutter, which allows a single codebase to run on both iOS and Android. This reduces development time and cost while maintaining native-level performance.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How much does it cost to develop a mobile app?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            App costs vary widely depending on features and complexity. A simple MVP app starts around $15,000-$25,000, while feature-rich applications range from $40,000-$100,000+. We provide transparent pricing and a detailed scope of work before any development begins.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: General / Pricing -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-dark-blue serif mb-6 flex items-center">
+                    <i class="fas fa-question-circle text-primary-red mr-3"></i> General & Pricing
+                </h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How do you price your services?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            We offer flexible pricing models including project-based quotes, monthly retainers, and performance-based packages. Each quote is customized based on your specific needs, scope of work, and desired outcomes. We'll work with you to find a pricing structure that fits your budget.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">Do you offer ongoing support after project completion?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Yes. We offer ongoing maintenance and support packages for all our services. This includes regular updates, performance monitoring, content updates, security patches, and priority support. We're committed to being your long-term technology and marketing partner.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
+                            <span class="text-lg font-semibold text-gray-800">How do I get started with SwitInvest?</span>
+                            <i class="fas fa-chevron-down text-primary-red text-sm flex-shrink-0 ml-4"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600 leading-relaxed">
+                            Getting started is easy. Simply contact us through our website or call us to schedule a free consultation. During the consultation, we'll discuss your goals, assess your current situation, and propose a tailored strategy. No commitment required - just honest advice and expert guidance.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 md:py-20 bg-dark-blue relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-64 h-64 bg-primary-red rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-primary-red rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white serif mb-6">Still Have Questions?</h2>
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">Our team is ready to help. Whether you need clarification on a service or want a custom quote, we're just a message away.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="bg-primary-red text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-red-800 transition-all duration-200 inline-flex items-center justify-center">
+                    <i class="fas fa-envelope mr-2"></i> Contact Us
+                </a>
+                <a href="tel:+15551234567" class="bg-transparent border-2 border-white text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-white hover:text-dark-blue transition-all duration-200 inline-flex items-center justify-center">
+                    <i class="fas fa-phone mr-2"></i> Call +1 (555) 123-4567
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isOpen = answer.classList.contains('open');
+
+                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                    if (openAnswer !== answer) {
+                        openAnswer.classList.remove('open');
+                        openAnswer.previousElementSibling.classList.remove('active');
                     }
+                });
+
+                if (isOpen) {
+                    answer.classList.remove('open');
+                    button.classList.remove('active');
+                } else {
+                    answer.classList.add('open');
+                    button.classList.add('active');
                 }
-            }
-        }
+            });
+        });
     </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - SwitInvest</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-blue': '#0d152e',
-                        'primary-red': '#c91414',
-                    },
-                    fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .hover\:bg-red-800:hover { background-color: #991b1b; }
-        .hover\:text-primary-red:hover { color: #c91414; }
-        .agent-carousel { transition: transform 0.5s ease-in-out; }
-        
-        /* Awards Section Animation */
-        @keyframes slideLeftRight {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-        .awards-animate .grid > div {
-            animation: slideLeftRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .awards-animate .grid > div:nth-child(1) { animation-delay: 0.1s; }
-        .awards-animate .grid > div:nth-child(2) { animation-delay: 0.2s; }
-        .awards-animate .grid > div:nth-child(3) { animation-delay: 0.3s; }
-        .awards-animate .grid > div:nth-child(4) { animation-delay: 0.4s; }
-        .awards-animate .grid > div:nth-child(5) { animation-delay: 0.5s; }
-        .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
-        .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Hide scrollbar for carousel */
-        #reviewsCarousel::-webkit-scrollbar { display: none; }
-        #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
-        #reviewsCarousel {
-            display: flex;
-            width: max-content;
-            animation: scrollLeft 16s linear infinite;
-        }
-        #reviewsCarousel:hover {
-            animation-play-state: paused;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-1376px); }
-        }
-        
-        .carousel-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script src="js/load-partials.js"></script>
-  </head>
+
+</body>
+</html>

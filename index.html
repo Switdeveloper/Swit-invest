@@ -33,7 +33,6 @@
         .hover\:text-primary-red:hover { color: #c91414; }
         .agent-carousel { transition: transform 0.5s ease-in-out; }
         
-        /* Awards Section Animation */
         @keyframes slideLeftRight {
             0% { transform: translateX(-100px); opacity: 0; }
             100% { transform: translateX(0); opacity: 1; }
@@ -50,11 +49,9 @@
         .awards-animate .grid > div:nth-child(6) { animation-delay: 0.6s; }
         .awards-animate .grid > div:nth-child(7) { animation-delay: 0.7s; }
         
-        /* Hide scrollbar for carousel */
         #reviewsCarousel::-webkit-scrollbar { display: none; }
         #reviewsCarousel { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Infinite scroll animation - 4 reviews, card width 320px + 24px gap = 344px */
         #reviewsCarousel {
             display: flex;
             width: max-content;
@@ -73,513 +70,473 @@
             width: 100%;
         }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
-  </head>
-  <body class="overflow-x-hidden">
+</head>
+<body class="overflow-x-hidden">
 
     <div id="header-container"></div>
 
     <section class="relative bg-gray-100 pt-16 pb-32 overflow-hidden">
-    <!-- Background image placeholder (Digital/AI theme) -->
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Digital Technology Background" class="w-full h-full object-cover object-center">
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-transparent"></div>
-    </div>
-    
-    <div class="max-w-7xl mx-auto px-4 relative z-10">
-        <div class="max-w-2xl text-white">
-            <div class="flex items-center text-xs font-bold tracking-wider text-primary-red mb-6 uppercase">
-                <i class="fas fa-robot mr-2 text-white/70"></i> <span class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</span> / <span class="ml-2">SWITINVEST</span>
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Digital Technology Background" class="w-full h-full object-cover object-center">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-transparent"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="max-w-2xl text-white">
+                <div class="flex items-center text-xs font-bold tracking-wider text-primary-red mb-6 uppercase">
+                    <i class="fas fa-robot mr-2 text-white/70"></i> <span class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</span> / <span class="ml-2">SWITINVEST</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
+                    Accelerate Your Growth<br>
+                    <span class="text-primary-red">With AI-Powered Marketing</span>
+                </h1>
+
+                <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">We combine cutting-edge AI automation with proven digital marketing strategies to help businesses scale faster, work smarter, and dominate their markets.</p>
+
+                <div class="mb-10">
+                    <a href="contact.html" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
+                        Get Started <i class="fas fa-rocket ml-3 text-sm"></i>
+                    </a>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-red text-xl mr-2"></i>
+                        <span>Average client ROI <strong class="text-white">350%+</strong></span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex text-yellow-400 text-sm mr-2">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span><strong class="text-white">5.0/5.0</strong> Client Reviews</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex items-center bg-white/10 backdrop-blur-md rounded-xl p-3 inline-block border border-white/20 shadow-lg">
+                    <div class="flex -space-x-3 mr-4">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border-2 border-gray-900 object-cover">
+                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border-2 border-gray-900 object-cover">
+                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border-2 border-gray-900 object-cover">
+                    </div>
+                    <div>
+                        <div class="text-white text-sm font-bold">Join 500+ Happy Clients</div>
+                        <div class="flex text-yellow-400 text-[10px]">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
-                Transform Your Business<br>
-                <span class="text-primary-red">With AI-Powered Digital Solutions</span>
-            </h1>
-            
-            <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">We help businesses grow online through strategic digital marketing, SEO optimization, custom website development, and marketing automation solutions that drive real results.</p>
-            
-            <div class="mb-10">
-                <a href="contact.html" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
-                    Get Started <i class="fas fa-rocket ml-3 text-sm"></i>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[60px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 120 0 0 1200 120z" class="fill-[#0d152e]"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section class="bg-[#0d152e] text-white py-16 md:py-24 relative -mt-1">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 serif">Results That Speak for Themselves</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div class="flex flex-col items-center">
+                    <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
+                        <span class="counter" data-target="500" data-suffix="+">0</span>
+                    </div>
+                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Clients Served</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
+                        <span class="counter" data-target="1200" data-suffix="+">0</span>
+                    </div>
+                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Projects Completed</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
+                        <span class="counter" data-target="350" data-suffix="+">0</span>
+                    </div>
+                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Websites Launched</div>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="flex mb-3 items-center justify-center h-[60px] md:h-[72px]">
+                        <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
+                        <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
+                        <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
+                        <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
+                        <i class="fas fa-star-half-alt text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
+                    </div>
+                    <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">4.9 Google Rating</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[60px] md:h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0 120L1200 120 1200 0 0 120z" class="fill-white"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
+                Our Services
+            </div>
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Full-Service Digital Agency</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+                From strategy to execution, we cover every aspect of your digital presence. Explore our full range of solutions below.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <!-- Card 1 - Digital Marketing Strategy -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 serif">Digital Marketing Strategy</h3>
+                        <p class="text-gray-500 text-sm mb-4">Data-driven marketing strategies that maximize ROI and drive sustainable growth for your business across all channels.</p>
+                        <a href="auto-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 2 - SEO Optimization -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 serif">SEO Optimization</h3>
+                        <p class="text-gray-500 text-sm mb-4">Get your website found by the right customers with proven SEO strategies that increase organic traffic and rankings.</p>
+                        <a href="business-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 3 - Website Development -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
+                            <i class="fas fa-code"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 serif">Website Development</h3>
+                        <p class="text-gray-500 text-sm mb-4">Professional, custom-built websites that are fast, mobile-responsive, and designed to convert visitors into customers.</p>
+                        <a href="home-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 4 - AI Agent Development -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 serif">AI Agent Development</h3>
+                        <p class="text-gray-500 text-sm mb-4">Intelligent AI agents that automate customer service, lead generation, and business processes 24/7 for your organization.</p>
+                        <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 5 - Marketing Automation -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1547683905-f686c993aae5?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 serif">Marketing Automation</h3>
+                        <p class="text-gray-500 text-sm mb-4">Streamline your marketing with automated workflows, email sequences, CRM integration, and customer journey mapping.</p>
+                        <a href="life-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 6 - Mobile App Development -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 serif">Mobile App Development</h3>
+                        <p class="text-gray-500 text-sm mb-4">Native and cross-platform mobile applications that deliver exceptional user experiences and drive business growth.</p>
+                        <a href="premium-financing.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <a href="services.html" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
+                    View All Our Services
                 </a>
             </div>
-            
-            <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8">
-                <div class="flex items-center">
-                    <i class="fas fa-check-circle text-primary-red text-xl mr-2"></i>
-                    <span>Average client increase <strong class="text-white">300% ROI</strong></span>
-                </div>
-                <div class="flex items-center">
-                    <div class="flex text-yellow-400 text-sm mr-2">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <span><strong class="text-white">5.0/5.0</strong> Client Reviews</span>
-                </div>
-            </div>
-            
-            <div class="mt-8 flex items-center bg-white/10 backdrop-blur-md rounded-xl p-3 inline-block border border-white/20 shadow-lg">
-                <div class="flex -space-x-3 mr-4">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border-2 border-gray-900 object-cover">
-                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border-2 border-gray-900 object-cover">
-                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border-2 border-gray-900 object-cover">
-                </div>
-                <div>
-                    <div class="text-white text-sm font-bold">Join 500,000+ Happy Clients</div>
-                    <div class="flex text-yellow-400 text-[10px]">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-    
-    <!-- Angled bottom border -->
-    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-        <svg class="relative block w-full h-[60px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M1200 120L0 120 0 0 1200 120z" class="fill-[#0d152e]"></path>
-        </svg>
-    </div>
-</section>
+    </section>
 
-<section class="bg-[#0d152e] text-white py-16 md:py-24 relative -mt-1">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-5xl font-bold mb-16 serif">Proven Results, Trusted Performance</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            <div class="flex flex-col items-center">
-                <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
-                    <span class="counter" data-target="100" data-suffix="+">0</span>
-                </div>
-                <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Clients Served</div>
+    <section class="py-16 md:py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
+                HOW IT WORKS
             </div>
-            <div class="flex flex-col items-center">
-                <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
-                    <span class="counter" data-target="500" data-prefix="$" data-suffix="M+">0</span>
-                </div>
-                <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Projects Completed</div>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="text-5xl md:text-6xl font-bold text-yellow-500 mb-3 font-serif drop-shadow-md">
-                    <span class="counter" data-target="300" data-suffix="K+">0</span>
-                </div>
-                <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">Websites Launched</div>
-            </div>
-            <div class="flex flex-col items-center justify-center">
-                <div class="flex mb-3 items-center justify-center h-[60px] md:h-[72px]">
-                    <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
-                    <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
-                    <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
-                    <i class="fas fa-star text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
-                    <i class="fas fa-star-half-alt text-yellow-500 text-4xl md:text-5xl mx-1 drop-shadow-md"></i>
-                </div>
-                <div class="text-xs md:text-sm font-bold tracking-widest uppercase text-gray-300">4.9 Google Rating</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- White bottom angled border -->
-    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-        <svg class="relative block w-full h-[60px] md:h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0 120L1200 120 1200 0 0 120z" class="fill-white"></path>
-        </svg>
-    </div>
-</section>
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Four Simple Steps to Digital Success</h2>
+            <p class="text-gray-600 mb-16 max-w-2xl mx-auto">
+                Skip the complex processes and endless meetings. Our streamlined approach gets you results faster, not slower.
+            </p>
 
-<section class="py-16 md:py-24 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
-            Our Services
-        </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Complete Digital Solutions, One Agency</h2>
-        <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
-            From strategy to execution, we cover every aspect of your digital presence. Explore our full range of solutions below.
-        </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            <!-- Card 1 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">Digital Marketing Strategy</h3>
-                    <p class="text-gray-500 text-sm mb-4">Data-driven marketing strategies that maximize ROI and drive sustainable growth for your business.</p>
-                    <a href="auto-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">Search Engine Optimization (SEO)</h3>
-                    <p class="text-gray-500 text-sm mb-4">Get your website found by the right customers with proven SEO strategies that increase organic traffic and rankings.</p>
-                    <a href="#" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- Card 3 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-code"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">Custom Website Development</h3>
-                    <p class="text-gray-500 text-sm mb-4">Professional, custom-built websites that are fast, mobile-responsive, and designed to convert visitors into customers.</p>
-                    <a href="home-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- Card 4 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">AI Agent Development</h3>
-                    <p class="text-gray-500 text-sm mb-4">Intelligent AI agents that automate customer service, lead generation, and business processes 24/7.</p>
-                    <a href="life-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- Card 5 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1547683905-f686c993aae5?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">Marketing Automation</h3>
-                    <p class="text-gray-500 text-sm mb-4">Streamline your marketing efforts with automated workflows, email sequences, and customer journey mapping.</p>
-                    <a href="life-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- Card 6 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">Analytics & Reporting</h3>
-                    <p class="text-gray-500 text-sm mb-4">Comprehensive analytics dashboards and performance reporting to track your digital success.</p>
-                    <a href="services.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- Card 4 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">AI Agent Development</h3>
-                    <p class="text-gray-500 text-sm mb-4">Intelligent AI agents that automate customer service, lead generation, and business processes 24/7.</p>
-                    <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- Card 8 -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 serif">AI Consulting & Strategy</h3>
-                    <p class="text-gray-500 text-sm mb-4">Expert guidance on implementing AI solutions that transform your business operations and customer experiences.</p>
-                    <a href="services.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="mt-12">
-            <a href="services.html" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
-                View All Our Services
-            </a>
-        </div>
-    </div>
-</section>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-[2px] bg-gray-200 -z-10"></div>
 
-<section class="py-16 md:py-24 bg-white relative">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
-            HOW IT WORKS
-        </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Four Simple Steps to Digital Success</h2>
-        <p class="text-gray-600 mb-16 max-w-2xl mx-auto">
-            Skip the complex processes and endless meetings. Our streamlined approach gets you results faster, not slower.
-        </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-            <!-- Connecting Line -->
-            <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-[2px] bg-gray-200 -z-10"></div>
-            
-            <!-- Step 1 -->
-            <div class="flex flex-col items-center">
-                <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
-                    <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
-                        <i class="fas fa-lightbulb"></i>
+                <div class="flex flex-col items-center">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
+                        <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
+                            1
+                        </div>
                     </div>
-                    <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
-                        1
-                    </div>
+                    <h3 class="text-xl font-bold mb-2 serif">Discover & Strategy</h3>
+                    <p class="text-gray-500 text-sm">We analyze your business, audience, and competition to create a customized digital strategy.</p>
                 </div>
-                <h3 class="text-xl font-bold mb-2 serif">Discover & Strategy</h3>
-                <p class="text-gray-500 text-sm">We analyze your business, audience, and competition to create a customized digital strategy.</p>
-            </div>
-            
-            <!-- Step 2 -->
-            <div class="flex flex-col items-center">
-                <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
-                    <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
-                        <i class="fas fa-pencil-alt"></i>
-                    </div>
-                    <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
-                        2
-                    </div>
-                </div>
-                <h3 class="text-xl font-bold mb-2 serif">Design & Develop</h3>
-                <p class="text-gray-500 text-sm">Our team creates stunning designs and develops custom solutions tailored to your brand.</p>
-            </div>
-            
-            <!-- Step 3 -->
-            <div class="flex flex-col items-center">
-                <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
-                    <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
-                        3
-                    </div>
-                </div>
-                <h3 class="text-xl font-bold mb-2 serif">Automate & Optimize</h3>
-                <p class="text-gray-500 text-sm">We implement AI agents and automation tools to streamline your operations and maximize efficiency.</p>
-            </div>
-            
-            <!-- Step 4 -->
-            <div class="flex flex-col items-center">
-                <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
-                    <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
-                        4
-                    </div>
-                </div>
-                <h3 class="text-xl font-bold mb-2 serif">Launch & Grow</h3>
-                <p class="text-gray-500 text-sm">We launch your solutions and continuously optimize for maximum performance and ROI.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- White top angled border -->
-    <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
-        <svg class="relative block w-full h-[60px] md:h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0 0L1200 0 1200 120 0 120z" class="fill-white"></path>
-        </svg>
-    </div>
-</section>
 
-<section class="py-16 md:py-24 bg-gray-100">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 serif">Our AI-Powered Solutions</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">Cutting-edge artificial intelligence tools that transform how businesses operate and engage with customers.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- AI Chatbot -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
-                            AI
+                <div class="flex flex-col items-center">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
+                        <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
+                            <i class="fas fa-pencil-alt"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-0 serif">Intelligent Chatbots</h3>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-4">
-                        24/7 customer service AI that handles inquiries, captures leads, and provides instant support across websites and messaging platforms.
-                    </p>
-                    <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">See Demo <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- AI Email Agent -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
-                            AI
+                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
+                            2
                         </div>
-                        <h3 class="text-xl font-bold mb-0 serif">Email Automation AI</h3>
                     </div>
-                    <p class="text-gray-500 text-sm mb-4">
-                        Smart email agents that personalize outreach, follow up with leads, and nurture customer relationships automatically.
-                    </p>
-                    <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">See Demo <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    <h3 class="text-xl font-bold mb-2 serif">Design & Develop</h3>
+                    <p class="text-gray-500 text-sm">Our team creates stunning designs and develops custom solutions tailored to your brand.</p>
                 </div>
-            </div>
-            
-            <!-- AI Social Media -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
-                            AI
-                        </div>
-                        <h3 class="text-xl font-bold mb-0 serif">Social Media AI Manager</h3>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-4">
-                        Automated content creation, scheduling, and engagement optimization for all major social platforms.
-                    </p>
-                    <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">See Demo <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- AI Analytics -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
-                            AI
-                        </div>
-                        <h3 class="text-xl font-bold mb-0 serif">Predictive Analytics AI</h3>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-4">
-                        Advanced AI that predicts customer behavior, identifies trends, and recommends data-driven business decisions.
-                    </p>
-                    <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">See Demo <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- AI Lead Generator -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
-                            AI
-                        </div>
-                        <h3 class="text-xl font-bold mb-0 serif">Lead Generation AI</h3>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-4">
-                        Intelligent systems that identify, qualify, and nurture high-value leads for your sales team.
-                    </p>
-                    <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">See Demo <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-            
-            <!-- AI Content Creator -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
-                <div class="p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
-                            AI
-                        </div>
-                        <h3 class="text-xl font-bold mb-0 serif">Content Creation AI</h3>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-4">
-                        AI-powered content generation for blogs, social media, ads, and marketing materials that matches your brand voice.
-                    </p>
-                    <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">See Demo <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section class="py-16 md:py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-gray-50">
-            TRUSTED BY
-        </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-8 serif">Industry Leaders Who Trust Us</h2>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
-                <img src="https://images.unsplash.com/photo-1551434678-e076c2de3a6e?w=100&h=100&fit=crop" alt="Tech Company" class="w-16 h-16 rounded-full object-cover mr-3">
-                <span class="text-gray-600 font-medium">TechStart Inc.</span>
-            </div>
-            <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
-                <img src="https://images.unsplash.com/photo-1573164713731-388b43cb94db?w=100&h=100&fit=crop" alt="E-commerce Brand" class="w-16 h-16 rounded-full object-cover mr-3">
-                <span class="text-gray-600 font-medium">ShopEase</span>
-            </div>
-            <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
-                <img src="https://images.unsplash.com/photo-1594736797933-d0161ba26683?w=100&h=100&fit=crop" alt="Marketing Agency" class="w-16 h-16 rounded-full object-cover mr-3">
-                <span class="text-gray-600 font-medium">GrowthHackers</span>
-            </div>
-            <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=100&h=100&fit=crop" alt="SaaS Company" class="w-16 h-16 rounded-full object-cover mr-3">
-                <span class="text-gray-600 font-medium">CloudSolutions</span>
-            </div>
-        </div>
-    </div>
-</section>
+                <div class="flex flex-col items-center">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
+                        <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
+                            3
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 serif">Automate & Optimize</h3>
+                    <p class="text-gray-500 text-sm">We implement AI agents and automation tools to streamline your operations and maximize efficiency.</p>
+                </div>
 
-<section class="py-16 md:py-24 bg-gray-100">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 serif">Ready to Transform Your Business?</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">Let's discuss how our AI-powered digital solutions can help you achieve your goals.</p>
+                <div class="flex flex-col items-center">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
+                        <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary-red text-white rounded-full flex items-center justify-center font-bold text-sm border-2 border-white">
+                            4
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 serif">Launch & Grow</h3>
+                    <p class="text-gray-500 text-sm">We launch your solutions and continuously optimize for maximum performance and ROI.</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="contact.html" class="bg-primary-red text-white px-8 py-3 rounded font-bold hover:bg-red-800 transition transform hover:-translate-y-1">
-                Start Your Project <i class="fas fa-play ml-2"></i>
-            </a>
-            <a href="services.html" class="border border-primary-red text-primary-red px-8 py-3 rounded font-bold hover:bg-red-50 transition transform hover:-translate-y-1">
-                View Our Services <i class="fas fa-chart-bar ml-2"></i>
-            </a>
+
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[60px] md:h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0 0L1200 0 1200 120 0 120z" class="fill-white"></path>
+            </svg>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="py-16 md:py-24 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 serif">Our AI-Powered Solutions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Cutting-edge artificial intelligence tools that transform how businesses operate and engage with customers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
+                                AI
+                            </div>
+                            <h3 class="text-xl font-bold mb-0 serif">Intelligent Chatbots</h3>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">
+                            24/7 customer service AI that handles inquiries, captures leads, and provides instant support across websites and messaging platforms.
+                        </p>
+                        <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
+                                AI
+                            </div>
+                            <h3 class="text-xl font-bold mb-0 serif">Email Automation AI</h3>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">
+                            Smart email agents that personalize outreach, follow up with leads, and nurture customer relationships automatically.
+                        </p>
+                        <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
+                                AI
+                            </div>
+                            <h3 class="text-xl font-bold mb-0 serif">Social Media AI Manager</h3>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">
+                            Automated content creation, scheduling, and engagement optimization for all major social platforms.
+                        </p>
+                        <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
+                                AI
+                            </div>
+                            <h3 class="text-xl font-bold mb-0 serif">Predictive Analytics AI</h3>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">
+                            Advanced AI that predicts customer behavior, identifies trends, and recommends data-driven business decisions.
+                        </p>
+                        <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
+                                AI
+                            </div>
+                            <h3 class="text-xl font-bold mb-0 serif">Lead Generation AI</h3>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">
+                            Intelligent systems that identify, qualify, and nurture high-value leads for your sales team on autopilot.
+                        </p>
+                        <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-primary-red text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">
+                                AI
+                            </div>
+                            <h3 class="text-xl font-bold mb-0 serif">Content Creation AI</h3>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">
+                            AI-powered content generation for blogs, social media, ads, and marketing materials that matches your brand voice perfectly.
+                        </p>
+                        <a href="flood-insurance.html" class="text-primary-red font-semibold text-sm hover:underline">Learn More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-gray-50">
+                TRUSTED BY
+            </div>
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 serif">Industry Leaders Who Trust Us</h2>
+
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c2de3a6e?w=100&h=100&fit=crop" alt="Tech Company" class="w-16 h-16 rounded-full object-cover mr-3">
+                    <span class="text-gray-600 font-medium">TechStart Inc.</span>
+                </div>
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1573164713731-388b43cb94db?w=100&h=100&fit=crop" alt="E-commerce Brand" class="w-16 h-16 rounded-full object-cover mr-3">
+                    <span class="text-gray-600 font-medium">ShopEase</span>
+                </div>
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1594736797933-d0161ba26683?w=100&h=100&fit=crop" alt="Marketing Agency" class="w-16 h-16 rounded-full object-cover mr-3">
+                    <span class="text-gray-600 font-medium">GrowthHackers</span>
+                </div>
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=100&h=100&fit=crop" alt="SaaS Company" class="w-16 h-16 rounded-full object-cover mr-3">
+                    <span class="text-gray-600 font-medium">CloudSolutions</span>
+                </div>
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Finance Company" class="w-16 h-16 rounded-full object-cover mr-3">
+                    <span class="text-gray-600 font-medium">Finova Corp</span>
+                </div>
+                <div class="flex items-center bg-white p-4 rounded-lg shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Healthcare Company" class="w-16 h-16 rounded-full object-cover mr-3">
+                    <span class="text-gray-600 font-medium">MediCore Health</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 serif">Ready to Transform Your Business?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Let's discuss how our AI-powered digital solutions can help you achieve your goals and dominate your market.</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="contact.html" class="bg-primary-red text-white px-8 py-3 rounded font-bold hover:bg-red-800 transition transform hover:-translate-y-1">
+                    Start Your Project <i class="fas fa-play ml-2"></i>
+                </a>
+                <a href="services.html" class="border border-primary-red text-primary-red px-8 py-3 rounded font-bold hover:bg-red-50 transition transform hover:-translate-y-1">
+                    View Our Services <i class="fas fa-chart-bar ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <div id="footer-container"></div>
 
     <script>
-        // Load header and footer
         document.addEventListener('DOMContentLoaded', function() {
             fetch('partials/header.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('header-container').innerHTML = data;
                 });
-                
+
             fetch('partials/footer.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('footer-container').innerHTML = data;
                 });
         });
-        
-        // Counter animation
+
         document.addEventListener('DOMContentLoaded', function() {
             const counters = document.querySelectorAll('.counter');
             counters.forEach(counter => {
@@ -599,5 +556,5 @@
             });
         });
     </script>
-  </body>
+</body>
 </html>
