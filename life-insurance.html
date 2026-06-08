@@ -32,6 +32,22 @@
         .text-dark-blue { color: #050a17; }
         .bg-primary-red { background-color: #b90e0a; }
         .text-primary-red { color: #b90e0a; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+        .delay-500 { transition-delay:0.5s; }
+        .delay-600 { transition-delay:0.6s; }
+        .delay-700 { transition-delay:0.7s; }
+        .delay-800 { transition-delay:0.8s; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
@@ -57,16 +73,16 @@
                     <i class="fas fa-robot text-primary-red mr-2"></i> Automate Smarter, Grow Faster
                 </div>
 
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight serif">
+                <h1 class="reveal text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight serif">
                     Marketing<br>
                     <span class="text-pink-300">Automation</span>
                 </h1>
 
-                <p class="text-lg text-gray-200 mb-10 leading-relaxed max-w-xl">
+                <p class="reveal delay-100 text-lg text-gray-200 mb-10 leading-relaxed max-w-xl">
                     Streamline Your Marketing with Smart Automation — from email campaigns to multi-channel workflows, SwitInvest helps you engage leads, nurture customers, and scale revenue on autopilot.
                 </p>
 
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+                <div class="reveal delay-200 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
                     <a href="#" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold text-base hover:bg-red-800 transition text-center inline-flex justify-center items-center">
                         Get a Demo <i class="fas fa-arrow-right ml-2 text-sm"></i>
                     </a>
@@ -93,12 +109,12 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 serif text-dark-blue">Powerful Automation Features</h2>
-                <p class="text-gray-600">Everything you need to automate your marketing and grow your business on autopilot.</p>
+                <h2 class="reveal text-3xl md:text-4xl font-bold mb-4 serif text-dark-blue">Powerful Automation Features</h2>
+                <p class="reveal delay-100 text-gray-600">Everything you need to automate your marketing and grow your business on autopilot.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
+                <div class="reveal delay-100 border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
                     <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                         <i class="fas fa-envelope"></i>
                     </div>
@@ -108,7 +124,7 @@
                     </p>
                 </div>
 
-                <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
+                <div class="reveal delay-200 border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
                     <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                         <i class="fas fa-users"></i>
                     </div>
@@ -118,7 +134,7 @@
                     </p>
                 </div>
 
-                <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
+                <div class="reveal delay-300 border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
                     <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                         <i class="fas fa-plug"></i>
                     </div>
@@ -128,7 +144,7 @@
                     </p>
                 </div>
 
-                <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
+                <div class="reveal delay-400 border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
                     <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                         <i class="fas fa-share-alt"></i>
                     </div>
@@ -138,7 +154,7 @@
                     </p>
                 </div>
 
-                <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
+                <div class="reveal delay-500 border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
                     <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                         <i class="fas fa-chart-bar"></i>
                     </div>
@@ -148,7 +164,7 @@
                     </p>
                 </div>
 
-                <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
+                <div class="reveal delay-600 border border-gray-200 rounded-xl p-8 hover:shadow-lg transition">
                     <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-6">
                         <i class="fas fa-flask"></i>
                     </div>
@@ -165,8 +181,8 @@
     <section class="py-20 bg-gray-50">
         <div class="max-w-5xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold serif text-dark-blue">Automation Capabilities</h2>
-                <p class="text-gray-600 mt-4">Pre-built automation templates and tools to get started fast.</p>
+                <h2 class="reveal text-3xl md:text-4xl font-bold serif text-dark-blue">Automation Capabilities</h2>
+                <p class="reveal delay-100 text-gray-600 mt-4">Pre-built automation templates and tools to get started fast.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -210,11 +226,11 @@
     <section class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold serif text-dark-blue">Frequently Asked Questions</h2>
+                <h2 class="reveal text-3xl md:text-4xl font-bold serif text-dark-blue">Frequently Asked Questions</h2>
             </div>
 
             <div class="space-y-4">
-                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                <div class="reveal delay-100 border border-gray-200 rounded-lg overflow-hidden">
                     <button class="w-full px-6 py-4 text-left bg-white flex justify-between items-center focus:outline-none">
                         <span class="font-medium text-sm text-gray-800">What is marketing automation?</span>
                         <div class="w-6 h-6 rounded-full bg-primary-red flex items-center justify-center text-white text-xs">
@@ -269,10 +285,10 @@
     <!-- CTA -->
     <section class="py-20 bg-[#050a17] text-white text-center">
         <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Put Your Marketing on Autopilot</h2>
-            <p class="text-gray-300 mb-10 text-lg">Get a free marketing automation demo and see how SwitInvest can transform your business.</p>
+            <h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">Put Your Marketing on Autopilot</h2>
+            <p class="reveal delay-100 text-gray-300 mb-10 text-lg">Get a free marketing automation demo and see how SwitInvest can transform your business.</p>
 
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
+            <div class="reveal delay-200 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
                 <a href="#" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold text-base hover:bg-red-800 transition">
                     Get a Free Demo <i class="fas fa-arrow-right ml-2 text-sm"></i>
                 </a>
@@ -303,5 +319,17 @@
             });
         }
     </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
 </body>
 </html>

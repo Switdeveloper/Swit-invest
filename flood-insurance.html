@@ -34,6 +34,22 @@
         .clip-bottom {
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+        .delay-500 { transition-delay:0.5s; }
+        .delay-600 { transition-delay:0.6s; }
+        .delay-700 { transition-delay:0.7s; }
+        .delay-800 { transition-delay:0.8s; }
     </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="js/load-partials.js"></script>
@@ -62,16 +78,16 @@
                 <span class="text-sm font-bold text-gray-200">Digital Marketing & AI Automation Agency</span>
             </div>
 
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight serif">
+            <h1 class="reveal text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight serif">
                 AI Agent<br>
                 <span class="text-[#ff9d9d]">Development</span>
             </h1>
 
-            <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl font-light">
+            <p class="reveal delay-100 text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl font-light">
                 Intelligent Automation for Your Business. Deploy custom AI agents that work 24/7 — generating leads, supporting customers, and automating workflows so you can scale without limits.
             </p>
 
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+            <div class="reveal delay-200 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
                 <a href="#" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center shadow-lg">
                     Get a Free Demo <i class="fas fa-arrow-right ml-2 text-sm"></i>
                 </a>
@@ -87,12 +103,12 @@
 <section class="py-24 bg-white relative z-20">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4 serif text-[#111827]">Our AI Agent Solutions</h2>
-            <p class="text-lg text-[#374151]">Tailored AI agents that integrate seamlessly with your business stack — no code required.</p>
+            <h2 class="reveal text-4xl md:text-5xl font-bold mb-4 serif text-[#111827]">Our AI Agent Solutions</h2>
+            <p class="reveal delay-100 text-lg text-[#374151]">Tailored AI agents that integrate seamlessly with your business stack — no code required.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
+            <div class="reveal delay-100 border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-comment-dots text-primary-red text-xl"></i>
                 </div>
@@ -102,7 +118,7 @@
                 </p>
             </div>
 
-            <div class="border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
+            <div class="reveal delay-200 border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-users text-primary-red text-xl"></i>
                 </div>
@@ -112,7 +128,7 @@
                 </p>
             </div>
 
-            <div class="border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
+            <div class="reveal delay-300 border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-headset text-primary-red text-xl"></i>
                 </div>
@@ -122,7 +138,7 @@
                 </p>
             </div>
 
-            <div class="border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
+            <div class="reveal delay-400 border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-cogs text-primary-red text-xl"></i>
                 </div>
@@ -132,7 +148,7 @@
                 </p>
             </div>
 
-            <div class="border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
+            <div class="reveal delay-500 border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-database text-primary-red text-xl"></i>
                 </div>
@@ -142,7 +158,7 @@
                 </p>
             </div>
 
-            <div class="border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
+            <div class="reveal delay-600 border border-gray-200 rounded-lg p-8 hover:shadow-lg transition bg-white">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-plug text-primary-red text-xl"></i>
                 </div>
@@ -159,8 +175,8 @@
 <section class="py-24 bg-light-bg">
     <div class="max-w-5xl mx-auto px-4">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold serif text-[#111827]">What AI Agents Can Do</h2>
-            <p class="text-lg text-[#374151] mt-4">Your always-on digital workforce — handling every corner of your business.</p>
+            <h2 class="reveal text-4xl md:text-5xl font-bold serif text-[#111827]">What AI Agents Can Do</h2>
+            <p class="reveal delay-100 text-lg text-[#374151] mt-4">Your always-on digital workforce — handling every corner of your business.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -204,11 +220,11 @@
 <section class="py-24 bg-white">
     <div class="max-w-4xl mx-auto px-4">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold serif text-[#111827]">Frequently Asked Questions</h2>
+            <h2 class="reveal text-4xl md:text-5xl font-bold serif text-[#111827]">Frequently Asked Questions</h2>
         </div>
 
         <div class="space-y-4">
-            <div class="bg-white border border-gray-200 rounded-lg p-6 flex justify-between items-center cursor-pointer shadow-sm">
+            <div class="reveal delay-100 bg-white border border-gray-200 rounded-lg p-6 flex justify-between items-center cursor-pointer shadow-sm">
                 <span class="font-bold text-[#111827]">What is an AI agent?</span>
                 <div class="w-6 h-6 bg-primary-red text-white rounded-full flex items-center justify-center shrink-0 ml-4">
                     <i class="fas fa-plus text-xs"></i>
@@ -251,11 +267,11 @@
 <!-- CTA Section -->
 <section class="py-24 bg-[#0a1128] text-center">
     <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 serif">Ready to Supercharge Your Business with AI?</h2>
-        <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light">
+        <h2 class="reveal text-4xl md:text-5xl font-bold text-white mb-6 serif">Ready to Supercharge Your Business with AI?</h2>
+        <p class="reveal delay-100 text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light">
             Get a custom AI agent demo. See how intelligent automation can save time, cut costs, and grow your revenue.
         </p>
-        <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+        <div class="reveal delay-200 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
             <a href="#" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center shadow-lg w-full sm:w-auto">
                 Get Your Free Demo <i class="fas fa-arrow-right ml-2 text-sm"></i>
             </a>
@@ -270,5 +286,17 @@
 </section>
 
     <div id="footer-container"></div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
 </body>
 </html>

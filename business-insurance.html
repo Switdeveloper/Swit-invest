@@ -28,6 +28,22 @@
     <style>
         body { font-family: 'Inter', sans-serif; color: #333; }
         h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+        .delay-500 { transition-delay:0.5s; }
+        .delay-600 { transition-delay:0.6s; }
+        .delay-700 { transition-delay:0.7s; }
+        .delay-800 { transition-delay:0.8s; }
     </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="js/load-partials.js"></script>
@@ -53,16 +69,16 @@
                 <span class="text-primary-red">Rank Higher. Get Found. Grow Faster.</span>
             </div>
 
-            <h1 class="text-5xl md:text-6xl lg:text-[70px] font-bold mb-4 leading-tight serif">
+            <h1 class="reveal text-5xl md:text-6xl lg:text-[70px] font-bold mb-4 leading-tight serif">
                 SEO Optimization<br>
                 <span class="text-accent-orange">Services</span>
             </h1>
 
-            <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light">
+            <p class="reveal delay-100 text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light">
                 Dominate search rankings & drive organic traffic. SwitInvest delivers data-driven SEO strategies that put your business on page one of Google.
             </p>
 
-            <div class="flex flex-wrap gap-4 mb-10">
+            <div class="reveal delay-200 flex flex-wrap gap-4 mb-10">
                 <a href="#" class="bg-primary-red text-white px-8 py-4 rounded font-bold hover:bg-red-800 transition inline-flex items-center justify-center text-lg">
                     Get a Free SEO Audit <i class="fas fa-arrow-right ml-2 text-sm"></i>
                 </a>
@@ -89,12 +105,12 @@
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-dark-blue serif">Why Choose SwitInvest for SEO?</h2>
-            <p class="text-gray-600 text-lg">We combine AI-powered tools with proven white-hat SEO techniques to grow your organic presence.</p>
+            <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 text-dark-blue serif">Why Choose SwitInvest for SEO?</h2>
+            <p class="reveal delay-100 text-gray-600 text-lg">We combine AI-powered tools with proven white-hat SEO techniques to grow your organic presence.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
+            <div class="reveal delay-100 bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6 text-primary-red">
                     <i class="fas fa-search text-xl"></i>
                 </div>
@@ -104,7 +120,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
+            <div class="reveal delay-200 bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6 text-primary-red">
                     <i class="fas fa-cogs text-xl"></i>
                 </div>
@@ -114,7 +130,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
+            <div class="reveal delay-300 bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6 text-primary-red">
                     <i class="fas fa-link text-xl"></i>
                 </div>
@@ -124,7 +140,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
+            <div class="reveal delay-400 bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6 text-primary-red">
                     <i class="fas fa-map-marker-alt text-xl"></i>
                 </div>
@@ -134,7 +150,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
+            <div class="reveal delay-500 bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6 text-primary-red">
                     <i class="fas fa-key text-xl"></i>
                 </div>
@@ -144,7 +160,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
+            <div class="reveal delay-600 bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col items-start">
                 <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-6 text-primary-red">
                     <i class="fas fa-pen-fancy text-xl"></i>
                 </div>
@@ -161,7 +177,7 @@
 <section class="py-20 bg-gray-50">
     <div class="max-w-5xl mx-auto px-4">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-bold text-dark-blue serif">Our SEO Services</h2>
+            <h2 class="reveal text-3xl md:text-5xl font-bold text-dark-blue serif">Our SEO Services</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -205,11 +221,11 @@
 <section class="py-24 bg-white">
     <div class="max-w-4xl mx-auto px-4">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-bold text-dark-blue serif">Frequently Asked Questions</h2>
+            <h2 class="reveal text-3xl md:text-5xl font-bold text-dark-blue serif">Frequently Asked Questions</h2>
         </div>
 
         <div class="space-y-4">
-            <div class="border border-gray-200 rounded-lg shadow-sm">
+            <div class="reveal delay-100 border border-gray-200 rounded-lg shadow-sm">
                 <button class="w-full text-left px-6 py-5 text-base font-semibold text-gray-800 flex justify-between items-center focus:outline-none">
                     How long does SEO take to show results?
                     <div class="w-6 h-6 bg-primary-red text-white rounded-full flex items-center justify-center shrink-0 ml-4">
@@ -269,12 +285,12 @@
 <!-- CTA Section -->
 <section class="py-24 bg-dark-blue relative text-center text-white">
     <div class="max-w-4xl mx-auto px-4 relative z-10">
-        <h2 class="text-4xl md:text-[50px] font-bold mb-6 serif leading-tight">Get a Free SEO Audit</h2>
-        <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto font-light">
+        <h2 class="reveal text-4xl md:text-[50px] font-bold mb-6 serif leading-tight">Get a Free SEO Audit</h2>
+        <p class="reveal delay-100 text-gray-300 text-lg mb-10 max-w-2xl mx-auto font-light">
             Find out where your website stands. We'll analyze your site and provide a custom roadmap to rank higher.
         </p>
 
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <div class="reveal delay-200 flex flex-wrap justify-center gap-4 mb-8">
             <a href="#" class="bg-primary-red text-white px-8 py-4 rounded font-bold hover:bg-red-800 transition inline-flex items-center justify-center text-lg">
                 Claim Your Free Audit <i class="fas fa-arrow-right ml-2 text-sm"></i>
             </a>
@@ -306,6 +322,18 @@ if (mobileMenuBtn && mobileMenu) {
         }
     });
 }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
 </script>
 </body>
 </html>

@@ -16,6 +16,22 @@
         .text-dark-blue { color: #0d152e; }
         .bg-primary-red { background-color: #c91414; }
         .text-primary-red { color: #c91414; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+        .delay-500 { transition-delay:0.5s; }
+        .delay-600 { transition-delay:0.6s; }
+        .delay-700 { transition-delay:0.7s; }
+        .delay-800 { transition-delay:0.8s; }
     </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="js/load-partials.js"></script>
@@ -36,22 +52,22 @@
                 <i class="fas fa-code mr-2 text-white/70"></i> <span class="text-white/70 mx-2 hover:text-white cursor-pointer">HOME</span> / <span class="ml-2">WEBSITE DEVELOPMENT</span>
             </div>
 
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
+            <h1 class="reveal text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-[1.1] serif">
                 Custom Website<br>
                 <span class="text-primary-red">Development</span>
             </h1>
 
-            <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">
+            <p class="reveal delay-100 text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light max-w-xl">
                 Beautiful, Fast, and Conversion-Focused Websites. We build modern, responsive web experiences that drive results for your business.
             </p>
 
-            <div class="mb-10">
+            <div class="reveal delay-200 mb-10">
                 <a href="#" class="bg-primary-red text-white px-10 py-4 rounded font-bold text-lg hover:bg-red-800 transition inline-flex items-center justify-center">
                     Start Your Project <i class="fas fa-chevron-right ml-3 text-sm"></i>
                 </a>
             </div>
 
-            <div class="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8">
+            <div class="reveal delay-300 flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-300 space-y-4 sm:space-y-0 sm:space-x-8">
                 <div class="flex items-center">
                     <i class="fas fa-check-circle text-primary-red text-xl mr-2"></i>
                     <span><strong class="text-white">50+ websites</strong> delivered successfully</span>
@@ -90,47 +106,47 @@
 <section class="bg-[#0d152e] text-white py-16 md:py-24 relative -mt-1">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Why Choose SwitInvest for Web Development?</h2>
-            <p class="text-lg text-gray-300 max-w-2xl mx-auto">We craft digital experiences that elevate your brand and grow your business.</p>
+            <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif">Why Choose SwitInvest for Web Development?</h2>
+            <p class="reveal delay-100 text-lg text-gray-300 max-w-2xl mx-auto">We craft digital experiences that elevate your brand and grow your business.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <div class="flex items-start">
+            <div class="reveal delay-100 flex items-start">
                 <i class="fas fa-check-circle text-primary-red text-3xl mr-4 mt-1"></i>
                 <div>
                     <h3 class="font-bold text-xl mb-2 serif">Custom Design & Development</h3>
                     <p class="text-sm text-gray-400">Tailor-made websites built from the ground up to reflect your brand identity and business goals.</p>
                 </div>
             </div>
-            <div class="flex items-start">
+            <div class="reveal delay-200 flex items-start">
                 <i class="fas fa-check-circle text-primary-red text-3xl mr-4 mt-1"></i>
                 <div>
                     <h3 class="font-bold text-xl mb-2 serif">Responsive & Mobile-First</h3>
                     <p class="text-sm text-gray-400">Every site we build looks flawless on every device — from desktops to smartphones.</p>
                 </div>
             </div>
-            <div class="flex items-start">
+            <div class="reveal delay-300 flex items-start">
                 <i class="fas fa-check-circle text-primary-red text-3xl mr-4 mt-1"></i>
                 <div>
                     <h3 class="font-bold text-xl mb-2 serif">Fast Loading & Optimized</h3>
                     <p class="text-sm text-gray-400">Optimized code, image compression, and caching strategies for lightning-fast load times.</p>
                 </div>
             </div>
-            <div class="flex items-start">
+            <div class="reveal delay-400 flex items-start">
                 <i class="fas fa-check-circle text-primary-red text-3xl mr-4 mt-1"></i>
                 <div>
                     <h3 class="font-bold text-xl mb-2 serif">SEO-Friendly Architecture</h3>
                     <p class="text-sm text-gray-400">Built with search engines in mind — semantic HTML, meta tags, and structured data included.</p>
                 </div>
             </div>
-            <div class="flex items-start">
+            <div class="reveal delay-500 flex items-start">
                 <i class="fas fa-check-circle text-primary-red text-3xl mr-4 mt-1"></i>
                 <div>
                     <h3 class="font-bold text-xl mb-2 serif">CMS Integration</h3>
                     <p class="text-sm text-gray-400">Easily manage your content with WordPress, Shopify, or custom admin panels.</p>
                 </div>
             </div>
-            <div class="flex items-start">
+            <div class="reveal delay-600 flex items-start">
                 <i class="fas fa-check-circle text-primary-red text-3xl mr-4 mt-1"></i>
                 <div>
                     <h3 class="font-bold text-xl mb-2 serif">E-commerce Solutions</h3>
@@ -149,16 +165,16 @@
 
 <section class="py-16 md:py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 text-center">
-        <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
+        <div class="reveal inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
             What We Build
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Websites That Drive Results</h2>
-        <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif">Websites That Drive Results</h2>
+        <p class="reveal delay-100 text-gray-600 mb-12 max-w-2xl mx-auto">
             From simple landing pages to complex web applications — we build it all with cutting-edge technology.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-100 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -172,7 +188,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-200 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -186,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-300 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -200,7 +216,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-400 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -214,7 +230,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-500 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -228,7 +244,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-400 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -242,7 +258,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-500 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -256,7 +272,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
+            <div class="reveal delay-600 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition">
                 <div class="relative h-48 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&h=300&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     <div class="absolute top-3 left-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-red shadow">
@@ -271,7 +287,7 @@
             </div>
         </div>
 
-        <div class="mt-12">
+        <div class="reveal delay-200 mt-12">
             <a href="#" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
                 View All Services
             </a>
@@ -284,15 +300,15 @@
         <div class="inline-block border border-gray-200 text-gray-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-gray-50">
             HOW IT WORKS
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">From Idea to Launch</h2>
-        <p class="text-gray-600 mb-16 max-w-2xl mx-auto">
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif">From Idea to Launch</h2>
+        <p class="reveal delay-100 text-gray-600 mb-16 max-w-2xl mx-auto">
             Our streamlined process takes your project from concept to reality — on time and on budget.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-[2px] bg-gray-200 -z-10"></div>
 
-            <div class="flex flex-col items-center">
+            <div class="reveal delay-100 flex flex-col items-center">
                 <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                     <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                         <i class="fas fa-comments"></i>
@@ -305,7 +321,7 @@
                 <p class="text-gray-500 text-sm">We learn about your business, goals, and target audience to create a strategic plan.</p>
             </div>
 
-            <div class="flex flex-col items-center">
+            <div class="reveal delay-200 flex flex-col items-center">
                 <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                     <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                         <i class="fas fa-pencil-ruler"></i>
@@ -318,7 +334,7 @@
                 <p class="text-gray-500 text-sm">We create wireframes and high-fidelity mockups for your review and approval.</p>
             </div>
 
-            <div class="flex flex-col items-center">
+            <div class="reveal delay-300 flex flex-col items-center">
                 <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                     <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                         <i class="fas fa-code"></i>
@@ -331,7 +347,7 @@
                 <p class="text-gray-500 text-sm">Our developers build your site with clean code and rigorous quality assurance.</p>
             </div>
 
-            <div class="flex flex-col items-center">
+            <div class="reveal delay-400 flex flex-col items-center">
                 <div class="w-24 h-24 bg-white rounded-full border-4 border-gray-100 flex items-center justify-center mb-6 relative shadow-md">
                     <div class="w-20 h-20 bg-dark-blue rounded-full flex items-center justify-center text-white text-3xl">
                         <i class="fas fa-rocket"></i>
@@ -346,7 +362,7 @@
         </div>
 
         <div class="mt-12">
-            <a href="#" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
+            <a href="#" class="reveal delay-200 bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
                 Start Your Project
             </a>
             <p class="text-gray-400 text-xs mt-3">Free consultation. No commitment required.</p>
@@ -357,56 +373,56 @@
 <section class="py-16 md:py-24 bg-gray-50 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Technologies We Use</h2>
-            <p class="text-gray-500">Modern tools and frameworks for building powerful, scalable websites.</p>
+            <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif">Technologies We Use</h2>
+            <p class="reveal delay-100 text-gray-500">Modern tools and frameworks for building powerful, scalable websites.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-100 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fab fa-react text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">React & Next.js</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-200 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fab fa-vuejs text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">Vue.js & Nuxt</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-300 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fab fa-node text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">Node.js & Express</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-400 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fab fa-python text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">Python & Django</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-500 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fab fa-wordpress text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">WordPress & WooCommerce</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-600 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fas fa-database text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">PostgreSQL & MongoDB</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-100 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fab fa-aws text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">AWS & Cloud Hosting</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-200 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fab fa-tailwindcss text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">Tailwind CSS & Sass</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-300 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fas fa-lock text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">Security & SSL</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-400 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fas fa-search text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">SEO Optimization</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-500 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fas fa-chart-line text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">Analytics & Tracking</h3>
             </div>
-            <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
+            <div class="reveal delay-600 bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center">
                 <i class="fas fa-cloud text-primary-red text-2xl w-10"></i>
                 <h3 class="text-lg font-bold serif ml-2">CI/CD Pipelines</h3>
             </div>
@@ -420,13 +436,13 @@
         <div class="inline-block border border-gray-600 text-gray-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 bg-white/5">
             AWARD WINNING AGENCY
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif text-yellow-500">Award-Winning<br>Digital Agency</h2>
-        <p class="text-gray-300 mb-16 max-w-2xl mx-auto">
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif text-yellow-500">Award-Winning<br>Digital Agency</h2>
+        <p class="reveal delay-100 text-gray-300 mb-16 max-w-2xl mx-auto">
             Recognized as one of the fastest-growing digital agencies, trusted by businesses worldwide for exceptional web development.
         </p>
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+            <div class="reveal delay-100 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-trophy"></i>
                 </div>
@@ -434,7 +450,7 @@
                 <p class="text-xs text-gray-400 mt-2 text-center">Fastest Growing Companies</p>
             </div>
 
-            <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+            <div class="reveal delay-200 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-medal"></i>
                 </div>
@@ -442,7 +458,7 @@
                 <p class="text-xs text-gray-400 mt-2 text-center">2023 Excellence Award</p>
             </div>
 
-            <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+            <div class="reveal delay-300 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-certificate"></i>
                 </div>
@@ -450,7 +466,7 @@
                 <p class="text-xs text-gray-400 mt-2 text-center">Tampa Bay Business Journal</p>
             </div>
 
-            <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+            <div class="reveal delay-400 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-star"></i>
                 </div>
@@ -458,7 +474,7 @@
                 <p class="text-xs text-gray-400 mt-2 text-center">5-Star Client Satisfaction</p>
             </div>
 
-             <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+             <div class="reveal delay-500 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-leaf"></i>
                 </div>
@@ -466,14 +482,14 @@
                 <p class="text-xs text-gray-400 mt-2 text-center">Sustainability Initiative</p>
             </div>
 
-            <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+            <div class="reveal delay-600 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-users"></i>
                 </div>
                 <h4 class="font-bold text-sm text-center">Community Leader</h4>
                 <p class="text-xs text-gray-400 mt-2 text-center">Outstanding Contribution</p>
             </div>
-             <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+             <div class="reveal delay-700 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-heart"></i>
                 </div>
@@ -481,7 +497,7 @@
                 <p class="text-xs text-gray-400 mt-2 text-center">Voted #1 by Clients</p>
             </div>
 
-            <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
+            <div class="reveal delay-800 bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center h-48 hover:bg-white/10 transition">
                 <div class="w-16 h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white text-2xl mb-4 shadow-lg">
                     <i class="fas fa-shield-check"></i>
                 </div>
@@ -501,13 +517,13 @@
         <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
             OUR LOCATIONS
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Serving Businesses<br>Across All of Florida</h2>
-        <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif">Serving Businesses<br>Across All of Florida</h2>
+        <p class="reveal delay-100 text-gray-600 mb-12 max-w-2xl mx-auto">
             From Pensacola to Key West, we provide web development services to businesses throughout Florida. Our team is ready to bring your digital vision to life.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
-            <div class="border border-gray-200 rounded-xl p-6 text-left hover:border-primary-red transition flex flex-col justify-between">
+            <div class="reveal delay-100 border border-gray-200 rounded-xl p-6 text-left hover:border-primary-red transition flex flex-col justify-between">
                 <div>
                     <div class="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-4">
                         <i class="fas fa-map-marker-alt"></i>
@@ -518,7 +534,7 @@
                 <a href="#" class="text-primary-red font-semibold text-sm hover:underline">Get Directions <i class="fas fa-arrow-right text-[10px] ml-1"></i></a>
             </div>
 
-            <div class="border border-gray-200 rounded-xl p-6 text-left hover:border-primary-red transition flex flex-col justify-between">
+            <div class="reveal delay-200 border border-gray-200 rounded-xl p-6 text-left hover:border-primary-red transition flex flex-col justify-between">
                 <div>
                     <div class="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-primary-red mb-4">
                         <i class="fas fa-map-marker-alt"></i>
@@ -577,15 +593,15 @@
                  <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
                     OUR TEAM
                 </div>
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Expert Developers<br>& Digital Strategists</h2>
-                <p class="text-gray-600 mb-8">
+                <h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">Expert Developers<br>& Digital Strategists</h2>
+                <p class="reveal delay-100 text-gray-600 mb-8">
                     We have a dedicated team of experienced developers, designers, and project managers ready to bring your vision to life. Our team stays ahead of the latest technologies and best practices.
                 </p>
-                <p class="text-gray-600 mb-10">
+                <p class="reveal delay-200 text-gray-600 mb-10">
                     From planning to deployment, our team works closely with you every step of the way to ensure your website exceeds expectations.
                 </p>
 
-                <div class="flex gap-6 mb-10">
+                <div class="reveal delay-300 flex gap-6 mb-10">
                     <div class="text-center bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex-1">
                         <div class="text-3xl font-bold text-dark-blue mb-1">50+</div>
                         <div class="text-xs text-gray-500 font-bold uppercase tracking-wider">Webships Launched</div>
@@ -600,7 +616,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
+                <a href="#" class="reveal delay-400 bg-primary-red text-white px-8 py-3.5 rounded font-bold hover:bg-red-800 transition inline-block">
                     Meet the Team
                 </a>
 
@@ -647,12 +663,12 @@
         <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
             <i class="fas fa-handshake mr-1"></i> PARTNER WITH US
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Let's Build Something<br>Amazing Together</h2>
-        <p class="text-gray-600 mb-12 max-w-3xl mx-auto">
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-6 serif">Let's Build Something<br>Amazing Together</h2>
+        <p class="reveal delay-100 text-gray-600 mb-12 max-w-3xl mx-auto">
             Whether you need a brand-new website or a redesign, our team is ready to deliver a stunning, high-performing digital experience for your business.
         </p>
 
-        <div class="flex flex-col lg:flex-row items-center gap-12 bg-gray-50 rounded-2xl p-6 md:p-10 border border-gray-200 text-left">
+        <div class="reveal delay-200 flex flex-col lg:flex-row items-center gap-12 bg-gray-50 rounded-2xl p-6 md:p-10 border border-gray-200 text-left">
             <div class="w-full lg:w-5/12">
                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" class="rounded-xl shadow-md w-full h-auto object-cover">
                  <div class="bg-dark-blue text-white p-4 rounded-xl mt-[-30px] ml-6 relative z-10 w-2/3 shadow-lg">
@@ -717,26 +733,26 @@
         </div>
 
         <div class="mt-16">
-            <h3 class="text-xl font-bold mb-8">How to Get Started</h3>
+            <h3 class="reveal text-xl font-bold mb-8">How to Get Started</h3>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-                <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
+                <div class="reveal delay-100 bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
                     <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-dark-blue font-bold text-xl mx-auto mb-4">1</div>
                     <h4 class="font-bold mb-2">Submit Inquiry</h4>
                     <p class="text-xs text-gray-500">Fill out our contact form to tell us about your project and goals.</p>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
+                <div class="reveal delay-200 bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
                      <div class="hidden md:block absolute top-12 -left-3 w-6 h-[2px] bg-gray-200"></div>
                     <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-dark-blue font-bold text-xl mx-auto mb-4">2</div>
                     <h4 class="font-bold mb-2">Discovery Call</h4>
                     <p class="text-xs text-gray-500">We discuss your requirements, timeline, and budget in detail.</p>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
+                <div class="reveal delay-300 bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
                     <div class="hidden md:block absolute top-12 -left-3 w-6 h-[2px] bg-gray-200"></div>
                     <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-dark-blue font-bold text-xl mx-auto mb-4">3</div>
                     <h4 class="font-bold mb-2">Proposal & Agreement</h4>
                     <p class="text-xs text-gray-500">We prepare a detailed proposal with scope, timeline, and pricing.</p>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
+                <div class="reveal delay-400 bg-white border border-gray-100 rounded-xl p-6 shadow-sm relative">
                     <div class="hidden md:block absolute top-12 -left-3 w-6 h-[2px] bg-gray-200"></div>
                     <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-dark-blue font-bold text-xl mx-auto mb-4">4</div>
                     <h4 class="font-bold mb-2">Launch Your Site</h4>
@@ -770,13 +786,13 @@
             </div>
         </div>
 
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">What Our Clients Say</h2>
-        <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif">What Our Clients Say</h2>
+        <p class="reveal delay-100 text-gray-600 mb-12 max-w-2xl mx-auto">
             Don't just take our word for it. Join over 100 satisfied businesses that trust SwitInvest for their web development needs.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
+            <div class="reveal delay-100 bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
                 <div>
                     <div class="flex text-yellow-400 mb-4 text-sm">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
@@ -898,8 +914,8 @@
         <div class="inline-block border border-red-200 text-primary-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 bg-red-50">
             FAQ
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold mb-4 serif">Frequently Asked Questions</h2>
-            <p class="text-gray-500 mb-10 max-w-2xl mx-auto">Find answers to common questions about our web development services.</p>
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4 serif">Frequently Asked Questions</h2>
+            <p class="reveal delay-100 text-gray-500 mb-10 max-w-2xl mx-auto">Find answers to common questions about our web development services.</p>
 
             <div class="max-w-3xl mx-auto space-y-4 text-left">
                 <div class="border border-gray-200 rounded-lg bg-white overflow-hidden">
@@ -978,13 +994,13 @@
     <div class="absolute right-0 bottom-0 w-[400px] h-[300px] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiPjwvcmVjdD4KPHBhdGggZD0iTTAgMEw4IDBaTTAgOEw4IDBaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+')] opacity-20"></div>
 
     <div class="max-w-4xl mx-auto px-4 text-center relative z-10 pt-10">
-        <div class="text-xs font-bold tracking-widest text-primary-red uppercase mb-4">YOUR NEXT STEP</div>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 serif">Ready to Build Your<br><span class="text-yellow-500">Dream Website?</span></h2>
-        <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto font-light">
+        <div class="reveal text-xs font-bold tracking-widest text-primary-red uppercase mb-4">YOUR NEXT STEP</div>
+        <h2 class="reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 serif">Ready to Build Your<br><span class="text-yellow-500">Dream Website?</span></h2>
+        <p class="reveal delay-100 text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto font-light">
             Get a free consultation and quote for your custom website. Let our expert team bring your digital vision to life with a stunning, high-performing website.
         </p>
 
-        <div class="flex flex-col sm:flex-row justify-center max-w-2xl mx-auto gap-2">
+        <div class="reveal delay-200 flex flex-col sm:flex-row justify-center max-w-2xl mx-auto gap-2">
             <input type="text" placeholder="Your Name" class="px-6 py-4 rounded-lg sm:rounded-r-none w-full sm:w-1/3 text-gray-800 focus:outline-none border-2 border-transparent focus:border-primary-red text-lg">
             <button class="bg-primary-red text-white px-8 py-4 rounded-lg sm:rounded-l-none font-bold text-lg hover:bg-red-800 transition flex items-center justify-center sm:w-2/3 shadow-lg">
                 Get Free Consultation <i class="fas fa-arrow-right ml-2"></i>
@@ -1023,5 +1039,17 @@ if (mobileMenuBtn && mobileMenu) {
 }
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
 </body>
 </html>
