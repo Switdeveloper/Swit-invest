@@ -232,6 +232,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    SEO is a long-term investment. Most businesses see noticeable improvements in rankings and organic traffic within 3-6 months. Competitive industries may take 6-12 months to achieve significant results, but the long-term ROI is substantial.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -241,6 +244,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    On-page SEO involves optimizing elements on your website like content, meta tags, headers, images, and site structure. Off-page SEO focuses on external factors like backlinks, social signals, and online reputation. Both are essential for ranking well.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -250,6 +256,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    No reputable SEO agency can guarantee specific rankings, as search algorithms are complex and competitive. However, we have a proven track record of significantly improving rankings and organic traffic for our clients through ethical, white-hat strategies.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -259,6 +268,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    Our SEO packages start at $1,200/month for local SEO and range up to $5,000+/month for competitive national campaigns. Pricing depends on your industry competition, website size, and goals. We'll provide a custom quote after our initial audit.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -268,6 +280,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    Yes, local SEO is one of our specialties. We optimize your Google Business Profile, manage local citations, build local backlinks, and ensure your business appears in local pack results and map searches for your service area.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -277,6 +292,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    You'll receive monthly reports covering keyword rankings, organic traffic, backlink growth, page performance, conversion metrics, and actionable recommendations. We also provide real-time dashboard access so you can monitor progress anytime.
+                </div>
             </div>
         </div>
     </div>
@@ -322,6 +340,22 @@ if (mobileMenuBtn && mobileMenu) {
         }
     });
 }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.space-y-4 button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const answer = this.parentElement.querySelector('.hidden');
+            if (!answer) return;
+            const icon = this.querySelector('.fa-plus, .fa-minus');
+            answer.classList.toggle('hidden');
+            if (icon) {
+                icon.classList.toggle('fa-plus');
+                icon.classList.toggle('fa-minus');
+            }
+        });
+    });
+});
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {

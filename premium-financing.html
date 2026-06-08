@@ -233,6 +233,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-5 text-gray-600 text-sm leading-relaxed hidden">
+                    Development timelines vary based on complexity. A simple app can be built in 2-3 months, while feature-rich applications with backend systems typically take 4-6 months. We'll provide a detailed timeline during the planning phase.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -242,6 +245,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-5 text-gray-600 text-sm leading-relaxed hidden">
+                    Pricing depends on features, platform, and complexity. Basic apps start around $5,000-10,000, mid-range apps $15,000-30,000, and complex enterprise apps $30,000+. We provide a free consultation and detailed quote based on your requirements.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -251,6 +257,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-5 text-gray-600 text-sm leading-relaxed hidden">
+                    Yes, we develop cross-platform apps using React Native and Flutter that work seamlessly on both iOS and Android, saving you time and money. We also offer native development in Swift and Kotlin for platform-specific requirements.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -260,6 +269,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-5 text-gray-600 text-sm leading-relaxed hidden">
+                    We use modern frameworks including React Native, Flutter, Swift, Kotlin, and Node.js for backend services. Our tech choices are based on your project's specific needs, ensuring optimal performance, scalability, and user experience.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -269,6 +281,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-5 text-gray-600 text-sm leading-relaxed hidden">
+                    Yes, we offer comprehensive maintenance plans including bug fixes, OS updates, performance monitoring, feature enhancements, and 24/7 emergency support. We recommend ongoing maintenance to keep your app running smoothly and securely.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded-lg shadow-sm">
@@ -278,6 +293,9 @@
                         <i class="fas fa-plus text-xs"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-5 text-gray-600 text-sm leading-relaxed hidden">
+                    Absolutely. We handle the entire app store submission process for both Apple App Store and Google Play Store, including preparing metadata, screenshots, app descriptions, and ensuring compliance with each platform's guidelines.
+                </div>
             </div>
         </div>
     </div>
@@ -332,6 +350,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
         revealObserver.observe(el);
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.space-y-4 button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const answer = this.parentElement.querySelector('.hidden');
+            if (!answer) return;
+            const icon = this.querySelector('.fa-plus, .fa-minus');
+            answer.classList.toggle('hidden');
+            if (icon) {
+                icon.classList.toggle('fa-plus');
+                icon.classList.toggle('fa-minus');
+            }
+        });
     });
 });
 </script>

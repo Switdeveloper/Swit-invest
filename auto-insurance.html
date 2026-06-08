@@ -233,6 +233,9 @@
                         <i class="fas fa-plus text-[10px]"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    A digital marketing strategy is a comprehensive plan that outlines how your business will achieve its marketing goals through online channels. It includes audience research, channel selection, content planning, budget allocation, and measurable KPIs to track performance.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded">
@@ -242,6 +245,9 @@
                         <i class="fas fa-plus text-[10px]"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    Results vary by strategy and industry, but most clients see initial improvements within 2-3 months. Significant, sustainable growth typically becomes visible within 4-6 months as campaigns are optimized and data accumulates.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded">
@@ -251,6 +257,9 @@
                         <i class="fas fa-plus text-[10px]"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    We cover all major digital channels including SEO, PPC advertising, social media marketing, email marketing, content marketing, display advertising, and video marketing. We recommend the channels that best align with your target audience and goals.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded">
@@ -260,6 +269,9 @@
                         <i class="fas fa-plus text-[10px]"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    We track comprehensive KPIs including website traffic, conversion rates, cost per acquisition, return on ad spend, engagement metrics, lead quality scores, and revenue attribution. You'll have access to real-time dashboards and monthly performance reports.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded">
@@ -269,6 +281,9 @@
                         <i class="fas fa-plus text-[10px]"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    Absolutely. We work with businesses of all sizes, from startups to enterprise organizations. Our strategies are customized to fit your budget and growth goals, ensuring maximum ROI regardless of your company size.
+                </div>
             </div>
 
             <div class="border border-gray-200 rounded">
@@ -278,6 +293,9 @@
                         <i class="fas fa-plus text-[10px]"></i>
                     </div>
                 </button>
+                <div class="px-6 pb-4 text-gray-600 text-sm leading-relaxed hidden">
+                    We offer flexible engagement options starting from $1,500/month for essential packages. Each plan is tailored to your specific needs, and we'll work with you to find a solution that fits your budget while delivering meaningful results.
+                </div>
             </div>
         </div>
     </div>
@@ -323,6 +341,22 @@ if (mobileMenuBtn && mobileMenu) {
 </script>
 
     <div id="footer-container"></div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.space-y-4 button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const answer = this.parentElement.querySelector('.hidden');
+            if (!answer) return;
+            const icon = this.querySelector('.fa-plus, .fa-minus');
+            answer.classList.toggle('hidden');
+            if (icon) {
+                icon.classList.toggle('fa-plus');
+                icon.classList.toggle('fa-minus');
+            }
+        });
+    });
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const revealObserver = new IntersectionObserver((entries) => {
