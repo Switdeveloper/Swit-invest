@@ -1041,6 +1041,29 @@ if (mobileMenuBtn && mobileMenu) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.space-y-4 button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const parent = this.parentElement;
+            const answer = parent.querySelector('[class*="pb-"]');
+            if (!answer) return;
+            const isOpening = answer.classList.contains('hidden');
+            document.querySelectorAll('.space-y-4 .border').forEach(item => {
+                const a = item.querySelector('[class*="pb-"]');
+                const i = item.querySelector('.fa-plus, .fa-minus');
+                if (a) a.classList.add('hidden');
+                if (i) { i.classList.add('fa-plus'); i.classList.remove('fa-minus'); }
+            });
+            if (isOpening) {
+                answer.classList.remove('hidden');
+                const icon = this.querySelector('.fa-plus, .fa-minus');
+                if (icon) { icon.classList.remove('fa-plus'); icon.classList.add('fa-minus'); }
+            }
+        });
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('visible');
