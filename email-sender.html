@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free email sender tool by SwitDeveloper - Upload email lists, compose messages, save templates, and send bulk emails via your default mail client.">
+    <meta name="keywords" content="email sender, bulk email tool, email composer, email list manager, free email tool">
+    <meta property="og:title" content="Email Sender Tool - SwitDeveloper">
+    <meta property="og:description" content="Compose, save, and send emails to your lists with this free email sender tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://switdeveloper.github.io/Swit-invest/email-sender.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://switdeveloper.github.io/Swit-invest/email-sender.html">
+    <title>Email Sender - Free Bulk Email Tool | SwitDeveloper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #333; }
+        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
+        .bg-dark-blue { background-color: #0d152e; }
+        .text-dark-blue { color: #0d152e; }
+        .bg-primary-red { background-color: #c91414; }
+        .text-primary-red { color: #c91414; }
+        .border-primary-red { border-color: #c91414; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.visible { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.visible { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-scale.visible { opacity:1; transform:scale(1); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+        .delay-500 { transition-delay:0.5s; }
+        .delay-600 { transition-delay:0.6s; }
+        .delay-700 { transition-delay:0.7s; }
+        .delay-800 { transition-delay:0.8s; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script src="js/load-partials.js"></script>
+</head>
+<body class="overflow-x-hidden">
+
+    <div id="header-container"></div>
+
+    <section class="relative bg-[#0d152e] pt-20 pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 -left-20 w-80 h-80 bg-primary-red/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <div class="flex items-center text-[10px] text-gray-400 mb-6 uppercase tracking-wider">
+                    <span class="hover:text-white cursor-pointer" onclick="window.location='index.html'">Home</span> <span class="mx-2">/</span> <span class="text-white">Email Sender</span>
+                </div>
+
+                <div class="flex items-center text-xs tracking-wider text-primary-red mb-6 uppercase">
+                    <div class="w-2 h-2 border border-primary-red transform rotate-45 mr-3"></div>
+                    Free Email Tool
+                </div>
+
+                <h1 class="reveal text-5xl md:text-7xl font-bold mb-4 leading-[1.1] serif text-white">
+                    Email <span class="text-primary-red">Sender</span>
+                </h1>
+
+                <p class="reveal delay-100 text-lg text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
+                    Compose, save templates, manage recipient lists, and send emails directly from your default mail client.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-3 space-y-6">
+                    <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                        <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
+                            <i class="fas fa-users text-primary-red"></i> Recipient List
+                        </h2>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Upload CSV / TXT</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-primary-red/40 transition cursor-pointer" id="dropZone">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-300 mb-2"></i>
+                                <p class="text-sm text-gray-500">Drop a .csv or .txt file here, or <span class="text-primary-red font-semibold cursor-pointer">browse</span></p>
+                                <p class="text-xs text-gray-400 mt-1">One email per line or comma-separated</p>
+                                <input type="file" id="fileInput" accept=".csv,.txt" class="hidden">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="pasteArea" class="block text-sm font-semibold text-gray-700 mb-2">Or Paste Email Addresses</label>
+                            <textarea id="pasteArea" rows="5" placeholder="john@example.com&#10;jane@example.com&#10;bob@company.com" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition"></textarea>
+                            <p class="text-xs text-gray-400 mt-1">Separate by comma, newline, or semicolon</p>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                        <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
+                            <i class="fas fa-envelope text-primary-red"></i> Message
+                        </h2>
+
+                        <div class="mb-4">
+                            <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" placeholder="Enter email subject..." class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="body" class="block text-sm font-semibold text-gray-700 mb-2">Body</label>
+                            <textarea id="body" rows="8" placeholder="Write your email message here..." class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition"></textarea>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <button id="saveMsgBtn" class="bg-dark-blue text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-dark-blue/90 transition inline-flex items-center gap-2">
+                                <i class="fas fa-save"></i> Save Message
+                            </button>
+                            <button id="loadMsgBtn" class="border border-gray-300 text-gray-600 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-50 transition inline-flex items-center gap-2">
+                                <i class="fas fa-folder-open"></i> Load Saved
+                            </button>
+                        </div>
+
+                        <div id="savedMsgsPanel" class="hidden mt-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                            <p class="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Saved Messages</p>
+                            <div id="savedMsgsList" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="reveal delay-200 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                        <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
+                            <i class="fas fa-chart-simple text-primary-red"></i> Summary
+                        </h2>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                <span class="text-sm text-gray-600">Total Recipients</span>
+                                <span id="totalCount" class="text-2xl font-bold text-dark-blue">0</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                                <span class="text-sm text-gray-600">Valid Emails</span>
+                                <span id="validCount" class="text-2xl font-bold text-green-600">0</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Invalid Lines</span>
+                                <span id="invalidCount" class="text-2xl font-bold text-red-500">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-300 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                        <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
+                            <i class="fas fa-bolt text-primary-red"></i> Actions
+                        </h2>
+                        <div class="space-y-3">
+                            <button id="scoutBtn" class="w-full border-2 border-primary-red text-primary-red px-6 py-3 rounded-xl font-bold hover:bg-red-50 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-binoculars"></i> Scout <span id="scoutCount" class="text-sm font-normal">(0)</span>
+                            </button>
+                            <button id="sendBtn" class="w-full bg-primary-red text-white px-6 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center justify-center gap-2 shadow-sm">
+                                <i class="fas fa-paper-plane"></i> Send
+                            </button>
+                            <button id="clearBtn" class="w-full border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-trash-alt"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="scoutModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[80vh] flex flex-col">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 class="text-lg font-bold text-dark-blue flex items-center gap-2">
+                    <i class="fas fa-binoculars text-primary-red"></i> Email List Preview
+                </h3>
+                <button onclick="closeScout()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center text-gray-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-1">
+                <p class="text-sm text-gray-500 mb-3">
+                    <span id="scoutValidCount" class="font-bold text-green-600"></span> valid emails found
+                    (<span id="scoutInvalidCount" class="font-bold text-red-500"></span> invalid)
+                </p>
+                <div id="scoutList" class="space-y-1"></div>
+            </div>
+            <div class="p-4 border-t border-gray-100 flex justify-end">
+                <button onclick="closeScout()" class="bg-dark-blue text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-dark-blue/90 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="saveModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6">
+            <h3 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
+                <i class="fas fa-save text-primary-red"></i> Save Message Template
+            </h3>
+            <label for="saveName" class="block text-sm font-semibold text-gray-700 mb-2">Template Name</label>
+            <input type="text" id="saveName" placeholder="e.g. Welcome Email, Follow-up..." class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition mb-4">
+            <div class="flex gap-3 justify-end">
+                <button onclick="closeSaveModal()" class="border border-gray-300 text-gray-600 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-50 transition">Cancel</button>
+                <button id="confirmSaveBtn" class="bg-dark-blue text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-dark-blue/90 transition">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 bg-dark-blue text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 120 0 0 1200 120z" class="fill-gray-50"></path>
+            </svg>
+        </div>
+        <div class="absolute top-40 -right-20 w-72 h-72 bg-primary-red/10 rounded-full blur-3xl"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 pt-16">
+            <div class="reveal">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Need More Power?</h2>
+                <p class="reveal delay-100 text-gray-300 mb-8 text-lg">Check out our full-featured bulk email application for advanced sending, tracking, and analytics.</p>
+                <div class="reveal delay-200 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-primary-red text-white px-8 py-4 rounded-lg font-bold hover:bg-red-800 transition inline-flex items-center gap-2 shadow-lg">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+<script>
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.className = 'fas fa-bars fa-lg';
+        } else {
+            icon.className = 'fas fa-times fa-lg';
+        }
+    });
+}
+</script>
+
+<script>
+let parsedEmails = [];
+let savedMessages = JSON.parse(localStorage.getItem('emailTemplates') || '[]');
+
+function parseEmails(text) {
+    const raw = text.split(/[\n,;]+/).map(s => s.trim()).filter(s => s.length > 0);
+    const valid = [];
+    const invalid = [];
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    raw.forEach(e => {
+        if (emailRe.test(e)) valid.push(e);
+        else invalid.push(e);
+    });
+    return { valid, invalid };
+}
+
+function updateSummary() {
+    const paste = document.getElementById('pasteArea').value;
+    const result = parseEmails(paste);
+    parsedEmails = result.valid;
+    document.getElementById('totalCount').textContent = result.valid.length + result.invalid.length;
+    document.getElementById('validCount').textContent = result.valid.length;
+    document.getElementById('invalidCount').textContent = result.invalid.length;
+    document.getElementById('scoutCount').textContent = `(${result.valid.length})`;
+}
+
+document.getElementById('pasteArea').addEventListener('input', updateSummary);
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('click', () => fileInput.click());
+
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('border-primary-red', 'bg-red-50');
+});
+
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('border-primary-red', 'bg-red-50');
+});
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('border-primary-red', 'bg-red-50');
+    const files = e.dataTransfer.files;
+    if (files.length > 0) handleFile(files[0]);
+});
+
+fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) handleFile(e.target.files[0]);
+});
+
+function handleFile(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const text = e.target.result;
+        const pasteArea = document.getElementById('pasteArea');
+        if (pasteArea.value) {
+            pasteArea.value += '\n' + text;
+        } else {
+            pasteArea.value = text;
+        }
+        updateSummary();
+    };
+    reader.readAsText(file);
+}
+
+document.getElementById('scoutBtn').addEventListener('click', () => {
+    const paste = document.getElementById('pasteArea').value;
+    const result = parseEmails(paste);
+    const list = document.getElementById('scoutList');
+    list.innerHTML = '';
+    document.getElementById('scoutValidCount').textContent = result.valid.length;
+    document.getElementById('scoutInvalidCount').textContent = result.invalid.length;
+    if (result.valid.length === 0) {
+        list.innerHTML = '<p class="text-gray-400 text-sm text-center py-8">No valid emails found.</p>';
+    } else {
+        result.valid.forEach((email, i) => {
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm';
+            div.innerHTML = `<span class="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold">${i + 1}</span><span class="text-gray-700">${email}</span>`;
+            list.appendChild(div);
+        });
+    }
+    document.getElementById('scoutModal').classList.remove('hidden');
+    document.getElementById('scoutModal').classList.add('flex');
+});
+
+function closeScout() {
+    document.getElementById('scoutModal').classList.add('hidden');
+    document.getElementById('scoutModal').classList.remove('flex');
+}
+
+document.getElementById('saveMsgBtn').addEventListener('click', () => {
+    const subject = document.getElementById('subject').value.trim();
+    const body = document.getElementById('body').value.trim();
+    if (!subject && !body) {
+        alert('Please enter a subject or body before saving.');
+        return;
+    }
+    document.getElementById('saveModal').classList.remove('hidden');
+    document.getElementById('saveModal').classList.add('flex');
+    document.getElementById('saveName').value = '';
+    document.getElementById('saveName').focus();
+});
+
+document.getElementById('confirmSaveBtn').addEventListener('click', () => {
+    const name = document.getElementById('saveName').value.trim();
+    if (!name) { alert('Please enter a template name.'); return; }
+    const subject = document.getElementById('subject').value.trim();
+    const body = document.getElementById('body').value.trim();
+    savedMessages.push({ name, subject, body, date: new Date().toISOString() });
+    localStorage.setItem('emailTemplates', JSON.stringify(savedMessages));
+    closeSaveModal();
+    renderSavedMessages();
+});
+
+function closeSaveModal() {
+    document.getElementById('saveModal').classList.add('hidden');
+    document.getElementById('saveModal').classList.remove('flex');
+}
+
+document.getElementById('loadMsgBtn').addEventListener('click', () => {
+    const panel = document.getElementById('savedMsgsPanel');
+    panel.classList.toggle('hidden');
+    renderSavedMessages();
+});
+
+function renderSavedMessages() {
+    const list = document.getElementById('savedMsgsList');
+    list.innerHTML = '';
+    if (savedMessages.length === 0) {
+        list.innerHTML = '<p class="text-sm text-gray-400 text-center py-4">No saved messages yet.</p>';
+        return;
+    }
+    savedMessages.forEach((msg, i) => {
+        const div = document.createElement('div');
+        div.className = 'flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:border-primary-red/20 transition';
+        div.innerHTML = `
+            <div class="flex-1 min-w-0 cursor-pointer" onclick="loadMessage(${i})">
+                <p class="text-sm font-semibold text-dark-blue truncate">${msg.name}</p>
+                <p class="text-xs text-gray-400 truncate">${msg.subject || '(no subject)'}</p>
+            </div>
+            <button onclick="deleteMessage(${i})" class="text-gray-400 hover:text-red-500 transition ml-2 flex-shrink-0"><i class="fas fa-trash-alt text-xs"></i></button>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function loadMessage(i) {
+    const msg = savedMessages[i];
+    if (msg) {
+        document.getElementById('subject').value = msg.subject || '';
+        document.getElementById('body').value = msg.body || '';
+    }
+    document.getElementById('savedMsgsPanel').classList.add('hidden');
+}
+
+function deleteMessage(i) {
+    savedMessages.splice(i, 1);
+    localStorage.setItem('emailTemplates', JSON.stringify(savedMessages));
+    renderSavedMessages();
+}
+
+document.getElementById('sendBtn').addEventListener('click', () => {
+    const paste = document.getElementById('pasteArea').value;
+    const result = parseEmails(paste);
+    if (result.valid.length === 0) {
+        alert('No valid email addresses to send to.');
+        return;
+    }
+    const subject = encodeURIComponent(document.getElementById('subject').value.trim() || '(no subject)');
+    const body = encodeURIComponent(document.getElementById('body').value.trim() || '');
+    const to = result.valid.join(',');
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+    if (!confirm('Clear all recipients and message fields?')) return;
+    document.getElementById('pasteArea').value = '';
+    document.getElementById('subject').value = '';
+    document.getElementById('body').value = '';
+    updateSummary();
+});
+
+updateSummary();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
+</body>
+</html>
