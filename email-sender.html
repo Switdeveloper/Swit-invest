@@ -104,17 +104,7 @@
                         </div>
                     </div>
 
-                    <div id="addedEmailsSection" class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hidden">
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-bold text-dark-blue flex items-center gap-2">
-                                <i class="fas fa-list text-primary-red"></i> Added Emails
-                            </h2>
-                            <button id="removeAllBtn" class="text-xs text-red-500 hover:text-red-700 font-semibold transition hidden">Remove All</button>
-                        </div>
-                        <div id="addedEmailsList" class="space-y-1.5 max-h-64 overflow-y-auto"></div>
-                    </div>
-
-                    <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                         <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
                             <i class="fas fa-envelope text-primary-red"></i> Message
                         </h2>
@@ -142,6 +132,17 @@
                             <p class="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Saved Messages</p>
                             <div id="savedMsgsList" class="space-y-2"></div>
                         </div>
+                    </div>
+
+                    <div id="addedEmailsSection" class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-bold text-dark-blue flex items-center gap-2">
+                                <i class="fas fa-list text-primary-red"></i> Added Emails
+                            </h2>
+                            <button id="removeAllBtn" class="text-xs text-red-500 hover:text-red-700 font-semibold transition hidden">Remove All</button>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">Click any email to send — one at a time</p>
+                        <div id="addedEmailsList" class="space-y-1.5 max-h-64 overflow-y-auto"></div>
                     </div>
                 </div>
 
