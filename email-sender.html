@@ -104,6 +104,16 @@
                         </div>
                     </div>
 
+                    <div id="addedEmailsSection" class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-bold text-dark-blue flex items-center gap-2">
+                                <i class="fas fa-list text-primary-red"></i> Added Emails
+                            </h2>
+                            <button id="removeAllBtn" class="text-xs text-red-500 hover:text-red-700 font-semibold transition hidden">Remove All</button>
+                        </div>
+                        <div id="addedEmailsList" class="space-y-1.5 max-h-64 overflow-y-auto"></div>
+                    </div>
+
                     <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                         <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
                             <i class="fas fa-envelope text-primary-red"></i> Message
@@ -277,6 +287,53 @@ function updateSummary() {
     document.getElementById('validCount').textContent = result.valid.length;
     document.getElementById('invalidCount').textContent = result.invalid.length;
     document.getElementById('scoutCount').textContent = `(${result.valid.length})`;
+    renderAddedEmails();
+}
+
+function renderAddedEmails() {
+    const section = document.getElementById('addedEmailsSection');
+    const list = document.getElementById('addedEmailsList');
+    const removeAll = document.getElementById('removeAllBtn');
+    list.innerHTML = '';
+    if (parsedEmails.length === 0) {
+        section.classList.add('hidden');
+        return;
+    }
+    section.classList.remove('hidden');
+    removeAll.classList.remove('hidden');
+    parsedEmails.forEach((email, i) => {
+        const div = document.createElement('div');
+        div.className = 'flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-50 group border border-transparent hover:border-gray-200 transition';
+        div.innerHTML = `
+            <div class="flex items-center gap-3 min-w-0">
+                <span class="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i + 1}</span>
+                <span class="text-sm text-gray-700 truncate">${email}</span>
+            </div>
+            <button onclick="removeEmail(${i})" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 flex-shrink-0 ml-2" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function removeEmail(index) {
+    const paste = document.getElementById('pasteArea');
+    const lines = paste.value.split(/[\n,;]+/).map(s => s.trim()).filter(s => s.length > 0);
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let found = -1;
+    let count = 0;
+    for (let i = 0; i < lines.length; i++) {
+        if (emailRe.test(lines[i])) {
+            if (count === index) { found = i; break; }
+            count++;
+        }
+    }
+    if (found !== -1) {
+        lines.splice(found, 1);
+        paste.value = lines.join('\n');
+        updateSummary();
+    }
 }
 
 document.getElementById('pasteArea').addEventListener('input', updateSummary);
@@ -429,6 +486,11 @@ document.getElementById('sendBtn').addEventListener('click', () => {
     const body = encodeURIComponent(document.getElementById('body').value.trim() || '');
     const to = result.valid.join(',');
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+});
+
+document.getElementById('removeAllBtn').addEventListener('click', () => {
+    document.getElementById('pasteArea').value = '';
+    updateSummary();
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
