@@ -303,15 +303,17 @@ function renderAddedEmails() {
         const div = document.createElement('div');
         div.className = 'flex items-center justify-between py-2 px-3 rounded-lg group border border-transparent transition cursor-pointer';
         div.innerHTML = `
-            <div onclick="sendTo('${email}')" class="flex items-center gap-3 min-w-0 flex-1">
+            <div data-index="${i}" class="flex items-center gap-3 min-w-0 flex-1 send-trigger">
                 <span class="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i + 1}</span>
                 <span class="text-sm text-gray-700 truncate group-hover:text-primary-red transition">${email}</span>
                 <i class="fas fa-paper-plane text-xs text-gray-300 group-hover:text-primary-red transition ml-auto opacity-0 group-hover:opacity-100"></i>
             </div>
-            <button onclick="event.stopPropagation(); removeEmail(${i})" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 flex-shrink-0 ml-2" title="Remove">
+            <button data-remove="${i}" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 flex-shrink-0 ml-2 remove-trigger" title="Remove">
                 <i class="fas fa-times"></i>
             </button>
         `;
+        div.querySelector('.send-trigger').addEventListener('click', () => sendTo(parsedEmails[i]));
+        div.querySelector('.remove-trigger').addEventListener('click', (e) => { e.stopPropagation(); removeEmail(i); });
         list.appendChild(div);
     });
 }
@@ -338,7 +340,13 @@ function removeEmail(index) {
 function sendTo(email) {
     const subject = encodeURIComponent(document.getElementById('subject').value.trim() || '(no subject)');
     const body = encodeURIComponent(document.getElementById('body').value.trim() || '');
-    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
+    const link = document.createElement('a');
+    link.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 document.getElementById('pasteArea').addEventListener('input', updateSummary);
