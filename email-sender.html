@@ -174,9 +174,6 @@
                             <button id="scoutBtn" class="w-full border-2 border-primary-red text-primary-red px-6 py-3 rounded-xl font-bold hover:bg-red-50 transition flex items-center justify-center gap-2">
                                 <i class="fas fa-binoculars"></i> Scout <span id="scoutCount" class="text-sm font-normal">(0)</span>
                             </button>
-                            <button id="sendBtn" class="w-full bg-primary-red text-white px-6 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center justify-center gap-2 shadow-sm">
-                                <i class="fas fa-paper-plane"></i> Send
-                            </button>
                             <button id="clearBtn" class="w-full border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center justify-center gap-2">
                                 <i class="fas fa-trash-alt"></i> Clear All
                             </button>
@@ -303,13 +300,14 @@ function renderAddedEmails() {
     removeAll.classList.remove('hidden');
     parsedEmails.forEach((email, i) => {
         const div = document.createElement('div');
-        div.className = 'flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-50 group border border-transparent hover:border-gray-200 transition';
+        div.className = 'flex items-center justify-between py-2 px-3 rounded-lg group border border-transparent transition cursor-pointer';
         div.innerHTML = `
-            <div class="flex items-center gap-3 min-w-0">
+            <div onclick="sendTo('${email}')" class="flex items-center gap-3 min-w-0 flex-1">
                 <span class="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i + 1}</span>
-                <span class="text-sm text-gray-700 truncate">${email}</span>
+                <span class="text-sm text-gray-700 truncate group-hover:text-primary-red transition">${email}</span>
+                <i class="fas fa-paper-plane text-xs text-gray-300 group-hover:text-primary-red transition ml-auto opacity-0 group-hover:opacity-100"></i>
             </div>
-            <button onclick="removeEmail(${i})" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 flex-shrink-0 ml-2" title="Remove">
+            <button onclick="event.stopPropagation(); removeEmail(${i})" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 flex-shrink-0 ml-2" title="Remove">
                 <i class="fas fa-times"></i>
             </button>
         `;
@@ -334,6 +332,12 @@ function removeEmail(index) {
         paste.value = lines.join('\n');
         updateSummary();
     }
+}
+
+function sendTo(email) {
+    const subject = encodeURIComponent(document.getElementById('subject').value.trim() || '(no subject)');
+    const body = encodeURIComponent(document.getElementById('body').value.trim() || '');
+    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
 }
 
 document.getElementById('pasteArea').addEventListener('input', updateSummary);
@@ -474,19 +478,6 @@ function deleteMessage(i) {
     localStorage.setItem('emailTemplates', JSON.stringify(savedMessages));
     renderSavedMessages();
 }
-
-document.getElementById('sendBtn').addEventListener('click', () => {
-    const paste = document.getElementById('pasteArea').value;
-    const result = parseEmails(paste);
-    if (result.valid.length === 0) {
-        alert('No valid email addresses to send to.');
-        return;
-    }
-    const subject = encodeURIComponent(document.getElementById('subject').value.trim() || '(no subject)');
-    const body = encodeURIComponent(document.getElementById('body').value.trim() || '');
-    const to = result.valid.join(',');
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-});
 
 document.getElementById('removeAllBtn').addEventListener('click', () => {
     document.getElementById('pasteArea').value = '';
