@@ -7,13 +7,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             headerContainer.innerHTML = headerHTML;
 
             setupDesktopDropdown();
+            setupDesktopTools();
             setupMobileMenu();
             setupMobileServices();
+            setupMobileTools();
         } catch (e) {
             console.log('Header loaded inline');
             setupDesktopDropdown();
+            setupDesktopTools();
             setupMobileMenu();
             setupMobileServices();
+            setupMobileTools();
         }
     }
 
@@ -98,6 +102,46 @@ function setupMobileServices() {
     const toggle = document.getElementById('mobileServicesToggle');
     const sub = document.getElementById('mobileServicesSub');
     const arrow = document.getElementById('mobileServicesArrow');
+
+    if (!toggle || !sub) return;
+
+    toggle.addEventListener('click', () => {
+        sub.classList.toggle('hidden');
+        if (arrow) {
+            arrow.style.transform = sub.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+    });
+}
+
+function setupDesktopTools() {
+    const dropdownBtn = document.getElementById('toolsDropdownBtn');
+    const menu = document.getElementById('toolsMenu');
+    const arrow = document.getElementById('toolsArrow');
+
+    if (!dropdownBtn || !menu) return;
+
+    dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        if (arrow) {
+            arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('desktopToolsDropdown');
+        if (wrapper && !wrapper.contains(e.target) && !menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+        }
+    });
+}
+
+function setupMobileTools() {
+    const toggle = document.getElementById('mobileToolsToggle');
+    const sub = document.getElementById('mobileToolsSub');
+    const arrow = document.getElementById('mobileToolsArrow');
 
     if (!toggle || !sub) return;
 
