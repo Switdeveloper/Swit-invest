@@ -264,6 +264,25 @@ if (mobileMenuBtn && mobileMenu) {
 <script>
 let parsedEmails = [];
 let savedMessages = JSON.parse(localStorage.getItem('emailTemplates') || '[]');
+let sentEmails = new Set(JSON.parse(localStorage.getItem('sentEmails') || '[]'));
+
+function saveLastMessage() {
+    const data = {
+        subject: document.getElementById('subject').value,
+        body: document.getElementById('body').value
+    };
+    localStorage.setItem('lastMessage', JSON.stringify(data));
+}
+
+function restoreLastMessage() {
+    try {
+        const data = JSON.parse(localStorage.getItem('lastMessage'));
+        if (data) {
+            document.getElementById('subject').value = data.subject || '';
+            document.getElementById('body').value = data.body || '';
+        }
+    } catch(e) {}
+}
 
 function parseEmails(text) {
     const raw = text.split(/[\n,;]+/).map(s => s.trim()).filter(s => s.length > 0);
@@ -300,19 +319,22 @@ function renderAddedEmails() {
     section.classList.remove('hidden');
     removeAll.classList.remove('hidden');
     parsedEmails.forEach((email, i) => {
+        const sent = sentEmails.has(email);
         const div = document.createElement('div');
-        div.className = 'flex items-center justify-between py-2 px-3 rounded-lg group border border-transparent transition cursor-pointer';
+        div.className = `flex items-center justify-between py-2 px-3 rounded-lg group border border-transparent transition cursor-pointer ${sent ? 'opacity-50' : ''}`;
         div.innerHTML = `
             <div data-index="${i}" class="flex items-center gap-3 min-w-0 flex-1 send-trigger">
-                <span class="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i + 1}</span>
-                <span class="text-sm text-gray-700 truncate group-hover:text-primary-red transition">${email}</span>
-                <i class="fas fa-paper-plane text-xs text-gray-300 group-hover:text-primary-red transition ml-auto opacity-0 group-hover:opacity-100"></i>
+                <span class="w-6 h-6 rounded-full ${sent ? 'bg-gray-200 text-gray-400' : 'bg-green-100 text-green-700'} flex items-center justify-center text-xs font-bold flex-shrink-0">${sent ? '<i class="fas fa-check"></i>' : i + 1}</span>
+                <span class="text-sm ${sent ? 'text-gray-400 line-through' : 'text-gray-700'} truncate group-hover:text-primary-red transition">${email}</span>
+                ${sent ? '<i class="fas fa-check-circle text-xs text-green-400 ml-auto"></i>' : '<i class="fas fa-paper-plane text-xs text-gray-300 group-hover:text-primary-red transition ml-auto opacity-0 group-hover:opacity-100"></i>'}
             </div>
             <button data-remove="${i}" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 flex-shrink-0 ml-2 remove-trigger" title="Remove">
                 <i class="fas fa-times"></i>
             </button>
         `;
-        div.querySelector('.send-trigger').addEventListener('click', () => sendTo(parsedEmails[i]));
+        if (!sent) {
+            div.querySelector('.send-trigger').addEventListener('click', () => sendTo(parsedEmails[i]));
+        }
         div.querySelector('.remove-trigger').addEventListener('click', (e) => { e.stopPropagation(); removeEmail(i); });
         list.appendChild(div);
     });
@@ -338,6 +360,9 @@ function removeEmail(index) {
 }
 
 function sendTo(email) {
+    sentEmails.add(email);
+    localStorage.setItem('sentEmails', JSON.stringify([...sentEmails]));
+    renderAddedEmails();
     const subject = encodeURIComponent(document.getElementById('subject').value.trim() || '(no subject)');
     const body = encodeURIComponent(document.getElementById('body').value.trim() || '');
     const link = document.createElement('a');
@@ -350,6 +375,8 @@ function sendTo(email) {
 }
 
 document.getElementById('pasteArea').addEventListener('input', updateSummary);
+document.getElementById('subject').addEventListener('input', saveLastMessage);
+document.getElementById('body').addEventListener('input', saveLastMessage);
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -498,9 +525,13 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     document.getElementById('pasteArea').value = '';
     document.getElementById('subject').value = '';
     document.getElementById('body').value = '';
+    sentEmails.clear();
+    localStorage.removeItem('sentEmails');
+    saveLastMessage();
     updateSummary();
 });
 
+restoreLastMessage();
 updateSummary();
 </script>
 
