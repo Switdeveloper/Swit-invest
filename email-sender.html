@@ -274,12 +274,18 @@ function saveLastMessage() {
     localStorage.setItem('lastMessage', JSON.stringify(data));
 }
 
-function restoreLastMessage() {
+function saveLastList() {
+    localStorage.setItem('lastEmailList', document.getElementById('pasteArea').value);
+}
+
+function restoreLastSession() {
     try {
-        const data = JSON.parse(localStorage.getItem('lastMessage'));
-        if (data) {
-            document.getElementById('subject').value = data.subject || '';
-            document.getElementById('body').value = data.body || '';
+        const list = localStorage.getItem('lastEmailList');
+        if (list) document.getElementById('pasteArea').value = list;
+        const msg = JSON.parse(localStorage.getItem('lastMessage'));
+        if (msg) {
+            document.getElementById('subject').value = msg.subject || '';
+            document.getElementById('body').value = msg.body || '';
         }
     } catch(e) {}
 }
@@ -356,6 +362,7 @@ function removeEmail(index) {
         lines.splice(found, 1);
         paste.value = lines.join('\n');
         updateSummary();
+        saveLastList();
     }
 }
 
@@ -374,7 +381,7 @@ function sendTo(email) {
     document.body.removeChild(link);
 }
 
-document.getElementById('pasteArea').addEventListener('input', updateSummary);
+document.getElementById('pasteArea').addEventListener('input', () => { updateSummary(); saveLastList(); });
 document.getElementById('subject').addEventListener('input', saveLastMessage);
 document.getElementById('body').addEventListener('input', saveLastMessage);
 
@@ -414,6 +421,7 @@ function handleFile(file) {
             pasteArea.value = text;
         }
         updateSummary();
+        saveLastList();
     };
     reader.readAsText(file);
 }
@@ -518,6 +526,7 @@ function deleteMessage(i) {
 document.getElementById('removeAllBtn').addEventListener('click', () => {
     document.getElementById('pasteArea').value = '';
     updateSummary();
+    saveLastList();
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -527,11 +536,12 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     document.getElementById('body').value = '';
     sentEmails.clear();
     localStorage.removeItem('sentEmails');
+    localStorage.removeItem('lastEmailList');
     saveLastMessage();
     updateSummary();
 });
 
-restoreLastMessage();
+restoreLastSession();
 updateSummary();
 </script>
 
