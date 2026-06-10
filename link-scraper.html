@@ -57,7 +57,7 @@
                     Link <span class="text-primary-red">Scraper</span>
                 </h1>
                 <p class="reveal delay-100 text-lg text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
-                    Enter any URL and extract every link — with anchor text — from the page.
+                    Paste any HTML content and extract every link with anchor text instantly.
                 </p>
             </div>
         </div>
@@ -69,13 +69,15 @@
                 <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
                     <i class="fas fa-search text-primary-red"></i> Scrape Links
                 </h2>
-                <div class="flex gap-3">
-                    <input type="url" id="scrapeUrl" placeholder="https://example.com" class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
-                    <button id="scrapeBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 whitespace-nowrap shadow-sm">
-                        <i class="fas fa-bolt"></i> Scrape
+                <textarea id="pasteContent" rows="8" placeholder="Paste HTML or page source here...&#10;&#10;&lt;a href=&quot;https://example.com&quot;&gt;Example&lt;/a&gt;&#10;&lt;a href=&quot;https://google.com&quot;&gt;Google&lt;/a&gt;" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition"></textarea>
+                <div class="flex gap-3 mt-4">
+                    <button id="scrapeBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
+                        <i class="fas fa-bolt"></i> Extract Links
+                    </button>
+                    <button id="clearBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
+                        <i class="fas fa-trash-alt"></i> Clear
                     </button>
                 </div>
-                <div id="scrapeStatus" class="hidden mt-3 text-sm"></div>
             </div>
 
             <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
@@ -89,7 +91,7 @@
                     </div>
                 </div>
                 <div id="linkResults" class="space-y-1.5 max-h-96 overflow-y-auto">
-                    <p class="text-sm text-gray-400 text-center py-12">Enter a URL and click Scrape to find links.</p>
+                    <p class="text-sm text-gray-400 text-center py-12">Paste HTML content above and click Extract Links.</p>
                 </div>
             </div>
         </div>
@@ -137,83 +139,44 @@ if (mobileMenuBtn && mobileMenu) {
 </script>
 
 <script>
-const PROXIES = [
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
-];
+document.getElementById('scrapeBtn').addEventListener('click', extractLinks);
 
-document.getElementById('scrapeBtn').addEventListener('click', scrapeLinks);
-document.getElementById('scrapeUrl').addEventListener('keydown', e => { if (e.key === 'Enter') scrapeLinks(); });
+document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('pasteContent').value = '';
+    document.getElementById('linkResults').innerHTML = '<p class="text-sm text-gray-400 text-center py-12">Paste HTML content above and click Extract Links.</p>';
+    document.getElementById('linkCount').textContent = '0 results';
+    document.getElementById('copyLinksBtn').classList.add('hidden');
+});
 
-async function scrapeLinks() {
-    const url = document.getElementById('scrapeUrl').value.trim();
-    const status = document.getElementById('scrapeStatus');
+function extractLinks() {
+    const content = document.getElementById('pasteContent').value;
     const results = document.getElementById('linkResults');
     const count = document.getElementById('linkCount');
     const copyBtn = document.getElementById('copyLinksBtn');
 
-    if (!url) { alert('Please enter a URL.'); return; }
+    if (!content.trim()) { alert('Please paste some content first.'); return; }
 
-    status.className = 'mt-3 text-sm text-blue-600';
-    status.textContent = 'Scraping...';
-    status.classList.remove('hidden');
-    results.innerHTML = '';
-    count.textContent = '0 results';
-    copyBtn.classList.add('hidden');
+    const linkRe = /https?:\/\/[^\"'\s<>\)\]]+/g;
+    const rawLinks = content.match(linkRe) || [];
+    const links = [...new Set(rawLinks)];
 
-    let html = null;
-    for (const proxy of PROXIES) {
-        try {
-            const res = await fetch(proxy(url), { signal: AbortSignal.timeout(15000) });
-            if (res.ok) { html = await res.text(); break; }
-        } catch(e) { continue; }
-    }
-
-    if (!html) {
-        status.className = 'mt-3 text-sm text-red-500';
-        status.textContent = 'Failed to fetch page. The site may block scraping.';
-        return;
-    }
-
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const anchors = doc.querySelectorAll('a[href]');
-    const linkSet = new Set();
-
-    anchors.forEach(a => {
-        const href = a.getAttribute('href');
-        const text = (a.textContent || '').trim().substring(0, 100);
-        if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
-            try {
-                const absolute = new URL(href, url).href;
-                linkSet.add(JSON.stringify({ url: absolute, text: text || '(no text)' }));
-            } catch(e) {}
-        }
-    });
-
-    const links = [...linkSet].map(s => JSON.parse(s));
-
-    status.classList.add('hidden');
     count.textContent = `${links.length} link${links.length !== 1 ? 's' : ''}`;
     results.innerHTML = '';
+    copyBtn.classList.add('hidden');
 
     if (links.length === 0) {
-        results.innerHTML = '<p class="text-sm text-gray-400 text-center py-8">No links found on this page.</p>';
+        results.innerHTML = '<p class="text-sm text-gray-400 text-center py-8">No links found in the content.</p>';
         return;
     }
 
     copyBtn.classList.remove('hidden');
-    links.forEach((link, i) => {
+    links.forEach((url, i) => {
         const div = document.createElement('div');
         div.className = 'flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 text-sm group';
-        div.innerHTML = `
-            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">${i + 1}</span>
+        div.innerHTML = `<span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">${i + 1}</span>
             <div class="flex-1 min-w-0">
-                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="text-primary-red hover:underline font-medium text-sm block truncate">${link.url}</a>
-                <span class="text-xs text-gray-400 block truncate mt-0.5">${link.text}</span>
-            </div>
-        `;
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="text-primary-red hover:underline font-medium text-sm block truncate">${url}</a>
+            </div>`;
         results.appendChild(div);
     });
 }

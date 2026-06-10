@@ -67,7 +67,7 @@
                     Email <span class="text-primary-red">Scraper</span>
                 </h1>
                 <p class="reveal delay-100 text-lg text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
-                    Enter any URL and instantly extract all email addresses found on the page.
+                    Paste any text or HTML content and instantly extract all email addresses.
                 </p>
             </div>
         </div>
@@ -79,13 +79,15 @@
                 <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
                     <i class="fas fa-search text-primary-red"></i> Scrape Emails
                 </h2>
-                <div class="flex gap-3">
-                    <input type="url" id="scrapeUrl" placeholder="https://example.com" class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
-                    <button id="scrapeBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 whitespace-nowrap shadow-sm">
-                        <i class="fas fa-bolt"></i> Scrape
+                <textarea id="pasteContent" rows="8" placeholder="Paste HTML, text, or page source here...&#10;&#10;example@company.com&#10;support@example.org&#10;contact@business.com" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition"></textarea>
+                <div class="flex gap-3 mt-4">
+                    <button id="scrapeBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
+                        <i class="fas fa-bolt"></i> Extract Emails
+                    </button>
+                    <button id="clearBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
+                        <i class="fas fa-trash-alt"></i> Clear
                     </button>
                 </div>
-                <div id="scrapeStatus" class="hidden mt-3 text-sm"></div>
             </div>
 
             <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
@@ -99,7 +101,7 @@
                     </div>
                 </div>
                 <div id="emailResults" class="space-y-1.5 max-h-96 overflow-y-auto">
-                    <p class="text-sm text-gray-400 text-center py-12">Enter a URL and click Scrape to find emails.</p>
+                    <p class="text-sm text-gray-400 text-center py-12">Paste content above and click Extract Emails.</p>
                 </div>
             </div>
         </div>
@@ -148,54 +150,32 @@ if (mobileMenuBtn && mobileMenu) {
 </script>
 
 <script>
-const PROXIES = [
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
-];
+document.getElementById('scrapeBtn').addEventListener('click', extractEmails);
 
-document.getElementById('scrapeBtn').addEventListener('click', scrapeEmails);
-document.getElementById('scrapeUrl').addEventListener('keydown', e => { if (e.key === 'Enter') scrapeEmails(); });
+document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('pasteContent').value = '';
+    document.getElementById('emailResults').innerHTML = '<p class="text-sm text-gray-400 text-center py-12">Paste content above and click Extract Emails.</p>';
+    document.getElementById('emailCount').textContent = '0 results';
+    document.getElementById('copyEmailsBtn').classList.add('hidden');
+});
 
-async function scrapeEmails() {
-    const url = document.getElementById('scrapeUrl').value.trim();
-    const status = document.getElementById('scrapeStatus');
+function extractEmails() {
+    const content = document.getElementById('pasteContent').value;
     const results = document.getElementById('emailResults');
     const count = document.getElementById('emailCount');
     const copyBtn = document.getElementById('copyEmailsBtn');
 
-    if (!url) { alert('Please enter a URL.'); return; }
-
-    status.className = 'mt-3 text-sm text-blue-600';
-    status.textContent = 'Scraping...';
-    status.classList.remove('hidden');
-    results.innerHTML = '';
-    count.textContent = '0 results';
-    copyBtn.classList.add('hidden');
-
-    let html = null;
-    for (const proxy of PROXIES) {
-        try {
-            const res = await fetch(proxy(url), { signal: AbortSignal.timeout(15000) });
-            if (res.ok) { html = await res.text(); break; }
-        } catch(e) { continue; }
-    }
-
-    if (!html) {
-        status.className = 'mt-3 text-sm text-red-500';
-        status.textContent = 'Failed to fetch page. The site may block scraping.';
-        return;
-    }
+    if (!content.trim()) { alert('Please paste some content first.'); return; }
 
     const emailRe = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-    const emails = [...new Set(html.match(emailRe) || [])].sort();
+    const emails = [...new Set(content.match(emailRe) || [])].sort();
 
-    status.classList.add('hidden');
     count.textContent = `${emails.length} result${emails.length !== 1 ? 's' : ''}`;
     results.innerHTML = '';
+    copyBtn.classList.add('hidden');
 
     if (emails.length === 0) {
-        results.innerHTML = '<p class="text-sm text-gray-400 text-center py-8">No email addresses found on this page.</p>';
+        results.innerHTML = '<p class="text-sm text-gray-400 text-center py-8">No email addresses found in the content.</p>';
         return;
     }
 
@@ -206,7 +186,7 @@ async function scrapeEmails() {
         div.innerHTML = `
             <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i + 1}</span>
             <span class="text-gray-700 flex-1">${email}</span>
-            <button onclick="copyText('${email}')" class="text-xs text-gray-400 hover:text-primary-red transition opacity-0 group-hover:opacity-100"><i class="fas fa-copy"></i></button>
+            <button onclick="navigator.clipboard.writeText('${email}')" class="text-xs text-gray-400 hover:text-primary-red transition opacity-0 group-hover:opacity-100"><i class="fas fa-copy"></i></button>
         `;
         results.appendChild(div);
     });
@@ -220,10 +200,6 @@ document.getElementById('copyEmailsBtn').addEventListener('click', () => {
         setTimeout(() => { btn.textContent = 'Copy All'; }, 2000);
     });
 });
-
-function copyText(text) {
-    navigator.clipboard.writeText(text);
-}
 </script>
 
 <script>
