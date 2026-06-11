@@ -102,10 +102,21 @@
                             </div>
                         </div>
 
-                        <div class="px-6 py-4 border-t border-gray-100 bg-gray-50/50">
-                            <div class="flex gap-3">
-                                <input type="text" id="chatInput" placeholder="Type your message..." class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition" autocomplete="off">
-                                <button id="sendBtn" class="bg-primary-red text-white px-6 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <div class="px-6 py-3 border-t border-gray-100 bg-gray-50/50">
+                            <div class="flex gap-2">
+                                <div class="relative flex-1">
+                                    <select id="quickModel" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition appearance-none cursor-pointer">
+                                        <option value="nvidia/llama-nemotron-rerank-vl-1b-v2:free">Llama Nemotron Rerank 1B (free)</option>
+                                        <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
+                                        <option value="nvidia/nemotron-3.5-content-safety:free">Nemotron 3.5 Content Safety (free)</option>
+                                        <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
+                                        <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
+                                        <option value="openai/gpt-oss-20b:free">GPT OSS 20B (free)</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
+                                </div>
+                                <input type="text" id="chatInput" placeholder="Type a message..." class="flex-1 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition" autocomplete="off">
+                                <button id="sendBtn" class="bg-primary-red text-white px-5 py-2.5 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                                     <i class="fas fa-paper-plane"></i>
                                 </button>
                             </div>
@@ -206,13 +217,16 @@ function loadSettings() {
     const model = localStorage.getItem('orModel') || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
     document.getElementById('apiKey').value = key;
     const select = document.getElementById('modelSelect');
+    const quick = document.getElementById('quickModel');
     const customInput = document.getElementById('customModel');
     if (model && ![...select.options].some(o => o.value === model)) {
         select.value = '__custom__';
         customInput.value = model;
         customInput.classList.remove('hidden');
+        if (quick && [...quick.options].some(o => o.value === model)) quick.value = model;
     } else {
         select.value = model || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
+        if (quick) quick.value = select.value;
     }
     document.getElementById('sendBtn').disabled = !key;
 }
@@ -229,15 +243,26 @@ function saveSettings() {
 
 document.getElementById('modelSelect').addEventListener('change', function() {
     const customInput = document.getElementById('customModel');
+    const quick = document.getElementById('quickModel');
     if (this.value === '__custom__') {
         customInput.classList.remove('hidden');
     } else {
         customInput.classList.add('hidden');
+        if (quick) quick.value = this.value;
     }
     saveSettings();
 });
 
 document.getElementById('customModel').addEventListener('input', saveSettings);
+
+document.getElementById('quickModel').addEventListener('change', function() {
+    const mainSelect = document.getElementById('modelSelect');
+    const customInput = document.getElementById('customModel');
+    mainSelect.value = '__custom__';
+    customInput.value = this.value;
+    customInput.classList.remove('hidden');
+    saveSettings();
+});
 
 document.getElementById('saveKeyBtn').addEventListener('click', saveSettings);
 
