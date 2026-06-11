@@ -80,12 +80,15 @@
                         <div class="mb-3">
                             <label class="block text-xs font-semibold text-gray-600 mb-1">Model</label>
                             <select id="modelSelect" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
-                                <option value="meta-llama/llama-3.1-8b-instruct:free" selected>Llama 3.1 8B (Free)</option>
-                                <option value="meta-llama/llama-3.1-70b-instruct:free">Llama 3.1 70B (Free)</option>
-                                <option value="meta-llama/llama-3.1-405b-instruct">Llama 3.1 405B</option>
-                                <option value="mistralai/mixtral-8x22b-instruct">Mixtral 8x22B</option>
-                                <option value="mistralai/mistral-large-2407">Mistral Large</option>
+                                <option value="nvidia/llama-nemotron-rerank-vl-1b-v2:free" selected>Llama Nemotron Rerank 1B (free)</option>
+                                <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
+                                <option value="nvidia/nemotron-3.5-content-safety:free">Nemotron 3.5 Content Safety (free)</option>
+                                <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
+                                <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
+                                <option value="openai/gpt-oss-20b:free">GPT OSS 20B (free)</option>
+                                <option value="__custom__">Custom model...</option>
                             </select>
+                            <input type="text" id="customModel" placeholder="Enter model ID (e.g. meta-llama/llama-3.1-8b-instruct:free)" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition mt-2 hidden">
                         </div>
                         <button id="saveKeyBtn" class="w-full bg-dark-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-dark-blue/90 transition">Save Key</button>
                         <div class="mt-4 pt-3 border-t border-gray-100">
@@ -181,23 +184,52 @@ const API_BASE = 'https://openrouter.ai/api/v1';
 let chatHistory = JSON.parse(localStorage.getItem('aiChatHistory') || '[]');
 let isProcessing = false;
 
+function getModel() {
+    const select = document.getElementById('modelSelect');
+    if (select.value === '__custom__') {
+        const custom = document.getElementById('customModel').value.trim();
+        return custom || select.value;
+    }
+    return select.value;
+}
+
 function loadSettings() {
     const key = localStorage.getItem('orApiKey') || '';
-    const model = localStorage.getItem('orModel') || 'meta-llama/llama-3.1-8b-instruct:free';
+    const model = localStorage.getItem('orModel') || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
     document.getElementById('apiKey').value = key;
-    document.getElementById('modelSelect').value = model;
+    const select = document.getElementById('modelSelect');
+    const customInput = document.getElementById('customModel');
+    if (model && ![...select.options].some(o => o.value === model)) {
+        select.value = '__custom__';
+        customInput.value = model;
+        customInput.classList.remove('hidden');
+    } else {
+        select.value = model || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
+    }
     document.getElementById('sendBtn').disabled = !key;
 }
 
 function saveSettings() {
     const key = document.getElementById('apiKey').value.trim();
-    const model = document.getElementById('modelSelect').value;
+    const model = getModel();
     if (key) {
         localStorage.setItem('orApiKey', key);
         document.getElementById('sendBtn').disabled = false;
     }
     localStorage.setItem('orModel', model);
 }
+
+document.getElementById('modelSelect').addEventListener('change', function() {
+    const customInput = document.getElementById('customModel');
+    if (this.value === '__custom__') {
+        customInput.classList.remove('hidden');
+    } else {
+        customInput.classList.add('hidden');
+    }
+    saveSettings();
+});
+
+document.getElementById('customModel').addEventListener('input', saveSettings);
 
 document.getElementById('saveKeyBtn').addEventListener('click', saveSettings);
 document.getElementById('modelSelect').addEventListener('change', saveSettings);
@@ -278,7 +310,7 @@ async function sendMessage() {
 
     addTypingIndicator();
 
-    const model = document.getElementById('modelSelect').value;
+    const model = getModel();
     const messages = [{ role: 'system', content: 'You are a helpful AI assistant. Answer concisely and accurately.' }, ...chatHistory.slice(-20)];
 
     try {
