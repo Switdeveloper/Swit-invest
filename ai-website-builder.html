@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Website Builder by SwitDeveloper - Describe a website and AI builds it with live preview.">
+    <meta name="keywords" content="AI website builder, AI web design, website generator, live preview, SwitDeveloper">
+    <meta property="og:title" content="AI Website Builder - SwitDeveloper">
+    <meta property="og:description" content="Describe a website and AI builds it instantly with live preview.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://switdeveloper.github.io/Swit-invest/ai-website-builder.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://switdeveloper.github.io/Swit-invest/ai-website-builder.html">
+    <title>AI Website Builder | SwitDeveloper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #333; }
+        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
+        .bg-dark-blue { background-color: #0d152e; }
+        .text-dark-blue { color: #0d152e; }
+        .bg-primary-red { background-color: #c91414; }
+        .text-primary-red { color: #c91414; }
+        .border-primary-red { border-color: #c91414; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .chat-user { background: #e8f0fe; border-radius: 18px 18px 4px 18px; }
+        .chat-ai { background: #f3f4f6; border-radius: 18px 18px 18px 4px; }
+        #chatMessages { scroll-behavior: smooth; }
+        .typing-dot { animation: pulse 1.4s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes pulse { 0%,60%,100% { opacity: 0.3; } 30% { opacity: 1; } }
+        .animate-pop { animation: popIn 0.2s ease-out; }
+        @keyframes popIn { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        #previewFrame { background: #fff; }
+        .code-line { counter-increment: line; }
+        .code-line::before { content: counter(line); display: inline-block; width: 2.5rem; padding-right: 1rem; text-align: right; color: #6b7280; border-right: 1px solid #374151; margin-right: 1rem; }
+        #codeEditor { tab-size: 2; white-space: pre; word-wrap: normal; overflow-x: auto; }
+        .msg-code { background: #1e1e2e; border-radius: 12px; overflow: hidden; }
+        .msg-code-header { background: #181825; padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; }
+        .msg-code-header span { color: #a0aec0; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .msg-code-body { padding: 12px 16px; overflow-x: auto; }
+        .msg-code-body code { color: #cdd6f4; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.6; white-space: pre; }
+        .msg-code-body .tag { color: #89b4fa; }
+        .msg-code-body .attr { color: #a6e3a1; }
+        .msg-code-body .string { color: #f9e2af; }
+        .msg-code-body .comment { color: #6c7086; font-style: italic; }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/load-partials.js"></script>
+</head>
+<body class="overflow-x-hidden">
+
+    <div id="header-container"></div>
+
+    <section class="relative bg-[#0d152e] pt-20 pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 -left-20 w-80 h-80 bg-primary-red/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <div class="flex items-center text-[10px] text-gray-400 mb-6 uppercase tracking-wider">
+                    <span class="hover:text-white cursor-pointer" onclick="window.location='index.html'">Home</span> <span class="mx-2">/</span> <span class="text-white">AI Website Builder</span>
+                </div>
+                <div class="flex items-center text-xs tracking-wider text-primary-red mb-6 uppercase">
+                    <div class="w-2 h-2 border border-primary-red transform rotate-45 mr-3"></div>
+                    Build with AI
+                </div>
+                <h1 class="reveal text-5xl md:text-7xl font-bold mb-4 leading-[1.1] serif text-white">
+                    AI Website <span class="text-primary-red">Builder</span>
+                </h1>
+                <p class="reveal delay-100 text-lg text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
+                    Describe any website and AI builds it instantly. See a live preview, edit the code, and export.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-50 -mt-20 relative z-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="lg:w-[400px] xl:w-[440px] flex-shrink-0">
+                    <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col" style="height: 680px;">
+                        <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-7 h-7 bg-dark-blue rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-comment text-white text-[10px]"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-bold text-dark-blue">Describe</h3>
+                                    <p class="text-[11px] text-gray-400" id="chatStatus">Ready</p>
+                                </div>
+                            </div>
+                            <button id="clearChatBtn" class="text-[11px] text-gray-400 hover:text-red-500 transition" title="Clear conversation">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3">
+                            <div class="flex items-start gap-2.5">
+                                <div class="w-7 h-7 bg-dark-blue rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-code text-white text-[10px]"></i></div>
+                                <div class="chat-ai px-3.5 py-2.5 max-w-[90%]">
+                                    <p class="text-sm text-gray-700 leading-relaxed">Describe the website you want to build. For example: <span class="text-primary-red italic">"A landing page for a coffee shop with a hero image, menu section, and contact form"</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3 border-t border-gray-100 bg-gray-50/50">
+                            <div class="flex gap-2">
+                                <input type="text" id="chatInput" placeholder="Describe your website..." class="flex-1 border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition" autocomplete="off">
+                                <button id="sendBtn" class="bg-primary-red text-white w-10 h-10 rounded-xl font-bold hover:bg-red-800 transition flex items-center justify-center shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                    <i class="fas fa-paper-plane text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                    <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col" style="height: 680px;">
+                        <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-7 h-7 bg-primary-red rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-eye text-white text-[10px]"></i>
+                                </div>
+                                <h3 class="text-sm font-bold text-dark-blue">Preview</h3>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <button id="copyCodeBtn" class="text-[11px] text-gray-400 hover:text-dark-blue transition px-2 py-1 rounded hover:bg-gray-100 flex items-center gap-1" title="Copy code">
+                                    <i class="fas fa-copy text-[10px]"></i> Copy
+                                </button>
+                                <button id="downloadBtn" class="text-[11px] text-gray-400 hover:text-dark-blue transition px-2 py-1 rounded hover:bg-gray-100 flex items-center gap-1" title="Download HTML">
+                                    <i class="fas fa-download text-[10px]"></i> Download
+                                </button>
+                                <div class="h-4 w-px bg-gray-200 mx-1"></div>
+                                <button id="editCodeBtn" class="text-[11px] text-gray-500 hover:text-primary-red transition px-2 py-1 rounded hover:bg-red-50 flex items-center gap-1" title="Toggle code editor">
+                                    <i class="fas fa-pen text-[10px]"></i> Edit
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex-1 relative overflow-hidden">
+                            <iframe id="previewFrame" class="w-full h-full border-0" sandbox="allow-scripts allow-same-origin" srcdoc="<html><body style='display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#f9fafb;color:#9ca3af;font-family:sans-serif;'><div style='text-align:center'><p style='font-size:48px;margin-bottom:16px'>&#x1F3A8;</p><p style='font-size:18px'>Your website preview will appear here</p><p style='font-size:13px;margin-top:8px'>Describe a website in the chat to get started</p></div></body></html>"></iframe>
+                            <textarea id="codeEditor" class="absolute inset-0 w-full h-full border-0 resize-none font-mono text-sm p-4 leading-relaxed hidden outline-none" style="background:#1e1e2e;color:#cdd6f4;tab-size:2;" spellcheck="false"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="settingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden transition-opacity duration-200">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 w-full max-w-sm mx-4 animate-pop">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-bold text-dark-blue flex items-center gap-2">
+                    <i class="fas fa-cog text-primary-red"></i> Settings
+                </h3>
+                <button id="closeSettingsBtn" class="text-gray-400 hover:text-gray-600 transition text-lg leading-none">&times;</button>
+            </div>
+            <div class="mb-3">
+                <label class="block text-xs font-semibold text-gray-600 mb-1">API Key</label>
+                <input type="password" id="apiKey" placeholder="sk-or-..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+            </div>
+            <div class="mb-3">
+                <label class="block text-xs font-semibold text-gray-600 mb-1">Model</label>
+                <select id="modelSelect" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+                    <option value="nvidia/llama-nemotron-rerank-vl-1b-v2:free" selected>Llama Nemotron Rerank 1B (free)</option>
+                    <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
+                    <option value="nvidia/nemotron-3.5-content-safety:free">Nemotron 3.5 Content Safety (free)</option>
+                    <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
+                    <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
+                    <option value="openai/gpt-oss-20b:free">GPT OSS 20B (free)</option>
+                    <option value="__custom__">Custom model...</option>
+                </select>
+                <input type="text" id="customModel" placeholder="Enter model ID (e.g. meta-llama/llama-3.1-8b-instruct:free)" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition mt-2 hidden">
+            </div>
+            <button id="saveKeyBtn" class="w-full bg-dark-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-dark-blue/90 transition">Save Key</button>
+            <div class="mt-4 pt-3 border-t border-gray-100">
+                <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" class="text-xs text-primary-red hover:underline flex items-center gap-1">
+                    <i class="fas fa-external-link-alt"></i> Get free API key
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 bg-dark-blue text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 120 0 0 1200 120z" class="fill-gray-50"></path>
+            </svg>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 pt-16">
+            <div class="reveal">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Free &amp; Open</h2>
+                <p class="reveal delay-100 text-gray-300 mb-8 text-lg">Get your free API key from OpenRouter and start building websites with AI.</p>
+                <div class="reveal delay-200 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" class="bg-primary-red text-white px-8 py-4 rounded-lg font-bold hover:bg-red-800 transition inline-flex items-center gap-2 shadow-lg">
+                        <i class="fas fa-external-link-alt"></i> Get Free API Key
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+<script>
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.className = mobileMenu.classList.contains('hidden') ? 'fas fa-bars fa-lg' : 'fas fa-times fa-lg';
+    });
+}
+</script>
+
+<script>
+const API_BASE = 'https://openrouter.ai/api/v1';
+let chatHistory = JSON.parse(localStorage.getItem('wbChatHistory') || '[]');
+let isProcessing = false;
+let currentCode = '';
+
+function getModel() {
+    const select = document.getElementById('modelSelect');
+    if (select.value === '__custom__') {
+        const custom = document.getElementById('customModel').value.trim();
+        return custom || select.value;
+    }
+    return select.value;
+}
+
+function loadSettings() {
+    const key = localStorage.getItem('orApiKey') || '';
+    const model = localStorage.getItem('orModel') || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
+    document.getElementById('apiKey').value = key;
+    const select = document.getElementById('modelSelect');
+    const customInput = document.getElementById('customModel');
+    if (model && ![...select.options].some(o => o.value === model)) {
+        select.value = '__custom__';
+        customInput.value = model;
+        customInput.classList.remove('hidden');
+    } else {
+        select.value = model || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
+    }
+    document.getElementById('sendBtn').disabled = !key;
+}
+
+function saveSettings() {
+    const key = document.getElementById('apiKey').value.trim();
+    const model = getModel();
+    if (key) {
+        localStorage.setItem('orApiKey', key);
+        document.getElementById('sendBtn').disabled = false;
+    }
+    localStorage.setItem('orModel', model);
+}
+
+document.getElementById('modelSelect').addEventListener('change', function() {
+    const customInput = document.getElementById('customModel');
+    if (this.value === '__custom__') {
+        customInput.classList.remove('hidden');
+    } else {
+        customInput.classList.add('hidden');
+    }
+    saveSettings();
+});
+document.getElementById('customModel').addEventListener('input', saveSettings);
+document.getElementById('saveKeyBtn').addEventListener('click', saveSettings);
+
+document.getElementById('settingsBtn').addEventListener('click', () => {
+    document.getElementById('settingsModal').classList.remove('hidden');
+});
+document.getElementById('closeSettingsBtn').addEventListener('click', () => {
+    document.getElementById('settingsModal').classList.add('hidden');
+});
+document.getElementById('settingsModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) document.getElementById('settingsModal').classList.add('hidden');
+});
+
+function escapeHtml(text) {
+    const d = document.createElement('div');
+    d.textContent = text;
+    return d.innerHTML;
+}
+
+function appendMessage(role, content) {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = role === 'user' ? 'flex items-start gap-2.5 justify-end' : 'flex items-start gap-2.5';
+    if (role === 'user') {
+        div.innerHTML = `<div class="chat-user px-3.5 py-2.5 max-w-[90%]"><p class="text-sm text-gray-800">${escapeHtml(content)}</p></div>
+            <div class="w-7 h-7 bg-primary-red rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-user text-white text-[10px]"></i></div>`;
+    } else {
+        const codeMatch = content.match(/```html?([\s\S]*?)```/);
+        let html = '';
+        if (codeMatch) {
+            const code = codeMatch[1].trim();
+            const before = content.slice(0, content.indexOf('```'));
+            const after = content.slice(content.indexOf('```') + codeMatch[0].length);
+            if (before.trim()) html += `<div class="chat-ai px-3.5 py-2.5"><p class="text-sm text-gray-700">${escapeHtml(before.trim())}</p></div>`;
+            html += `<div class="msg-code">
+                <div class="msg-code-header"><span><i class="fas fa-code mr-1.5"></i>HTML</span><button class="text-[11px] text-gray-400 hover:text-white transition insert-code" data-code="${escapeHtml(code).replace(/"/g, '&quot;')}">Insert to Preview</button></div>
+                <div class="msg-code-body"><code>${escapeHtml(code)}</code></div>
+            </div>`;
+            if (after.trim()) html += `<div class="chat-ai px-3.5 py-2.5 mt-1"><p class="text-sm text-gray-700">${escapeHtml(after.trim())}</p></div>`;
+        } else {
+            html = `<div class="chat-ai px-3.5 py-2.5"><p class="text-sm text-gray-700">${escapeHtml(content)}</p></div>`;
+        }
+        div.innerHTML = `<div class="w-7 h-7 bg-dark-blue rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-code text-white text-[10px]"></i></div><div class="max-w-[90%]">${html}</div>`;
+    }
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function addTypingIndicator() {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.id = 'typingIndicator';
+    div.className = 'flex items-start gap-2.5';
+    div.innerHTML = `<div class="w-7 h-7 bg-dark-blue rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-code text-white text-[10px]"></i></div>
+        <div class="chat-ai px-3.5 py-2.5"><p class="text-sm text-gray-400">Thinking<span class="typing-dot">.</span><span class="typing-dot">.</span><span class="typing-dot">.</span></p></div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+}
+
+function updatePreview(code) {
+    currentCode = code;
+    const frame = document.getElementById('previewFrame');
+    const editor = document.getElementById('codeEditor');
+    frame.srcdoc = code;
+    editor.value = code;
+    document.getElementById('editCodeBtn').innerHTML = '<i class="fas fa-pen text-[10px]"></i> Edit';
+    document.getElementById('codeEditor').classList.add('hidden');
+    document.getElementById('previewFrame').classList.remove('hidden');
+}
+
+document.getElementById('chatMessages').addEventListener('click', (e) => {
+    const btn = e.target.closest('.insert-code');
+    if (btn) {
+        const code = btn.getAttribute('data-code');
+        updatePreview(code);
+    }
+});
+
+document.getElementById('sendBtn').addEventListener('click', sendMessage);
+document.getElementById('chatInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text || isProcessing) return;
+
+    const apiKey = document.getElementById('apiKey').value.trim();
+    if (!apiKey) { alert('Please enter your API key first.'); return; }
+
+    input.value = '';
+    isProcessing = true;
+    document.getElementById('sendBtn').disabled = true;
+    document.getElementById('chatStatus').textContent = 'Thinking...';
+
+    appendMessage('user', text);
+    chatHistory.push({ role: 'user', content: text });
+    localStorage.setItem('wbChatHistory', JSON.stringify(chatHistory));
+
+    addTypingIndicator();
+
+    const model = getModel();
+    const systemPrompt = `You are a web designer AI. Build complete, beautiful, responsive HTML pages based on user requests.
+Rules:
+- Return the ENTIRE page as a single HTML file inside an html codeblock (\\\`\\\`\\\`html ... \\\`\\\`\\\`)
+- Include all CSS inline in a <style> tag inside <head>
+- Include all JavaScript at the end of <body>
+- Use modern CSS (flexbox, grid, custom properties)
+- Make it visually stunning with proper typography, spacing, colors
+- Include CDN links for any libraries (Font Awesome, Google Fonts, etc.)
+- The page must be self-contained and work standalone
+- Keep the design professional and polished
+- Use responsive design that works on mobile and desktop
+- Only output the codeblock, no extra commentary. The user will see everything you write.`;
+
+    const messages = [{ role: 'system', content: systemPrompt }, ...chatHistory.slice(-10)];
+
+    try {
+        const res = await fetch(`${API_BASE}/chat/completions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`,
+                'HTTP-Referer': 'https://switdeveloper.github.io/Swit-invest/'
+            },
+            body: JSON.stringify({ model, messages, max_tokens: 4096, temperature: 0.4 })
+        });
+
+        removeTypingIndicator();
+
+        if (!res.ok) {
+            const err = await res.text();
+            let msg = 'API error';
+            try { const j = JSON.parse(err); msg = j.error?.message || j.error || err; } catch(e) { msg = err; }
+            appendMessage('assistant', `Error: ${msg}`);
+            isProcessing = false;
+            document.getElementById('sendBtn').disabled = false;
+            document.getElementById('chatStatus').textContent = 'Ready';
+            return;
+        }
+
+        const data = await res.json();
+        const reply = data.choices?.[0]?.message?.content || 'No response.';
+        appendMessage('assistant', reply);
+        chatHistory.push({ role: 'assistant', content: reply });
+        localStorage.setItem('wbChatHistory', JSON.stringify(chatHistory));
+
+        const codeMatch = reply.match(/```html?([\s\S]*?)```/);
+        if (codeMatch) {
+            updatePreview(codeMatch[1].trim());
+        }
+    } catch (err) {
+        removeTypingIndicator();
+        appendMessage('assistant', `Error: ${err.message}. Check your connection.`);
+    }
+
+    isProcessing = false;
+    document.getElementById('sendBtn').disabled = false;
+    document.getElementById('chatStatus').textContent = 'Ready';
+}
+
+document.getElementById('clearChatBtn').addEventListener('click', () => {
+    if (!confirm('Clear the conversation?')) return;
+    chatHistory = [];
+    localStorage.removeItem('wbChatHistory');
+    document.getElementById('chatMessages').innerHTML = '<div class="flex items-start gap-2.5"><div class="w-7 h-7 bg-dark-blue rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-code text-white text-[10px]"></i></div><div class="chat-ai px-3.5 py-2.5 max-w-[90%]"><p class="text-sm text-gray-700">Describe the website you want to build. For example: <span class="text-primary-red italic">"A landing page for a coffee shop with a hero image, menu section, and contact form"</span></p></div></div>';
+});
+
+document.getElementById('editCodeBtn').addEventListener('click', () => {
+    const editor = document.getElementById('codeEditor');
+    const frame = document.getElementById('previewFrame');
+    const btn = document.getElementById('editCodeBtn');
+    if (editor.classList.contains('hidden')) {
+        editor.classList.remove('hidden');
+        frame.classList.add('hidden');
+        btn.innerHTML = '<i class="fas fa-eye text-[10px]"></i> Preview';
+    } else {
+        try { frame.srcdoc = editor.value; currentCode = editor.value; } catch(e) {}
+        editor.classList.add('hidden');
+        frame.classList.remove('hidden');
+        btn.innerHTML = '<i class="fas fa-pen text-[10px]"></i> Edit';
+    }
+});
+
+document.getElementById('copyCodeBtn').addEventListener('click', () => {
+    const code = currentCode || document.getElementById('codeEditor').value;
+    if (!code) return;
+    navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('copyCodeBtn');
+        btn.innerHTML = '<i class="fas fa-check text-[10px]"></i> Copied!';
+        setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy text-[10px]"></i> Copy'; }, 2000);
+    });
+});
+
+document.getElementById('downloadBtn').addEventListener('click', () => {
+    const code = currentCode || document.getElementById('codeEditor').value;
+    if (!code) return;
+    const blob = new Blob([code], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'index.html';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+loadSettings();
+
+if (chatHistory.length > 0) {
+    const container = document.getElementById('chatMessages');
+    container.innerHTML = '';
+    chatHistory.forEach(msg => appendMessage(msg.role, msg.content));
+    const lastCodeMatch = chatHistory.map(m => m.content).reverse().find(c => c.match(/```html?([\s\S]*?)```/));
+    if (lastCodeMatch) {
+        const m = lastCodeMatch.match(/```html?([\s\S]*?)```/);
+        if (m) updatePreview(m[1].trim());
+    }
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
+</body>
+</html>
