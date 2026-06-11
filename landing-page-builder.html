@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Landing Page Builder by SwitDeveloper - Build stunning landing pages with templates, AI generation, and live preview.">
+    <meta name="keywords" content="landing page builder, AI landing page, page builder, website builder, SwitDeveloper">
+    <meta property="og:title" content="Landing Page Builder - SwitDeveloper">
+    <meta property="og:description" content="Build beautiful landing pages with templates and AI.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://switdeveloper.github.io/Swit-invest/landing-page-builder.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://switdeveloper.github.io/Swit-invest/landing-page-builder.html">
+    <title>Landing Page Builder | SwitDeveloper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #333; }
+        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
+        .bg-dark-blue { background-color: #0d152e; }
+        .text-dark-blue { color: #0d152e; }
+        .bg-primary-red { background-color: #c91414; }
+        .text-primary-red { color: #c91414; }
+        .border-primary-red { border-color: #c91414; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .typing-dot { animation: pulse 1.4s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes pulse { 0%,60%,100% { opacity: 0.3; } 30% { opacity: 1; } }
+        .animate-pop { animation: popIn 0.2s ease-out; }
+        @keyframes popIn { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        #previewFrame { background: #fff; }
+        .template-card { cursor: pointer; transition: all 0.2s; }
+        .template-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .template-card.active { border-color: #c91414; box-shadow: 0 0 0 2px #c91414; }
+        .section-checkbox:checked + label { background: #fef2f2; border-color: #c91414; }
+        .toast { position: fixed; bottom: 24px; right: 24px; z-index: 100; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/load-partials.js"></script>
+</head>
+<body class="overflow-x-hidden">
+    <div id="header-container"></div>
+
+    <section class="relative bg-[#0d152e] pt-20 pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 -left-20 w-80 h-80 bg-primary-red/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <div class="flex items-center text-[10px] text-gray-400 mb-6 uppercase tracking-wider">
+                    <span class="hover:text-white cursor-pointer" onclick="window.location='index.html'">Home</span> <span class="mx-2">/</span> <span class="text-white">Landing Page Builder</span>
+                </div>
+                <div class="flex items-center text-xs tracking-wider text-primary-red mb-6 uppercase">
+                    <div class="w-2 h-2 border border-primary-red transform rotate-45 mr-3"></div>
+                    Build with AI
+                </div>
+                <h1 class="reveal text-5xl md:text-7xl font-bold mb-4 leading-[1.1] serif text-white">
+                    Landing Page <span class="text-primary-red">Builder</span>
+                </h1>
+                <p class="reveal delay-100 text-lg text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
+                    Choose a template, customize with your brand, and export a polished landing page in minutes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-50 -mt-20 relative z-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="lg:w-[380px] xl:w-[420px] flex-shrink-0">
+                    <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-5 space-y-5">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-dark-blue flex items-center gap-2"><i class="fas fa-palette text-primary-red"></i> Customize</h3>
+                            <button id="settingsBtn" class="text-xs text-gray-400 hover:text-dark-blue transition px-2 py-1 rounded hover:bg-gray-100" title="Settings">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">Template</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="template-card active border-2 border-primary-red rounded-xl p-3 text-center" data-template="startup" onclick="selectTemplate(this)">
+                                    <div class="w-full h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-2"></div>
+                                    <div class="text-xs font-semibold text-gray-700">Startup</div>
+                                    <div class="text-[10px] text-gray-400">Hero + Features + CTA</div>
+                                </div>
+                                <div class="template-card border-2 border-gray-200 rounded-xl p-3 text-center" data-template="agency" onclick="selectTemplate(this)">
+                                    <div class="w-full h-12 bg-gradient-to-br from-red-500 to-orange-500 rounded-lg mb-2"></div>
+                                    <div class="text-xs font-semibold text-gray-700">Agency</div>
+                                    <div class="text-[10px] text-gray-400">Services + Team + Contact</div>
+                                </div>
+                                <div class="template-card border-2 border-gray-200 rounded-xl p-3 text-center" data-template="saas" onclick="selectTemplate(this)">
+                                    <div class="w-full h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg mb-2"></div>
+                                    <div class="text-xs font-semibold text-gray-700">SaaS</div>
+                                    <div class="text-[10px] text-gray-400">Pricing + Testimonials</div>
+                                </div>
+                                <div class="template-card border-2 border-gray-200 rounded-xl p-3 text-center" data-template="portfolio" onclick="selectTemplate(this)">
+                                    <div class="w-full h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg mb-2"></div>
+                                    <div class="text-xs font-semibold text-gray-700">Portfolio</div>
+                                    <div class="text-[10px] text-gray-400">About + Projects + Contact</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Business Name</label>
+                            <input type="text" id="bizName" value="My Brand" oninput="buildPage()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Tagline</label>
+                            <input type="text" id="tagline" value="We Build Amazing Things" oninput="buildPage()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Primary Color</label>
+                            <div class="flex gap-2">
+                                <input type="color" id="primaryColor" value="#2563eb" oninput="buildPage()" class="w-10 h-10 rounded-lg border border-gray-300 cursor-pointer p-0.5">
+                                <div class="flex gap-1.5">
+                                    <button class="w-7 h-7 rounded-full border-2 border-gray-200" style="background:#2563eb" onclick="setColor('#2563eb')" title="Blue"></button>
+                                    <button class="w-7 h-7 rounded-full border-2 border-gray-200" style="background:#c91414" onclick="setColor('#c91414')" title="Red"></button>
+                                    <button class="w-7 h-7 rounded-full border-2 border-gray-200" style="background:#059669" onclick="setColor('#059669')" title="Green"></button>
+                                    <button class="w-7 h-7 rounded-full border-2 border-gray-200" style="background:#7c3aed" onclick="setColor('#7c3aed')" title="Purple"></button>
+                                    <button class="w-7 h-7 rounded-full border-2 border-gray-200" style="background:#d97706" onclick="setColor('#d97706')" title="Amber"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">Sections</label>
+                            <div class="space-y-1.5">
+                                <label class="section-checkbox flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition text-sm" data-checked="true">
+                                    <input type="checkbox" checked onchange="buildPage()" class="section-toggle accent-red-600"> Hero
+                                </label>
+                                <label class="section-checkbox flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition text-sm" data-checked="true">
+                                    <input type="checkbox" checked onchange="buildPage()" class="section-toggle accent-red-600"> Features
+                                </label>
+                                <label class="section-checkbox flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition text-sm" data-checked="false">
+                                    <input type="checkbox" onchange="buildPage()" class="section-toggle accent-red-600"> About
+                                </label>
+                                <label class="section-checkbox flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition text-sm" data-checked="false">
+                                    <input type="checkbox" onchange="buildPage()" class="section-toggle accent-red-600"> Testimonials
+                                </label>
+                                <label class="section-checkbox flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition text-sm" data-checked="true">
+                                    <input type="checkbox" checked onchange="buildPage()" class="section-toggle accent-red-600"> Contact
+                                </label>
+                                <label class="section-checkbox flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 transition text-sm" data-checked="false">
+                                    <input type="checkbox" onchange="buildPage()" class="section-toggle accent-red-600"> Pricing
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">AI Prompt <span class="text-gray-400 font-normal">(optional)</span></label>
+                            <div class="flex gap-2">
+                                <input type="text" id="aiPrompt" placeholder="Describe the page you want..." class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+                                <button id="aiGenerateBtn" class="bg-dark-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-dark-blue/90 transition disabled:opacity-50">AI</button>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2 pt-1">
+                            <button onclick="downloadPage()" class="flex-1 bg-primary-red text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button onclick="copyPage()" class="flex-1 border border-gray-300 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                    <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col" style="height: 700px;">
+                        <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-7 h-7 bg-primary-red rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-eye text-white text-[10px]"></i>
+                                </div>
+                                <h3 class="text-sm font-bold text-dark-blue">Live Preview</h3>
+                            </div>
+                            <span class="text-[11px] text-gray-400" id="pageSize">0 KB</span>
+                        </div>
+                        <iframe id="previewFrame" class="flex-1 w-full border-0" sandbox="allow-scripts allow-same-origin"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="settingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden transition-opacity duration-200">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 w-full max-w-sm mx-4 animate-pop">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-bold text-dark-blue flex items-center gap-2">
+                    <i class="fas fa-cog text-primary-red"></i> Settings
+                </h3>
+                <button id="closeSettingsBtn" class="text-gray-400 hover:text-gray-600 transition text-lg leading-none">&times;</button>
+            </div>
+            <div class="mb-3">
+                <label class="block text-xs font-semibold text-gray-600 mb-1">API Key (for AI generation)</label>
+                <input type="password" id="apiKey" placeholder="sk-or-..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+            </div>
+            <div class="mb-3">
+                <label class="block text-xs font-semibold text-gray-600 mb-1">Model</label>
+                <select id="modelSelect" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+                    <option value="nvidia/llama-nemotron-rerank-vl-1b-v2:free" selected>Llama Nemotron Rerank 1B (free)</option>
+                    <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
+                    <option value="nvidia/nemotron-3.5-content-safety:free">Nemotron 3.5 Content Safety (free)</option>
+                    <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
+                    <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
+                    <option value="openai/gpt-oss-20b:free">GPT OSS 20B (free)</option>
+                </select>
+            </div>
+            <button id="saveKeyBtn" class="w-full bg-dark-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-dark-blue/90 transition">Save Key</button>
+            <div class="mt-4 pt-3 border-t border-gray-100">
+                <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" class="text-xs text-primary-red hover:underline flex items-center gap-1">
+                    <i class="fas fa-external-link-alt"></i> Get free API key
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 bg-dark-blue text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 120 0 0 1200 120z" class="fill-gray-50"></path>
+            </svg>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 pt-16">
+            <div class="reveal">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Ready to Launch?</h2>
+                <p class="reveal delay-100 text-gray-300 mb-8 text-lg">Export your landing page and publish it anywhere. Need help? Talk to our team.</p>
+                <div class="reveal delay-200 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-primary-red text-white px-8 py-4 rounded-lg font-bold hover:bg-red-800 transition inline-flex items-center gap-2 shadow-lg">
+                        <i class="fas fa-headset"></i> Get Expert Help
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+<script>
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.className = mobileMenu.classList.contains('hidden') ? 'fas fa-bars fa-lg' : 'fas fa-times fa-lg';
+    });
+}
+</script>
+
+<script>
+let currentTemplate = 'startup';
+let isGenerating = false;
+
+function getModel() {
+    const select = document.getElementById('modelSelect');
+    return select.value;
+}
+
+function loadSettings() {
+    const key = localStorage.getItem('orApiKey') || '';
+    const model = localStorage.getItem('orModel') || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
+    document.getElementById('apiKey').value = key;
+    const select = document.getElementById('modelSelect');
+    if (model && [...select.options].some(o => o.value === model)) select.value = model;
+}
+
+function saveSettings() {
+    const key = document.getElementById('apiKey').value.trim();
+    const model = getModel();
+    if (key) localStorage.setItem('orApiKey', key);
+    localStorage.setItem('orModel', model);
+}
+
+document.getElementById('saveKeyBtn').addEventListener('click', saveSettings);
+
+document.getElementById('settingsBtn').addEventListener('click', () => {
+    document.getElementById('settingsModal').classList.remove('hidden');
+});
+document.getElementById('closeSettingsBtn').addEventListener('click', () => {
+    document.getElementById('settingsModal').classList.add('hidden');
+});
+document.getElementById('settingsModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) document.getElementById('settingsModal').classList.add('hidden');
+});
+
+function selectTemplate(el) {
+    document.querySelectorAll('.template-card').forEach(c => {
+        c.classList.remove('active', 'border-primary-red');
+        c.classList.add('border-gray-200');
+    });
+    el.classList.add('active', 'border-primary-red');
+    el.classList.remove('border-gray-200');
+    currentTemplate = el.dataset.template;
+    buildPage();
+}
+
+function setColor(hex) {
+    document.getElementById('primaryColor').value = hex;
+    buildPage();
+}
+
+function getSections() {
+    const checks = document.querySelectorAll('.section-toggle');
+    const labels = ['hero', 'features', 'about', 'testimonials', 'contact', 'pricing'];
+    return labels.filter((_, i) => checks[i].checked);
+}
+
+function buildPage() {
+    const name = document.getElementById('bizName').value || 'My Brand';
+    const tagline = document.getElementById('tagline').value || 'We Build Amazing Things';
+    const color = document.getElementById('primaryColor').value;
+    const sections = getSections();
+    const template = currentTemplate;
+
+    let html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escapeHtml(name)}</title><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; color: #1f2937; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+h1,h2,h3 { font-family: 'Playfair Display', serif; }
+.btn { display: inline-block; padding: 14px 32px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+.section { padding: 80px 0; }
+.section-title { font-size: 2rem; margin-bottom: 0.5rem; text-align: center; }
+.section-sub { color: #6b7280; text-align: center; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto; }
+header { background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+header .container { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+header .logo { font-weight: 700; font-size: 1.25rem; text-decoration: none; }
+header nav a { margin-left: 24px; text-decoration: none; color: #6b7280; font-size: 0.875rem; font-weight: 500; }
+header nav a:hover { color: ${color}; }
+.hero { padding: 100px 0; text-align: center; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+.hero h1 { font-size: 3.5rem; margin-bottom: 16px; line-height: 1.15; }
+.hero p { font-size: 1.2rem; color: #6b7280; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.feature-card { background: white; border-radius: 12px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #f3f4f6; transition: all 0.2s; }
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+.feature-card .icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 1.25rem; }
+.feature-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.feature-card p { font-size: 0.9rem; color: #6b7280; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.about-grid img { width: 100%; border-radius: 12px; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.testimonial-card { background: white; border-radius: 12px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #f3f4f6; }
+.testimonial-card .stars { color: #f59e0b; margin-bottom: 12px; }
+.testimonial-card p { font-size: 0.9rem; color: #6b7280; margin-bottom: 16px; font-style: italic; }
+.testimonial-card .author { font-weight: 600; font-size: 0.875rem; }
+.contact-form { max-width: 500px; margin: 0 auto; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; outline: none; }
+.contact-form input:focus, .contact-form textarea:focus { border-color: ${color}; box-shadow: 0 0 0 3px ${color}22; }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.pricing-card { background: white; border-radius: 12px; padding: 32px; text-align: center; border: 1px solid #f3f4f6; transition: all 0.2s; }
+.pricing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+.pricing-card.featured { border: 2px solid ${color}; position: relative; }
+.pricing-card .price { font-size: 2.5rem; font-weight: 700; margin: 16px 0; }
+.pricing-card .price span { font-size: 1rem; color: #6b7280; font-weight: 400; }
+.pricing-card ul { list-style: none; margin: 24px 0; }
+.pricing-card ul li { padding: 8px 0; font-size: 0.9rem; color: #6b7280; border-bottom: 1px solid #f3f4f6; }
+.pricing-card ul li:last-child { border: none; }
+footer { background: #0d152e; color: white; padding: 48px 0; text-align: center; }
+footer p { font-size: 0.875rem; color: #9ca3af; }
+@media (max-width: 768px) { .hero h1 { font-size: 2rem; } .about-grid { grid-template-columns: 1fr; } header nav { display: none; } }
+</style></head><body>
+<header><div class="container"><a href="#" class="logo" style="color:${color}">${escapeHtml(name)}</a><nav><a href="#">Home</a><a href="#features">Features</a><a href="#contact">Contact</a></nav></div></header>`;
+
+    if (sections.includes('hero')) {
+        html += `<section class="hero"><div class="container"><h1>${escapeHtml(tagline)}</h1><p>We help businesses grow with modern solutions tailored to your unique needs. Let's build something great together.</p><a href="#contact" class="btn" style="background:${color};color:white">Get Started</a></div></section>`;
+    }
+
+    if (sections.includes('features')) {
+        const features = [
+            { icon: '⚡', title: 'Lightning Fast', desc: 'Optimized for speed and performance out of the box.', bg: color + '18' },
+            { icon: '🎨', title: 'Beautiful Design', desc: 'Modern, responsive designs that captivate your audience.', bg: color + '18' },
+            { icon: '🔒', title: 'Secure & Reliable', desc: 'Enterprise-grade security with 99.9% uptime guarantee.', bg: color + '18' }
+        ];
+        html += `<section id="features" class="section" style="background:#f9fafb"><div class="container"><h2 class="section-title">Features</h2><p class="section-sub">Everything you need to succeed in the digital world.</p><div class="features-grid">`;
+        features.forEach(f => {
+            html += `<div class="feature-card"><div class="icon" style="background:${f.bg};color:${color}">${f.icon}</div><h3>${f.title}</h3><p>${f.desc}</p></div>`;
+        });
+        html += `</div></div></section>`;
+    }
+
+    if (sections.includes('about')) {
+        html += `<section id="about" class="section"><div class="container"><h2 class="section-title">About Us</h2><p class="section-sub">We're a team of passionate creators dedicated to your success.</p><div class="about-grid"><div><p style="color:#6b7280;margin-bottom:16px">We combine creativity with technology to deliver exceptional digital experiences. Our team has helped hundreds of businesses establish a powerful online presence.</p><p style="color:#6b7280;margin-bottom:24px">From startups to enterprises, we tailor our approach to meet your unique goals and challenges.</p><a href="#contact" class="btn" style="background:${color};color:white">Learn More</a></div><div style="background:#e5e7eb;border-radius:12px;height:300px;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:3rem">📸</div></div></div></section>`;
+    }
+
+    if (sections.includes('testimonials')) {
+        html += `<section id="testimonials" class="section" style="background:#f9fafb"><div class="container"><h2 class="section-title">What Clients Say</h2><p class="section-sub">Hear from our satisfied clients.</p><div class="testimonials-grid"><div class="testimonial-card"><div class="stars">★★★★★</div><p>"Amazing team! They delivered beyond our expectations. Our revenue grew 3x in the first quarter."</p><div class="author">- Sarah Johnson</div></div><div class="testimonial-card"><div class="stars">★★★★★</div><p>"Professional, creative, and results-driven. I highly recommend them for any digital project."</p><div class="author">- Michael Chen</div></div><div class="testimonial-card"><div class="stars">★★★★★</div><p>"The best investment we've made. Our website traffic increased by 200% in just two months."</p><div class="author">- Emily Rodriguez</div></div></div></div></section>`;
+    }
+
+    if (sections.includes('pricing')) {
+        html += `<section id="pricing" class="section"><div class="container"><h2 class="section-title">Pricing</h2><p class="section-sub">Choose the plan that fits your needs.</p><div class="pricing-grid"><div class="pricing-card"><h3>Starter</h3><div class="price">$499<span>/mo</span></div><ul><li>Basic Setup</li><li>5 Pages</li><li>Email Support</li><li>Monthly Report</li></ul><a href="#contact" class="btn" style="background:#f3f4f6;color:#1f2937">Get Started</a></div><div class="pricing-card featured"><h3>Professional</h3><div class="price">$999<span>/mo</span></div><ul><li>Everything in Starter</li><li>Unlimited Pages</li><li>Priority Support</li><li>SEO Optimization</li><li>Analytics Dashboard</li></ul><a href="#contact" class="btn" style="background:${color};color:white">Get Started</a></div><div class="pricing-card"><h3>Enterprise</h3><div class="price">$2,499<span>/mo</span></div><ul><li>Everything in Pro</li><li>Dedicated Manager</li><li>Custom Integrations</li><li>24/7 Support</li><li>White Label</li></ul><a href="#contact" class="btn" style="background:#f3f4f6;color:#1f2937">Get Started</a></div></div></div></section>`;
+    }
+
+    if (sections.includes('contact')) {
+        html += `<section id="contact" class="section" style="background:#f9fafb"><div class="container"><h2 class="section-title">Get in Touch</h2><p class="section-sub">Ready to start your project? Send us a message.</p><div class="contact-form"><form><input type="text" placeholder="Your Name"><input type="email" placeholder="Your Email"><textarea rows="4" placeholder="Tell us about your project"></textarea><button type="button" class="btn" style="background:${color};color:white;border:none;width:100%;cursor:pointer">Send Message</button></form></div></div></section>`;
+    }
+
+    html += `<footer><div class="container"><p style="color:${color};font-size:1.1rem;font-weight:600;margin-bottom:8px">${escapeHtml(name)}</p><p>&copy; ${new Date().getFullYear()} ${escapeHtml(name)}. All rights reserved.</p></div></footer></body></html>`;
+
+    const frame = document.getElementById('previewFrame');
+    frame.srcdoc = html;
+    document.getElementById('pageSize').textContent = Math.round(new Blob([html]).size / 1024) + ' KB';
+    window._currentPageHTML = html;
+}
+
+function escapeHtml(t) {
+    const d = document.createElement('div');
+    d.textContent = t;
+    return d.innerHTML;
+}
+
+function downloadPage() {
+    const code = window._currentPageHTML;
+    if (!code) return;
+    const blob = new Blob([code], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'landing-page.html';
+    a.click();
+    URL.revokeObjectURL(a);
+}
+
+function copyPage() {
+    const code = window._currentPageHTML;
+    if (!code) return;
+    navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('button:nth-child(2)');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => btn.innerHTML = orig, 2000);
+    });
+}
+
+document.getElementById('aiGenerateBtn').addEventListener('click', async function() {
+    const prompt = document.getElementById('aiPrompt').value.trim();
+    if (!prompt) return;
+    const apiKey = document.getElementById('apiKey').value.trim();
+    if (!apiKey) { alert('Enter your API key in Settings first.'); return; }
+
+    this.disabled = true;
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    isGenerating = true;
+
+    const model = getModel();
+    const color = document.getElementById('primaryColor').value;
+    const sysPrompt = `You are a landing page HTML generator. Generate a complete, self-contained HTML landing page based on the user's description.
+Rules:
+- Return ONLY a full HTML document inside \\\`\\\`\\\`html ... \\\`\\\`\\\`
+- Use the primary color ${color} for buttons, links, and accents
+- Include all CSS in a <style> tag, all JS at end of body
+- Use modern, beautiful design with gradients, shadows, and animations
+- Make it responsive
+- Include a sticky header, hero, features/services, and footer
+- Use Font Awesome 6 CDN for icons
+- The page must be standalone and work when opened in a browser`;
+
+    try {
+        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'HTTP-Referer': 'https://switdeveloper.github.io/Swit-invest/' },
+            body: JSON.stringify({ model, messages: [{ role: 'system', content: sysPrompt }, { role: 'user', content: prompt }], max_tokens: 4096, temperature: 0.4 })
+        });
+        if (!res.ok) { alert('AI generation failed'); return; }
+        const data = await res.json();
+        const reply = data.choices?.[0]?.message?.content || '';
+        const match = reply.match(/```html?([\s\S]*?)```/);
+        if (match) {
+            const frame = document.getElementById('previewFrame');
+            frame.srcdoc = match[1].trim();
+            window._currentPageHTML = match[1].trim();
+        } else {
+            alert('AI did not return valid HTML code.');
+        }
+    } catch(e) {
+        alert('Error: ' + e.message);
+    } finally {
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-magic"></i> AI';
+        isGenerating = false;
+    }
+});
+
+loadSettings();
+buildPage();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
+</body>
+</html>

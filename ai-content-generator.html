@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Content Generator – SwitDeveloper</title>
+  <meta name="description" content="Generate high-quality blog posts, ad copy, emails, social captions, and more with SwitDeveloper's free AI Content Generator. Powered by OpenRouter." />
+  <meta name="keywords" content="AI content generator, free AI writer, blog post generator, ad copy generator, email newsletter AI, social media caption AI, content creation tool, SwitDeveloper" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://switdeveloper.com/ai-content-generator" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Content Generator – SwitDeveloper" />
+  <meta property="og:description" content="Generate high-quality blog posts, ad copy, emails, social captions, and more with SwitDeveloper's free AI Content Generator." />
+  <meta property="og:url" content="https://switdeveloper.com/ai-content-generator" />
+  <meta property="og:site_name" content="SwitDeveloper" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Content Generator – SwitDeveloper" />
+  <meta name="twitter:description" content="Generate high-quality content with SwitDeveloper's free AI Content Generator." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { dark: '#0d152e', primary: '#c91414' }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f9fc;
+      color: #1a1a2e;
+    }
+    .bg-brand-dark { background-color: #0d152e; }
+    .bg-brand-primary { background-color: #c91414; }
+    .text-brand-primary { color: #c91414; }
+    .border-brand-primary { border-color: #c91414; }
+    .hover\:bg-brand-primary-dark:hover { background-color: #a81010; }
+    body.dark body { background: #0d152e; color: #e2e8f0; }
+
+    /* Hero */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0d152e 0%, #1a1f3a 50%, #0d152e 100%);
+    }
+    .hero-glow {
+      box-shadow: 0 0 80px rgba(201, 20, 20, 0.15);
+    }
+
+    /* Content type cards */
+    .type-card {
+      background: #fff;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .type-card:hover {
+      border-color: #c91414;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(201, 20, 20, 0.12);
+    }
+    .type-card.active {
+      border-color: #c91414;
+      background: #fff5f5;
+      box-shadow: 0 0 0 3px rgba(201, 20, 20, 0.15);
+    }
+    .type-card .icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
+      font-size: 1.4rem;
+      color: #c91414;
+      background: #fef2f2;
+      transition: 0.2s;
+    }
+    .type-card.active .icon-wrap {
+      background: #c91414;
+      color: #fff;
+    }
+    .type-card .label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #1e293b;
+    }
+    .type-card.active .label { color: #c91414; }
+
+    /* Form & Results */
+    .form-card, .result-card, .history-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .form-card { border: 1px solid #e2e8f0; }
+    .form-label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #334155;
+      margin-bottom: 0.35rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      background: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: #c91414;
+      box-shadow: 0 0 0 3px rgba(201, 20, 20, 0.1);
+    }
+    .btn-primary {
+      background: #c91414;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover { background: #a81010; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-secondary {
+      background: transparent;
+      color: #334155;
+      border: 1.5px solid #e2e8f0;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-secondary:hover { border-color: #c91414; color: #c91414; }
+
+    /* Result content */
+    .result-content {
+      line-height: 1.75;
+      font-size: 0.95rem;
+      color: #1e293b;
+      white-space: pre-wrap;
+    }
+    .result-content h1, .result-content h2, .result-content h3 {
+      font-family: 'Playfair Display', serif;
+      margin-top: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* History */
+    .history-item {
+      border-left: 3px solid #e2e8f0;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      border-radius: 0 8px 8px 0;
+    }
+    .history-item:hover {
+      border-left-color: #c91414;
+      background: #fef2f2;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0d152e;
+      color: #fff;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.4s ease;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 9998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 480px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    /* Loader */
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .type-card { padding: 1rem 0.75rem; }
+      .type-card .icon-wrap { width: 42px; height: 42px; font-size: 1.1rem; }
+      .modal-box { padding: 1.5rem; }
+    }
+
+    /* Skeleton loader */
+    .skeleton {
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <!-- Toast -->
+  <div id="toast"><i class="fa-regular fa-circle-check"></i> <span id="toast-msg">Copied!</span></div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal-box">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="text-xl font-bold" style="font-family:'Playfair Display',serif;">
+          <i class="fa-solid fa-gear text-brand-primary mr-2"></i>Settings
+        </h3>
+        <button onclick="closeSettings()" class="text-2xl text-gray-400 hover:text-gray-700 transition">&times;</button>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="form-label" for="modal-api-key">
+            <i class="fa-solid fa-key mr-1"></i>OpenRouter API Key
+          </label>
+          <input type="password" id="modal-api-key" class="form-input" placeholder="sk-or-v1-..." />
+          <p class="text-xs text-gray-400 mt-1">Stored locally in your browser.</p>
+        </div>
+        <div>
+          <label class="form-label" for="modal-model">
+            <i class="fa-solid fa-microchip mr-1"></i>Model
+          </label>
+          <select id="modal-model" class="form-select"></select>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button onclick="saveSettings()" class="btn-primary flex-1">
+            <i class="fa-solid fa-check mr-1"></i>Save
+          </button>
+          <button onclick="closeSettings()" class="btn-secondary flex-1">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="font-body">
+    <!-- Hero -->
+    <section class="hero-gradient hero-glow relative overflow-hidden px-4 py-16 md:py-24">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+      <div class="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+      <div class="relative max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/80 text-sm font-medium px-4 py-1.5 rounded-full mb-5 border border-white/10">
+          <i class="fa-solid fa-wand-magic-sparkles text-brand-primary"></i>
+          Free AI Tool by SwitDeveloper
+        </div>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+          AI Content Generator
+        </h1>
+        <p class="text-white/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          Create high-quality blog posts, ads, emails, social captions, and more — powered by leading AI models.
+        </p>
+      </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 py-10">
+      <div class="flex flex-wrap lg:flex-nowrap gap-8">
+
+        <!-- Left Sidebar -->
+        <aside class="w-full lg:w-64 shrink-0">
+          <div class="form-card p-5 sticky top-4">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-semibold text-sm text-gray-500 uppercase tracking-wider">
+                <i class="fa-solid fa-sliders mr-1"></i>Settings
+              </h3>
+              <button onclick="openSettings()" class="text-gray-400 hover:text-brand-primary transition text-lg" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+              </button>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label" for="sidebar-model">Model</label>
+              <select id="sidebar-model" class="form-select text-sm"></select>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label" for="sidebar-language">Language</label>
+              <select id="sidebar-language" class="form-select text-sm">
+                <option value="English">English</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Italian">Italian</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Dutch">Dutch</option>
+                <option value="Russian">Russian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Korean">Korean</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Turkish">Turkish</option>
+              </select>
+            </div>
+
+            <div class="pt-2 border-t border-gray-100">
+              <p class="text-xs text-gray-400">
+                <i class="fa-regular fa-circle-check text-green-500 mr-1"></i>
+                <span id="status-text">No API key set</span>
+              </p>
+              <button onclick="openSettings()" class="text-xs text-brand-primary hover:underline mt-1">
+                Configure API key
+              </button>
+            </div>
+          </div>
+
+          <!-- History Panel -->
+          <div class="form-card p-5 mt-5">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-semibold text-sm text-gray-500 uppercase tracking-wider">
+                <i class="fa-regular fa-clock mr-1"></i>History
+              </h3>
+              <button onclick="clearHistory()" class="text-xs text-gray-400 hover:text-brand-primary transition" title="Clear history">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+            <div id="history-list" class="space-y-1 max-h-80 overflow-y-auto">
+              <p class="text-gray-300 text-sm text-center py-6">No generations yet.</p>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 min-w-0">
+
+          <!-- Content Type Grid -->
+          <section>
+            <h2 class="font-display text-2xl font-bold text-gray-800 mb-5">
+              <i class="fa-solid fa-grid-2 text-brand-primary mr-2"></i>Select Content Type
+            </h2>
+            <div id="type-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-10"></div>
+          </section>
+
+          <!-- Form Section -->
+          <section id="form-section" class="form-card p-6 md:p-8 mb-8" style="display:none;">
+            <div class="flex items-center justify-between mb-5">
+              <h3 class="font-display text-xl font-bold text-gray-800">
+                <i class="fa-solid fa-pen-fancy text-brand-primary mr-2"></i>
+                <span id="form-title">Create Content</span>
+              </h3>
+              <button onclick="resetForm()" class="text-sm text-gray-400 hover:text-brand-primary transition">
+                <i class="fa-regular fa-arrow-left mr-1"></i>Change type
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div class="md:col-span-2">
+                <label class="form-label" for="input-topic">Topic / Keywords <span class="text-brand-primary">*</span></label>
+                <textarea id="input-topic" class="form-textarea" rows="3" placeholder="e.g., Benefits of remote work for productivity and mental health"></textarea>
+              </div>
+
+              <div>
+                <label class="form-label" for="input-tone">Tone</label>
+                <select id="input-tone" class="form-select">
+                  <option value="Professional">Professional</option>
+                  <option value="Casual">Casual</option>
+                  <option value="Persuasive">Persuasive</option>
+                  <option value="Humorous">Humorous</option>
+                  <option value="Formal">Formal</option>
+                  <option value="Inspiring">Inspiring</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label" for="input-length">Length</label>
+                <select id="input-length" class="form-select">
+                  <option value="Short">Short</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Long">Long</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label" for="input-audience">Target Audience <span class="text-gray-300">(optional)</span></label>
+                <input type="text" id="input-audience" class="form-input" placeholder="e.g., small business owners" />
+              </div>
+
+              <div>
+                <label class="form-label" for="input-language-form">Language</label>
+                <select id="input-language-form" class="form-select"></select>
+              </div>
+            </div>
+
+            <button id="generate-btn" onclick="generate()" class="btn-primary w-full md:w-auto">
+              <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Generate Content
+            </button>
+          </section>
+
+          <!-- Results -->
+          <section id="results-section" style="display:none;">
+            <div id="result-card" class="result-card p-6 md:p-8">
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <h3 class="font-display text-xl font-bold text-gray-800">
+                    <i class="fa-solid fa-file-lines text-brand-primary mr-2"></i>Generated Content
+                  </h3>
+                  <p class="text-sm text-gray-400 mt-0.5" id="result-meta"></p>
+                </div>
+                <div class="flex gap-2">
+                  <button onclick="copyResult()" class="btn-secondary text-sm py-2 px-3" title="Copy">
+                    <i class="fa-regular fa-copy"></i>
+                  </button>
+                  <button onclick="regenerate()" class="btn-secondary text-sm py-2 px-3" title="Regenerate">
+                    <i class="fa-solid fa-rotate"></i>
+                  </button>
+                </div>
+              </div>
+              <div id="result-content" class="result-content"></div>
+            </div>
+          </section>
+
+          <!-- Loading Skeleton -->
+          <div id="loading-section" style="display:none;">
+            <div class="result-card p-6 md:p-8">
+              <div class="flex gap-3 mb-5">
+                <div class="skeleton h-6 w-48"></div>
+                <div class="skeleton h-6 w-20 ml-auto"></div>
+              </div>
+              <div class="space-y-3">
+                <div class="skeleton h-4 w-full"></div>
+                <div class="skeleton h-4 w-5/6"></div>
+                <div class="skeleton h-4 w-4/6"></div>
+                <div class="skeleton h-4 w-full"></div>
+                <div class="skeleton h-4 w-3/4"></div>
+                <div class="skeleton h-4 w-5/6"></div>
+                <div class="skeleton h-4 w-full"></div>
+                <div class="skeleton h-4 w-2/3"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <!-- Scroll to top -->
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="scroll-top" class="fixed bottom-6 left-6 w-10 h-10 rounded-full bg-brand-dark text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 z-40 hover:bg-brand-primary">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // ── Models ──
+    const MODELS = [
+      { id: 'openai/gpt-4o', name: 'OpenAI GPT-4o' },
+      { id: 'openai/gpt-4o-mini', name: 'OpenAI GPT-4o Mini' },
+      { id: 'openai/gpt-4-turbo', name: 'OpenAI GPT-4 Turbo' },
+      { id: 'anthropic/claude-3.5-sonnet', name: 'Anthropic Claude 3.5 Sonnet' },
+      { id: 'anthropic/claude-3-haiku', name: 'Anthropic Claude 3 Haiku' },
+      { id: 'google/gemini-pro', name: 'Google Gemini Pro' },
+      { id: 'google/gemini-flash-1.5', name: 'Google Gemini Flash 1.5' },
+      { id: 'meta-llama/llama-3.1-70b-instruct', name: 'Meta Llama 3.1 70B' },
+      { id: 'meta-llama/llama-3.1-8b-instruct', name: 'Meta Llama 3.1 8B' },
+      { id: 'mistral/mistral-large', name: 'Mistral Large' },
+      { id: 'deepseek/deepseek-chat', name: 'DeepSeek V2' }
+    ];
+
+    // ── Content Types ──
+    const CONTENT_TYPES = [
+      { id: 'blog',         label: 'Blog Post',          icon: 'fa-solid fa-blog' },
+      { id: 'ad',           label: 'Ad Copy',            icon: 'fa-solid fa-ad' },
+      { id: 'email',        label: 'Email Newsletter',   icon: 'fa-solid fa-envelope-open-text' },
+      { id: 'social',       label: 'Social Caption',     icon: 'fa-solid fa-hashtag' },
+      { id: 'product',      label: 'Product Description',icon: 'fa-solid fa-tag' },
+      { id: 'landing',      label: 'Landing Page Copy',  icon: 'fa-solid fa-laptop-code' },
+      { id: 'press',        label: 'Press Release',      icon: 'fa-solid fa-newspaper' },
+      { id: 'video',        label: 'Video Script',       icon: 'fa-solid fa-video' }
+    ];
+
+    // ── Prompts ──
+    function buildSystemPrompt(type, tone, length, audience, language) {
+      const lengthGuide = { Short: '2–3 paragraphs', Medium: '4–6 paragraphs', Long: '7–12 paragraphs' };
+      const lengthDesc = `Write approximately ${lengthGuide[length] || lengthGuide.Medium}.`;
+      const audienceDesc = audience ? ` Target audience: ${audience}.` : '';
+      return `You are an expert ${type} writer. Write in a ${tone.toLowerCase()} tone. ${lengthDesc}${audienceDesc} Output in ${language}. Use markdown formatting with headings where appropriate.`;
+    }
+
+    const TYPE_LABELS = {
+      blog: 'a blog post', ad: 'an ad copy', email: 'an email newsletter',
+      social: 'a social media caption', product: 'a product description',
+      landing: 'a landing page copy', press: 'a press release', video: 'a video script'
+    };
+
+    // ── State ──
+    let selectedType = null;
+    let lastResult = '';
+    let lastMeta = {};
+    let isGenerating = false;
+
+    // ── DOM refs ──
+    const $ = id => document.getElementById(id);
+    const typeGrid = $('type-grid');
+    const formSection = $('form-section');
+    const formTitle = $('form-title');
+    const resultsSection = $('results-section');
+    const loadingSection = $('loading-section');
+    const resultContent = $('result-content');
+    const resultMeta = $('result-meta');
+    const historyList = $('history-list');
+    const toast = $('toast');
+    const toastMsg = $('toast-msg');
+    const statusText = $('status-text');
+    const scrollTop = $('scroll-top');
+
+    // ── Init ──
+    function init() {
+      populateModels();
+      populateTypeCards();
+      populateLanguageSelectors();
+      loadSettingsIntoUI();
+      renderHistory();
+      updateStatus();
+    }
+
+    function populateModels() {
+      const selects = ['sidebar-model', 'modal-model'];
+      selects.forEach(id => {
+        const sel = $(id);
+        if (!sel) return;
+        sel.innerHTML = MODELS.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+      });
+    }
+
+    function populateTypeCards() {
+      typeGrid.innerHTML = CONTENT_TYPES.map(t => `
+        <div class="type-card" data-type="${t.id}" onclick="selectType('${t.id}')">
+          <div class="icon-wrap"><i class="${t.icon}"></i></div>
+          <div class="label">${t.label}</div>
+        </div>
+      `).join('');
+    }
+
+    function populateLanguageSelectors() {
+      const langs = ['English','Spanish','French','German','Italian','Portuguese','Dutch','Russian','Japanese','Korean','Chinese','Arabic','Hindi','Turkish'];
+      const html = langs.map(l => `<option value="${l}">${l}</option>`).join('');
+      const select1 = $('sidebar-language');
+      const select2 = $('input-language-form');
+      if (select1) select1.innerHTML = html;
+      if (select2) select2.innerHTML = html;
+      // Sync them
+      if (select1 && select2) {
+        select1.addEventListener('change', () => { select2.value = select1.value; });
+        select2.addEventListener('change', () => { select1.value = select2.value; });
+      }
+    }
+
+    // ── Settings ──
+    function loadSettingsIntoUI() {
+      const key = localStorage.getItem('orApiKey') || '';
+      const model = localStorage.getItem('orModel') || MODELS[0].id;
+      if ($('modal-api-key')) $('modal-api-key').value = key;
+      if ($('modal-model')) $('modal-model').value = model;
+      if ($('sidebar-model')) $('sidebar-model').value = model;
+    }
+
+    function updateStatus() {
+      const key = localStorage.getItem('orApiKey') || '';
+      statusText.textContent = key ? 'API key configured' : 'No API key set';
+      statusText.style.color = key ? '#16a34a' : '#9ca3af';
+    }
+
+    function openSettings() {
+      loadSettingsIntoUI();
+      $('settings-modal').classList.add('open');
+    }
+
+    function closeSettings() {
+      $('settings-modal').classList.remove('open');
+    }
+
+    function saveSettings() {
+      const key = $('modal-api-key').value.trim();
+      const model = $('modal-model').value;
+      if (key) localStorage.setItem('orApiKey', key);
+      localStorage.setItem('orModel', model);
+      if ($('sidebar-model')) $('sidebar-model').value = model;
+      updateStatus();
+      closeSettings();
+      showToast('Settings saved');
+    }
+
+    // ── Type Selection ──
+    function selectType(type) {
+      selectedType = type;
+      document.querySelectorAll('.type-card').forEach(c => c.classList.remove('active'));
+      document.querySelector(`.type-card[data-type="${type}"]`)?.classList.add('active');
+      const ct = CONTENT_TYPES.find(t => t.id === type);
+      formTitle.textContent = `Create ${ct ? ct.label : 'Content'}`;
+      formSection.style.display = 'block';
+      resultsSection.style.display = 'none';
+      $('input-topic').focus();
+      window.scrollTo({ top: formSection.offsetTop - 100, behavior: 'smooth' });
+    }
+
+    function resetForm() {
+      selectedType = null;
+      document.querySelectorAll('.type-card').forEach(c => c.classList.remove('active'));
+      formSection.style.display = 'none';
+      resultsSection.style.display = 'none';
+      loadingSection.style.display = 'none';
+      window.scrollTo({ top: $('type-grid').offsetTop - 100, behavior: 'smooth' });
+    }
+
+    // ── Generate ──
+    async function generate() {
+      const apiKey = localStorage.getItem('orApiKey');
+      if (!apiKey) {
+        showToast('Please set your API key in Settings');
+        openSettings();
+        return;
+      }
+
+      const topic = $('input-topic').value.trim();
+      if (!topic) {
+        showToast('Please enter a topic or keywords');
+        $('input-topic').focus();
+        return;
+      }
+
+      if (isGenerating) return;
+      isGenerating = true;
+
+      const typeLabel = TYPE_LABELS[selectedType] || 'content';
+      const tone = $('input-tone').value;
+      const length = $('input-length').value;
+      const audience = $('input-audience').value.trim();
+      const language = $('input-language-form').value;
+      const model = localStorage.getItem('orModel') || MODELS[0].id;
+
+      const systemPrompt = buildSystemPrompt(typeLabel, tone, length, audience, language);
+      const userPrompt = `Write ${typeLabel} about the following topic/area:\n\n${topic}`;
+
+      // Show loader
+      resultsSection.style.display = 'none';
+      loadingSection.style.display = 'block';
+      $('generate-btn').disabled = true;
+      $('generate-btn').innerHTML = '<span class="spinner mr-2"></span>Generating...';
+
+      try {
+        const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+            'HTTP-Referer': window.location.origin,
+            'X-Title': 'SwitDeveloper AI Content Generator'
+          },
+          body: JSON.stringify({
+            model,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.7,
+            max_tokens: length === 'Short' ? 512 : length === 'Medium' ? 1536 : 3072
+          })
+        });
+
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({}));
+          throw new Error(err.error?.message || `HTTP ${resp.status}: ${resp.statusText}`);
+        }
+
+        const data = await resp.json();
+        const text = data.choices?.[0]?.message?.content || '';
+        if (!text) throw new Error('No content returned');
+
+        lastResult = text;
+        const ct = CONTENT_TYPES.find(t => t.id === selectedType);
+        lastMeta = {
+          type: ct ? ct.label : selectedType,
+          topic,
+          tone,
+          length,
+          audience,
+          language,
+          model,
+          timestamp: new Date().toISOString()
+        };
+
+        displayResult(text, lastMeta);
+        saveToHistory(text, lastMeta);
+        renderHistory();
+
+      } catch (err) {
+        showToast('Error: ' + err.message);
+        loadingSection.style.display = 'none';
+      } finally {
+        isGenerating = false;
+        $('generate-btn').disabled = false;
+        $('generate-btn').innerHTML = '<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Generate Content';
+      }
+    }
+
+    function displayResult(text, meta) {
+      loadingSection.style.display = 'none';
+      resultContent.innerHTML = text;
+      resultMeta.textContent = `${meta.type} · ${meta.language} · ${meta.tone} · ${meta.model.split('/')[1] || meta.model}`;
+      resultsSection.style.display = 'block';
+      setTimeout(() => resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+
+    function copyResult() {
+      if (!lastResult) return;
+      navigator.clipboard.writeText(lastResult).then(() => {
+        showToast('Copied to clipboard!');
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = lastResult;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Copied to clipboard!');
+      });
+    }
+
+    function regenerate() {
+      if (selectedType && $('input-topic').value.trim()) {
+        generate();
+      } else {
+        showToast('Please select a type and enter a topic first');
+      }
+    }
+
+    // ── History ──
+    function getHistory() {
+      try { return JSON.parse(localStorage.getItem('contentGenHistory') || '[]'); } catch { return []; }
+    }
+
+    function saveToHistory(text, meta) {
+      const history = getHistory();
+      history.unshift({ text, meta, id: Date.now() });
+      if (history.length > 50) history.length = 50;
+      localStorage.setItem('contentGenHistory', JSON.stringify(history));
+    }
+
+    function renderHistory() {
+      const history = getHistory();
+      if (!history.length) {
+        historyList.innerHTML = '<p class="text-gray-300 text-sm text-center py-6">No generations yet.</p>';
+        return;
+      }
+      historyList.innerHTML = history.map(h => {
+        const date = new Date(h.meta.timestamp);
+        const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const preview = h.text.replace(/\s+/g, ' ').substring(0, 70);
+        return `
+          <div class="history-item" onclick="loadHistory(${h.id})" title="${h.meta.type || 'Content'} - ${dateStr}">
+            <div class="text-xs font-semibold text-gray-500 uppercase">${h.meta.type || 'Content'}</div>
+            <div class="text-sm text-gray-600 truncate">${preview}...</div>
+            <div class="text-xs text-gray-400 mt-0.5">${dateStr} · ${h.meta.model?.split('/')[1] || ''}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function loadHistory(id) {
+      const history = getHistory();
+      const item = history.find(h => h.id === id);
+      if (!item) return;
+      lastResult = item.text;
+      lastMeta = item.meta;
+      displayResult(item.text, item.meta);
+      // Auto-select the type
+      const ct = CONTENT_TYPES.find(t => t.label === item.meta.type);
+      if (ct) {
+        selectType(ct.id);
+        $('input-topic').value = item.meta.topic || '';
+        $('input-tone').value = item.meta.tone || 'Professional';
+        $('input-length').value = item.meta.length || 'Medium';
+        $('input-audience').value = item.meta.audience || '';
+        if (item.meta.language) {
+          $('sidebar-language').value = item.meta.language;
+          $('input-language-form').value = item.meta.language;
+        }
+      }
+    }
+
+    function clearHistory() {
+      if (!confirm('Clear all generation history?')) return;
+      localStorage.removeItem('contentGenHistory');
+      renderHistory();
+      showToast('History cleared');
+    }
+
+    // ── Toast ──
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // ── Scroll button ──
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollTop.classList.remove('opacity-0', 'invisible');
+        scrollTop.classList.add('opacity-100', 'visible');
+      } else {
+        scrollTop.classList.add('opacity-0', 'invisible');
+        scrollTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+
+    // ── Keyboard shortcuts ──
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && e.ctrlKey && selectedType) generate();
+      if (e.key === 'Escape') closeSettings();
+    });
+
+    // ── Load partials ──
+    function loadPartials() {
+      const header = $('header-container');
+      const footer = $('footer-container');
+      if (header) {
+        fetch('/js/load-partials.js')
+          .then(r => r.text())
+          .then(code => { try { new Function(code)(); } catch(e) {} })
+          .catch(() => {
+            // Fallback: insert placeholder header/footer
+            if (header && !header.innerHTML.trim()) {
+              header.innerHTML = `<header style="background:#0d152e;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;">
+                <a href="/" style="color:#fff;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;text-decoration:none;">
+                  <span style="color:#c91414;">S</span>witDeveloper
+                </a>
+                <nav style="display:flex;gap:1.5rem;">
+                  <a href="/" style="color:#fff;text-decoration:none;font-size:0.9rem;">Home</a>
+                  <a href="/ai-tools" style="color:#fff;text-decoration:none;font-size:0.9rem;">AI Tools</a>
+                  <a href="/contact" style="color:#fff;text-decoration:none;font-size:0.9rem;">Contact</a>
+                </nav>
+              </header>`;
+            }
+            if (footer && !footer.innerHTML.trim()) {
+              footer.innerHTML = `<footer style="background:#0d152e;color:rgba(255,255,255,0.6);text-align:center;padding:2rem;font-size:0.85rem;">
+                &copy; ${new Date().getFullYear()} SwitDeveloper. All rights reserved.
+              </footer>`;
+            }
+          });
+      }
+    }
+
+    // ── Run ──
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+      loadPartials();
+    });
+  </script>
+</body>
+</html>

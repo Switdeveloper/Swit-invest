@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy - SwitDeveloper">
+    <title>Privacy Policy | SwitDeveloper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #333; }
+        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
+        .bg-dark-blue { background-color: #0d152e; }
+        .text-dark-blue { color: #0d152e; }
+        .bg-primary-red { background-color: #c91414; }
+        .text-primary-red { color: #c91414; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .content p { margin-bottom: 1rem; line-height: 1.8; }
+        .content h2 { font-size: 1.5rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/load-partials.js"></script>
+</head>
+<body class="overflow-x-hidden">
+    <div id="header-container"></div>
+    <section class="relative bg-[#0d152e] pt-20 pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-10 pt-16">
+            <h1 class="text-5xl font-bold serif text-white">Privacy <span class="text-primary-red">Policy</span></h1>
+        </div>
+    </section>
+    <section class="py-16 bg-gray-50 -mt-20 relative z-20">
+        <div class="max-w-4xl mx-auto px-4 bg-white rounded-2xl shadow-sm border border-gray-200 p-8 md:p-12 content text-gray-600 text-sm leading-relaxed">
+            <p><strong>Last updated:</strong> June 2026</p>
+            <h2>1. Information We Collect</h2>
+            <p>We collect information you provide directly (name, email, phone) when you fill out forms on our site. We also automatically collect certain technical information including IP address, browser type, and pages visited.</p>
+            <h2>2. How We Use Your Information</h2>
+            <p>We use your information to respond to inquiries, provide services, improve our website, and send relevant marketing communications (with your consent).</p>
+            <h2>3. Data Sharing</h2>
+            <p>We do not sell your personal data. We may share information with trusted service providers who assist in operating our website and business, subject to confidentiality agreements.</p>
+            <h2>4. Cookies</h2>
+            <p>We use essential cookies for site functionality. Analytics cookies help us understand how visitors use our site. You can control cookie preferences in your browser settings.</p>
+            <h2>5. Data Security</h2>
+            <p>We implement appropriate security measures to protect your data against unauthorized access, alteration, or destruction.</p>
+            <h2>6. Your Rights</h2>
+            <p>You have the right to access, correct, or delete your personal data. Contact us at privacy@switdeveloper.com to exercise these rights.</p>
+            <h2>7. Contact</h2>
+            <p>Questions about this policy? Email us at privacy@switdeveloper.com or call (305) 555-1234.</p>
+        </div>
+    </section>
+    <div id="footer-container"></div>
+    <script src="js/load-partials.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    });
+    </script>
+</body>
+</html>

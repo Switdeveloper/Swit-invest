@@ -1,3 +1,13 @@
+// Google Analytics placeholder - uncomment and add your GA4 ID to enable
+// window.dataLayer = window.dataLayer || [];
+// function gtag(){dataLayer.push(arguments);}
+// gtag('js', new Date());
+// gtag('config', 'G-XXXXXXXXXX');
+// const gaScript = document.createElement('script');
+// gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+// gaScript.async = true;
+// document.head.appendChild(gaScript);
+
 document.addEventListener('DOMContentLoaded', async () => {
     const headerContainer = document.getElementById('header-container');
     if (headerContainer) {

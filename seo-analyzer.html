@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free SEO Analyzer tool by SwitDeveloper - Analyze any website's SEO health instantly. Meta tags, headings, images, links, schema, and more.">
+    <meta name="keywords" content="SEO analyzer, website SEO check, meta tag analyzer, SEO audit tool, free SEO checker, on-page SEO">
+    <meta property="og:title" content="SEO Analyzer - SwitDeveloper">
+    <meta property="og:description" content="Analyze any website's SEO health instantly. Check meta tags, headings, images, links, schema, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://switdeveloper.github.io/Swit-invest/seo-analyzer.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://switdeveloper.github.io/Swit-invest/seo-analyzer.html">
+    <title>SEO Analyzer - Free Website SEO Checker | SwitDeveloper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/load-partials.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #333; }
+        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
+        .bg-dark-blue { background-color: #0d152e; }
+        .text-dark-blue { color: #0d152e; }
+        .bg-primary-red { background-color: #c91414; }
+        .text-primary-red { color: #c91414; }
+        .border-primary-red { border-color: #c91414; }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .delay-100 { transition-delay:0.1s; }
+        .delay-200 { transition-delay:0.2s; }
+        .delay-300 { transition-delay:0.3s; }
+        .delay-400 { transition-delay:0.4s; }
+
+        .score-ring { width: 140px; height: 140px; position: relative; }
+        .score-ring svg { transform: rotate(-90deg); }
+        .score-ring circle { fill: none; stroke-width: 8; }
+        .score-ring .bg-circle { stroke: #e5e7eb; }
+        .score-ring .progress-circle { stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .status-dot.good { background-color: #22c55e; }
+        .status-dot.warning { background-color: #eab308; }
+        .status-dot.bad { background-color: #ef4444; }
+
+        .check-card { transition: all 0.2s; }
+        .check-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+
+        #resultsSection .stat-value { font-size: 1.75rem; font-weight: 700; }
+        #resultsSection .stat-label { font-size: 0.75rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .loading-spinner { width: 40px; height: 40px; border: 4px solid #e5e7eb; border-top-color: #c91414; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .recommendation { font-size: 0.8125rem; padding: 0.5rem 0.75rem; border-radius: 0.5rem; background: #f9fafb; border-left: 3px solid; margin-top: 0.5rem; }
+        .recommendation.good { border-left-color: #22c55e; }
+        .recommendation.warning { border-left-color: #eab308; }
+        .recommendation.bad { border-left-color: #ef4444; }
+
+        .mode-btn { padding: 0.5rem 1.25rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: 2px solid #d1d5db; background: white; color: #6b7280; }
+        .mode-btn.active { border-color: #c91414; background: #fef2f2; color: #c91414; }
+        .mode-btn:hover:not(.active) { border-color: #9ca3af; background: #f9fafb; }
+
+        .tag-badge { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; margin: 0.125rem; }
+        .tag-badge.good { background: #dcfce7; color: #16a34a; }
+        .tag-badge.warning { background: #fef9c3; color: #ca8a04; }
+        .tag-badge.bad { background: #fee2e2; color: #dc2626; }
+
+        .detail-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.375rem 0; border-bottom: 1px solid #f3f4f6; font-size: 0.8125rem; }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { color: #6b7280; }
+        .detail-value { font-weight: 600; color: #374151; word-break: break-all; }
+
+        @media print {
+            header, footer, #header-container, #footer-container, .no-print, #ctaSection { display: none !important; }
+            body { padding-top: 0 !important; background: white !important; }
+            #resultsSection { break-inside: avoid; }
+            .check-card { break-inside: avoid; page-break-inside: avoid; border: 1px solid #e5e7eb !important; box-shadow: none !important; }
+            .bg-dark-blue, section.relative { background: #0d152e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .text-primary-red { color: #c91414 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .bg-primary-red { background: #c91414 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .status-dot { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .score-ring .progress-circle { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <div id="header-container"></div>
+
+    <section class="relative bg-[#0d152e] pt-20 pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 -left-20 w-80 h-80 bg-primary-red/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <div class="flex items-center text-[10px] text-gray-400 mb-6 uppercase tracking-wider">
+                    <span class="hover:text-white cursor-pointer" onclick="window.location='index.html'">Home</span> <span class="mx-2">/</span> <span class="text-white">SEO Analyzer</span>
+                </div>
+                <div class="flex items-center text-xs tracking-wider text-primary-red mb-6 uppercase">
+                    <div class="w-2 h-2 border border-primary-red transform rotate-45 mr-3"></div>
+                    Free SEO Tool
+                </div>
+                <h1 class="reveal text-5xl md:text-7xl font-bold mb-4 leading-[1.1] serif text-white">
+                    SEO <span class="text-primary-red">Analyzer</span>
+                </h1>
+                <p class="reveal delay-100 text-lg text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
+                    Analyze any website's SEO health instantly. Check meta tags, headings, images, links, schema, and more.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4">
+
+            <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
+                    <i class="fas fa-search text-primary-red"></i> Analyze a Website
+                </h2>
+
+                <div class="flex flex-wrap gap-2 mb-5">
+                    <button class="mode-btn active" data-mode="url" onclick="switchMode('url')">
+                        <i class="fas fa-link mr-1.5"></i> URL
+                    </button>
+                    <button class="mode-btn" data-mode="html" onclick="switchMode('html')">
+                        <i class="fas fa-code mr-1.5"></i> Paste HTML
+                    </button>
+                </div>
+
+                <div id="urlInput">
+                    <p class="text-xs text-gray-400 mb-2">Enter the full URL of the page you want to analyze.</p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input id="targetUrl" type="url" placeholder="https://example.com" class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
+                        <button onclick="analyze()" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm whitespace-nowrap justify-center">
+                            <i class="fas fa-play"></i> Analyze
+                        </button>
+                    </div>
+                </div>
+
+                <div id="htmlInput" class="hidden">
+                    <p class="text-xs text-gray-400 mb-2">Paste the full HTML source code of the page.</p>
+                    <textarea id="htmlSource" rows="10" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html&gt;&#10;&lt;head&gt;&#10;  &lt;title&gt;...&lt;/title&gt;&#10;...&#10;&lt;/html&gt;" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition font-mono"></textarea>
+                    <div class="flex gap-3 mt-3">
+                        <button onclick="analyze()" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
+                            <i class="fas fa-play"></i> Analyze
+                        </button>
+                        <button onclick="document.getElementById('htmlSource').value = ''" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
+                            <i class="fas fa-trash-alt"></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div id="loadingSection" class="hidden text-center py-12">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <p class="text-gray-500 text-sm">Analyzing page... This may take a moment.</p>
+            </div>
+
+            <!-- Results -->
+            <div id="resultsSection" class="hidden space-y-6">
+
+                <!-- Overall Score -->
+                <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="score-ring flex-shrink-0">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="48"/>
+                                <circle id="scoreCircle" class="progress-circle" cx="60" cy="60" r="48"
+                                    stroke="currentColor" stroke-dasharray="301.6" stroke-dashoffset="301.6"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span id="overallScore" class="text-3xl font-bold text-dark-blue">0</span>
+                            </div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <h3 class="text-xl font-bold text-dark-blue">SEO Health Score</h3>
+                            <p id="overallLabel" class="text-sm text-gray-500 mt-1">Analyzing your page...</p>
+                            <div class="flex flex-wrap gap-1.5 mt-3 justify-center md:justify-start" id="scoreSummary"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Cards -->
+                <div id="resultsContainer" class="space-y-4"></div>
+
+                <!-- Export -->
+                <div class="reveal delay-300 text-center no-print">
+                    <button onclick="exportPDF()" class="bg-dark-blue text-white px-8 py-3.5 rounded-xl font-bold hover:bg-blue-900 transition flex items-center gap-2 shadow-sm mx-auto">
+                        <i class="fas fa-file-pdf"></i> Export Report as PDF
+                    </button>
+                    <p class="text-xs text-gray-400 mt-2">Save the full analysis report as a PDF document.</p>
+                </div>
+            </div>
+
+            <!-- Error -->
+            <div id="errorSection" class="hidden bg-red-50 border border-red-200 rounded-2xl p-6 text-center mt-6">
+                <i class="fas fa-exclamation-triangle text-red-500 text-3xl mb-3"></i>
+                <p id="errorMessage" class="text-red-700 font-medium"></p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="ctaSection" class="py-20 bg-dark-blue text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 120 0 0 1200 120z" class="fill-gray-50"></path>
+            </svg>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 pt-16">
+            <div class="reveal">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Need More SEO Power?</h2>
+                <p class="reveal delay-100 text-gray-300 mb-8 text-lg">Get a full SEO audit from our experts.</p>
+                <div class="reveal delay-200 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-primary-red text-white px-8 py-4 rounded-lg font-bold hover:bg-red-800 transition inline-flex items-center gap-2 shadow-lg">
+                        <i class="fas fa-headset"></i> Request SEO Audit
+                    </a>
+                    <a href="free4dev.html" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-lg font-bold hover:bg-white/20 transition inline-flex items-center gap-2">
+                        <i class="fas fa-box-open"></i> More Free Tools
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+<script>
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.className = 'fas fa-bars fa-lg';
+        } else {
+            icon.className = 'fas fa-times fa-lg';
+        }
+    });
+}
+</script>
+
+<script>
+function switchMode(mode) {
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+    document.getElementById('urlInput').classList.toggle('hidden', mode !== 'url');
+    document.getElementById('htmlInput').classList.toggle('hidden', mode !== 'html');
+}
+
+function showLoading() {
+    document.getElementById('loadingSection').classList.remove('hidden');
+    document.getElementById('resultsSection').classList.add('hidden');
+    document.getElementById('errorSection').classList.add('hidden');
+}
+
+function hideLoading() {
+    document.getElementById('loadingSection').classList.add('hidden');
+}
+
+function showError(msg) {
+    document.getElementById('errorSection').classList.remove('hidden');
+    document.getElementById('errorMessage').textContent = msg;
+    hideLoading();
+}
+
+async function analyze() {
+    const mode = document.querySelector('.mode-btn.active').dataset.mode;
+    let html = '';
+    let baseUrl = null;
+
+    if (mode === 'url') {
+        const url = document.getElementById('targetUrl').value.trim();
+        if (!url) { showError('Please enter a URL to analyze.'); return; }
+        try { new URL(url); } catch(e) { showError('Please enter a valid URL (e.g., https://example.com).'); return; }
+        baseUrl = url;
+        showLoading();
+        html = await fetchPage(url);
+        if (!html) { showError('Could not fetch the page. The URL may be unreachable, or the CORS proxy is unavailable. Try pasting the HTML source directly.'); return; }
+    } else {
+        html = document.getElementById('htmlSource').value.trim();
+        if (!html) { showError('Please paste the HTML source code to analyze.'); return; }
+        showLoading();
+    }
+
+    setTimeout(() => {
+        const results = analyzeHTML(html, baseUrl);
+        displayResults(results);
+        hideLoading();
+    }, 300);
+}
+
+async function fetchPage(url) {
+    const proxies = [
+        'https://corsproxy.io/?' + encodeURIComponent(url),
+        'https://api.allorigins.win/raw?url=' + encodeURIComponent(url)
+    ];
+    for (const proxy of proxies) {
+        try {
+            const res = await fetch(proxy, { signal: AbortSignal.timeout(15000) });
+            if (res.ok) return await res.text();
+        } catch(e) {}
+    }
+    return null;
+}
+
+function analyzeHTML(html, baseUrl) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const r = { baseUrl };
+
+    // 1. Title
+    const titleEl = doc.querySelector('title');
+    const titleText = titleEl ? titleEl.textContent.trim() : '';
+    const tLen = titleText.length;
+    r.title = {
+        present: !!titleText,
+        length: tLen,
+        text: titleText,
+        status: tLen >= 30 && tLen <= 60 ? 'good' : tLen > 0 ? 'warning' : 'bad',
+        rec: tLen === 0 ? 'Your page has no meta title. Add a <title> tag between 30-60 characters.' :
+             tLen < 30 ? 'Your title is too short (' + tLen + ' chars). Aim for 30-60 characters.' :
+             tLen > 60 ? 'Your title is too long (' + tLen + ' chars). Aim for 30-60 characters.' :
+             'Great! Your title length is optimal (' + tLen + ' chars).'
+    };
+
+    // 2. Meta Description
+    const descEl = doc.querySelector('meta[name="description"]');
+    const descText = descEl ? (descEl.getAttribute('content') || '').trim() : '';
+    const dLen = descText.length;
+    r.description = {
+        present: !!descText,
+        length: dLen,
+        text: descText,
+        status: dLen >= 120 && dLen <= 160 ? 'good' : dLen > 0 ? 'warning' : 'bad',
+        rec: dLen === 0 ? 'No meta description found. Add one between 120-160 characters for better CTR.' :
+             dLen < 120 ? 'Meta description too short (' + dLen + ' chars). Aim for 120-160 characters.' :
+             dLen > 160 ? 'Meta description too long (' + dLen + ' chars). Aim for 120-160 characters.' :
+             'Perfect meta description length (' + dLen + ' chars)!'
+    };
+
+    // 3. OG Tags
+    const ogTags = doc.querySelectorAll('meta[property^="og:"]');
+    const ogMap = {};
+    ogTags.forEach(t => { ogMap[t.getAttribute('property')] = t.getAttribute('content'); });
+    const ogEssential = ['og:title','og:description','og:image','og:url'];
+    const ogMissing = ogEssential.filter(k => !ogMap[k]);
+    r.og = {
+        tags: ogMap,
+        count: ogTags.length,
+        missing: ogMissing,
+        status: ogMissing.length === 0 ? 'good' : ogTags.length > 0 ? 'warning' : 'bad',
+        rec: ogMissing.length === 0 ? 'All essential Open Graph tags are present.' :
+             'Missing: ' + ogMissing.join(', ') + '. Add these for better social sharing.'
+    };
+
+    // 4. Twitter Cards
+    const twTags = doc.querySelectorAll('meta[name^="twitter:"]');
+    const twMap = {};
+    twTags.forEach(t => { twMap[t.getAttribute('name')] = t.getAttribute('content'); });
+    const twEssential = ['twitter:card','twitter:title','twitter:description'];
+    const twMissing = twEssential.filter(k => !twMap[k]);
+    r.twitter = {
+        tags: twMap,
+        count: twTags.length,
+        missing: twMissing,
+        status: twMissing.length === 0 ? 'good' : twTags.length > 0 ? 'warning' : 'bad',
+        rec: twMissing.length === 0 ? 'All essential Twitter Card tags are present.' :
+             'Missing: ' + twMissing.join(', ') + '. Add these for better Twitter sharing.'
+    };
+
+    // 5. Headings
+    const headings = {};
+    let hTotal = 0;
+    ['h1','h2','h3','h4','h5','h6'].forEach(tag => {
+        const n = doc.querySelectorAll(tag).length;
+        headings[tag] = n;
+        hTotal += n;
+    });
+    const h1Count = headings['h1'];
+    const h1s = doc.querySelectorAll('h1');
+    let h1Texts = [];
+    h1s.forEach(h => h1Texts.push(h.textContent.trim()));
+    let hierarchyIssue = false;
+    let lastLevel = 0;
+    const allHeadings = doc.querySelectorAll('h1,h2,h3,h4,h5,h6');
+    const headingList = [];
+    allHeadings.forEach(h => {
+        const level = parseInt(h.tagName[1]);
+        headingList.push({ level, text: h.textContent.trim() });
+        if (lastLevel > 0 && level > lastLevel + 1) hierarchyIssue = true;
+        lastLevel = level;
+    });
+    r.headings = {
+        counts: headings,
+        total: hTotal,
+        h1Count,
+        h1Texts,
+        headingList,
+        hierarchyOk: !hierarchyIssue,
+        status: h1Count === 1 && !hierarchyIssue && hTotal > 0 ? 'good' :
+                hTotal === 0 ? 'bad' : 'warning',
+        rec: hTotal === 0 ? 'No heading tags found. Use a clear heading hierarchy starting with a single <h1>.' :
+             h1Count === 0 ? 'No <h1> tag found. Every page should have exactly one <h1>.' :
+             h1Count > 1 ? 'Multiple <h1> tags found (' + h1Count + '). Use only one <h1> per page.' :
+             hierarchyIssue ? 'Heading hierarchy is skipped (e.g., h1 to h3 without h2). Maintain a logical order.' :
+             'Good heading structure! One <h1> and logical hierarchy.'
+    };
+
+    // 6. Images
+    const imgs = doc.querySelectorAll('img');
+    let withAlt = 0, withoutAlt = 0, noAltList = [];
+    imgs.forEach(img => {
+        if (img.hasAttribute('alt') && img.getAttribute('alt') !== null && img.getAttribute('alt') !== undefined) {
+            withAlt++;
+        } else {
+            withoutAlt++;
+            const src = img.getAttribute('src') || '';
+            noAltList.push(src.substring(0, 80));
+        }
+    });
+    const altCov = imgs.length > 0 ? (withAlt / imgs.length * 100) : 100;
+    r.images = {
+        total: imgs.length,
+        withAlt,
+        withoutAlt,
+        altCoverage: Math.round(altCov),
+        missingAlt: noAltList.slice(0, 10),
+        status: altCov >= 90 ? 'good' : altCov >= 50 ? 'warning' : 'bad',
+        rec: imgs.length === 0 ? 'No images found on the page.' :
+             withoutAlt === 0 ? 'All images have alt text. Great for accessibility and SEO!' :
+             withoutAlt + ' image(s) missing alt text. Add descriptive alt attributes for accessibility and SEO.'
+    };
+
+    // 7. Links
+    const links = doc.querySelectorAll('a[href]');
+    let internal = 0, external = 0, emptyHref = 0, jsVoid = 0;
+    let extDomains = {};
+    links.forEach(link => {
+        const href = link.getAttribute('href').trim();
+        if (href === '' || href === '#') { emptyHref++; return; }
+        if (href.startsWith('javascript:')) { jsVoid++; return; }
+        try {
+            const u = new URL(href, baseUrl || 'https://example.com');
+            if (baseUrl) {
+                const baseHost = new URL(baseUrl).hostname.replace('www.', '');
+                const linkHost = u.hostname.replace('www.', '');
+                if (linkHost === baseHost) { internal++; }
+                else { external++; const d = u.hostname; extDomains[d] = (extDomains[d] || 0) + 1; }
+            } else {
+                if (href.startsWith('http://') || href.startsWith('https://')) {
+                    external++;
+                    const d = u.hostname; extDomains[d] = (extDomains[d] || 0) + 1;
+                } else { internal++; }
+            }
+        } catch(e) { internal++; }
+    });
+    r.links = {
+        total: links.length,
+        internal,
+        external,
+        emptyHref,
+        jsVoid,
+        extDomains,
+        status: links.length > 0 ? 'good' : 'warning',
+        rec: links.length === 0 ? 'No links found. Add internal and external links for better navigation.' :
+             emptyHref > 0 ? emptyHref + ' link(s) have empty href. Fix or remove them.' :
+             'Found ' + internal + ' internal and ' + external + ' external link(s).'
+    };
+
+    // 8. Speed Hints
+    const scripts = doc.querySelectorAll('script[src]');
+    const styles = doc.querySelectorAll('link[rel="stylesheet"]');
+    const styleImports = doc.querySelectorAll('style');
+    const totalSize = html.length;
+    r.speed = {
+        totalSize,
+        totalSizeKB: (totalSize / 1024).toFixed(1),
+        scriptCount: scripts.length,
+        styleSheets: styles.length,
+        styleBlocks: styleImports.length,
+        imgCount: imgs.length,
+        totalResources: scripts.length + styles.length + imgs.length,
+        status: totalSize < 300000 ? 'good' : totalSize < 800000 ? 'warning' : 'bad',
+        rec: totalSize < 300000 ? 'Page is lightweight (~' + r.speed.totalSizeKB + ' KB). Good load performance!' :
+             totalSize < 800000 ? 'Page size is ~' + r.speed.totalSizeKB + ' KB. Consider optimizing resources.' :
+             'Page is ~' + r.speed.totalSizeKB + ' KB. Large pages hurt SEO. Minify, compress, and lazy-load resources.'
+    };
+
+    // 9. Viewport
+    const vp = doc.querySelector('meta[name="viewport"]');
+    const vpContent = vp ? (vp.getAttribute('content') || '') : '';
+    const vpOk = vpContent.includes('width=device-width') && vpContent.includes('initial-scale');
+    r.viewport = {
+        present: !!vp,
+        content: vpContent,
+        ok: vpOk,
+        status: vpOk ? 'good' : vp ? 'warning' : 'bad',
+        rec: vpOk ? 'Mobile viewport meta tag is properly configured.' :
+             vp ? 'Viewport tag found but missing width=device-width or initial-scale. Use: <meta name="viewport" content="width=device-width, initial-scale=1">' :
+             'No viewport meta tag. Add one for mobile responsiveness: <meta name="viewport" content="width=device-width, initial-scale=1">'
+    };
+
+    // 10. Canonical
+    const can = doc.querySelector('link[rel="canonical"]');
+    const canHref = can ? (can.getAttribute('href') || '') : '';
+    r.canonical = {
+        present: !!can,
+        href: canHref,
+        status: !!can && !!canHref ? 'good' : 'bad',
+        rec: !!can && !!canHref ? 'Canonical tag is set to: ' + canHref :
+             'No canonical tag found. Add one to prevent duplicate content issues.'
+    };
+
+    // 11. Schema
+    const schemas = [];
+    doc.querySelectorAll('script[type="application/ld+json"]').forEach(el => {
+        try {
+            const parsed = JSON.parse(el.textContent);
+            schemas.push({ type: 'json-ld', data: parsed['@type'] || 'Unknown' });
+        } catch(e) { schemas.push({ type: 'json-ld', data: 'Invalid JSON' }); }
+    });
+    doc.querySelectorAll('[itemscope]').forEach(el => {
+        const itemtype = el.getAttribute('itemtype') || '';
+        if (itemtype.includes('schema.org')) {
+            schemas.push({ type: 'microdata', data: itemtype.replace('http://schema.org/', '').replace('https://schema.org/', '') });
+        }
+    });
+    r.schema = {
+        count: schemas.length,
+        schemas,
+        status: schemas.length > 0 ? 'good' : 'bad',
+        rec: schemas.length > 0 ? 'Found ' + schemas.length + ' structured data item(s): ' + schemas.map(s => s.data).join(', ') :
+             'No schema.org structured data found. Add structured data for rich snippets.'
+    };
+
+    // 12. robots / sitemap (URL mode only - we check the response headers aren't available, so just note)
+    if (baseUrl) {
+        try {
+            const u = new URL(baseUrl);
+            r.robots = {
+                url: u.origin + '/robots.txt',
+                status: 'info',
+                rec: 'Check if ' + u.origin + '/robots.txt exists. Try navigating to it in your browser.'
+            };
+            r.sitemap = {
+                url: u.origin + '/sitemap.xml',
+                status: 'info',
+                rec: 'Check if ' + u.origin + '/sitemap.xml exists. Common locations: /sitemap.xml, /sitemap_index.xml'
+            };
+        } catch(e) {}
+    } else {
+        r.robots = { status: 'info', rec: 'robots.txt and sitemap check requires URL mode.' };
+        r.sitemap = { status: 'info', rec: 'Paste a URL to check robots.txt and sitemap availability.' };
+    }
+
+    // Overall
+    const checks = [r.title, r.description, r.og, r.twitter, r.headings, r.images, r.links, r.speed, r.viewport, r.canonical, r.schema].filter(c => c.status !== 'info');
+    const good = checks.filter(c => c.status === 'good').length;
+    const total = checks.length;
+    r.overallScore = total > 0 ? Math.round((good / total) * 100) : 0;
+
+    return r;
+}
+
+function statusColor(s) {
+    return s === 'good' ? 'green' : s === 'warning' ? 'yellow' : 'red';
+}
+
+function displayResults(r) {
+    const section = document.getElementById('resultsSection');
+    section.classList.remove('hidden');
+
+    // Overall score ring
+    const score = r.overallScore;
+    document.getElementById('overallScore').textContent = score;
+    const circumference = 301.6;
+    const offset = circumference - (score / 100) * circumference;
+    const circle = document.getElementById('scoreCircle');
+    circle.style.strokeDashoffset = offset;
+    circle.style.color = score >= 80 ? '#22c55e' : score >= 50 ? '#eab308' : '#ef4444';
+
+    const label = document.getElementById('overallLabel');
+    if (score >= 80) label.textContent = 'Excellent! Your page is well-optimized for SEO.';
+    else if (score >= 50) label.textContent = 'Room for improvement. Address the warnings below.';
+    else label.textContent = 'Needs significant work. Focus on the critical issues below.';
+
+    // Score summary badges
+    const summary = document.getElementById('scoreSummary');
+    const categories = [
+        { label: 'Title', status: r.title.status },
+        { label: 'Description', status: r.description.status },
+        { label: 'Open Graph', status: r.og.status },
+        { label: 'Twitter Card', status: r.twitter.status },
+        { label: 'Headings', status: r.headings.status },
+        { label: 'Images', status: r.images.status },
+        { label: 'Links', status: r.links.status },
+        { label: 'Speed', status: r.speed.status },
+        { label: 'Viewport', status: r.viewport.status },
+        { label: 'Canonical', status: r.canonical.status },
+        { label: 'Schema', status: r.schema.status }
+    ];
+    summary.innerHTML = categories.map(c =>
+        '<span class="tag-badge ' + c.status + '">' +
+        (c.status === 'good' ? '<i class="fas fa-check mr-1"></i>' : c.status === 'warning' ? '<i class="fas fa-exclamation mr-1"></i>' : '<i class="fas fa-times mr-1"></i>') +
+        c.label + '</span>'
+    ).join('');
+
+    // Build result cards
+    const container = document.getElementById('resultsContainer');
+    const cards = [];
+
+    // Meta Title
+    cards.push(buildCard('fas fa-heading', 'Meta Title', r.title.status, [
+        { label: 'Status', value: r.title.present ? 'Present' : 'Missing', status: r.title.status },
+        { label: 'Length', value: r.title.length + ' chars' + (r.title.length >= 30 && r.title.length <= 60 ? ' (optimal)' : ''), status: r.title.length >= 30 && r.title.length <= 60 ? 'good' : r.title.length > 0 ? 'warning' : 'bad' },
+        { label: 'Title', value: r.title.text || '(empty)' }
+    ], r.title.rec));
+
+    // Meta Description
+    cards.push(buildCard('fas fa-align-left', 'Meta Description', r.description.status, [
+        { label: 'Status', value: r.description.present ? 'Present' : 'Missing', status: r.description.status },
+        { label: 'Length', value: r.description.length + ' chars' + (r.description.length >= 120 && r.description.length <= 160 ? ' (optimal)' : ''), status: r.description.length >= 120 && r.description.length <= 160 ? 'good' : r.description.length > 0 ? 'warning' : 'bad' },
+        { label: 'Description', value: r.description.text || '(empty)' }
+    ], r.description.rec));
+
+    // Open Graph
+    cards.push(buildCard('fab fa-facebook-square', 'Open Graph Tags', r.og.status, [
+        { label: 'Tags Found', value: r.og.count + ' tag(s)' },
+        ...r.og.missing.map(m => ({ label: 'Missing', value: m, status: 'bad' }))
+    ], r.og.rec));
+
+    // Twitter Card
+    cards.push(buildCard('fab fa-twitter', 'Twitter Card Tags', r.twitter.status, [
+        { label: 'Tags Found', value: r.twitter.count + ' tag(s)' },
+        ...r.twitter.missing.map(m => ({ label: 'Missing', value: m, status: 'bad' }))
+    ], r.twitter.rec));
+
+    // Headings
+    const hRows = Object.entries(r.headings.counts).map(([tag, count]) => ({
+        label: tag.toUpperCase(), value: count, status: tag === 'h1' && count === 1 ? 'good' : tag === 'h1' && count > 1 ? 'bad' : count > 0 ? 'good' : 'warning'
+    }));
+    cards.push(buildCard('fas fa-list-ol', 'Headings Structure', r.headings.status, [
+        { label: 'Total Headings', value: r.headings.total },
+        ...hRows
+    ], r.headings.rec));
+
+    // Images
+    cards.push(buildCard('fas fa-image', 'Image Alt Text', r.images.status, [
+        { label: 'Total Images', value: r.images.total },
+        { label: 'With Alt Text', value: r.images.withAlt, status: 'good' },
+        { label: 'Missing Alt Text', value: r.images.withoutAlt, status: r.images.withoutAlt === 0 ? 'good' : 'bad' },
+        { label: 'Alt Coverage', value: r.images.altCoverage + '%', status: r.images.altCoverage >= 90 ? 'good' : r.images.altCoverage >= 50 ? 'warning' : 'bad' }
+    ], r.images.rec));
+
+    // Links
+    cards.push(buildCard('fas fa-link', 'Links', r.links.status, [
+        { label: 'Total Links', value: r.links.total },
+        { label: 'Internal', value: r.links.internal, status: 'good' },
+        { label: 'External', value: r.links.external },
+        { label: 'Empty / # hrefs', value: r.links.emptyHref, status: r.links.emptyHref === 0 ? 'good' : 'warning' }
+    ], r.links.rec));
+
+    // Speed
+    cards.push(buildCard('fas fa-tachometer-alt', 'Page Speed Hints', r.speed.status, [
+        { label: 'HTML Size', value: r.speed.totalSizeKB + ' KB', status: r.speed.status },
+        { label: 'Scripts', value: r.speed.scriptCount },
+        { label: 'Stylesheets', value: r.speed.styleSheets },
+        { label: 'Images', value: r.speed.imgCount },
+        { label: 'Total Resources', value: r.speed.totalResources }
+    ], r.speed.rec));
+
+    // Viewport
+    cards.push(buildCard('fas fa-mobile-alt', 'Mobile Viewport', r.viewport.status, [
+        { label: 'Tag Present', value: r.viewport.present ? 'Yes' : 'No', status: r.viewport.status },
+        { label: 'Content', value: r.viewport.content || '(empty)' }
+    ], r.viewport.rec));
+
+    // Canonical
+    cards.push(buildCard('fas fa-tag', 'Canonical Tag', r.canonical.status, [
+        { label: 'Present', value: r.canonical.present ? 'Yes' : 'No', status: r.canonical.status },
+        { label: 'Href', value: r.canonical.href || '(none)' }
+    ], r.canonical.rec));
+
+    // Schema
+    cards.push(buildCard('fas fa-database', 'Schema.org Structured Data', r.schema.status, [
+        { label: 'Items Found', value: r.schema.count, status: r.schema.status },
+        ...r.schema.schemas.slice(0, 5).map(s => ({ label: s.type, value: s.data }))
+    ], r.schema.rec));
+
+    // Robots
+    if (r.robots) {
+        cards.push(buildCard('fas fa-robot', 'robots.txt', r.robots.status || 'info', [
+            { label: 'URL', value: r.robots.url || 'N/A' }
+        ], r.robots.rec));
+    }
+
+    // Sitemap
+    if (r.sitemap) {
+        cards.push(buildCard('fas fa-sitemap', 'XML Sitemap', r.sitemap.status || 'info', [
+            { label: 'Expected URL', value: r.sitemap.url || 'N/A' }
+        ], r.sitemap.rec));
+    }
+
+    container.innerHTML = cards.join('');
+
+    // Scroll to results
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildCard(icon, title, status, details, recommendation) {
+    const color = statusColor(status);
+    const statusIcon = status === 'good' ? 'fa-check-circle' : status === 'warning' ? 'fa-exclamation-circle' : 'fa-times-circle';
+    const borderColor = status === 'good' ? 'border-l-green-500' : status === 'warning' ? 'border-l-yellow-500' : status === 'bad' ? 'border-l-red-500' : 'border-l-gray-400';
+
+    let detailsHtml = details.map(d => {
+        const valColor = d.status ? 'text-' + statusColor(d.status) + '-600' : 'text-gray-800';
+        const valDot = d.status ? '<span class="status-dot ' + d.status + ' mr-2"></span>' : '';
+        return '<div class="detail-row"><span class="detail-label">' + d.label + '</span><span class="detail-value ' + valColor + '">' + valDot + d.value + '</span></div>';
+    }).join('');
+
+    const recHtml = recommendation ?
+        '<div class="recommendation ' + status + '"><i class="fas fa-lightbulb mr-1.5 text-' + color + '-500"></i>' + recommendation + '</div>' : '';
+
+    return '<div class="reveal check-card bg-white rounded-2xl shadow-sm border border-gray-200 p-5 border-l-4 ' + borderColor + '">' +
+        '<div class="flex items-start justify-between mb-3">' +
+            '<h3 class="font-bold text-dark-blue flex items-center gap-2"><i class="' + icon + ' text-primary-red"></i> ' + title + '</h3>' +
+            '<span class="text-' + color + '-500"><i class="fas ' + statusIcon + ' text-lg"></i></span>' +
+        '</div>' +
+        '<div class="space-y-0">' + detailsHtml + '</div>' +
+        recHtml +
+        '</div>';
+}
+
+function exportPDF() {
+    window.print();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        revealObserver.observe(el);
+    });
+});
+</script>
+
+</body>
+</html>

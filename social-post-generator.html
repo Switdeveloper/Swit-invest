@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Post Generator - SwitDeveloper</title>
+  <meta name="description" content="Generate engaging social media posts for any platform with AI. Free tool by SwitDeveloper, your digital marketing & AI automation agency.">
+  <meta name="keywords" content="social media post generator, AI content generator, social media marketing, content creation">
+  <meta name="author" content="SwitDeveloper">
+  <meta property="og:title" content="Social Media Post Generator - SwitDeveloper">
+  <meta property="og:description" content="Generate engaging social media posts for any platform with AI.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    :root {
+      --dark-blue: #0d152e;
+      --primary-red: #c91414;
+      --accent-gold: #f5a623;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6fb;
+      color: #1a1a2e;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .font-playfair {
+      font-family: 'Playfair Display', serif;
+    }
+    .bg-dark-blue { background-color: var(--dark-blue); }
+    .bg-primary-red { background-color: var(--primary-red); }
+    .text-primary-red { color: var(--primary-red); }
+    .text-accent-gold { color: var(--accent-gold); }
+    .border-primary-red { border-color: var(--primary-red); }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #0d152e 0%, #1a1a4e 50%, #0d152e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(201,20,20,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(245,166,35,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .settings-btn {
+      position: fixed;
+      top: 90px;
+      right: 20px;
+      z-index: 40;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--dark-blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.15);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .settings-btn:hover {
+      transform: rotate(60deg);
+      border-color: var(--primary-red);
+    }
+
+    .platform-selector {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .platform-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: #f0f2f8;
+      color: #555;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .platform-btn:hover {
+      background: #e4e7f2;
+    }
+    .platform-btn.active {
+      background: var(--dark-blue);
+      color: white;
+      border-color: var(--dark-blue);
+    }
+
+    .input-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      padding: 28px;
+      transition: box-shadow 0.3s;
+    }
+    .input-card:hover {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e2e5f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s;
+      background: #fafbff;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--dark-blue);
+      background: white;
+    }
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #ccc;
+      border-radius: 26px;
+      transition: 0.3s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      height: 20px; width: 20px;
+      left: 3px; bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    .toggle-switch input:checked + .toggle-slider {
+      background: var(--dark-blue);
+    }
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    .generate-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+    .generate-btn:hover {
+      background: #a81111;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201,20,20,0.3);
+    }
+    .generate-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .post-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    }
+    .post-card .card-actions {
+      display: flex;
+      gap: 6px;
+      padding: 12px 16px;
+      border-top: 1px solid #f0f0f0;
+      background: #fafbfc;
+    }
+    .post-card .card-actions button {
+      flex: 1;
+      padding: 7px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-copy {
+      background: #eef0f8;
+      color: #333;
+    }
+    .btn-copy:hover {
+      background: #dde0ed;
+    }
+    .btn-copy.copied {
+      background: #10b981;
+      color: white;
+    }
+    .btn-regenerate {
+      background: var(--dark-blue);
+      color: white;
+    }
+    .btn-regenerate:hover {
+      background: #1a1a4e;
+    }
+
+    .platform-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .avatar-placeholder {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .history-item {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #eef0f5;
+      transition: all 0.2s;
+    }
+    .history-item:hover {
+      border-color: var(--dark-blue);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    @media (max-width: 768px) {
+      .input-card {
+        padding: 20px;
+      }
+      .settings-btn {
+        top: 80px;
+        right: 14px;
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+      }
+      .post-card .card-actions {
+        flex-direction: column;
+      }
+    }
+
+    .ig-card {
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .ig-gradient-bg {
+      background: linear-gradient(135deg, #feda77, #f58529, #dd2a7b, #8134af, #515bd4);
+      padding: 20px 20px 0;
+    }
+    .ig-image-placeholder {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+      border-radius: 4px 4px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 48px;
+    }
+    .ig-caption {
+      background: white;
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .ig-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 12px 16px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .twitter-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #e1e8ed;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .twitter-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #1da1f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .twitter-metrics {
+      display: flex;
+      gap: 24px;
+      color: #536471;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .twitter-metrics span { cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+    .linkedin-card {
+      max-width: 520px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .linkedin-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+    }
+    .linkedin-engagement {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .facebook-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #dddfe2;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .fb-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+    }
+    .fb-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: #1877f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .fb-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #e8eaed, #dadde1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 32px;
+    }
+    .fb-actions {
+      display: flex;
+      gap: 4px;
+      padding: 6px 12px;
+      border-top: 1px solid #dddfe2;
+    }
+    .fb-actions button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #606770;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .fb-actions button:hover { background: #f0f2f5; }
+
+    .tiktok-card {
+      max-width: 340px;
+      margin: 0 auto;
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      color: white;
+    }
+    .tiktok-video {
+      aspect-ratio: 9/16;
+      background: linear-gradient(180deg, #1a1a2e, #2d2d44);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.3);
+      font-size: 48px;
+      position: relative;
+    }
+    .tiktok-video .play-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .tiktok-caption {
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #ddd;
+    }
+
+    .pinterest-card {
+      max-width: 320px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .pin-image {
+      aspect-ratio: 2/3;
+      background: linear-gradient(135deg, #e0d4c8, #d4c5b5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: rgba(0,0,0,0.15);
+    }
+    .pin-title {
+      padding: 12px 14px 6px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .pin-desc {
+      padding: 0 14px 12px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .youtube-card {
+      max-width: 420px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .yt-thumbnail {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.2);
+      font-size: 56px;
+      position: relative;
+    }
+    .yt-thumbnail .yt-play-btn {
+      width: 60px; height: 42px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+      font-size: 20px;
+    }
+    .yt-info {
+      padding: 12px 14px;
+    }
+    .yt-info h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .yt-info p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1f2937;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 200;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    .results-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+    .empty-state i { font-size: 48px; margin-bottom: 16px; color: #d0d3e0; }
+  </style>
+</head>
+<body>
+
+<div id="header-container"></div>
+
+<button class="settings-btn" onclick="openSettings()" title="Settings">
+  <i class="fas fa-cog"></i>
+</button>
+
+<section class="hero-gradient py-20 md:py-28 px-4 relative">
+  <div class="max-w-5xl mx-auto text-center relative z-10">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/80 text-sm mb-5 border border-white/10">
+      <i class="fas fa-bolt text-accent-gold"></i>
+      Free AI Tool by SwitDeveloper
+    </div>
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 font-playfair leading-tight">
+      Social Media Post Generator
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+      Create engaging, platform-optimized social media posts in seconds with AI. 
+      Tailor your message for any platform, tone, and audience.
+    </p>
+  </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 py-10 md:py-14">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Left Panel: Form -->
+    <div class="lg:col-span-4">
+      <div class="input-card sticky top-24">
+        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <i class="fas fa-pen-fancy text-primary-red"></i>
+          Post Settings
+        </h3>
+
+        <div class="mb-5">
+          <label class="form-label">Platform</label>
+          <div class="platform-selector" id="platformSelector">
+            <button class="platform-btn active" data-platform="instagram"><i class="fab fa-instagram"></i> Instagram</button>
+            <button class="platform-btn" data-platform="twitter"><i class="fab fa-x-twitter"></i> Twitter/X</button>
+            <button class="platform-btn" data-platform="linkedin"><i class="fab fa-linkedin"></i> LinkedIn</button>
+            <button class="platform-btn" data-platform="facebook"><i class="fab fa-facebook"></i> Facebook</button>
+            <button class="platform-btn" data-platform="tiktok"><i class="fab fa-tiktok"></i> TikTok</button>
+            <button class="platform-btn" data-platform="pinterest"><i class="fab fa-pinterest"></i> Pinterest</button>
+            <button class="platform-btn" data-platform="youtube"><i class="fab fa-youtube"></i> YouTube</button>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="topic">Topic / Subject</label>
+          <input class="form-input" id="topic" type="text" placeholder="e.g. New product launch, motivational quote, industry insights..." value="">
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="tone">Tone</label>
+          <select class="form-select" id="tone">
+            <option value="Professional">Professional</option>
+            <option value="Casual">Casual</option>
+            <option value="Funny">Funny</option>
+            <option value="Inspirational" selected>Inspirational</option>
+            <option value="Educational">Educational</option>
+            <option value="Promotional">Promotional</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="audience">Target Audience</label>
+          <input class="form-input" id="audience" type="text" placeholder="e.g. Small business owners, Gen Z, developers..." value="">
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Options</label>
+          <div class="space-y-3">
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-sm text-gray-700"><i class="fas fa-hashtag text-gray-400 mr-2"></i>Include Hashtags</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="includeHashtags" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </label>
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-sm text-gray-700"><i class="far fa-smile text-gray-400 mr-2"></i>Include Emojis</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="includeEmojis" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </label>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-700"><i class="fas fa-layer-group text-gray-400 mr-2"></i>Variations</span>
+              <div class="flex items-center gap-2">
+                <button onclick="adjustVariations(-1)" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 text-sm font-bold">−</button>
+                <span id="variationCount" class="w-6 text-center font-bold text-base">3</span>
+                <button onclick="adjustVariations(1)" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 text-sm font-bold">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="generate-btn mt-6" id="generateBtn" onclick="generatePosts()">
+          <i class="fas fa-wand-magic-sparkles"></i>
+          <span id="btnText">Generate Posts</span>
+          <div class="spinner" id="spinner"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Panel: Results -->
+    <div class="lg:col-span-8">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+          <i class="fas fa-newspaper text-primary-red"></i>
+          Generated Posts
+          <span id="resultCount" class="text-sm font-normal text-gray-400 ml-2"></span>
+        </h3>
+        <div class="flex gap-2">
+          <button onclick="clearAll()" class="text-sm px-3 py-1.5 rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-100 transition" id="clearAllBtn" style="display:none">
+            <i class="fas fa-trash-can mr-1"></i> Clear All
+          </button>
+          <button onclick="toggleHistory()" class="text-sm px-3 py-1.5 rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-100 transition">
+            <i class="fas fa-clock-rotate-left mr-1"></i> History
+          </button>
+        </div>
+      </div>
+
+      <div id="resultsContainer">
+        <div class="empty-state" id="emptyState">
+          <i class="fas fa-pen-nib"></i>
+          <h4 class="text-lg font-semibold text-gray-500 mt-3">No posts generated yet</h4>
+          <p class="text-gray-400 mt-1">Fill in the details and click "Generate Posts" to create your social media content.</p>
+        </div>
+        <div id="resultsGrid" class="results-grid" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- History Section -->
+<section id="historySection" class="max-w-7xl mx-auto px-4 pb-14" style="display:none">
+  <hr class="mb-8 border-gray-200">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-xl font-bold flex items-center gap-2">
+      <i class="fas fa-clock-rotate-left text-primary-red"></i>
+      History
+    </h3>
+    <button onclick="clearHistory()" class="text-sm px-3 py-1.5 rounded-lg border border-red-200 text-red-500 hover:bg-red-50 transition">
+      <i class="fas fa-trash-can mr-1"></i> Clear All History
+    </button>
+  </div>
+  <div id="historyList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  </div>
+</section>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal-content">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-xl font-bold flex items-center gap-2">
+        <i class="fas fa-gear text-primary-red"></i>
+        Settings
+      </h3>
+      <button onclick="closeSettings()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mb-4">
+      <label class="form-label">OpenRouter API Key</label>
+      <input class="form-input" id="apiKeyInput" type="password" placeholder="sk-or-v1-..." value="">
+      <p class="text-xs text-gray-400 mt-1.5">Get a free API key at <a href="https://openrouter.ai" target="_blank" class="text-primary-red underline">openrouter.ai</a>. Your key is stored locally.</p>
+    </div>
+    <div class="mb-5">
+      <label class="form-label">Model</label>
+      <select class="form-select" id="modelSelect">
+        <option value="openai/gpt-4o-mini">GPT-4o Mini (fast, cheap)</option>
+        <option value="openai/gpt-4o">GPT-4o (best quality)</option>
+        <option value="google/gemini-2.0-flash-001">Gemini 2.0 Flash</option>
+        <option value="anthropic/claude-3.5-haiku">Claude 3.5 Haiku</option>
+        <option value="meta-llama/llama-3.3-70b-instruct">Llama 3.3 70B</option>
+      </select>
+    </div>
+    <button onclick="saveSettings()" class="generate-btn">
+      <i class="fas fa-floppy-disk"></i> Save Settings
+    </button>
+  </div>
+</div>
+
+<div id="footer-container"></div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/load-partials.js"></script>
+<script>
+  let generatedPosts = [];
+  let variationCount = 3;
+
+  const PLATFORM_DISPLAY = {
+    instagram: 'Instagram',
+    twitter: 'Twitter / X',
+    linkedin: 'LinkedIn',
+    facebook: 'Facebook',
+    tiktok: 'TikTok',
+    pinterest: 'Pinterest',
+    youtube: 'YouTube'
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const savedKey = localStorage.getItem('orApiKey') || '';
+    document.getElementById('apiKeyInput').value = savedKey;
+
+    const savedModel = localStorage.getItem('orModel') || 'openai/gpt-4o-mini';
+    document.getElementById('modelSelect').value = savedModel;
+
+    document.querySelectorAll('#platformSelector .platform-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#platformSelector .platform-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    renderHistory();
+  });
+
+  function adjustVariations(delta) {
+    variationCount = Math.max(1, Math.min(5, variationCount + delta));
+    document.getElementById('variationCount').textContent = variationCount;
+  }
+
+  function getSelectedPlatform() {
+    const active = document.querySelector('#platformSelector .platform-btn.active');
+    return active ? active.dataset.platform : 'instagram';
+  }
+
+  function openSettings() {
+    document.getElementById('settingsModal').classList.add('active');
+  }
+
+  function closeSettings() {
+    document.getElementById('settingsModal').classList.remove('active');
+  }
+
+  function saveSettings() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    const model = document.getElementById('modelSelect').value;
+    if (key) {
+      localStorage.setItem('orApiKey', key);
+    }
+    localStorage.setItem('orModel', model);
+    closeSettings();
+    showToast('Settings saved successfully');
+  }
+
+  async function generatePosts() {
+    const apiKey = localStorage.getItem('orApiKey');
+    if (!apiKey) {
+      openSettings();
+      showToast('Please enter your OpenRouter API key in settings');
+      return;
+    }
+
+    const platform = getSelectedPlatform();
+    const topic = document.getElementById('topic').value.trim();
+    const tone = document.getElementById('tone').value;
+    const audience = document.getElementById('audience').value.trim();
+    const includeHashtags = document.getElementById('includeHashtags').checked;
+    const includeEmojis = document.getElementById('includeEmojis').checked;
+    const variations = variationCount;
+
+    if (!topic) {
+      showToast('Please enter a topic or subject');
+      document.getElementById('topic').focus();
+      return;
+    }
+
+    const btn = document.getElementById('generateBtn');
+    const btnText = document.getElementById('btnText');
+    const spinner = document.getElementById('spinner');
+    btn.disabled = true;
+    btnText.textContent = 'Generating...';
+    spinner.style.display = 'block';
+
+    const systemPrompt = `You are a professional social media content creator. Generate ${variations} ${tone.toLowerCase()} social media post(s) for ${PLATFORM_DISPLAY[platform]} about "${topic}"${audience ? ` targeting ${audience}` : ''}.
+${includeHashtags ? 'Include relevant hashtags at the end.' : 'Do NOT include hashtags.'}
+${includeEmojis ? 'Use emojis where appropriate.' : 'Do NOT use any emojis.'}
+
+Format your response as a JSON array of strings. Each string is one post variation.
+Example: ["Post content here", "Second post content here"]
+ONLY output the JSON array, no other text.`;
+
+    const model = localStorage.getItem('orModel') || 'openai/gpt-4o-mini';
+
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': window.location.origin,
+          'X-Title': 'SwitDeveloper Social Post Generator'
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: `Generate ${variations} ${tone} social media post(s) for ${PLATFORM_DISPLAY[platform]} about: ${topic}` }],
+          temperature: 0.8,
+          max_tokens: 2048
+        })
+      });
+
+      if (!res.ok) {
+        const errData = await res.text();
+        console.error('API Error:', errData);
+        let msg = `API error (${res.status})`;
+        try {
+          const parsed = JSON.parse(errData);
+          msg = parsed.error?.message || msg;
+        } catch(e) {}
+        throw new Error(msg);
+      }
+
+      const data = await res.json();
+      const content = data.choices?.[0]?.message?.content || '';
+      let posts = [];
+      try {
+        posts = JSON.parse(content.replace(/```json|```/g, '').trim());
+      } catch(e) {
+        console.warn('Failed to parse JSON, using raw content');
+        posts = [content];
+      }
+
+      if (!Array.isArray(posts)) posts = [String(posts)];
+
+      generatedPosts = posts.map((text, i) => ({
+        id: Date.now() + i,
+        platform,
+        text: text.replace(/^["']|["']$/g, ''),
+        tone,
+        topic,
+        audience,
+        timestamp: Date.now()
+      }));
+
+      renderPosts();
+      saveHistory();
+
+    } catch (err) {
+      console.error(err);
+      showToast('Error: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btnText.textContent = 'Generate Posts';
+      spinner.style.display = 'none';
+    }
+  }
+
+  async function regeneratePost(index) {
+    const apiKey = localStorage.getItem('orApiKey');
+    if (!apiKey) {
+      openSettings();
+      showToast('Please enter your OpenRouter API key in settings');
+      return;
+    }
+
+    const platform = getSelectedPlatform();
+    const topic = document.getElementById('topic').value.trim();
+    const tone = document.getElementById('tone').value;
+    const audience = document.getElementById('audience').value.trim();
+
+    if (!topic) {
+      showToast('Please enter a topic');
+      return;
+    }
+
+    showToast('Regenerating post...');
+
+    const systemPrompt = `You are a professional social media content creator. Generate 1 ${tone.toLowerCase()} social media post for ${PLATFORM_DISPLAY[platform]} about "${topic}"${audience ? ` targeting ${audience}` : ''}.
+Include relevant hashtags at the end. Use emojis where appropriate.
+
+Format your response as a JSON array with exactly one string.
+Example: ["Post content here"]
+ONLY output the JSON array, no other text.`;
+
+    const model = localStorage.getItem('orModel') || 'openai/gpt-4o-mini';
+
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': window.location.origin,
+          'X-Title': 'SwitDeveloper Social Post Generator'
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: `Generate 1 ${tone} social media post for ${PLATFORM_DISPLAY[platform]} about: ${topic}` }],
+          temperature: 0.9,
+          max_tokens: 1024
+        })
+      });
+
+      if (!res.ok) throw new Error(`API error (${res.status})`);
+
+      const data = await res.json();
+      const content = data.choices?.[0]?.message?.content || '';
+      let posts = [];
+      try {
+        posts = JSON.parse(content.replace(/```json|```/g, '').trim());
+      } catch(e) {
+        posts = [content];
+      }
+      const newText = (Array.isArray(posts) ? posts[0] : String(posts)).replace(/^["']|["']$/g, '');
+
+      if (generatedPosts[index]) {
+        generatedPosts[index].text = newText;
+        generatedPosts[index].timestamp = Date.now();
+      }
+
+      renderPosts();
+      saveHistory();
+      showToast('Post regenerated');
+    } catch (err) {
+      showToast('Error: ' + err.message);
+    }
+  }
+
+  function copyPost(index) {
+    const text = generatedPosts[index]?.text || '';
+    navigator.clipboard.writeText(text).then(() => {
+      const buttons = document.querySelectorAll('.btn-copy');
+      if (buttons[index]) {
+        buttons[index].classList.add('copied');
+        buttons[index].innerHTML = '<i class="fas fa-check"></i> Copied';
+        setTimeout(() => {
+          buttons[index].classList.remove('copied');
+          buttons[index].innerHTML = '<i class="far fa-copy"></i> Copy';
+        }, 2000);
+      }
+    }).catch(() => {
+      showToast('Failed to copy');
+    });
+  }
+
+  function renderPosts() {
+    const grid = document.getElementById('resultsGrid');
+    const empty = document.getElementById('emptyState');
+    const clearBtn = document.getElementById('clearAllBtn');
+    const count = document.getElementById('resultCount');
+
+    if (generatedPosts.length === 0) {
+      empty.style.display = 'block';
+      grid.style.display = 'none';
+      clearBtn.style.display = 'none';
+      count.textContent = '';
+      return;
+    }
+
+    empty.style.display = 'none';
+    grid.style.display = 'grid';
+    clearBtn.style.display = 'inline-flex';
+    count.textContent = `(${generatedPosts.length} post${generatedPosts.length > 1 ? 's' : ''})`;
+
+    grid.innerHTML = generatedPosts.map((post, i) => {
+      return renderPlatformCard(post, i);
+    }).join('');
+  }
+
+  function renderPlatformCard(post, index) {
+    const p = post.platform;
+    const text = post.text;
+    const initial = (p.charAt(0).toUpperCase() + p.slice(1));
+
+    switch(p) {
+      case 'instagram': return renderInstagram(text, index);
+      case 'twitter': return renderTwitter(text, index);
+      case 'linkedin': return renderLinkedin(text, index);
+      case 'facebook': return renderFacebook(text, index);
+      case 'tiktok': return renderTiktok(text, index);
+      case 'pinterest': return renderPinterest(text, index);
+      case 'youtube': return renderYoutube(text, index);
+      default: return renderInstagram(text, index);
+    }
+  }
+
+  function platformActionButtons(index) {
+    return `
+      <div class="card-actions">
+        <button class="btn-copy" onclick="copyPost(${index})"><i class="far fa-copy"></i> Copy</button>
+        <button class="btn-regenerate" onclick="regeneratePost(${index})"><i class="fas fa-rotate"></i> Regenerate</button>
+      </div>`;
+  }
+
+  function platformBadge(platform, icon) {
+    return `<div class="platform-badge"><i class="${icon}"></i> ${PLATFORM_DISPLAY[platform]}</div>`;
+  }
+
+  function renderInstagram(text, index) {
+    const caption = text;
+    return `<div class="post-card ig-card">
+      ${platformBadge('instagram', 'fab fa-instagram')}
+      <div class="ig-gradient-bg">
+        <div class="ig-header">
+          <div class="avatar-placeholder" style="background:linear-gradient(135deg,#feda77,#f58529);">S</div>
+          <div>
+            <div class="font-semibold text-sm text-white">SwitDeveloper</div>
+            <div class="text-xs text-white/70">Sponsored</div>
+          </div>
+          <div class="ml-auto text-white"><i class="fas fa-ellipsis-vertical"></i></div>
+        </div>
+        <div class="ig-image-placeholder"><i class="far fa-image"></i></div>
+      </div>
+      <div class="ig-caption">
+        <div class="flex items-center gap-3 mb-2 text-lg">
+          <i class="far fa-heart"></i>
+          <i class="far fa-comment"></i>
+          <i class="far fa-paper-plane"></i>
+          <i class="far fa-bookmark ml-auto"></i>
+        </div>
+        <div><span class="font-semibold">SwitDeveloper</span> ${caption}</div>
+      </div>
+      ${platformActionButtons(index)}
+    </div>`;
+  }
+
+  function renderTwitter(text, index) {
+    const lines = text.split('\n');
+    const content = lines.join('<br>');
+    return `<div class="post-card">
+      ${platformBadge('twitter', 'fab fa-x-twitter')}
+      <div class="twitter-card">
+        <div class="flex items-start gap-3">
+          <div class="twitter-avatar">S</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="font-bold text-[15px]">SwitDeveloper</span>
+              <span class="text-gray-500 text-sm">@switdev</span>
+              <span class="text-gray-500 text-sm">· 2m</span>
+              <i class="fas fa-ellipsis-vertical ml-auto text-gray-500 cursor-pointer"></i>
+            </div>
+            <div class="mt-1 text-[15px] leading-normal whitespace-pre-wrap">${content}</div>
+            <div class="twitter-metrics">
+              <span><i class="far fa-comment"></i> 24</span>
+              <span><i class="fas fa-retweet"></i> 89</span>
+              <span><i class="far fa-heart"></i> 342</span>
+              <span><i class="far fa-chart-bar"></i> 2.1K</span>
+              <span class="ml-auto"><i class="far fa-bookmark"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      ${platformActionButtons(index)}
+    </div>`;
+  }
+
+  function renderLinkedin(text, index) {
+    return `<div class="post-card">
+      ${platformBadge('linkedin', 'fab fa-linkedin')}
+      <div class="linkedin-card">
+        <div class="linkedin-header">
+          <div class="avatar-placeholder" style="background:#0a66c2;">S</div>
+          <div>
+            <div class="font-semibold text-sm">SwitDeveloper</div>
+            <div class="text-xs text-gray-500">Digital Marketing Agency · 1h</div>
+          </div>
+          <div class="ml-auto text-gray-400"><i class="fas fa-ellipsis-vertical"></i></div>
+        </div>
+        <div class="px-[18px] pb-3 text-sm leading-relaxed whitespace-pre-wrap">${text}</div>
+        <div class="linkedin-engagement">
+          <span><i class="far fa-thumbs-up"></i> 127</span>
+          <span><i class="far fa-comment"></i> 18</span>
+          <span><i class="fas fa-retweet"></i> 9</span>
+          <span class="ml-auto text-xs"><i class="far fa-send"></i></span>
+        </div>
+      </div>
+      ${platformActionButtons(index)}
+    </div>`;
+  }
+
+  function renderFacebook(text, index) {
+    return `<div class="post-card">
+      ${platformBadge('facebook', 'fab fa-facebook')}
+      <div class="facebook-card">
+        <div class="fb-header">
+          <div class="fb-avatar">S</div>
+          <div>
+            <div class="font-semibold text-sm text-[#1c1e21]">SwitDeveloper</div>
+            <div class="text-xs text-[#606770]">Sponsored · <i class="fa-solid fa-earth-americas"></i></div>
+          </div>
+          <div class="ml-auto text-[#606770]"><i class="fas fa-xmark"></i></div>
+        </div>
+        <div class="px-4 pb-2 text-[15px] leading-relaxed text-[#1c1e21] whitespace-pre-wrap">${text}</div>
+        <div class="fb-image"><i class="far fa-image"></i></div>
+        <div class="flex items-center gap-1 px-4 py-2 text-sm text-[#606770] border-t border-[#dddfe2]">
+          <span><i class="far fa-thumbs-up text-[#1877f2]"></i> 45</span>
+          <span class="ml-auto">12 comments · 3 shares</span>
+        </div>
+        <div class="fb-actions">
+          <button><i class="far fa-thumbs-up"></i> Like</button>
+          <button><i class="far fa-comment"></i> Comment</button>
+          <button><i class="fas fa-share"></i> Share</button>
+        </div>
+      </div>
+      ${platformActionButtons(index)}
+    </div>`;
+  }
+
+  function renderTiktok(text, index) {
+    return `<div class="post-card">
+      ${platformBadge('tiktok', 'fab fa-tiktok')}
+      <div class="tiktok-card">
+        <div class="tiktok-video">
+          <div class="play-icon"><i class="fas fa-play"></i></div>
+          <span class="text-sm font-medium text-white/40">Loading video...</span>
+          <div class="absolute bottom-4 left-4 flex items-center gap-2">
+            <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center bg-white/10 text-white text-sm font-bold">S</div>
+            <span class="text-sm font-semibold">@switdev</span>
+          </div>
+          <div class="absolute right-3 bottom-20 flex flex-col items-center gap-4 text-white text-xl">
+            <div class="flex flex-col items-center"><i class="far fa-heart"></i><span class="text-xs mt-1">142</span></div>
+            <div class="flex flex-col items-center"><i class="far fa-comment"></i><span class="text-xs mt-1">23</span></div>
+            <div class="flex flex-col items-center"><i class="far fa-bookmark"></i><span class="text-xs mt-1">67</span></div>
+          </div>
+        </div>
+        <div class="tiktok-caption">
+          <span class="font-semibold">@switdev</span> ${text}
+        </div>
+      </div>
+      ${platformActionButtons(index)}
+    </div>`;
+  }
+
+  function renderPinterest(text, index) {
+    const firstLine = text.split('\n')[0];
+    const rest = text.split('\n').slice(1).join(' ');
+    return `<div class="post-card">
+      ${platformBadge('pinterest', 'fab fa-pinterest')}
+      <div class="pinterest-card">
+        <div class="pin-image"><i class="fas fa-thumbtack"></i></div>
+        <div class="pin-title">${firstLine || text.slice(0, 60)}</div>
+        <div class="pin-desc">${rest || text.slice(60, 160)}</div>
+        <div class="flex items-center gap-2 px-3 pb-3">
+          <div class="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center text-white text-xs">S</div>
+          <span class="text-xs font-semibold text-gray-600">SwitDeveloper</span>
+        </div>
+      </div>
+      ${platformActionButtons(index)}
+    </div>`;
+  }
+
+  function renderYoutube(text, index) {
+    const lines = text.split('\n');
+    const title = lines[0] || text.slice(0, 60);
+    const desc = lines.slice(1).join(' ').trim() || text.slice(60, 150);
+    return `<div class="post-card">
+      ${platformBadge('youtube', 'fab fa-youtube')}
+      <div class="youtube-card">
+        <div class="yt-thumbnail">
+          <div class="yt-play-btn"><i class="fas fa-play"></i></div>
+          <div class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded font-medium">12:34</div>
+        </div>
+        <div class="flex gap-3 p-3">
+          <div class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 mt-1">S</div>
+          <div class="yt-info flex-1 p-0">
+            <h4 class="text-[15px] font-semibold text-[#0f0f0f]">${title}</h4>
+            <p class="text-[#606060] text-[13px] mt-1">SwitDeveloper · 1.2K views · 1 day ago</p>
+            <p class="text-[#606060] text-[13px] line-clamp-2">${desc}</p>
+          </div>
+        </div>
+      </div>
+      ${platformActionButtons(index)}
+    </div>`;
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timeout);
+    t._timeout = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function clearAll() {
+    generatedPosts = [];
+    renderPosts();
+    showToast('All posts cleared');
+  }
+
+  function saveHistory() {
+    if (generatedPosts.length === 0) return;
+    const history = JSON.parse(localStorage.getItem('postHistory') || '[]');
+    history.unshift({
+      id: Date.now(),
+      posts: JSON.parse(JSON.stringify(generatedPosts)),
+      platform: getSelectedPlatform(),
+      topic: document.getElementById('topic').value.trim(),
+      tone: document.getElementById('tone').value,
+      timestamp: Date.now()
+    });
+    if (history.length > 50) history.length = 50;
+    localStorage.setItem('postHistory', JSON.stringify(history));
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('historyList');
+    const history = JSON.parse(localStorage.getItem('postHistory') || '[]');
+    if (history.length === 0) {
+      container.innerHTML = '<p class="text-gray-400 text-sm col-span-full">No history yet. Generate some posts to see them here.</p>';
+      return;
+    }
+    container.innerHTML = history.map((item, idx) => {
+      const date = new Date(item.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const plat = PLATFORM_DISPLAY[item.platform] || item.platform;
+      return `<div class="history-item cursor-pointer" onclick="restoreHistory(${idx})">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold text-primary-red">${plat}</span>
+          <span class="text-xs text-gray-400">${date}</span>
+        </div>
+        <div class="text-sm font-semibold text-gray-800 truncate">${item.topic || 'Untitled'}</div>
+        <div class="text-xs text-gray-500 mt-1">${item.posts.length} post${item.posts.length > 1 ? 's' : ''} · ${item.tone}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function restoreHistory(idx) {
+    const history = JSON.parse(localStorage.getItem('postHistory') || '[]');
+    const item = history[idx];
+    if (!item) return;
+    generatedPosts = JSON.parse(JSON.stringify(item.posts));
+    renderPosts();
+    document.getElementById('topic').value = item.topic || '';
+    document.getElementById('tone').value = item.tone || 'Inspirational';
+    document.querySelectorAll('#platformSelector .platform-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.platform === item.platform);
+    });
+    showToast('History restored');
+    document.getElementById('historySection').style.display = 'none';
+  }
+
+  function toggleHistory() {
+    const section = document.getElementById('historySection');
+    section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    if (section.style.display === 'block') renderHistory();
+  }
+
+  function clearHistory() {
+    if (!confirm('Clear all history?')) return;
+    localStorage.removeItem('postHistory');
+    renderHistory();
+    showToast('History cleared');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('settingsModal')) {
+      closeSettings();
+    }
+  });
+</script>
+</body>
+</html>
