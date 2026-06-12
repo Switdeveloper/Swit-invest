@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Real Estate Video Tour Generator – SwitDeveloper</title>
+  <meta name="description" content="Generate stunning AI-powered real estate property video tours. Upload photos, AI analyzes rooms, writes a script, and generates cinematic video clips." />
+  <meta name="keywords" content="real estate video tour, AI video generator, property video, real estate marketing, AI video tour, SwitDeveloper" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://switdeveloper.com/ai-real-estate-video-tour" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Real Estate Video Tour Generator – SwitDeveloper" />
+  <meta property="og:description" content="Create cinematic AI-powered real estate property tours from your photos." />
+  <meta property="og:url" content="https://switdeveloper.com/ai-real-estate-video-tour" />
+  <meta property="og:site_name" content="SwitDeveloper" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Real Estate Video Tour Generator – SwitDeveloper" />
+  <meta name="twitter:description" content="Create cinematic AI-powered real estate property tours from your photos." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { dark: '#0d152e', primary: '#c91414' }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="js/load-partials.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #f4f6fa; color: #1a1a2e; min-height: 100vh; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    .bg-brand-dark { background-color: #0d152e; }
+    .bg-brand-primary { background-color: #c91414; }
+    .text-brand-primary { color: #c91414; }
+    .border-brand-primary { border-color: #c91414; }
+    .hero-gradient { background: linear-gradient(135deg, #0d152e 0%, #1a1f3a 50%, #0d152e 100%); }
+    .drop-zone { border: 3px dashed #cbd5e1; border-radius: 20px; transition: all 0.3s ease; cursor: pointer; background: #ffffff; min-height: 220px; display: flex; align-items: center; justify-content: center; }
+    .drop-zone:hover, .drop-zone.drag-over { border-color: #c91414; background: #fff8f8; transform: scale(1.01); }
+    .step-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; transition: all 0.3s ease; flex-shrink: 0; }
+    .step-line { flex: 1; height: 3px; transition: all 0.3s ease; min-width: 20px; }
+    .photo-card { position: relative; border-radius: 12px; overflow: hidden; border: 2px solid #e2e8f0; transition: all 0.2s; background: #fff; }
+    .photo-card:hover { border-color: #94a3b8; }
+    .photo-card .remove-btn { position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+    .photo-card:hover .remove-btn { opacity: 1; }
+    .photo-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .photo-card .label { padding: 8px 10px; font-size: 0.75rem; color: #4b5563; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .analysis-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+    .analysis-card .thumb { width: 100%; height: 120px; object-fit: cover; }
+    .analysis-card .desc { font-size: 0.8125rem; color: #4b5563; line-height: 1.5; }
+    .script-area { white-space: pre-wrap; font-size: 0.9rem; line-height: 1.7; min-height: 250px; resize: vertical; }
+    .typing-dot { animation: pulse 1.4s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse { 0%,60%,100% { opacity: 0.3; } 30% { opacity: 1; } }
+    .animate-pop { animation: popIn 0.2s ease-out; }
+    @keyframes popIn { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .toast { position: fixed; bottom: 24px; right: 24px; z-index: 100; background: #0d152e; color: #fff; padding: 12px 24px; border-radius: 12px; font-size: 0.875rem; box-shadow: 0 8px 30px rgba(0,0,0,0.2); transform: translateY(20px); opacity: 0; transition: all 0.3s; pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 0.1s; }
+    .delay-200 { transition-delay: 0.2s; }
+    .delay-300 { transition-delay: 0.3s; }
+    @media (max-width: 640px) { .photo-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); } }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <!-- Hero -->
+  <section class="relative hero-gradient pt-24 pb-32 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-20 -left-20 w-80 h-80 bg-brand-primary/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+      <div class="max-w-3xl">
+        <div class="flex items-center text-[10px] text-gray-400 mb-6 uppercase tracking-wider">
+          <span class="hover:text-white cursor-pointer" onclick="window.location='index.html'">Home</span>
+          <span class="mx-2">/</span>
+          <span class="text-white">AI Real Estate Video Tour</span>
+        </div>
+        <div class="flex items-center text-xs tracking-wider text-brand-primary mb-6 uppercase">
+          <div class="w-2 h-2 border border-brand-primary transform rotate-45 mr-3"></div>
+          AI Video Generation
+        </div>
+        <h1 class="reveal text-4xl md:text-6xl font-bold mb-4 leading-[1.1] serif text-white">
+          Real Estate Video Tour <span class="text-brand-primary">Generator</span>
+        </h1>
+        <p class="reveal delay-100 text-base md:text-lg text-gray-300 mb-6 leading-relaxed font-light max-w-2xl">
+          Upload property photos, AI analyzes each room, writes a cinematic script, and generates a professional video tour.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <section class="py-10 -mt-20 relative z-20">
+    <div class="max-w-6xl mx-auto px-4">
+
+      <!-- API Key Reminder -->
+      <div id="apiKeyReminder" class="reveal mb-6 bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center gap-3 text-sm text-amber-800">
+        <i class="fas fa-key text-amber-500"></i>
+        <span class="flex-1">Set your OpenRouter API key in <button onclick="openSettings()" class="text-brand-primary underline font-semibold">Settings</button> to use this tool.</span>
+        <button onclick="openSettings()" class="bg-amber-500 text-white px-4 py-1.5 rounded-lg text-xs font-semibold hover:bg-amber-600 transition">Set Key</button>
+      </div>
+
+      <!-- Wizard Steps -->
+      <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center gap-1 sm:gap-2">
+          <div class="step-circle bg-brand-primary text-white" id="stepIcon1">1</div>
+          <div class="step-line bg-brand-primary" id="stepLine1"></div>
+          <div class="step-circle bg-gray-200 text-gray-500" id="stepIcon2">2</div>
+          <div class="step-line bg-gray-200" id="stepLine2"></div>
+          <div class="step-circle bg-gray-200 text-gray-500" id="stepIcon3">3</div>
+          <div class="step-line bg-gray-200" id="stepLine3"></div>
+          <div class="step-circle bg-gray-200 text-gray-500" id="stepIcon4">4</div>
+          <div class="step-line bg-gray-200" id="stepLine4"></div>
+          <div class="step-circle bg-gray-200 text-gray-500" id="stepIcon5">5</div>
+        </div>
+        <div class="flex justify-between mt-2 text-[10px] sm:text-xs text-gray-500 font-medium">
+          <span class="text-brand-primary font-semibold" id="stepLabel1">Upload Photos</span>
+          <span id="stepLabel2">Analyze</span>
+          <span id="stepLabel3">Script</span>
+          <span id="stepLabel4">Generate</span>
+          <span id="stepLabel5">Export</span>
+        </div>
+      </div>
+
+      <!-- Settings Modal -->
+      <div id="settingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden transition-opacity duration-200">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 w-full max-w-sm mx-4 animate-pop">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-brand-dark flex items-center gap-2">
+              <i class="fas fa-cog text-brand-primary"></i> Settings
+            </h3>
+            <button onclick="closeSettings()" class="text-gray-400 hover:text-gray-600 transition text-lg leading-none">&times;</button>
+          </div>
+          <div class="mb-3">
+            <label class="block text-xs font-semibold text-gray-600 mb-1">OpenRouter API Key</label>
+            <input type="password" id="apiKey" placeholder="sk-or-..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
+          </div>
+          <div class="mb-3">
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Vision Model (room analysis)</label>
+            <select id="visionModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
+              <option value="google/gemini-2.5-flash:free">Gemini 2.5 Flash (free)</option>
+              <option value="google/gemini-2.5-pro">Gemini 2.5 Pro</option>
+              <option value="openai/gpt-4o">GPT-4o</option>
+              <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Script Model</label>
+            <select id="scriptModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
+              <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
+              <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
+              <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
+              <option value="openai/gpt-4o">GPT-4o</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Video Model (clip generation)</label>
+            <select id="videoModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
+              <option value="kwaivgi/kling-video-v3-standard">Kling Video v3.0 Standard</option>
+              <option value="kwaivgi/kling-video-v3-pro">Kling Video v3.0 Pro</option>
+              <option value="google/veo-3.1-fast">Google Veo 3.1 Fast</option>
+              <option value="google/veo-3.1">Google Veo 3.1</option>
+              <option value="x-ai/grok-imagine-video">xAI Grok Imagine Video</option>
+              <option value="alibaba/wan-2.7">Alibaba Wan 2.7</option>
+            </select>
+          </div>
+          <button onclick="saveSettings()" class="w-full bg-brand-dark text-white px-3 py-2.5 rounded-lg text-xs font-semibold hover:bg-brand-dark/90 transition">Save Settings</button>
+          <div class="mt-4 pt-3 border-t border-gray-100">
+            <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-primary hover:underline flex items-center gap-1">
+              <i class="fas fa-external-link-alt"></i> Get free API key
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wizard Content -->
+  <div class="max-w-6xl mx-auto px-4 -mt-6 pb-16">
+
+    <!-- STEP 1: Upload Photos -->
+    <div id="step1" class="step-panel active">
+      <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <h2 class="text-lg font-bold text-brand-dark serif mb-1">Upload Property Photos</h2>
+        <p class="text-sm text-gray-500 mb-4">Drag & drop interior/exterior photos (5-8 recommended). We'll analyze each room and create a video tour.</p>
+        <div id="dropZone" class="drop-zone flex-col gap-3 text-center px-6">
+          <i class="fas fa-cloud-upload-alt text-4xl text-gray-300"></i>
+          <div>
+            <p class="text-sm text-gray-600 font-medium">Drop photos here or <span class="text-brand-primary underline">browse</span></p>
+            <p class="text-xs text-gray-400 mt-1">Supports JPG, PNG, WebP — Max 10MB each</p>
+          </div>
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple class="hidden" />
+        </div>
+        <div id="photoGrid" class="photo-grid mt-6 hidden"></div>
+        <div id="photoActions" class="flex flex-wrap gap-3 mt-6 hidden">
+          <button onclick="addMorePhotos()" class="text-xs text-brand-primary border border-brand-primary rounded-lg px-4 py-2 hover:bg-brand-primary/5 transition font-medium">
+            <i class="fas fa-plus mr-1"></i> Add More
+          </button>
+          <button onclick="clearPhotos()" class="text-xs text-gray-500 border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">
+            <i class="fas fa-trash mr-1"></i> Clear All
+          </button>
+          <div class="flex-1"></div>
+          <button id="step1Next" onclick="goToStep(2)" class="bg-brand-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            Next: Analyze Rooms <i class="fas fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+      </div>
+      <div class="reveal delay-200 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <h3 class="text-sm font-bold text-gray-700 mb-3">Tips for best results</h3>
+        <ul class="text-xs text-gray-500 space-y-2">
+          <li class="flex items-start gap-2"><i class="fas fa-camera text-brand-primary mt-0.5"></i> Use well-lit, high-resolution photos</li>
+          <li class="flex items-start gap-2"><i class="fas fa-images text-brand-primary mt-0.5"></i> Include exterior, living room, kitchen, bedrooms, bathrooms</li>
+          <li class="flex items-start gap-2"><i class="fas fa-lightbulb text-brand-primary mt-0.5"></i> Avoid cluttered or dark shots for best AI analysis</li>
+          <li class="flex items-start gap-2"><i class="fas fa-list-ol text-brand-primary mt-0.5"></i> 5-8 photos create an ideal 50-80 second tour</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 2: Analyze Property -->
+    <div id="step2" class="step-panel">
+      <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-lg font-bold text-brand-dark serif">AI Room Analysis</h2>
+            <p class="text-sm text-gray-500">AI will describe each room in detail for the video script.</p>
+          </div>
+          <button id="analyzeBtn" onclick="startAnalysis()" class="bg-brand-primary text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
+            <i class="fas fa-magic"></i> Analyze All Photos
+          </button>
+        </div>
+        <div id="analysisProgress" class="hidden mb-4">
+          <div class="flex items-center gap-3 text-sm text-gray-600 mb-2">
+            <i class="fas fa-spinner fa-spin text-brand-primary"></i>
+            <span id="analysisStatus">Analyzing...</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div id="analysisProgressBar" class="bg-brand-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+        <div id="analysisResults" class="hidden space-y-4 mt-4"></div>
+        <div class="flex justify-between mt-6">
+          <button onclick="goToStep(1)" class="text-sm text-gray-500 border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">
+            <i class="fas fa-arrow-left mr-1"></i> Back
+          </button>
+          <button id="step2Next" onclick="goToStep(3)" class="bg-brand-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            Next: Generate Script <i class="fas fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Script Generation -->
+    <div id="step3" class="step-panel">
+      <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-lg font-bold text-brand-dark serif">Video Script</h2>
+            <p class="text-sm text-gray-500">AI-generated narrative script with voiceover lines, transitions, and music cues.</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="generateScript()" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-200 transition flex items-center gap-1.5">
+              <i class="fas fa-redo"></i> Regenerate
+            </button>
+            <button id="generateScriptBtn" onclick="generateScript()" class="bg-brand-primary text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
+              <i class="fas fa-feather-alt"></i> Generate Script
+            </button>
+          </div>
+        </div>
+        <div id="scriptLoading" class="hidden flex items-center gap-3 text-sm text-gray-600 mb-4 py-8 justify-center">
+          <i class="fas fa-spinner fa-spin text-brand-primary"></i>
+          <span>Generating your video script...</span>
+        </div>
+        <textarea id="scriptOutput" class="script-area w-full border border-gray-200 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition bg-white font-body" placeholder="AI-generated script will appear here. You can edit it directly."></textarea>
+        <div class="flex justify-between mt-6">
+          <button onclick="goToStep(2)" class="text-sm text-gray-500 border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">
+            <i class="fas fa-arrow-left mr-1"></i> Back
+          </button>
+          <button id="step3Next" onclick="goToStep(4)" class="bg-brand-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            Next: Generate Clips <i class="fas fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+      </div>
+      <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <h3 class="text-sm font-bold text-gray-700 mb-2">Script Structure</h3>
+        <p class="text-xs text-gray-500">The script includes intro, room-by-room narration with transitions, and an outro. Edit any section as needed before proceeding.</p>
+      </div>
+    </div>
+
+    <!-- STEP 4: Generate Video Clips (UI only - no actual API calls yet) -->
+    <div id="step4" class="step-panel">
+      <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-lg font-bold text-brand-dark serif">Video Clip Preview</h2>
+            <p class="text-sm text-gray-500">Each photo will become a 9-10 second cinematic clip. Review and configure below.</p>
+          </div>
+          <span class="bg-amber-100 text-amber-700 text-[10px] font-semibold px-3 py-1 rounded-full">UI Preview — API integration coming soon</span>
+        </div>
+
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6">
+          <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+            <i class="fas fa-sliders-h text-brand-primary"></i> Clip Settings
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1">Duration per clip</label>
+              <div class="flex items-center gap-2">
+                <input type="range" id="clipDuration" min="9" max="10" step="1" value="10" class="flex-1 accent-brand-primary" oninput="this.nextElementSibling.textContent = this.value + 's'" />
+                <span class="text-sm font-bold text-brand-dark w-8">10s</span>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1">Resolution</label>
+              <select id="clipResolution" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
+                <option value="720p">720p</option>
+                <option value="1080p">1080p</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1">Aspect Ratio</label>
+              <select id="clipAspect" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
+                <option value="16:9">16:9 (Landscape)</option>
+                <option value="9:16">9:16 (Portrait/Reels)</option>
+                <option value="1:1">1:1 (Square)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="clipList" class="space-y-3"></div>
+
+        <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+          <div class="text-sm text-gray-500">
+            <span class="font-semibold text-brand-dark" id="clipCount">0</span> clips
+            <span class="mx-2">&middot;</span>
+            Total: <span class="font-semibold text-brand-dark" id="totalDuration">0s</span>
+            <span class="mx-2">&middot;</span>
+            Est. cost: <span class="font-semibold text-amber-600" id="estCost">$0.00</span>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-4">
+          <button onclick="goToStep(3)" class="text-sm text-gray-500 border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">
+            <i class="fas fa-arrow-left mr-1"></i> Back
+          </button>
+          <div class="flex gap-2">
+            <button onclick="showToast('Video generation coming soon!')" class="bg-brand-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center gap-2 shadow-sm opacity-60 cursor-not-allowed" disabled>
+              <i class="fas fa-video"></i> Generate Clips
+            </button>
+            <button id="step4Next" onclick="goToStep(5)" class="bg-brand-dark text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-brand-dark/90 transition flex items-center gap-2 shadow-sm">
+              Next: Export <i class="fas fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Export / Preview (UI only) -->
+    <div id="step5" class="step-panel">
+      <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-brand-dark serif">Export Video Tour</h2>
+            <p class="text-sm text-gray-500">Preview your complete video tour timeline and download the final result.</p>
+          </div>
+          <span class="bg-amber-100 text-amber-700 text-[10px] font-semibold px-3 py-1 rounded-full">Coming Soon</span>
+        </div>
+
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
+          <i class="fas fa-film text-5xl text-gray-300 mb-4"></i>
+          <h3 class="text-lg font-semibold text-gray-600 mb-2">Final Video Preview</h3>
+          <p class="text-sm text-gray-400 max-w-md mx-auto mb-6">Once video generation is active, your completed tour with all clips, voiceover, and music will appear here for preview and download.</p>
+          <div class="bg-white border border-gray-200 rounded-xl p-5 max-w-lg mx-auto">
+            <div class="text-left text-xs text-gray-500 space-y-2">
+              <div class="flex justify-between"><span>Clips:</span><span class="font-medium" id="exportClipCount">0</span></div>
+              <div class="flex justify-between"><span>Duration:</span><span class="font-medium" id="exportDuration">0s</span></div>
+              <div class="flex justify-between"><span>Resolution:</span><span class="font-medium" id="exportResolution">720p</span></div>
+              <div class="flex justify-between"><span>Format:</span><span class="font-medium">MP4</span></div>
+              <div class="border-t border-gray-200 pt-2 flex justify-between text-brand-dark font-semibold"><span>Estimated Cost:</span><span id="exportCost">$0.00</span></div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-3 justify-center mt-6">
+            <button onclick="showToast('Video generation coming soon!')" class="bg-brand-primary text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-red-800 transition flex items-center gap-2 shadow-sm opacity-60 cursor-not-allowed" disabled>
+              <i class="fas fa-play"></i> Preview Video
+            </button>
+            <button onclick="showToast('Video generation coming soon!')" class="bg-brand-dark text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-brand-dark/90 transition flex items-center gap-2 shadow-sm opacity-60 cursor-not-allowed" disabled>
+              <i class="fas fa-download"></i> Download MP4
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-6">
+          <button onclick="goToStep(4)" class="text-sm text-gray-500 border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">
+            <i class="fas fa-arrow-left mr-1"></i> Back
+          </button>
+          <button onclick="goToStep(1)" class="text-sm text-brand-primary border border-brand-primary rounded-lg px-4 py-2 hover:bg-brand-primary/5 transition">
+            <i class="fas fa-redo mr-1"></i> Start New Tour
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Saved!</div>
+
+  <script>
+    // ── State ──
+    const API_BASE = 'https://openrouter.ai/api/v1';
+    let uploadedPhotos = [];
+    let analysisResults = [];
+    let currentStep = 1;
+    let isAnalyzing = false;
+    let isGeneratingScript = false;
+
+    // ── DOM refs ──
+    const $ = id => document.getElementById(id);
+
+    // ── Settings ──
+    function openSettings() {
+      $('settingsModal').classList.remove('hidden');
+    }
+    function closeSettings() {
+      $('settingsModal').classList.add('hidden');
+    }
+    $('settingsModal').addEventListener('click', function(e) {
+      if (e.target === e.currentTarget) closeSettings();
+    });
+
+    function getApiKey() {
+      return localStorage.getItem('orApiKey') || '';
+    }
+
+    function loadSettings() {
+      const key = getApiKey();
+      if (key) {
+        $('apiKey').value = key;
+        $('apiKeyReminder').classList.add('hidden');
+      }
+      const vision = localStorage.getItem('orVisionModel') || 'google/gemini-2.5-flash:free';
+      const script = localStorage.getItem('orScriptModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
+      const video = localStorage.getItem('orVideoModel') || 'kwaivgi/kling-video-v3-standard';
+      if ($('visionModel')) $('visionModel').value = vision;
+      if ($('scriptModel')) $('scriptModel').value = script;
+      if ($('videoModel')) $('videoModel').value = video;
+    }
+
+    function saveSettings() {
+      const key = $('apiKey').value.trim();
+      if (key) {
+        localStorage.setItem('orApiKey', key);
+        $('apiKeyReminder').classList.add('hidden');
+      }
+      localStorage.setItem('orVisionModel', $('visionModel').value);
+      localStorage.setItem('orScriptModel', $('scriptModel').value);
+      localStorage.setItem('orVideoModel', $('videoModel').value);
+      closeSettings();
+      showToast('Settings saved!');
+    }
+
+    // ── Step Navigation ──
+    function goToStep(step) {
+      if (step < 1 || step > 5) return;
+      // Hide all panels
+      document.querySelectorAll('.step-panel').forEach(el => el.classList.remove('active'));
+      $('step' + step).classList.add('active');
+      currentStep = step;
+
+      // Update progress
+      for (let i = 1; i <= 5; i++) {
+        const icon = $('stepIcon' + i);
+        const line = $('stepLine' + i);
+        const label = $('stepLabel' + i);
+        if (i <= step) {
+          icon.className = 'step-circle bg-brand-primary text-white';
+          if (label) label.className = 'text-brand-primary font-semibold text-[10px] sm:text-xs';
+        } else {
+          icon.className = 'step-circle bg-gray-200 text-gray-500';
+          if (label) label.className = 'text-[10px] sm:text-xs text-gray-500 font-medium';
+        }
+        if (line) {
+          line.className = i < step ? 'step-line bg-brand-primary' : 'step-line bg-gray-200';
+        }
+      }
+
+      // Refresh step-specific data
+      if (step === 4) renderClipList();
+      if (step === 5) updateExportSummary();
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+    }
+
+    // ── Photo Upload ──
+    const dropZone = $('dropZone');
+    const fileInput = $('fileInput');
+    const photoGrid = $('photoGrid');
+    const photoActions = $('photoActions');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('drag-over');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      handleFiles(e.dataTransfer.files);
+    });
+    fileInput.addEventListener('change', () => {
+      handleFiles(fileInput.files);
+      fileInput.value = '';
+    });
+
+    function handleFiles(files) {
+      const remaining = 20 - uploadedPhotos.length;
+      let count = 0;
+      for (const file of files) {
+        if (count >= remaining) break;
+        if (!file.type.startsWith('image/')) continue;
+        if (file.size > 10 * 1024 * 1024) continue;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          uploadedPhotos.push({ file, dataUrl: e.target.result, name: file.name });
+          renderPhotos();
+        };
+        reader.readAsDataURL(file);
+        count++;
+      }
+    }
+
+    function renderPhotos() {
+      if (uploadedPhotos.length === 0) {
+        photoGrid.classList.add('hidden');
+        photoActions.classList.add('hidden');
+        $('step1Next').disabled = true;
+        return;
+      }
+      photoGrid.classList.remove('hidden');
+      photoActions.classList.remove('hidden');
+      $('step1Next').disabled = uploadedPhotos.length < 2;
+
+      photoGrid.innerHTML = uploadedPhotos.map((p, i) => `
+        <div class="photo-card">
+          <img src="${p.dataUrl}" alt="${p.name}" loading="lazy" />
+          <button class="remove-btn" onclick="removePhoto(${i})" title="Remove">&times;</button>
+          <div class="label">${p.name.replace(/\.[^.]+$/, '')}</div>
+        </div>
+      `).join('');
+    }
+
+    function removePhoto(index) {
+      uploadedPhotos.splice(index, 1);
+      renderPhotos();
+    }
+
+    function addMorePhotos() { fileInput.click(); }
+    function clearPhotos() {
+      uploadedPhotos = [];
+      analysisResults = [];
+      renderPhotos();
+      $('analysisResults').classList.add('hidden');
+      $('analysisResults').innerHTML = '';
+      $('step2Next').disabled = true;
+      $('scriptOutput').value = '';
+      $('step3Next').disabled = true;
+    }
+
+    // ── Step 2: AI Analysis ──
+    async function startAnalysis() {
+      const key = getApiKey();
+      if (!key) {
+        showToast('Please set your API key in Settings first.');
+        openSettings();
+        return;
+      }
+      if (uploadedPhotos.length < 2) {
+        showToast('Upload at least 2 photos to analyze.');
+        return;
+      }
+
+      isAnalyzing = true;
+      $('analyzeBtn').disabled = true;
+      $('analyzeBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+      $('analysisProgress').classList.remove('hidden');
+      $('analysisResults').classList.remove('hidden');
+      $('analysisResults').innerHTML = '';
+      $('step2Next').disabled = true;
+      analysisResults = [];
+
+      const model = $('visionModel').value;
+      const total = uploadedPhotos.length;
+
+      for (let i = 0; i < total; i++) {
+        const photo = uploadedPhotos[i];
+        $('analysisStatus').textContent = `Analyzing ${i + 1} of ${total}: ${photo.name}`;
+        $('analysisProgressBar').style.width = ((i / total) * 100) + '%';
+
+        // Add placeholder card
+        const card = document.createElement('div');
+        card.id = 'analysis-' + i;
+        card.className = 'analysis-card';
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row">
+            <div class="sm:w-40 flex-shrink-0">
+              <img src="${photo.dataUrl}" class="thumb sm:h-full sm:w-40" alt="" />
+            </div>
+            <div class="p-4 flex-1">
+              <div class="text-xs font-semibold text-gray-500 uppercase mb-1">Room ${i + 1}</div>
+              <div class="desc"><span class="text-gray-400 italic">Analyzing...</span></div>
+            </div>
+          </div>
+        `;
+        $('analysisResults').appendChild(card);
+
+        try {
+          const res = await fetch(API_BASE + '/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + key,
+              'HTTP-Referer': 'https://switdeveloper.github.io/Swit-invest/'
+            },
+            body: JSON.stringify({
+              model: model,
+              messages: [{ role: 'user', content: [
+                { type: 'text', text: 'You are a real estate videographer. Describe this room/area in vivid detail for a luxury property video tour. Focus on: architectural features, materials, lighting, spatial feel, unique selling points. Keep it 3-4 sentences, professional and cinematic tone. Start with what room this is.' },
+                { type: 'image_url', image_url: { url: photo.dataUrl } }
+              ]}],
+              max_tokens: 512,
+              temperature: 0.3
+            })
+          });
+
+          let description = 'Analysis failed. Please try again.';
+          if (res.ok) {
+            const data = await res.json();
+            description = data.choices?.[0]?.message?.content || description;
+          } else {
+            const err = await res.text();
+            try { const j = JSON.parse(err); description = 'Error: ' + (j.error?.message || j.error || err); } catch(e) { description = 'Error: ' + err; }
+          }
+
+          analysisResults.push({ photoIndex: i, description });
+          const descEl = card.querySelector('.desc');
+          descEl.innerHTML = description;
+        } catch (err) {
+          analysisResults.push({ photoIndex: i, description: 'Network error: ' + err.message });
+          const descEl = card.querySelector('.desc');
+          descEl.innerHTML = '<span class="text-red-500">Network error: ' + err.message + '</span>';
+        }
+      }
+
+      $('analysisProgressBar').style.width = '100%';
+      $('analysisStatus').textContent = 'Analysis complete for ' + total + ' photos.';
+      $('analyzeBtn').disabled = false;
+      $('analyzeBtn').innerHTML = '<i class="fas fa-magic"></i> Re-analyze';
+      $('step2Next').disabled = analysisResults.length < 2;
+      isAnalyzing = false;
+    }
+
+    // ── Step 3: Script Generation ──
+    async function generateScript() {
+      const key = getApiKey();
+      if (!key) {
+        showToast('Please set your API key in Settings first.');
+        openSettings();
+        return;
+      }
+      if (analysisResults.length < 2) {
+        showToast('Please analyze photos first.');
+        return;
+      }
+
+      isGeneratingScript = true;
+      $('generateScriptBtn').disabled = true;
+      $('generateScriptBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      $('scriptLoading').classList.remove('hidden');
+      $('step3Next').disabled = true;
+
+      const model = $('scriptModel').value;
+      const roomDescs = analysisResults.map((r, i) => `Room ${i + 1}: ${r.description}`).join('\n\n');
+
+      const prompt = `You are a professional real estate video scriptwriter. Create a cinematic video tour script based on these room descriptions.
+
+Each room gets 9-10 seconds of screen time. Structure:
+- INTRO: Hook with the property's best feature
+- For each room: a voiceover line (what to say) + transition direction + music cue
+- OUTRO: Call to action
+
+Format each room as:
+[ROOM NAME] (X sec)
+Voiceover: "..."
+Visual: [camera direction]
+Audio: [music/sound cue]
+
+Property rooms:
+${roomDescs}
+
+Total target: ${analysisResults.length * 10} seconds.`;
+
+      try {
+        const res = await fetch(API_BASE + '/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + key,
+            'HTTP-Referer': 'https://switdeveloper.github.io/Swit-invest/'
+          },
+          body: JSON.stringify({
+            model: model,
+            messages: [
+              { role: 'system', content: 'You write professional real estate video scripts. Be concise and cinematic.' },
+              { role: 'user', content: prompt }
+            ],
+            max_tokens: 2048,
+            temperature: 0.5
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const script = data.choices?.[0]?.message?.content || 'Script generation failed.';
+          $('scriptOutput').value = script;
+          $('step3Next').disabled = false;
+          showToast('Script generated!');
+        } else {
+          const err = await res.text();
+          try { const j = JSON.parse(err); $('scriptOutput').value = 'Error: ' + (j.error?.message || j.error || err); } catch(e) { $('scriptOutput').value = 'Error: ' + err; }
+        }
+      } catch (err) {
+        $('scriptOutput').value = 'Network error: ' + err.message;
+      }
+
+      isGeneratingScript = false;
+      $('generateScriptBtn').disabled = false;
+      $('generateScriptBtn').innerHTML = '<i class="fas fa-feather-alt"></i> Generate Script';
+      $('scriptLoading').classList.add('hidden');
+    }
+
+    // ── Step 4: Clip Preview (UI only) ──
+    function renderClipList() {
+      const container = $('clipList');
+      if (uploadedPhotos.length === 0) {
+        container.innerHTML = '<p class="text-sm text-gray-400 text-center py-8">No photos uploaded. Go back to step 1.</p>';
+        return;
+      }
+
+      const duration = parseInt($('clipDuration').value) || 10;
+      container.innerHTML = uploadedPhotos.map((p, i) => `
+        <div class="clip-card flex items-center gap-4 p-3">
+          <img src="${p.dataUrl}" class="w-24 h-16 rounded-lg object-cover flex-shrink-0" />
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-semibold text-gray-500 uppercase">Clip ${i + 1}</div>
+            <div class="text-sm text-gray-700 truncate">${p.name.replace(/\.[^.]+$/, '')}</div>
+            <div class="text-xs text-gray-400">${duration}s &middot; ${$('clipResolution').value}</div>
+          </div>
+          <div class="text-xs text-gray-400">
+            <i class="fas fa-video text-brand-primary mr-1"></i>
+            <span class="${i < analysisResults.length ? 'text-green-600' : 'text-amber-500'}">
+              ${i < analysisResults.length ? 'Analyzed' : 'Pending'}
+            </span>
+          </div>
+        </div>
+      `).join('');
+
+      const total = uploadedPhotos.length * duration;
+      const cost = total * 0.08; // est $0.08/sec
+      $('clipCount').textContent = uploadedPhotos.length;
+      $('totalDuration').textContent = total + 's';
+      $('estCost').textContent = '$' + cost.toFixed(2);
+    }
+
+    $('clipDuration').addEventListener('input', renderClipList);
+    $('clipResolution').addEventListener('change', renderClipList);
+    $('clipAspect').addEventListener('change', renderClipList);
+
+    // ── Step 5: Export Summary ──
+    function updateExportSummary() {
+      const duration = parseInt($('clipDuration').value) || 10;
+      const total = uploadedPhotos.length * duration;
+      const cost = total * 0.08;
+      $('exportClipCount').textContent = uploadedPhotos.length;
+      $('exportDuration').textContent = total + 's';
+      $('exportResolution').textContent = $('clipResolution').value;
+      $('exportCost').textContent = '$' + cost.toFixed(2);
+    }
+
+    // ── Script editing enables step 4 ──
+    $('scriptOutput').addEventListener('input', function() {
+      if (this.value.trim().length > 50) {
+        $('step3Next').disabled = false;
+      }
+    });
+
+    // ── Toast ──
+    function showToast(msg) {
+      const toast = $('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // ── Initialize ──
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSettings();
+    });
+
+    // Reveal observer
+    document.addEventListener('DOMContentLoaded', function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
