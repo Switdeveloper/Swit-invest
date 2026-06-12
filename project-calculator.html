@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Cost Calculator | SwitDeveloper</title>
+  <meta name="description" content="Use SwitDeveloper's free Project Cost Calculator to estimate your website, mobile app, AI automation, or marketing campaign cost instantly.">
+  <meta name="keywords" content="project cost calculator, website cost, app development cost, digital marketing cost, AI automation pricing">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://switdeveloper.com/project-calculator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Project Cost Calculator | SwitDeveloper">
+  <meta property="og:description" content="Estimate your digital project cost instantly with SwitDeveloper's free calculator.">
+  <meta property="og:url" content="https://switdeveloper.com/project-calculator.html">
+  <meta property="og:site_name" content="SwitDeveloper">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project Cost Calculator | SwitDeveloper">
+  <meta name="twitter:description" content="Estimate your digital project cost instantly.">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-blue': '#0d152e',
+            'primary-red': '#c91414',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f9fc;
+      color: #1a1a2e;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      max-width: 400px;
+      height: 3px;
+      background: #d1d5db;
+      z-index: 0;
+    }
+    .step-indicator .step-dot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+    }
+    .step-indicator .step-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.125rem;
+      border: 3px solid #d1d5db;
+      background: #fff;
+      color: #6b7280;
+      transition: all 0.3s ease;
+    }
+    .step-indicator .step-dot.active .step-circle {
+      border-color: #0d152e;
+      background: #0d152e;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(13, 21, 46, 0.25);
+    }
+    .step-indicator .step-dot.done .step-circle {
+      border-color: #0d152e;
+      background: #0d152e;
+      color: #fff;
+    }
+    .step-indicator .step-label {
+      font-size: 0.8rem;
+      color: #6b7280;
+      font-weight: 500;
+      text-align: center;
+    }
+    .step-indicator .step-dot.active .step-label {
+      color: #0d152e;
+      font-weight: 600;
+    }
+    .step-indicator .step-dot.done .step-label {
+      color: #0d152e;
+    }
+
+    .step-panel {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+    .step-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .option-card {
+      border: 2px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fff;
+      text-align: center;
+    }
+    .option-card:hover {
+      border-color: #0d152e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(13, 21, 46, 0.08);
+    }
+    .option-card.selected {
+      border-color: #0d152e;
+      background: #f0f1f7;
+      box-shadow: 0 0 0 3px rgba(13, 21, 46, 0.15);
+    }
+    .option-card .icon-wrap {
+      font-size: 2rem;
+      color: #0d152e;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #0d152e;
+      margin-bottom: 0.4rem;
+    }
+    .form-group select, .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border 0.2s;
+      background: #fff;
+    }
+    .form-group select:focus, .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #0d152e;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.6rem;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+    .checkbox-item:hover {
+      border-color: #0d152e;
+    }
+    .checkbox-item.checked {
+      border-color: #0d152e;
+      background: #f0f1f7;
+    }
+    .checkbox-item input[type="checkbox"] {
+      accent-color: #0d152e;
+      width: 16px;
+      height: 16px;
+    }
+
+    .price-box {
+      background: linear-gradient(135deg, #0d152e 0%, #1a2444 100%);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      color: #fff;
+      text-align: center;
+    }
+    .price-box .price-range {
+      font-size: 2.5rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+    .price-box .price-sub {
+      color: #a0aec0;
+      font-size: 0.95rem;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .breakdown-item:last-child {
+      border-bottom: none;
+    }
+    .breakdown-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: #e5e7eb;
+      overflow: hidden;
+      flex: 1;
+      margin: 0 1rem;
+    }
+    .breakdown-bar .fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #0d152e, #2a3a6e);
+      transition: width 0.5s ease;
+    }
+
+    .btn-primary {
+      background: #c91414;
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover {
+      background: #ab1111;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(201, 20, 20, 0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #0d152e;
+      padding: 0.75rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      border: 2px solid #0d152e;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-outline:hover {
+      background: #0d152e;
+      color: #fff;
+    }
+
+    #email-section {
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 640px) {
+      .step-indicator .step-label { font-size: 0.65rem; }
+      .step-indicator .step-circle { width: 38px; height: 38px; font-size: 0.9rem; }
+      .price-box .price-range { font-size: 1.8rem; }
+      .checkbox-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="bg-dark-blue py-20 md:py-28 px-4 text-center relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10" style="background: radial-gradient(circle at 20% 50%, #c91414 0%, transparent 60%), radial-gradient(circle at 80% 50%, #fff 0%, transparent 50%);"></div>
+      <div class="max-w-4xl mx-auto relative z-10">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">Project Cost Calculator</h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-light">Estimate your digital project cost instantly — no sign-up required.</p>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="max-w-5xl mx-auto px-4 py-12 -mt-10 relative z-20">
+
+      <div class="bg-white rounded-2xl shadow-xl p-6 md:p-10">
+
+        <!-- Step Indicator -->
+        <div class="step-indicator" id="stepIndicator">
+          <div class="step-dot active" data-step="1">
+            <div class="step-circle">1</div>
+            <span class="step-label">Project Type</span>
+          </div>
+          <div class="step-dot" data-step="2">
+            <div class="step-circle">2</div>
+            <span class="step-label">Details</span>
+          </div>
+          <div class="step-dot" data-step="3">
+            <div class="step-circle">3</div>
+            <span class="step-label">Timeline & Budget</span>
+          </div>
+        </div>
+
+        <!-- Step 1: Project Type -->
+        <div class="step-panel active" id="step1">
+          <h2 class="text-2xl font-display font-bold text-dark-blue mb-2">What type of project do you need?</h2>
+          <p class="text-gray-500 mb-6">Select one to get started.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="option-card" data-type="website">
+              <div class="icon-wrap"><i class="fas fa-globe"></i></div>
+              <h3 class="font-semibold text-dark-blue">Website</h3>
+              <p class="text-xs text-gray-500 mt-1">Info, e-commerce, custom</p>
+            </div>
+            <div class="option-card" data-type="mobile-app">
+              <div class="icon-wrap"><i class="fas fa-mobile-alt"></i></div>
+              <h3 class="font-semibold text-dark-blue">Mobile App</h3>
+              <p class="text-xs text-gray-500 mt-1">iOS, Android, or both</p>
+            </div>
+            <div class="option-card" data-type="ai-automation">
+              <div class="icon-wrap"><i class="fas fa-robot"></i></div>
+              <h3 class="font-semibold text-dark-blue">AI Automation</h3>
+              <p class="text-xs text-gray-500 mt-1">Chatbots, agents, workflows</p>
+            </div>
+            <div class="option-card" data-type="marketing">
+              <div class="icon-wrap"><i class="fas fa-bullhorn"></i></div>
+              <h3 class="font-semibold text-dark-blue">Marketing</h3>
+              <p class="text-xs text-gray-500 mt-1">Campaigns & content</p>
+            </div>
+          </div>
+          <div class="flex justify-end mt-8">
+            <button class="btn-primary" id="toStep2" disabled>
+              Next <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Details -->
+        <div class="step-panel" id="step2">
+          <h2 class="text-2xl font-display font-bold text-dark-blue mb-2">Tell us more about your <span id="detailTypeLabel" class="text-primary-red">project</span></h2>
+          <p class="text-gray-500 mb-6">Fill in the details for an accurate estimate.</p>
+
+          <div id="detailFields">
+            <!-- populated by JS -->
+          </div>
+
+          <div class="flex justify-between mt-8">
+            <button class="btn-outline" id="backToStep1"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn-primary" id="toStep3">Next <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Step 3: Timeline & Budget -->
+        <div class="step-panel" id="step3">
+          <h2 class="text-2xl font-display font-bold text-dark-blue mb-2">Timeline & Budget</h2>
+          <p class="text-gray-500 mb-6">Help us understand your schedule and investment level.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="form-group">
+              <label>Timeline</label>
+              <select id="timeline">
+                <option value="urgent">Urgent — ASAP (within 2 weeks)</option>
+                <option value="normal" selected>Normal — Standard turnaround</option>
+                <option value="flexible">Flexible — No rush</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Budget Range</label>
+              <select id="budgetRange">
+                <option value="low">Under $2,000</option>
+                <option value="mid" selected>$2,000 – $10,000</option>
+                <option value="high">$10,000 – $25,000</option>
+                <option value="enterprise">$25,000+</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Live Price -->
+          <div class="price-box mb-6" id="priceBox">
+            <p class="text-gray-300 mb-1">Estimated Project Cost</p>
+            <div class="price-range" id="priceDisplay">$2,000 – $8,000</div>
+            <p class="price-sub mt-2"><i class="fas fa-sync-alt mr-1"></i> Updates as you adjust selections</p>
+          </div>
+
+          <!-- Breakdown -->
+          <div id="breakdownContainer">
+            <h3 class="font-display font-bold text-dark-blue text-lg mb-3">Cost Breakdown</h3>
+            <div id="breakdownList"></div>
+          </div>
+
+          <div class="flex justify-between mt-8">
+            <button class="btn-outline" id="backToStep2"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn-primary" id="showResults">See Full Estimate <i class="fas fa-calculator"></i></button>
+          </div>
+        </div>
+
+        <!-- Results / Email Capture -->
+        <div class="step-panel" id="stepResults">
+          <div class="text-center py-6">
+            <div class="text-5xl mb-4"><i class="fas fa-file-invoice text-dark-blue"></i></div>
+            <h2 class="text-2xl font-display font-bold text-dark-blue mb-2">Your Estimate Summary</h2>
+            <p class="text-gray-500 mb-6">Based on your selections, here's a rough estimate.</p>
+
+            <div class="price-box mb-6 max-w-md mx-auto">
+              <p class="text-gray-300 mb-1">Estimated Range</p>
+              <div class="price-range" id="finalPrice">$2,000 – $8,000</div>
+            </div>
+
+            <div class="max-w-md mx-auto mb-8" id="finalBreakdown"></div>
+
+            <div id="email-section" class="bg-gray-50 rounded-xl p-6 max-w-md mx-auto border border-gray-200">
+              <p class="font-semibold text-dark-blue mb-1">Want a detailed quote?</p>
+              <p class="text-sm text-gray-500 mb-4">Enter your email and we'll send you a full project proposal.</p>
+              <form id="emailForm" class="flex flex-col sm:flex-row gap-3">
+                <input type="email" id="emailInput" placeholder="your@email.com" required
+                  class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-dark-blue focus:outline-none font-body">
+                <button type="submit" class="btn-primary whitespace-nowrap"><i class="fas fa-paper-plane"></i> Send Quote</button>
+              </form>
+              <p id="emailFeedback" class="text-sm text-green-600 mt-2 hidden"><i class="fas fa-check-circle"></i> Saved! We'll be in touch.</p>
+            </div>
+
+            <div class="mt-6">
+              <a href="contact.html" class="btn-primary"><i class="fas fa-headset"></i> Talk to Our Team</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script>
+    (function() {
+      /* ===== STATE ===== */
+      const state = {
+        projectType: null,
+        details: {
+          website: { pages: 5, features: [], design: 'basic' },
+          mobileApp: { platform: 'both', features: [], design: 'basic' },
+          aiAutomation: { type: 'chatbot', integrations: 1, complexity: 'low' },
+          marketing: { channels: [], duration: '1-month', contentNeeds: 'basic' },
+        },
+        timeline: 'normal',
+        budget: 'mid',
+      };
+
+      const typeLabels = {
+        'website': 'Website',
+        'mobile-app': 'Mobile App',
+        'ai-automation': 'AI Automation',
+        'marketing': 'Marketing Campaign',
+      };
+
+      const detailTemplates = {
+        website: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="form-group">
+              <label>Number of Pages</label>
+              <select id="webPages" data-detail="pages">
+                <option value="1">1 – 5 pages</option>
+                <option value="5" selected>5 – 15 pages</option>
+                <option value="15">15 – 30 pages</option>
+                <option value="30">30+ pages</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Design Tier</label>
+              <select id="webDesign" data-detail="design">
+                <option value="basic">Basic — Templates</option>
+                <option value="custom">Custom — Unique design</option>
+                <option value="premium">Premium — High-end UX/UI</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group mb-4">
+            <label>Features Needed</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item" data-feature="cms"><input type="checkbox"> CMS</label>
+              <label class="checkbox-item" data-feature="ecommerce"><input type="checkbox"> E-commerce</label>
+              <label class="checkbox-item" data-feature="booking"><input type="checkbox"> Booking System</label>
+              <label class="checkbox-item" data-feature="membership"><input type="checkbox"> Member Login</label>
+              <label class="checkbox-item" data-feature="blog"><input type="checkbox"> Blog</label>
+            </div>
+          </div>
+        `,
+        'mobile-app': `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="form-group">
+              <label>Platform</label>
+              <select id="appPlatform" data-detail="platform">
+                <option value="ios">iOS only</option>
+                <option value="android">Android only</option>
+                <option value="both" selected>Both iOS & Android</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Design Tier</label>
+              <select id="appDesign" data-detail="design">
+                <option value="basic">Basic</option>
+                <option value="custom">Custom</option>
+                <option value="premium">Premium</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group mb-4">
+            <label>Features</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item" data-feature="auth"><input type="checkbox"> Authentication</label>
+              <label class="checkbox-item" data-feature="payments"><input type="checkbox"> Payments</label>
+              <label class="checkbox-item" data-feature="social"><input type="checkbox"> Social Login</label>
+              <label class="checkbox-item" data-feature="push"><input type="checkbox"> Push Notifications</label>
+              <label class="checkbox-item" data-feature="realtime"><input type="checkbox"> Real-time / Socket</label>
+            </div>
+          </div>
+        `,
+        'ai-automation': `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="form-group">
+              <label>AI Type</label>
+              <select id="aiType" data-detail="type">
+                <option value="chatbot">Chatbot</option>
+                <option value="agent">AI Agent</option>
+                <option value="workflow">Automation Workflow</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Integrations</label>
+              <select id="aiIntegrations" data-detail="integrations">
+                <option value="1">1 – 2 integrations</option>
+                <option value="3">3 – 5 integrations</option>
+                <option value="6">6+ integrations</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Complexity</label>
+              <select id="aiComplexity" data-detail="complexity">
+                <option value="low">Low — Simple rules</option>
+                <option value="medium">Medium — Moderate logic</option>
+                <option value="high">High — Advanced AI/ML</option>
+              </select>
+            </div>
+          </div>
+        `,
+        marketing: `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="form-group">
+              <label>Duration</label>
+              <select id="mktDuration" data-detail="duration">
+                <option value="1-month">1 Month</option>
+                <option value="3-months">3 Months</option>
+                <option value="6-months">6 Months</option>
+                <option value="ongoing">Ongoing / Retainer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Content Needs</label>
+              <select id="mktContent" data-detail="contentNeeds">
+                <option value="basic">Basic — Existing content</option>
+                <option value="moderate">Moderate — Some creation</option>
+                <option value="heavy">Heavy — Full content production</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group mb-4">
+            <label>Channels</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item" data-feature="seo"><input type="checkbox"> SEO</label>
+              <label class="checkbox-item" data-feature="social-media"><input type="checkbox"> Social Media</label>
+              <label class="checkbox-item" data-feature="email"><input type="checkbox"> Email Marketing</label>
+              <label class="checkbox-item" data-feature="ppc"><input type="checkbox"> PPC / Ads</label>
+              <label class="checkbox-item" data-feature="content"><input type="checkbox"> Content Marketing</label>
+            </div>
+          </div>
+        `,
+      };
+
+      /* ===== DOM refs ===== */
+      const $ = (sel) => document.querySelector(sel);
+      const $$ = (sel) => document.querySelectorAll(sel);
+
+      const step1 = $('#step1');
+      const step2 = $('#step2');
+      const step3 = $('#step3');
+      const stepResults = $('#stepResults');
+      const detailFields = $('#detailFields');
+      const detailTypeLabel = $('#detailTypeLabel');
+      const priceDisplay = $('#priceDisplay');
+      const breakdownList = $('#breakdownList');
+      const finalPrice = $('#finalPrice');
+      const finalBreakdown = $('#finalBreakdown');
+
+      /* ===== Pricing Engine ===== */
+      function getPrice() {
+        const type = state.projectType;
+        if (!type) return { min: 0, max: 0, breakdown: {} };
+
+        let baseMin = 0, baseMax = 0;
+        const breakdown = { Design: 0, Development: 0, Testing: 0, Deployment: 0, Maintenance: 0 };
+        const d = state.details[type] || {};
+
+        // timeline multiplier
+        const tMul = { urgent: 1.4, normal: 1.0, flexible: 0.85 };
+        const bMul = { low: 0.6, mid: 1.0, high: 1.6, enterprise: 2.5 };
+        const tm = tMul[state.timeline] || 1.0;
+        const bm = bMul[state.budget] || 1.0;
+
+        if (type === 'website') {
+          const pages = parseInt(d.pages) || 5;
+          const design = d.design || 'basic';
+          const features = d.features || [];
+          const fCost = features.length * 400;
+
+          if (design === 'basic') { baseMin = 500; baseMax = 1500; }
+          else if (design === 'custom') { baseMin = 1500; baseMax = 4000; }
+          else { baseMin = 4000; baseMax = 10000; }
+
+          const pageCost = pages * 120;
+          baseMin += pageCost + fCost;
+          baseMax += pageCost * 1.5 + fCost * 1.5;
+
+          breakdown.Design = Math.round((baseMin + baseMax) / 2 * 0.25);
+          breakdown.Development = Math.round((baseMin + baseMax) / 2 * 0.40);
+          breakdown.Testing = Math.round((baseMin + baseMax) / 2 * 0.15);
+          breakdown.Deployment = Math.round((baseMin + baseMax) / 2 * 0.10);
+          breakdown.Maintenance = Math.round((baseMin + baseMax) / 2 * 0.10);
+        }
+        else if (type === 'mobile-app') {
+          const platform = d.platform || 'both';
+          const design = d.design || 'basic';
+          const features = d.features || [];
+          const fCost = features.length * 500;
+          const pMul = platform === 'both' ? 1.8 : 1.0;
+
+          if (design === 'basic') { baseMin = 3000; baseMax = 8000; }
+          else if (design === 'custom') { baseMin = 8000; baseMax = 18000; }
+          else { baseMin = 18000; baseMax = 35000; }
+
+          baseMin = (baseMin + fCost) * pMul;
+          baseMax = (baseMax + fCost * 1.5) * pMul;
+
+          breakdown.Design = Math.round((baseMin + baseMax) / 2 * 0.20);
+          breakdown.Development = Math.round((baseMin + baseMax) / 2 * 0.45);
+          breakdown.Testing = Math.round((baseMin + baseMax) / 2 * 0.18);
+          breakdown.Deployment = Math.round((baseMin + baseMax) / 2 * 0.07);
+          breakdown.Maintenance = Math.round((baseMin + baseMax) / 2 * 0.10);
+        }
+        else if (type === 'ai-automation') {
+          const aiType = d.type || 'chatbot';
+          const integrations = parseInt(d.integrations) || 1;
+          const complexity = d.complexity || 'low';
+
+          const typeCost = { chatbot: [1500, 5000], agent: [4000, 12000], workflow: [3000, 10000] };
+          const compMul = { low: 1.0, medium: 1.5, high: 2.5 };
+          const [tMin, tMax] = typeCost[aiType] || [2000, 6000];
+          const cm = compMul[complexity] || 1.0;
+          const intCost = integrations * 400;
+
+          baseMin = (tMin + intCost) * cm;
+          baseMax = (tMax + intCost * 1.5) * cm;
+
+          breakdown.Design = Math.round((baseMin + baseMax) / 2 * 0.15);
+          breakdown.Development = Math.round((baseMin + baseMax) / 2 * 0.50);
+          breakdown.Testing = Math.round((baseMin + baseMax) / 2 * 0.15);
+          breakdown.Deployment = Math.round((baseMin + baseMax) / 2 * 0.10);
+          breakdown.Maintenance = Math.round((baseMin + baseMax) / 2 * 0.10);
+        }
+        else if (type === 'marketing') {
+          const duration = d.duration || '1-month';
+          const content = d.contentNeeds || 'basic';
+          const channels = d.channels || [];
+
+          const durMul = { '1-month': 1.0, '3-months': 2.5, '6-months': 4.5, 'ongoing': 8.0 };
+          const contCost = { basic: 0, moderate: 1000, heavy: 3000 };
+          const chCost = channels.length * 600;
+
+          const dm = durMul[duration] || 1.0;
+          baseMin = (1500 + contCost[content] + chCost) * dm;
+          baseMax = (4000 + contCost[content] * 1.5 + chCost * 1.5) * dm;
+
+          breakdown.Design = Math.round((baseMin + baseMax) / 2 * 0.10);
+          breakdown.Development = Math.round((baseMin + baseMax) / 2 * 0.15);
+          breakdown.Testing = Math.round((baseMin + baseMax) / 2 * 0.05);
+          breakdown.Deployment = Math.round((baseMin + baseMax) / 2 * 0.05);
+          breakdown.Maintenance = Math.round((baseMin + baseMax) / 2 * 0.65);
+        }
+
+        let min = Math.round(baseMin * tm * bm);
+        let max = Math.round(baseMax * tm * bm);
+        Object.keys(breakdown).forEach(k => {
+          breakdown[k] = Math.round(breakdown[k] * tm * bm);
+        });
+
+        return { min, max, breakdown };
+      }
+
+      function formatPrice(n) {
+        if (n >= 1000) return '$' + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + 'k';
+        return '$' + n;
+      }
+
+      function formatPriceRange(min, max) {
+        return formatPrice(min) + ' – ' + formatPrice(max);
+      }
+
+      function renderPrice() {
+        const p = getPrice();
+        const range = formatPriceRange(p.min, p.max);
+        priceDisplay.textContent = range;
+        finalPrice.textContent = range;
+
+        // Breakdown
+        const labels = ['Design', 'Development', 'Testing', 'Deployment', 'Maintenance'];
+        const total = Object.values(p.breakdown).reduce((a, b) => a + b, 0) || 1;
+
+        let html = '';
+        labels.forEach(label => {
+          const val = p.breakdown[label] || 0;
+          const pct = Math.round((val / total) * 100);
+          html += `
+            <div class="breakdown-item">
+              <span class="font-medium text-sm text-gray-700 w-28">${label}</span>
+              <div class="breakdown-bar">
+                <div class="fill" style="width:${pct}%"></div>
+              </div>
+              <span class="text-sm font-semibold text-dark-blue w-20 text-right">${formatPrice(val)}</span>
+              <span class="text-xs text-gray-400 w-10 text-right">${pct}%</span>
+            </div>
+          `;
+        });
+        breakdownList.innerHTML = html;
+        finalBreakdown.innerHTML = breakdownList.innerHTML;
+      }
+
+      /* ===== Navigation ===== */
+      function showStep(n) {
+        [step1, step2, step3, stepResults].forEach(el => el.classList.remove('active'));
+        const map = { 1: step1, 2: step2, 3: step3, results: stepResults };
+        map[n].classList.add('active');
+
+        $$('.step-dot').forEach(dot => {
+          const s = parseInt(dot.dataset.step);
+          dot.classList.toggle('active', s === n);
+          dot.classList.toggle('done', s < n);
+        });
+
+        window.scrollTo({ top: document.querySelector('.step-indicator').offsetTop - 120, behavior: 'smooth' });
+        if (n === 3 || n === 'results') renderPrice();
+      }
+
+      function getDetailState(type) {
+        return state.details[type] || {};
+      }
+
+      function syncDetailToState(type) {
+        const obj = state.details[type] || {};
+        const panel = detailFields;
+        // selects
+        panel.querySelectorAll('select[data-detail]').forEach(sel => {
+          const key = sel.dataset.detail;
+          obj[key] = sel.value;
+        });
+        // features
+        const features = [];
+        panel.querySelectorAll('.checkbox-item.checked').forEach(el => {
+          features.push(el.dataset.feature);
+        });
+        // channels for marketing
+        if (type === 'marketing') {
+          obj.channels = features;
+        } else {
+          obj.features = features;
+        }
+      }
+
+      function renderDetail(type) {
+        const tmpl = detailTemplates[type];
+        if (!tmpl) return;
+        detailFields.innerHTML = tmpl;
+        detailTypeLabel.textContent = typeLabels[type] || type;
+
+        const obj = getDetailState(type);
+        // restore selects
+        detailFields.querySelectorAll('select[data-detail]').forEach(sel => {
+          const key = sel.dataset.detail;
+          if (obj[key] !== undefined) sel.value = obj[key];
+        });
+        // restore features
+        const savedFeatures = obj.features || obj.channels || [];
+        detailFields.querySelectorAll('.checkbox-item').forEach(el => {
+          const f = el.dataset.feature;
+          if (savedFeatures.includes(f)) {
+            el.classList.add('checked');
+            el.querySelector('input').checked = true;
+          }
+        });
+
+        // bind changes
+        detailFields.querySelectorAll('select').forEach(sel => {
+          sel.addEventListener('change', () => {
+            syncDetailToState(state.projectType);
+            renderPrice();
+          });
+        });
+        detailFields.querySelectorAll('.checkbox-item').forEach(el => {
+          el.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'INPUT') {
+              const cb = this.querySelector('input');
+              cb.checked = !cb.checked;
+            }
+            this.classList.toggle('checked', this.querySelector('input').checked);
+            syncDetailToState(state.projectType);
+            renderPrice();
+          });
+        });
+      }
+
+      /* ===== Event Bindings ===== */
+
+      // Step 1: project type selection
+      $$('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          $$('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.projectType = this.dataset.type;
+          $('#toStep2').disabled = false;
+        });
+      });
+
+      $('#toStep2').addEventListener('click', function() {
+        if (state.projectType) {
+          renderDetail(state.projectType);
+          showStep(2);
+        }
+      });
+
+      $('#backToStep1').addEventListener('click', () => showStep(1));
+      $('#backToStep2').addEventListener('click', () => {
+        syncDetailToState(state.projectType);
+        showStep(2);
+      });
+
+      $('#toStep3').addEventListener('click', function() {
+        syncDetailToState(state.projectType);
+        showStep(3);
+      });
+
+      // Step 3 timeline/budget
+      $('#timeline').addEventListener('change', function() {
+        state.timeline = this.value;
+        renderPrice();
+      });
+      $('#budgetRange').addEventListener('change', function() {
+        state.budget = this.value;
+        renderPrice();
+      });
+
+      $('#showResults').addEventListener('click', function() {
+        syncDetailToState(state.projectType);
+        renderPrice();
+        showStep('results');
+
+        // Check localStorage for saved email
+        const saved = localStorage.getItem('swit_estimator_email');
+        if (saved) {
+          $('#emailInput').value = saved;
+          $('#emailForm').querySelector('button').disabled = true;
+          $('#emailFeedback').classList.remove('hidden');
+        }
+      });
+
+      // Email form
+      $('#emailForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = $('#emailInput').value.trim();
+        if (email) {
+          localStorage.setItem('swit_estimator_email', email);
+          $('#emailFeedback').classList.remove('hidden');
+          $('#emailForm').querySelector('button').disabled = true;
+        }
+      });
+
+      // Initial load — restore email
+      const savedEmail = localStorage.getItem('swit_estimator_email');
+      if (savedEmail) {
+        const input = $('#emailInput');
+        if (input) {
+          input.value = savedEmail;
+        }
+      }
+
+      console.log('Project Cost Calculator ready.');
+    })();
+  </script>
+
+</body>
+</html>

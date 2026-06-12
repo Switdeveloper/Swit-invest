@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Checker — Free WCAG Compliance Tool | SwitDeveloper</title>
+  <meta name="description" content="Free Accessibility Checker tool by SwitDeveloper. Check any website or HTML for WCAG compliance issues: alt text, headings, landmarks, forms, contrast, ARIA, and more.">
+  <meta name="keywords" content="accessibility checker, WCAG checker, web accessibility, a11y tool, WCAG compliance, alt text checker, heading structure, landmark elements, free accessibility tool, SwitDeveloper">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://switdeveloper.com/accessibility-checker">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Accessibility Checker — Free WCAG Compliance Tool | SwitDeveloper">
+  <meta property="og:description" content="Free Accessibility Checker tool by SwitDeveloper. Check any website or HTML for WCAG compliance issues.">
+  <meta property="og:url" content="https://switdeveloper.com/accessibility-checker">
+  <meta property="og:site_name" content="SwitDeveloper">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Accessibility Checker — Free WCAG Compliance Tool | SwitDeveloper">
+  <meta name="twitter:description" content="Free Accessibility Checker tool by SwitDeveloper. Check any website or HTML for WCAG compliance issues.">
+  <link rel="icon" type="image/svg+xml" href="https://switdeveloper.com/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-dark: #0d152e;
+      --primary-red: #c91414;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f9fc;
+      color: #1f2937;
+    }
+    h1, h2, h3, .heading {
+      font-family: 'Playfair Display', serif;
+    }
+    .bg-brand {
+      background-color: var(--brand-dark);
+    }
+    .bg-red-primary {
+      background-color: var(--primary-red);
+    }
+    .text-brand {
+      color: var(--brand-dark);
+    }
+    .text-red-primary {
+      color: var(--primary-red);
+    }
+    .border-brand {
+      border-color: var(--brand-dark);
+    }
+    .btn-primary {
+      background-color: var(--primary-red);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #a81010;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201, 20, 20, 0.35);
+    }
+    .btn-outline {
+      border: 2px solid var(--primary-red);
+      color: var(--primary-red);
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      background: var(--primary-red);
+      color: #fff;
+    }
+    .btn-outline-green {
+      border: 2px solid #16a34a;
+      color: #16a34a;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+    .btn-outline-green:hover {
+      background: #16a34a;
+      color: #fff;
+    }
+    .hero-bg {
+      background: linear-gradient(135deg, #0d152e 0%, #1a254a 50%, #0d152e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(201,20,20,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+    }
+    .mode-tab {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .mode-tab.active {
+      background-color: var(--primary-red);
+      color: #fff;
+      border-color: var(--primary-red);
+    }
+    .mode-tab:not(.active) {
+      background-color: #fff;
+      color: var(--brand-dark);
+      border: 2px solid #e5e7eb;
+    }
+    .mode-tab:not(.active):hover {
+      border-color: var(--primary-red);
+      color: var(--primary-red);
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #e5e7eb;
+      border-top: 5px solid var(--primary-red);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    textarea:focus, input:focus {
+      outline: none;
+      border-color: var(--primary-red);
+      box-shadow: 0 0 0 3px rgba(201,20,20,0.15);
+    }
+    .card-pass {
+      border-left: 5px solid #22c55e;
+    }
+    .card-warning {
+      border-left: 5px solid #f59e0b;
+    }
+    .card-fail {
+      border-left: 5px solid var(--primary-red);
+    }
+    .badge-pass {
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #dcfce7;
+      color: #166534;
+    }
+    .badge-warning {
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .badge-fail {
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .score-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto;
+      box-shadow: 0 8px 30px rgba(13,21,46,0.12);
+    }
+    .score-pass {
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 5px solid #22c55e;
+      color: #166534;
+    }
+    .score-warning {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 5px solid #f59e0b;
+      color: #92400e;
+    }
+    .score-fail {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      border: 5px solid var(--primary-red);
+      color: #991b1b;
+    }
+    .issue-item {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      background: #f9fafb;
+      border-left: 3px solid #e5e7eb;
+      font-size: 0.8125rem;
+    }
+    .issue-item:hover {
+      background: #f3f4f6;
+    }
+    .issue-line {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 4px;
+      background: #e5e7eb;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    .breadcrumb a {
+      color: rgba(255,255,255,0.7);
+      transition: color 0.3s ease;
+    }
+    .breadcrumb a:hover {
+      color: #fff;
+    }
+    .breadcrumb .separator {
+      color: rgba(255,255,255,0.4);
+      margin: 0 0.5rem;
+    }
+    .breadcrumb .current {
+      color: #fff;
+    }
+    .results-wrapper {
+      max-height: 500px;
+      overflow-y: auto;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .results-wrapper::-webkit-scrollbar {
+      width: 6px;
+    }
+    .results-wrapper::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+    .results-wrapper::-webkit-scrollbar-thumb {
+      background: #c91414;
+      border-radius: 3px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .summary-stat {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(13,21,46,0.08);
+    }
+    @media (max-width: 640px) {
+      .score-ring {
+        width: 110px;
+        height: 110px;
+      }
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <section class="hero-bg py-16 md:py-24">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <nav class="breadcrumb text-sm mb-6">
+          <a href="https://switdeveloper.com">Home</a>
+          <span class="separator">/</span>
+          <span class="current">Accessibility Checker</span>
+        </nav>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 heading">
+          <i class="fas fa-universal-access text-red-primary mr-3"></i>Accessibility Checker
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+          Check any website for WCAG compliance issues. Analyze alt text, headings, landmarks, forms, ARIA, and more.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 md:py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+
+      <div class="flex flex-wrap gap-3 mb-8 justify-center">
+        <button class="mode-tab active px-6 py-3 rounded-lg text-sm font-semibold flex items-center gap-2" data-mode="url">
+          <i class="fas fa-globe"></i> URL Mode
+        </button>
+        <button class="mode-tab px-6 py-3 rounded-lg text-sm font-semibold flex items-center gap-2" data-mode="html">
+          <i class="fas fa-code"></i> Paste HTML Mode
+        </button>
+      </div>
+
+      <div id="url-mode" class="mode-content">
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+          <h2 class="text-2xl font-bold text-brand mb-2 heading">Enter a Webpage URL</h2>
+          <p class="text-gray-500 text-sm mb-6">We'll fetch the page and run WCAG accessibility checks.</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <input type="url" id="url-input" placeholder="https://example.com" class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-700 text-sm focus:border-red-primary transition">
+            <button id="scan-url-btn" class="btn-primary px-8 py-3 rounded-lg text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+              <i class="fas fa-search"></i> Check Accessibility
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="html-mode" class="mode-content hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+          <h2 class="text-2xl font-bold text-brand mb-2 heading">Paste HTML Source</h2>
+          <p class="text-gray-500 text-sm mb-6">Paste your HTML code and we'll analyze it client-side for accessibility issues.</p>
+          <div>
+            <textarea id="html-input" rows="8" placeholder="<html>... paste your HTML here ...</html>" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-700 text-sm font-mono focus:border-red-primary transition resize-y"></textarea>
+          </div>
+          <div class="mt-4">
+            <button id="scan-html-btn" class="btn-primary px-8 py-3 rounded-lg text-sm font-semibold flex items-center gap-2">
+              <i class="fas fa-search"></i> Analyze Accessibility
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="loading-section" class="hidden mb-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+          <div class="spinner mb-4"></div>
+          <p class="text-gray-600 font-medium" id="loading-text">Analyzing accessibility...</p>
+          <p class="text-gray-400 text-sm mt-1" id="loading-detail">Running checks</p>
+        </div>
+      </div>
+
+      <div id="results-section" class="hidden">
+        <div class="text-center mb-8" id="score-section">
+          <div id="score-ring" class="score-ring score-pass">
+            <span class="text-4xl font-bold" id="score-number">0</span>
+            <span class="text-sm font-medium" id="score-label">/ 100</span>
+          </div>
+          <p class="mt-3 text-gray-600 font-medium" id="score-verdict">No issues detected</p>
+        </div>
+
+        <div class="summary-grid mb-8" id="summary-stats">
+          <div class="summary-stat">
+            <p class="text-3xl font-bold text-brand" id="total-checks">0</p>
+            <p class="text-gray-500 text-sm mt-1">Categories Checked</p>
+          </div>
+          <div class="summary-stat">
+            <p class="text-3xl font-bold text-green-600" id="passed-count">0</p>
+            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-check-circle mr-1"></i> Passed</p>
+          </div>
+          <div class="summary-stat">
+            <p class="text-3xl font-bold text-yellow-600" id="warning-count">0</p>
+            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-exclamation-triangle mr-1"></i> Warnings</p>
+          </div>
+          <div class="summary-stat">
+            <p class="text-3xl font-bold text-red-primary" id="fail-count">0</p>
+            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-times-circle mr-1"></i> Failures</p>
+          </div>
+        </div>
+
+        <div id="category-results" class="space-y-4 mb-8"></div>
+
+        <div class="flex flex-wrap gap-3 justify-center">
+          <button id="export-copy-btn" class="btn-outline px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <i class="fas fa-copy"></i> Copy Report
+          </button>
+          <button id="export-download-btn" class="btn-outline-green px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <i class="fas fa-download"></i> Download Report
+          </button>
+          <button id="scan-again-btn" class="btn-primary px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <i class="fas fa-redo"></i> Scan Again
+          </button>
+        </div>
+      </div>
+
+      <div id="empty-state" class="text-center py-16">
+        <i class="fas fa-universal-access text-6xl text-gray-300 mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-400">No accessibility check run yet</h3>
+        <p class="text-gray-400 text-sm mt-1">Enter a URL or paste HTML to start the analysis.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script>
+    (function() {
+      const CORS_PROXIES = [
+        'https://corsproxy.io/?',
+        'https://api.allorigins.win/raw?url='
+      ];
+
+      const CATEGORY_ICONS = {
+        images: 'fa-image',
+        headings: 'fa-heading',
+        landmarks: 'fa-map-signs',
+        forms: 'fa-wpforms',
+        contrast: 'fa-adjust',
+        aria: 'fa-bolt',
+        language: 'fa-language',
+        tabindex: 'fa-keyboard',
+        emptyElements: 'fa-link-slash'
+      };
+
+      const CATEGORY_LABELS = {
+        images: 'Image Alt Text',
+        headings: 'Heading Structure',
+        landmarks: 'Landmark Elements',
+        forms: 'Form Label Associations',
+        contrast: 'Color Contrast',
+        aria: 'ARIA Attributes',
+        language: 'Language Attribute',
+        tabindex: 'Tabindex Usage',
+        emptyElements: 'Empty Links & Buttons'
+      };
+
+      const CATEGORY_DESCRIPTIONS = {
+        images: 'Checks that all &lt;img&gt; elements have alt attributes for screen readers.',
+        headings: 'Evaluates heading hierarchy (h1-h6) for proper document structure.',
+        landmarks: 'Verifies presence of semantic landmark elements like &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt;.',
+        forms: 'Checks that form inputs are properly associated with &lt;label&gt; elements.',
+        contrast: 'Approximate check for color contrast between text and background (inline styles).',
+        aria: 'Reports on ARIA attribute usage for enhanced accessibility.',
+        language: 'Checks that the &lt;html&gt; element has a lang attribute.',
+        tabindex: 'Checks for use of tabindex attributes that may affect keyboard navigation.',
+        emptyElements: 'Finds links and buttons with no accessible text content.'
+      };
+
+      let currentMode = 'url';
+      let isScanning = false;
+      let lastResults = null;
+
+      const urlInput = document.getElementById('url-input');
+      const htmlInput = document.getElementById('html-input');
+      const scanUrlBtn = document.getElementById('scan-url-btn');
+      const scanHtmlBtn = document.getElementById('scan-html-btn');
+      const urlMode = document.getElementById('url-mode');
+      const htmlMode = document.getElementById('html-mode');
+      const loadingSection = document.getElementById('loading-section');
+      const loadingText = document.getElementById('loading-text');
+      const loadingDetail = document.getElementById('loading-detail');
+      const resultsSection = document.getElementById('results-section');
+      const emptyState = document.getElementById('empty-state');
+      const categoryResults = document.getElementById('category-results');
+      const scoreNumber = document.getElementById('score-number');
+      const scoreRing = document.getElementById('score-ring');
+      const scoreLabel = document.getElementById('score-label');
+      const scoreVerdict = document.getElementById('score-verdict');
+      const totalChecks = document.getElementById('total-checks');
+      const passedCount = document.getElementById('passed-count');
+      const warningCount = document.getElementById('warning-count');
+      const failCount = document.getElementById('fail-count');
+      const exportCopyBtn = document.getElementById('export-copy-btn');
+      const exportDownloadBtn = document.getElementById('export-download-btn');
+      const scanAgainBtn = document.getElementById('scan-again-btn');
+
+      document.querySelectorAll('.mode-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentMode = this.dataset.mode;
+          if (currentMode === 'url') {
+            urlMode.classList.remove('hidden');
+            htmlMode.classList.add('hidden');
+          } else {
+            urlMode.classList.add('hidden');
+            htmlMode.classList.remove('hidden');
+          }
+        });
+      });
+
+      scanUrlBtn.addEventListener('click', startUrlScan);
+      urlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') startUrlScan();
+      });
+      scanHtmlBtn.addEventListener('click', startHtmlScan);
+      scanAgainBtn.addEventListener('click', function() {
+        resultsSection.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        document.querySelector('.mode-tab[data-mode="' + currentMode + '"]').click();
+      });
+
+      exportCopyBtn.addEventListener('click', copyReport);
+      exportDownloadBtn.addEventListener('click', downloadReport);
+
+      async function startUrlScan() {
+        let url = urlInput.value.trim();
+        if (!url) {
+          urlInput.focus();
+          alert('Please enter a URL.');
+          return;
+        }
+        if (!/^https?:\/\//i.test(url)) {
+          url = 'https://' + url;
+          urlInput.value = url;
+        }
+        showLoading('Fetching webpage...');
+        let html = null;
+        for (const proxy of CORS_PROXIES) {
+          try {
+            const resp = await fetch(proxy + encodeURIComponent(url), {
+              signal: AbortSignal.timeout(20000)
+            });
+            if (resp.ok) {
+              html = await resp.text();
+              break;
+            }
+          } catch (_) {
+            continue;
+          }
+        }
+        if (!html) {
+          hideLoading();
+          alert('Could not fetch the webpage. The site may block CORS requests. Try Paste HTML Mode instead.');
+          return;
+        }
+        loadingText.textContent = 'Analyzing accessibility...';
+        loadingDetail.textContent = 'Running WCAG checks on ' + html.length + ' bytes of HTML';
+        await new Promise(r => setTimeout(r, 100));
+        runChecks(html, url);
+      }
+
+      function startHtmlScan() {
+        const html = htmlInput.value.trim();
+        if (!html) {
+          alert('Please paste HTML code.');
+          return;
+        }
+        showLoading('Analyzing pasted HTML...');
+        loadingDetail.textContent = 'Running WCAG checks on ' + html.length + ' bytes';
+        setTimeout(function() {
+          runChecks(html, null);
+        }, 200);
+      }
+
+      function runChecks(html, baseUrl) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        const checks = {
+          images: checkImages(html, doc),
+          headings: checkHeadings(html, doc),
+          landmarks: checkLandmarks(html, doc),
+          forms: checkForms(html, doc),
+          contrast: checkContrast(html, doc),
+          aria: checkARIA(html, doc),
+          language: checkLanguage(html, doc),
+          tabindex: checkTabindex(html, doc),
+          emptyElements: checkEmptyElements(html, doc)
+        };
+
+        lastResults = calculateScore(checks);
+        hideLoading();
+        renderResults(lastResults);
+      }
+
+      function checkImages(html, doc) {
+        const imgs = doc.querySelectorAll('img');
+        const issues = [];
+        imgs.forEach(function(img) {
+          if (!img.hasAttribute('alt')) {
+            const src = img.getAttribute('src') || '(no src)';
+            const line = getLineNumber(html, img);
+            issues.push({ element: '<img src="' + escapeAttr(src) + '">', line: line, detail: 'Missing alt attribute' });
+          }
+        });
+        return {
+          status: issues.length === 0 ? 'pass' : 'fail',
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function checkHeadings(html, doc) {
+        const issues = [];
+        const h1s = doc.querySelectorAll('h1');
+        if (h1s.length === 0) {
+          issues.push({ element: 'N/A', line: '-', detail: 'No h1 element found on the page' });
+        } else if (h1s.length > 1) {
+          h1s.forEach(function(h1) {
+            const line = getLineNumber(html, h1);
+            issues.push({ element: h1.outerHTML.substring(0, 80), line: line, detail: 'Multiple h1 elements on page' });
+          });
+        }
+
+        const levels = [];
+        for (let i = 1; i <= 6; i++) {
+          const els = doc.querySelectorAll('h' + i);
+          els.forEach(function() { levels.push(i); });
+        }
+        if (levels.length > 0) {
+          let prev = levels[0];
+          for (let i = 1; i < levels.length; i++) {
+            if (levels[i] > prev + 1) {
+              const els = doc.querySelectorAll('h' + levels[i]);
+              const el = els[0];
+              const line = getLineNumber(html, el);
+              issues.push({
+                element: '<h' + levels[i] + '>' + (el.textContent || '').trim().substring(0, 50) + '</h' + levels[i] + '>',
+                line: line,
+                detail: 'Skipped heading level: h' + prev + ' to h' + levels[i]
+              });
+            }
+            prev = levels[i];
+          }
+        }
+
+        const isPass = issues.length === 0;
+        return {
+          status: isPass ? 'pass' : (issues.length <= 2 ? 'warning' : 'fail'),
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function checkLandmarks(html, doc) {
+        const issues = [];
+        const checks = {
+          'header': doc.querySelectorAll('header').length,
+          'nav': doc.querySelectorAll('nav').length,
+          'main': doc.querySelectorAll('main').length,
+          'footer': doc.querySelectorAll('footer').length
+        };
+        for (const [tag, count] of Object.entries(checks)) {
+          if (count === 0) {
+            issues.push({ element: '<' + tag + '>', line: '-', detail: 'Missing ' + tag + ' landmark' });
+          }
+        }
+        const roleMain = doc.querySelectorAll('[role="main"]').length;
+        const roleNav = doc.querySelectorAll('[role="navigation"]').length;
+        const roleBanner = doc.querySelectorAll('[role="banner"]').length;
+        const roleContentinfo = doc.querySelectorAll('[role="contentinfo"]').length;
+
+        if (checks.main === 0 && roleMain === 0) {
+          if (!issues.find(function(i) { return i.element === '<main>'; })) {
+            issues.push({ element: '[role="main"]', line: '-', detail: 'No main landmark (semantic or ARIA)' });
+          }
+        }
+
+        return {
+          status: issues.length === 0 ? 'pass' : (issues.length <= 2 ? 'warning' : 'fail'),
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function checkForms(html, doc) {
+        const issues = [];
+        const inputs = doc.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="reset"]):not([type="button"]), select, textarea');
+        inputs.forEach(function(input) {
+          const id = input.getAttribute('id');
+          let hasLabel = false;
+          if (id) {
+            hasLabel = doc.querySelectorAll('label[for="' + CSS.escape(id) + '"]').length > 0;
+          }
+          if (!hasLabel) {
+            const parent = input.parentElement;
+            if (parent && parent.querySelector('label')) {
+              hasLabel = true;
+            }
+          }
+          if (!hasLabel) {
+            const line = getLineNumber(html, input);
+            const tagName = input.tagName.toLowerCase();
+            const name = input.getAttribute('name') || input.getAttribute('id') || '';
+            issues.push({
+              element: '<' + tagName + (name ? ' name="' + escapeAttr(name) + '"' : '') + '>',
+              line: line,
+              detail: tagName.toUpperCase() + ' missing associated label'
+            });
+          }
+        });
+        return {
+          status: issues.length === 0 ? 'pass' : 'fail',
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function checkContrast(html, doc) {
+        const issues = [];
+        const elements = doc.querySelectorAll('[style]');
+        elements.forEach(function(el) {
+          const style = el.getAttribute('style') || '';
+          var color = '', bgColor = '';
+          var parts = style.split(';');
+          for (var i = 0; i < parts.length; i++) {
+            var part = parts[i].trim();
+            if (part.toLowerCase().startsWith('color:')) {
+              color = part.split(':')[1].trim();
+            }
+            if (part.toLowerCase().startsWith('background-color:')) {
+              bgColor = part.split(':')[1].trim();
+            }
+          }
+          if (color && bgColor) {
+            try {
+              var cr = getContrastRatio(parseColor(color), parseColor(bgColor));
+              if (cr > 0 && cr < 3.0) {
+                var line = getLineNumber(html, el);
+                var text = (el.textContent || '').trim().substring(0, 40) || el.tagName.toLowerCase();
+                issues.push({
+                  element: '<' + el.tagName.toLowerCase() + '>' + escapeHtml(text) + '</' + el.tagName.toLowerCase() + '>',
+                  line: line,
+                  detail: 'Very low contrast ratio: ~' + cr.toFixed(1) + ':1 (need 4.5:1)'
+                });
+              } else if (cr > 0 && cr < 4.5) {
+                var line = getLineNumber(html, el);
+                var text = (el.textContent || '').trim().substring(0, 40) || el.tagName.toLowerCase();
+                issues.push({
+                  element: '<' + el.tagName.toLowerCase() + '>' + escapeHtml(text) + '</' + el.tagName.toLowerCase() + '>',
+                  line: line,
+                  detail: 'Low contrast ratio: ~' + cr.toFixed(1) + ':1 (minimum 4.5:1)'
+                });
+              }
+            } catch (_) {}
+          }
+        });
+        return {
+          status: issues.length === 0 ? 'pass' : 'warning',
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function checkARIA(html, doc) {
+        const issues = [];
+        var totalARIA = 0;
+        var ariaAttrs = [];
+        var allElements = doc.querySelectorAll('*');
+        allElements.forEach(function(el) {
+          for (var i = 0; i < el.attributes.length; i++) {
+            var attr = el.attributes[i].name;
+            if (attr.startsWith('aria-')) {
+              totalARIA++;
+              if (ariaAttrs.indexOf(attr) === -1) ariaAttrs.push(attr);
+            }
+          }
+        });
+        if (totalARIA === 0) {
+          issues.push({
+            element: 'N/A',
+            line: '-',
+            detail: 'No ARIA attributes found on the page'
+          });
+        } else {
+          issues.push({
+            element: 'N/A',
+            line: '-',
+            detail: totalARIA + ' ARIA attribute(s) found: ' + ariaAttrs.join(', ')
+          });
+        }
+        return {
+          status: totalARIA === 0 ? 'warning' : 'pass',
+          issues: issues,
+          count: totalARIA === 0 ? 1 : 0
+        };
+      }
+
+      function checkLanguage(html, doc) {
+        var issues = [];
+        var htmlEl = doc.querySelector('html');
+        if (!htmlEl || !htmlEl.getAttribute('lang')) {
+          issues.push({
+            element: '<html>',
+            line: '1',
+            detail: 'html element is missing the lang attribute'
+          });
+        } else {
+          var lang = htmlEl.getAttribute('lang');
+          if (lang.trim() === '') {
+            issues.push({
+              element: '<html lang="">',
+              line: '1',
+              detail: 'lang attribute is present but empty'
+            });
+          }
+        }
+        return {
+          status: issues.length === 0 ? 'pass' : 'fail',
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function checkTabindex(html, doc) {
+        var issues = [];
+        var elements = doc.querySelectorAll('[tabindex]');
+        elements.forEach(function(el) {
+          var val = parseInt(el.getAttribute('tabindex'), 10);
+          var line = getLineNumber(html, el);
+          var tag = el.tagName.toLowerCase();
+          var text = (el.textContent || '').trim().substring(0, 30);
+          var label = '<' + tag + (text ? '>' + escapeHtml(text) + '</' + tag + '>' : ' />');
+          if (val > 0) {
+            issues.push({
+              element: label,
+              line: line,
+              detail: 'Positive tabindex value (' + val + ') — can disrupt natural tab order'
+            });
+          } else if (val === 0) {
+            issues.push({
+              element: label,
+              line: line,
+              detail: 'tabindex="0" on non-interactive element (may be intentional)'
+            });
+          } else if (val < 0) {
+            issues.push({
+              element: label,
+              line: line,
+              detail: 'Negative tabindex (' + val + ') — element is not keyboard-focusable'
+            });
+          }
+        });
+        return {
+          status: issues.length === 0 ? 'pass' : (issues.length <= 3 ? 'warning' : 'fail'),
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function checkEmptyElements(html, doc) {
+        var issues = [];
+        var links = doc.querySelectorAll('a[href]');
+        links.forEach(function(a) {
+          var href = a.getAttribute('href');
+          if (!href || href === '#' || href.startsWith('javascript:')) return;
+          var text = (a.textContent || '').trim();
+          var hasImg = a.querySelector('img');
+          var hasAria = a.hasAttribute('aria-label') || a.hasAttribute('aria-labelledby');
+          if (!text && !hasImg && !hasAria) {
+            var line = getLineNumber(html, a);
+            issues.push({
+              element: '<a href="' + escapeAttr(href) + '">' + escapeHtml(text) + '</a>',
+              line: line,
+              detail: 'Link has no accessible text'
+            });
+          }
+        });
+
+        var buttons = doc.querySelectorAll('button');
+        buttons.forEach(function(btn) {
+          var text = (btn.textContent || '').trim();
+          var hasAria = btn.hasAttribute('aria-label') || btn.hasAttribute('aria-labelledby');
+          if (!text && !hasAria) {
+            var line = getLineNumber(html, btn);
+            issues.push({
+              element: '<button></button>',
+              line: line,
+              detail: 'Button has no accessible text'
+            });
+          }
+        });
+        return {
+          status: issues.length === 0 ? 'pass' : (issues.length <= 3 ? 'warning' : 'fail'),
+          issues: issues,
+          count: issues.length
+        };
+      }
+
+      function getLineNumber(html, element) {
+        try {
+          var outer = element.outerHTML;
+          var idx = html.indexOf(outer);
+          if (idx === -1) {
+            var tagName = element.tagName.toLowerCase();
+            var match = html.match(new RegExp('<[\\/]*' + tagName + '[\\s>]'));
+            if (match) idx = match.index;
+          }
+          if (idx >= 0) {
+            return html.substring(0, idx).split('\n').length;
+          }
+          return '~?';
+        } catch (_) {
+          return '~?';
+        }
+      }
+
+      function parseColor(str) {
+        str = str.trim().toLowerCase();
+        if (str.startsWith('#')) return hexToRgb(str);
+        if (str.startsWith('rgb(')) {
+          var parts = str.match(/\d+/g);
+          if (parts) return { r: parseInt(parts[0]), g: parseInt(parts[1]), b: parseInt(parts[2]) };
+        }
+        if (str.startsWith('rgba(')) {
+          var parts = str.match(/\d+/g);
+          if (parts) return { r: parseInt(parts[0]), g: parseInt(parts[1]), b: parseInt(parts[2]) };
+        }
+        var named = {
+          'red': {r:255,g:0,b:0}, 'green': {r:0,g:128,b:0}, 'blue': {r:0,g:0,b:255},
+          'black': {r:0,g:0,b:0}, 'white': {r:255,g:255,b:255}, 'gray': {r:128,g:128,b:128},
+          'grey': {r:128,g:128,b:128}, 'yellow': {r:255,g:255,b:0}, 'orange': {r:255,g:165,b:0},
+          'purple': {r:128,g:0,b:128}, 'pink': {r:255,g:192,b:203}, 'brown': {r:165,g:42,b:42},
+          'navy': {r:0,g:0,b:128}, 'teal': {r:0,g:128,b:128}, 'maroon': {r:128,g:0,b:0},
+          'lime': {r:0,g:255,b:0}, 'aqua': {r:0,g:255,b:255}, 'silver': {r:192,g:192,b:192},
+          'olive': {r:128,g:128,b:0}, 'darkred': {r:139,g:0,b:0}, 'darkgreen': {r:0,g:100,b:0},
+          'darkblue': {r:0,g:0,b:139}, 'darkgray': {r:169,g:169,b:169}, 'darkgrey': {r:169,g:169,b:169}
+        };
+        if (named[str]) return named[str];
+        throw new Error('Cannot parse color');
+      }
+
+      function hexToRgb(hex) {
+        hex = hex.replace('#', '');
+        if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        return {
+          r: parseInt(hex.substring(0, 2), 16),
+          g: parseInt(hex.substring(2, 4), 16),
+          b: parseInt(hex.substring(4, 6), 16)
+        };
+      }
+
+      function getLuminance(r, g, b) {
+        var rs = r / 255, gs = g / 255, bs = b / 255;
+        rs = rs <= 0.03928 ? rs / 12.92 : Math.pow((rs + 0.055) / 1.055, 2.4);
+        gs = gs <= 0.03928 ? gs / 12.92 : Math.pow((gs + 0.055) / 1.055, 2.4);
+        bs = bs <= 0.03928 ? bs / 12.92 : Math.pow((bs + 0.055) / 1.055, 2.4);
+        return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+      }
+
+      function getContrastRatio(c1, c2) {
+        var l1 = getLuminance(c1.r, c1.g, c1.b);
+        var l2 = getLuminance(c2.r, c2.g, c2.b);
+        var lighter = Math.max(l1, l2);
+        var darker = Math.min(l1, l2);
+        return (lighter + 0.05) / (darker + 0.05);
+      }
+
+      function calculateScore(checks) {
+        var score = 100;
+        var categories = [];
+        var totalChecksNum = 0;
+        var passed = 0;
+        var warnings = 0;
+        var failures = 0;
+
+        for (var key in checks) {
+          if (!checks.hasOwnProperty(key)) continue;
+          var check = checks[key];
+          totalChecksNum++;
+
+          if (check.status === 'pass') {
+            passed++;
+          } else if (check.status === 'warning') {
+            warnings++;
+          } else if (check.status === 'fail') {
+            failures++;
+          }
+
+          var deduction = 0;
+          if (key === 'images' && check.status === 'fail') deduction = 15;
+          else if (key === 'headings') {
+            if (check.status === 'fail') deduction = 12;
+            else if (check.status === 'warning') deduction = 5;
+          }
+          else if (key === 'landmarks') {
+            if (check.status === 'fail') deduction = 12;
+            else if (check.status === 'warning') deduction = 5;
+          }
+          else if (key === 'forms' && check.status === 'fail') deduction = 15;
+          else if (key === 'contrast' && check.status === 'warning') deduction = 5;
+          else if (key === 'aria' && check.status === 'warning') deduction = 3;
+          else if (key === 'language' && check.status === 'fail') deduction = 12;
+          else if (key === 'tabindex') {
+            if (check.status === 'fail') deduction = 8;
+            else if (check.status === 'warning') deduction = 4;
+          }
+          else if (key === 'emptyElements') {
+            if (check.status === 'fail') deduction = 10;
+            else if (check.status === 'warning') deduction = 5;
+          }
+
+          score -= deduction;
+          if (score < 0) score = 0;
+
+          categories.push({
+            key: key,
+            label: CATEGORY_LABELS[key] || key,
+            icon: CATEGORY_ICONS[key] || 'fa-circle',
+            description: CATEGORY_DESCRIPTIONS[key] || '',
+            status: check.status,
+            issues: check.issues,
+            count: check.count,
+            deduction: deduction
+          });
+        }
+
+        var verdict = '';
+        if (score >= 80) verdict = 'Good — Your page meets most accessibility guidelines.';
+        else if (score >= 50) verdict = 'Fair — Significant accessibility issues found. Review recommendations below.';
+        else verdict = 'Poor — Critical accessibility issues detected. Immediate action recommended.';
+
+        return {
+          score: score,
+          verdict: verdict,
+          total: totalChecksNum,
+          passed: passed,
+          warnings: warnings,
+          failures: failures,
+          categories: categories
+        };
+      }
+
+      function renderResults(result) {
+        scoreNumber.textContent = result.score;
+
+        var scoreClass = 'score-pass';
+        if (result.score < 50) scoreClass = 'score-fail';
+        else if (result.score < 80) scoreClass = 'score-warning';
+        scoreRing.className = 'score-ring ' + scoreClass;
+
+        scoreVerdict.textContent = result.verdict;
+        totalChecks.textContent = result.total;
+        passedCount.textContent = result.passed;
+        warningCount.textContent = result.warnings;
+        failCount.textContent = result.failures;
+
+        var html = '';
+        result.categories.forEach(function(cat) {
+          var statusIcon = '';
+          var statusLabel = '';
+          var cardClass = 'card-pass';
+          if (cat.status === 'pass') {
+            statusIcon = 'fa-check-circle text-green-600';
+            statusLabel = '<span class="badge-pass">Pass</span>';
+          } else if (cat.status === 'warning') {
+            statusIcon = 'fa-exclamation-triangle text-yellow-600';
+            statusLabel = '<span class="badge-warning">Warning</span>';
+            cardClass = 'card-warning';
+          } else {
+            statusIcon = 'fa-times-circle text-red-primary';
+            statusLabel = '<span class="badge-fail">Fail</span>';
+            cardClass = 'card-fail';
+          }
+
+          html += '<div class="bg-white rounded-xl shadow-lg p-5 md:p-6 ' + cardClass + '">';
+          html += '<div class="flex items-start justify-between mb-3">';
+          html += '<div class="flex items-center gap-3">';
+          html += '<i class="fas ' + (cat.icon || 'fa-circle') + ' text-xl text-brand"></i>';
+          html += '<div><h3 class="font-semibold text-gray-800">' + cat.label + '</h3>';
+          html += '<p class="text-xs text-gray-400 mt-0.5">' + cat.description + '</p></div>';
+          html += '</div>';
+          html += '<div class="flex items-center gap-2 flex-shrink-0">';
+          if (cat.deduction > 0) {
+            html += '<span class="text-xs text-gray-400">-' + cat.deduction + ' pts</span>';
+          }
+          html += statusLabel;
+          html += '</div>';
+          html += '</div>';
+
+          if (cat.status !== 'pass' && cat.issues.length > 0) {
+            html += '<div class="space-y-2 mt-3">';
+            cat.issues.forEach(function(issue) {
+              html += '<div class="issue-item">';
+              html += '<div class="flex items-start justify-between gap-3">';
+              html += '<div class="flex-1 min-w-0">';
+              html += '<code class="text-xs text-gray-700 font-mono break-all">' + escapeHtml(issue.element) + '</code>';
+              html += '<p class="text-xs text-gray-500 mt-0.5">' + escapeHtml(issue.detail) + '</p>';
+              html += '</div>';
+              if (issue.line && issue.line !== '-') {
+                html += '<span class="issue-line flex-shrink-0">Line ' + issue.line + '</span>';
+              }
+              html += '</div>';
+              html += '</div>';
+            });
+            html += '</div>';
+          } else if (cat.status === 'pass') {
+            html += '<p class="text-xs text-green-600 mt-2"><i class="fas fa-check-circle mr-1"></i> No issues found.</p>';
+          }
+
+          html += '</div>';
+        });
+
+        categoryResults.innerHTML = html;
+
+        resultsSection.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+        loadingSection.classList.add('hidden');
+      }
+
+      function showLoading(msg) {
+        loadingText.textContent = msg || 'Analyzing...';
+        loadingDetail.textContent = '';
+        loadingSection.classList.remove('hidden');
+        resultsSection.classList.add('hidden');
+        emptyState.classList.add('hidden');
+      }
+
+      function hideLoading() {
+        loadingSection.classList.add('hidden');
+      }
+
+      function buildReportText() {
+        if (!lastResults) return '';
+        var lines = [];
+        lines.push('=== Accessibility Check Report ===');
+        lines.push('Generated by SwitDeveloper Accessibility Checker');
+        lines.push('Score: ' + lastResults.score + '/100');
+        lines.push('Verdict: ' + lastResults.verdict);
+        lines.push('');
+        lines.push('Summary:');
+        lines.push('  Categories: ' + lastResults.total + ' (' + lastResults.passed + ' pass, ' + lastResults.warnings + ' warning, ' + lastResults.failures + ' fail)');
+        lines.push('');
+
+        lastResults.categories.forEach(function(cat) {
+          var statusStr = cat.status === 'pass' ? '[PASS]' : (cat.status === 'warning' ? '[WARN]' : '[FAIL]');
+          lines.push(statusStr + ' ' + cat.label + (cat.deduction > 0 ? ' (-' + cat.deduction + ' pts)' : ''));
+          if (cat.status !== 'pass' && cat.issues.length > 0) {
+            cat.issues.forEach(function(issue) {
+              var lineStr = issue.line && issue.line !== '-' ? ' (Line ' + issue.line + ')' : '';
+              lines.push('  - ' + issue.element + lineStr);
+              lines.push('    ' + issue.detail);
+            });
+          }
+          lines.push('');
+        });
+
+        lines.push('---');
+        lines.push('Powered by SwitDeveloper — https://switdeveloper.com');
+        return lines.join('\n');
+      }
+
+      function copyReport() {
+        if (!lastResults) {
+          alert('No results to copy. Run an analysis first.');
+          return;
+        }
+        var text = buildReportText();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            alert('Report copied to clipboard!');
+          }).catch(function() {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      }
+
+      function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('Report copied to clipboard!');
+      }
+
+      function downloadReport() {
+        if (!lastResults) {
+          alert('No results to download. Run an analysis first.');
+          return;
+        }
+        var text = buildReportText();
+        var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'accessibility-report.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+      }
+
+      function escapeHtml(text) {
+        var d = document.createElement('div');
+        d.textContent = text;
+        return d.innerHTML;
+      }
+
+      function escapeAttr(text) {
+        return (text || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      function loadPartials() {
+        var header = document.getElementById('header-container');
+        var footer = document.getElementById('footer-container');
+        if (header) {
+          header.innerHTML = '<div class="header-inner bg-brand py-4"><div class="container mx-auto px-4"><a href="https://switdeveloper.com" class="text-white text-xl font-bold heading"><i class="fas fa-bolt text-red-primary mr-2"></i>SwitDeveloper</a></div></div>';
+        }
+        if (footer) {
+          footer.innerHTML = '<div class="footer-inner bg-brand py-8"><div class="container mx-auto px-4 text-center"><p class="text-gray-400 text-sm">&copy; 2026 SwitDeveloper. All rights reserved.</p></div></div>';
+        }
+        if (typeof loadPartialsFromFile === 'function') {
+          try { loadPartialsFromFile(); } catch(_) {}
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadPartials);
+      } else {
+        loadPartials();
+      }
+
+    })();
+  </script>
+  <script src="js/load-partials.js"></script>
+</body>
+</html>

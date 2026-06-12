@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Generate creative domain names for your business using AI. Free AI-powered domain name generator by SwitDeveloper.">
+  <meta name="keywords" content="domain name generator, AI domain name, business name generator, domain ideas, domain search, SwitDeveloper">
+  <meta name="author" content="SwitDeveloper">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Domain Name Generator | SwitDeveloper">
+  <meta property="og:description" content="Generate creative domain names for your business using AI. Free tool by SwitDeveloper.">
+  <meta property="og:url" content="https://switdeveloper.com/tools/domain-name-generator">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SwitDeveloper">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Domain Name Generator | SwitDeveloper">
+  <meta name="twitter:description" content="Generate creative domain names for your business using AI. Free tool by SwitDeveloper.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://switdeveloper.com/tools/domain-name-generator">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://switdeveloper.com/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f8f9fc; color: #1a1a2e; }
+    .font-heading { font-family: 'Playfair Display', serif; }
+
+    :root {
+      --dark-blue: #0d152e;
+      --primary-red: #c91414;
+      --dark-blue-light: rgba(13, 21, 46, 0.95);
+      --primary-red-light: rgba(201, 20, 20, 0.08);
+      --primary-red-hover: #a51010;
+    }
+
+    .bg-dark-blue { background-color: var(--dark-blue); }
+    .bg-primary-red { background-color: var(--primary-red); }
+    .text-primary-red { color: var(--primary-red); }
+    .border-primary-red { border-color: var(--primary-red); }
+    .hover\:bg-primary-red:hover { background-color: var(--primary-red); }
+    .hover\:text-primary-red:hover { color: var(--primary-red); }
+    .focus\:ring-primary-red:focus { --tw-ring-color: var(--primary-red); }
+
+    .btn-primary {
+      background: var(--primary-red);
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--primary-red-hover); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(201, 20, 20, 0.3); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--dark-blue);
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid var(--dark-blue);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-outline:hover { background: var(--dark-blue); color: #fff; }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #1a1a2e;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+    }
+    .btn-secondary:hover { background: #cbd5e1; }
+
+    .btn-ghost {
+      background: transparent;
+      color: #64748b;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-ghost:hover { background: #f1f5f9; color: var(--dark-blue); }
+
+    .card {
+      background: #fff;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+    .card:hover { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+
+    .input-field {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      background: #fff;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .input-field:focus { border-color: var(--primary-red); box-shadow: 0 0 0 3px rgba(201, 20, 20, 0.1); }
+
+    select.input-field { appearance: auto; }
+
+    .choice-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      color: #475569;
+    }
+    .choice-btn:hover { border-color: var(--primary-red); color: var(--primary-red); }
+    .choice-btn.active { background: var(--primary-red); color: #fff; border-color: var(--primary-red); }
+
+    .domain-card {
+      background: #fff;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .domain-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06); transform: translateY(-2px); }
+    .domain-card .domain-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark-blue);
+      word-break: break-all;
+    }
+    .domain-card .domain-meaning { color: #64748b; font-size: 0.9rem; line-height: 1.5; }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e2e8f0;
+      border-top-color: var(--primary-red);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .spinner-sm {
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--dark-blue);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s ease;
+      z-index: 9999;
+      max-width: 350px;
+      font-size: 0.9rem;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    .badge-available {
+      background: #dcfce7;
+      color: #166534;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-taken {
+      background: #fef2f2;
+      color: #991b1b;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-checking {
+      background: #fef9c3;
+      color: #854d0e;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .history-item:hover { border-color: var(--primary-red); background: var(--primary-red-light); }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 9990;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 480px;
+      width: 90%;
+      transform: scale(0.9);
+      transition: all 0.3s ease;
+    }
+    .modal-overlay.open .modal-content { transform: scale(1); }
+
+    .favorite-btn { cursor: pointer; transition: all 0.2s ease; }
+    .favorite-btn:hover { transform: scale(1.15); }
+    .favorite-btn.active { color: var(--primary-red); }
+
+    ::selection { background: rgba(201, 20, 20, 0.2); }
+
+    .tag-pill {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 640px) {
+      .domain-card .domain-name { font-size: 1.2rem; }
+      .btn-primary, .btn-outline { padding: 0.6rem 1.2rem; font-size: 0.875rem; }
+    }
+  </style>
+
+  <title>AI Domain Name Generator — SwitDeveloper</title>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <!-- Hero -->
+  <section class="bg-dark-blue relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background: radial-gradient(circle at 20% 50%, var(--primary-red) 0%, transparent 50%), radial-gradient(circle at 80% 50%, var(--primary-red) 0%, transparent 50%);"></div>
+    <div class="max-w-5xl mx-auto px-6 py-16 md:py-24 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 bg-white/10 text-white/80 text-sm px-4 py-1.5 rounded-full mb-6">
+        <i class="fa-solid fa-wand-magic-sparkles text-primary-red"></i>
+        <span>Free AI Tool</span>
+      </div>
+      <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+        Domain Name Generator
+      </h1>
+      <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        Generate creative domain names for your business using AI
+      </p>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#f8f9fc] to-transparent"></div>
+  </section>
+
+  <!-- Main Tool Section -->
+  <section class="max-w-5xl mx-auto px-6 -mt-8 relative z-20 pb-16">
+    <div class="card p-6 md:p-8 shadow-xl">
+      <!-- Input Form -->
+      <div class="grid md:grid-cols-1 gap-5">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5" for="keywords">
+            <i class="fa-solid fa-lightbulb text-primary-red mr-1.5"></i>Keywords / Business Description
+          </label>
+          <textarea id="keywords" class="input-field" rows="3" placeholder="e.g., sustainable eco-friendly clothing brand for millennials" style="resize: vertical;"></textarea>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5 mt-5">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+            <i class="fa-solid fa-palette text-primary-red mr-1.5"></i>Style
+          </label>
+          <div id="styleOptions" class="flex flex-wrap gap-1.5">
+            <button class="choice-btn active" data-value="Modern">Modern</button>
+            <button class="choice-btn" data-value="Classic">Classic</button>
+            <button class="choice-btn" data-value="Short">Short</button>
+            <button class="choice-btn" data-value="Catchy">Catchy</button>
+            <button class="choice-btn" data-value="Professional">Professional</button>
+            <button class="choice-btn" data-value="Funny">Funny</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+            <i class="fa-solid fa-globe text-primary-red mr-1.5"></i>TLD Filter
+          </label>
+          <div id="tldOptions" class="flex flex-wrap gap-1.5">
+            <button class="choice-btn active" data-value="All">All</button>
+            <button class="choice-btn" data-value=".com">.com</button>
+            <button class="choice-btn" data-value=".io">.io</button>
+            <button class="choice-btn" data-value=".ai">.ai</button>
+            <button class="choice-btn" data-value=".co">.co</button>
+            <button class="choice-btn" data-value=".app">.app</button>
+            <button class="choice-btn" data-value=".net">.net</button>
+            <button class="choice-btn" data-value=".org">.org</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+            <i class="fa-solid fa-list text-primary-red mr-1.5"></i>Number of Results
+          </label>
+          <div id="countOptions" class="flex flex-wrap gap-1.5">
+            <button class="choice-btn active" data-value="5">5</button>
+            <button class="choice-btn" data-value="10">10</button>
+            <button class="choice-btn" data-value="15">15</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Key & Actions -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mt-6 pt-6 border-t border-gray-100">
+        <div class="flex items-center gap-3">
+          <button id="settingsBtn" class="btn-ghost" title="API Settings">
+            <i class="fa-solid fa-gear"></i> API Key
+          </button>
+          <button id="favViewBtn" class="btn-ghost" title="View Favorites">
+            <i class="fa-solid fa-heart text-primary-red"></i> Favorites
+          </button>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="regenerateBtn" class="btn-secondary" disabled>
+            <i class="fa-solid fa-rotate"></i> Regenerate
+          </button>
+          <button id="generateBtn" class="btn-primary">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Domains
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSection" class="hidden text-center py-16">
+      <div class="spinner"></div>
+      <p class="mt-4 text-gray-500 font-medium">Generating creative domain names...</p>
+      <p class="text-sm text-gray-400 mt-1">This may take a moment</p>
+    </div>
+
+    <!-- Error Alert -->
+    <div id="errorAlert" class="hidden mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+      <i class="fa-solid fa-circle-exclamation mr-2"></i>
+      <span id="errorMessage"></span>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="hidden mt-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div>
+          <h2 class="font-heading text-2xl font-bold text-dark-blue">Generated Domains</h2>
+          <p id="resultsCount" class="text-sm text-gray-500 mt-0.5"></p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="copyAllBtn" class="btn-secondary">
+            <i class="fa-regular fa-copy"></i> Copy All
+          </button>
+        </div>
+      </div>
+      <div id="resultsGrid" class="grid md:grid-cols-2 gap-4"></div>
+    </div>
+
+    <!-- History -->
+    <div id="historySection" class="mt-10">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-heading text-xl font-bold text-dark-blue">
+          <i class="fa-regular fa-clock text-primary-red mr-2"></i>Recent Generations
+        </h2>
+        <button id="clearHistoryBtn" class="btn-ghost text-sm">
+          <i class="fa-regular fa-trash-can"></i> Clear
+        </button>
+      </div>
+      <div id="historyList" class="space-y-2">
+        <p class="text-gray-400 text-sm text-center py-6">No history yet. Generate some domains!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Favorites Modal -->
+  <div id="favoritesModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="font-heading text-xl font-bold text-dark-blue">
+          <i class="fa-solid fa-heart text-primary-red mr-2"></i>Favorites
+        </h3>
+        <button onclick="closeFavorites()" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+      </div>
+      <div id="favoritesList" class="space-y-2 max-h-96 overflow-y-auto">
+        <p class="text-gray-400 text-sm text-center py-6">No favorites yet.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="font-heading text-xl font-bold text-dark-blue">
+          <i class="fa-solid fa-gear text-primary-red mr-2"></i>API Settings
+        </h3>
+        <button onclick="closeSettings()" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">OpenRouter API Key</label>
+          <input type="password" id="apiKeyInput" class="input-field" placeholder="sk-or-v1-..." autocomplete="off">
+          <p class="text-xs text-gray-400 mt-1.5">
+            <i class="fa-solid fa-circle-info mr-1"></i>
+            Get a free key at 
+            <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" class="text-primary-red hover:underline">openrouter.ai/keys</a>
+          </p>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Model</label>
+          <select id="modelSelect" class="input-field">
+            <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nvidia Nemotron 3 Ultra 550B</option>
+            <option value="nex-agi/nex-n2-pro:free">Nex AGI N2 Pro</option>
+            <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nvidia Nemotron 3 Nano Omni</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button onclick="closeSettings()" class="btn-ghost">Cancel</button>
+          <button onclick="saveSettings()" class="btn-primary">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script>
+    // ======================== State ========================
+    const state = {
+      style: 'Modern',
+      tld: 'All',
+      count: 5,
+      results: [],
+      history: JSON.parse(localStorage.getItem('dngHistory') || '[]'),
+      favorites: JSON.parse(localStorage.getItem('dngFavorites') || '[]'),
+      apiKey: localStorage.getItem('orApiKey') || '',
+      model: localStorage.getItem('dngModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free',
+      currentPrompt: '',
+    };
+
+    // ======================== DOM Refs ========================
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
+
+    const keywordsEl = $('#keywords');
+    const styleOptions = $$('#styleOptions .choice-btn');
+    const tldOptions = $$('#tldOptions .choice-btn');
+    const countOptions = $$('#countOptions .choice-btn');
+    const generateBtn = $('#generateBtn');
+    const regenerateBtn = $('#regenerateBtn');
+    const settingsBtn = $('#settingsBtn');
+    const favViewBtn = $('#favViewBtn');
+    const loadingSection = $('#loadingSection');
+    const errorAlert = $('#errorAlert');
+    const errorMessage = $('#errorMessage');
+    const resultsSection = $('#resultsSection');
+    const resultsCount = $('#resultsCount');
+    const resultsGrid = $('#resultsGrid');
+    const historyList = $('#historyList');
+    const clearHistoryBtn = $('#clearHistoryBtn');
+    const copyAllBtn = $('#copyAllBtn');
+    const toast = $('#toast');
+
+    const settingsModal = $('#settingsModal');
+    const apiKeyInput = $('#apiKeyInput');
+    const modelSelect = $('#modelSelect');
+    const favoritesModal = $('#favoritesModal');
+    const favoritesList = $('#favoritesList');
+
+    // ======================== Choice Buttons ========================
+    function bindChoices(btns, key) {
+      btns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          btns.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          state[key] = btn.dataset.value;
+        });
+      });
+    }
+    bindChoices(styleOptions, 'style');
+    bindChoices(tldOptions, 'tld');
+    bindChoices(countOptions, 'count');
+
+    // ======================== Toast ========================
+    let toastTimer = null;
+    function showToast(msg, icon = 'fa-regular fa-circle-check') {
+      toast.innerHTML = `<i class="${icon} mr-2"></i>${msg}`;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ======================== Settings ========================
+    settingsBtn.addEventListener('click', () => {
+      apiKeyInput.value = state.apiKey;
+      modelSelect.value = state.model;
+      settingsModal.classList.add('open');
+    });
+
+    function closeSettings() { settingsModal.classList.remove('open'); }
+
+    function saveSettings() {
+      state.apiKey = apiKeyInput.value.trim();
+      state.model = modelSelect.value;
+      localStorage.setItem('orApiKey', state.apiKey);
+      localStorage.setItem('dngModel', state.model);
+      closeSettings();
+      showToast('Settings saved', 'fa-solid fa-check');
+    }
+
+    // Close modals on overlay click
+    settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettings(); });
+    favoritesModal.addEventListener('click', (e) => { if (e.target === favoritesModal) closeFavorites(); });
+
+    // ======================== Favorites ========================
+    function openFavorites() {
+      renderFavorites();
+      favoritesModal.classList.add('open');
+    }
+    function closeFavorites() { favoritesModal.classList.remove('open'); }
+    favViewBtn.addEventListener('click', openFavorites);
+
+    function toggleFavorite(domain) {
+      const idx = state.favorites.findIndex((f) => f.domain === domain);
+      if (idx > -1) {
+        state.favorites.splice(idx, 1);
+        showToast('Removed from favorites', 'fa-regular fa-heart');
+      } else {
+        const item = state.results.find((r) => r.domain === domain);
+        if (item) {
+          state.favorites.push({ ...item });
+          showToast('Added to favorites!', 'fa-solid fa-heart');
+        }
+      }
+      localStorage.setItem('dngFavorites', JSON.stringify(state.favorites));
+      renderResults();
+    }
+
+    function isFavorite(domain) {
+      return state.favorites.some((f) => f.domain === domain);
+    }
+
+    function renderFavorites() {
+      if (state.favorites.length === 0) {
+        favoritesList.innerHTML = '<p class="text-gray-400 text-sm text-center py-6">No favorites yet.</p>';
+        return;
+      }
+      favoritesList.innerHTML = state.favorites.map((f) => `
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
+          <div>
+            <span class="font-bold text-dark-blue">${f.domain}</span>
+            <p class="text-xs text-gray-500 mt-0.5">${f.meaning}</p>
+          </div>
+          <button onclick="toggleFavorite('${f.domain.replace(/'/g, "\\'")}')" class="favorite-btn active text-lg flex-shrink-0 ml-3">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // ======================== API Call ========================
+    async function generateDomains(promptOverride) {
+      const keywords = keywordsEl.value.trim();
+      if (!keywords) {
+        showToast('Please enter keywords or description', 'fa-solid fa-triangle-exclamation');
+        return;
+      }
+
+      const count = parseInt(state.count);
+      const style = state.style;
+      const tldFilter = state.tld;
+
+      if (!state.apiKey) {
+        settingsModal.classList.add('open');
+        apiKeyInput.focus();
+        showToast('Please set your API key first', 'fa-solid fa-key');
+        return;
+      }
+
+      const prompt = promptOverride || `Generate ${count} creative domain name ideas for a business described as: "${keywords}".
+Style: ${style}.
+TLD preference: ${tldFilter === 'All' ? 'any TLD' : tldFilter}.
+For each domain name, provide:
+1. The full domain name (with TLD)
+2. A brief meaning or reasoning (why this name fits the business)
+Return the response as a valid JSON array only, with objects having keys "domain" and "meaning". No markdown, no code fences, just the raw JSON array.`;
+
+      state.currentPrompt = prompt;
+
+      // Show loading
+      generateBtn.disabled = true;
+      regenerateBtn.disabled = true;
+      loadingSection.classList.remove('hidden');
+      resultsSection.classList.add('hidden');
+      errorAlert.classList.add('hidden');
+
+      try {
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${state.apiKey}`,
+            'HTTP-Referer': window.location.origin,
+            'X-Title': 'SwitDeveloper Domain Generator',
+          },
+          body: JSON.stringify({
+            model: state.model,
+            messages: [{ role: 'user', content: prompt }],
+            temperature: 0.8,
+            max_tokens: 2000,
+          }),
+        });
+
+        if (!response.ok) {
+          const errData = await response.text();
+          let errMsg = `API error (${response.status})`;
+          try {
+            const parsed = JSON.parse(errData);
+            errMsg = parsed.error?.message || parsed.error || errMsg;
+          } catch (_) { /* use default */ }
+          throw new Error(errMsg);
+        }
+
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content || '';
+
+        // Try to extract JSON from response
+        let domains = [];
+        const jsonMatch = content.match(/\[[\s\S]*\]/);
+        if (jsonMatch) {
+          try {
+            domains = JSON.parse(jsonMatch[0]);
+          } catch (_) {
+            // Fallback: try manual parse
+            const lines = content.split('\n').filter(l => l.trim());
+            domains = lines.map((line) => {
+              const dMatch = line.match(/["']?domain["']?\s*:\s*["']([^"']+)["']/i);
+              const mMatch = line.match(/["']?meaning["']?\s*:\s*["']([^"']+)["']/i);
+              if (dMatch) return { domain: dMatch[1], meaning: mMatch ? mMatch[1] : '' };
+              // Try to extract domain-like pattern
+              const nameMatch = line.match(/([a-zA-Z0-9][a-zA-Z0-9-]*\.[a-z]{2,})/);
+              if (nameMatch) {
+                const rest = line.replace(nameMatch[0], '').replace(/["\-:,]/g, '').trim();
+                return { domain: nameMatch[0].toLowerCase(), meaning: rest || 'Creative name matching your description.' };
+              }
+              return null;
+            }).filter(Boolean);
+          }
+        } else {
+          // No JSON found, parse line by line
+          const lines = content.split('\n').filter(l => l.trim());
+          domains = lines.map((line) => {
+            const nameMatch = line.match(/([a-zA-Z0-9][a-zA-Z0-9-]*\.[a-z]{2,})/);
+            if (nameMatch) {
+              const rest = line.replace(nameMatch[0], '').replace(/["\-:,]/g, '').trim();
+              return { domain: nameMatch[0].toLowerCase(), meaning: rest || 'Creative name matching your description.' };
+            }
+            return null;
+          }).filter(Boolean);
+        }
+
+        // Filter duplicates and apply TLD filter if not "All"
+        const seen = new Set();
+        domains = domains.filter((d) => {
+          if (!d.domain || seen.has(d.domain.toLowerCase())) return false;
+          seen.add(d.domain.toLowerCase());
+          if (tldFilter !== 'All' && !d.domain.endsWith(tldFilter)) return false;
+          return true;
+        });
+
+        // Limit to requested count
+        domains = domains.slice(0, count);
+
+        if (domains.length === 0) {
+          throw new Error('Could not parse domain names from the AI response. Try again.');
+        }
+
+        state.results = domains;
+        addHistory({ prompt: keywords, style, tld: tldFilter, count, results: domains });
+        renderResults();
+        renderHistory();
+        resultsSection.classList.remove('hidden');
+        loadingSection.classList.add('hidden');
+        regenerateBtn.disabled = false;
+        showToast(`Generated ${domains.length} domain names!`, 'fa-solid fa-wand-magic-sparkles');
+      } catch (err) {
+        loadingSection.classList.add('hidden');
+        errorAlert.classList.remove('hidden');
+        errorMessage.textContent = err.message || 'An unexpected error occurred.';
+        regenerateBtn.disabled = false;
+      } finally {
+        generateBtn.disabled = false;
+      }
+    }
+
+    // ======================== Render Results ========================
+    function renderResults() {
+      if (state.results.length === 0) return;
+
+      resultsCount.textContent = `${state.results.length} domain${state.results.length > 1 ? 's' : ''} generated`;
+
+      resultsGrid.innerHTML = state.results.map((item, idx) => {
+        const fav = isFavorite(item.domain);
+        return `
+          <div class="domain-card" data-index="${idx}">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <div class="domain-name">${item.domain}</div>
+                <p class="domain-meaning mt-1.5">${item.meaning || 'Creative name matching your business description.'}</p>
+              </div>
+              <button onclick="toggleFavorite('${item.domain.replace(/'/g, "\\'")}')" class="favorite-btn flex-shrink-0 mt-1 text-xl ${fav ? 'active' : ''}" title="${fav ? 'Remove from favorites' : 'Add to favorites'}">
+                <i class="${fav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+              </button>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mt-4 pt-3 border-t border-gray-50">
+              <button onclick="checkAvailability(this, '${item.domain.replace(/'/g, "\\'")}')" class="btn-secondary text-xs px-3 py-1.5">
+                <i class="fa-regular fa-circle-check"></i> Check Availability
+              </button>
+              <span class="domain-status-text text-xs text-gray-400"></span>
+              <button onclick="copyDomain('${item.domain.replace(/'/g, "\\'")}')" class="btn-ghost text-xs ml-auto" title="Copy domain name">
+                <i class="fa-regular fa-copy"></i> Copy
+              </button>
+            </div>
+            <span class="tag-pill bg-gray-100 text-gray-500 absolute top-3 right-12">${idx + 1}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ======================== Check Availability (Simulated) ========================
+    function checkAvailability(btn, domain) {
+      const card = btn.closest('.domain-card');
+      const statusText = card.querySelector('.domain-status-text');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
+      statusText.innerHTML = '<span class="badge-checking">Checking...</span>';
+
+      setTimeout(() => {
+        const available = Math.random() > 0.45;
+        if (available) {
+          statusText.innerHTML = '<span class="badge-available"><i class="fa-solid fa-check mr-0.5"></i> Available!</span>';
+          btn.innerHTML = '<i class="fa-regular fa-circle-check"></i> Available';
+        } else {
+          statusText.innerHTML = '<span class="badge-taken"><i class="fa-solid fa-xmark mr-0.5"></i> Taken</span>';
+          btn.innerHTML = '<i class="fa-regular fa-circle-check"></i> Check Again';
+        }
+        btn.disabled = false;
+      }, 1500 + Math.random() * 1000);
+    }
+
+    // ======================== Copy ========================
+    async function copyDomain(domain) {
+      try {
+        await navigator.clipboard.writeText(domain);
+        showToast(`Copied ${domain}`, 'fa-regular fa-copy');
+      } catch (_) {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = domain;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        showToast(`Copied ${domain}`, 'fa-regular fa-copy');
+      }
+    }
+
+    copyAllBtn.addEventListener('click', async () => {
+      const text = state.results.map((r) => r.domain).join('\n');
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Copied all domains!', 'fa-regular fa-copy');
+      } catch (_) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        showToast('Copied all domains!', 'fa-regular fa-copy');
+      }
+    });
+
+    // ======================== History ========================
+    function addHistory(entry) {
+      entry.timestamp = Date.now();
+      state.history.unshift(entry);
+      if (state.history.length > 20) state.history = state.history.slice(0, 20);
+      localStorage.setItem('dngHistory', JSON.stringify(state.history));
+    }
+
+    function renderHistory() {
+      if (state.history.length === 0) {
+        historyList.innerHTML = '<p class="text-gray-400 text-sm text-center py-6">No history yet. Generate some domains!</p>';
+        return;
+      }
+      historyList.innerHTML = state.history.map((h, idx) => `
+        <div class="history-item" onclick="restoreHistory(${idx})">
+          <div class="flex-1 min-w-0">
+            <p class="font-medium text-sm text-dark-blue truncate">${h.prompt}</p>
+            <p class="text-xs text-gray-400 mt-0.5">
+              ${h.results.length} domains &middot; ${h.style} &middot; ${h.tld} &middot; ${new Date(h.timestamp).toLocaleDateString()}
+            </p>
+          </div>
+          <i class="fa-solid fa-chevron-right text-gray-300 text-sm flex-shrink-0 ml-3"></i>
+        </div>
+      `).join('');
+    }
+
+    function restoreHistory(idx) {
+      const h = state.history[idx];
+      if (!h) return;
+      keywordsEl.value = h.prompt;
+      // Set style
+      styleOptions.forEach((b) => {
+        b.classList.toggle('active', b.dataset.value === h.style);
+        if (b.dataset.value === h.style) state.style = h.style;
+      });
+      // Set TLD
+      tldOptions.forEach((b) => {
+        b.classList.toggle('active', b.dataset.value === h.tld);
+        if (b.dataset.value === h.tld) state.tld = h.tld;
+      });
+      // Set count
+      countOptions.forEach((b) => {
+        b.classList.toggle('active', b.dataset.value === String(h.count));
+        if (b.dataset.value === String(h.count)) state.count = h.count;
+      });
+      state.results = h.results;
+      renderResults();
+      resultsSection.classList.remove('hidden');
+      regenerateBtn.disabled = false;
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showToast('Restored previous generation', 'fa-regular fa-clock');
+    }
+
+    clearHistoryBtn.addEventListener('click', () => {
+      state.history = [];
+      localStorage.setItem('dngHistory', '[]');
+      renderHistory();
+      showToast('History cleared', 'fa-regular fa-trash-can');
+    });
+
+    // ======================== Generate / Regenerate ========================
+    generateBtn.addEventListener('click', () => generateDomains());
+    regenerateBtn.addEventListener('click', () => generateDomains(state.currentPrompt || null));
+
+    // ======================== Keyboard shortcut ========================
+    keywordsEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.ctrlKey) generateDomains();
+    });
+
+    // ======================== Init ========================
+    renderHistory();
+
+    // Show favorites modal if hash is #favorites
+    if (window.location.hash === '#favorites') {
+      openFavorites();
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Broken Link Checker — Free SEO Tool | SwitDeveloper</title>
+  <meta name="description" content="Free Broken Link Checker tool by SwitDeveloper. Scan any webpage or HTML for broken links, detect 404 errors, and export results as CSV.">
+  <meta name="keywords" content="broken link checker, free broken link checker, link checker tool, SEO tool, check broken links, 404 checker, SwitDeveloper">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://switdeveloper.com/broken-link-checker">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Broken Link Checker — Free SEO Tool | SwitDeveloper">
+  <meta property="og:description" content="Free Broken Link Checker tool by SwitDeveloper. Scan any webpage or HTML for broken links, detect 404 errors, and export results as CSV.">
+  <meta property="og:url" content="https://switdeveloper.com/broken-link-checker">
+  <meta property="og:site_name" content="SwitDeveloper">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Broken Link Checker — Free SEO Tool | SwitDeveloper">
+  <meta name="twitter:description" content="Free Broken Link Checker tool by SwitDeveloper. Scan any webpage or HTML for broken links, detect 404 errors, and export results as CSV.">
+  <link rel="icon" type="image/svg+xml" href="https://switdeveloper.com/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-dark: #0d152e;
+      --primary-red: #c91414;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f9fc;
+      color: #1f2937;
+    }
+    h1, h2, h3, .heading {
+      font-family: 'Playfair Display', serif;
+    }
+    .bg-brand {
+      background-color: var(--brand-dark);
+    }
+    .bg-red-primary {
+      background-color: var(--primary-red);
+    }
+    .text-brand {
+      color: var(--brand-dark);
+    }
+    .text-red-primary {
+      color: var(--primary-red);
+    }
+    .border-brand {
+      border-color: var(--brand-dark);
+    }
+    .btn-primary {
+      background-color: var(--primary-red);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #a81010;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201, 20, 20, 0.35);
+    }
+    .btn-outline {
+      border: 2px solid var(--primary-red);
+      color: var(--primary-red);
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      background: var(--primary-red);
+      color: #fff;
+    }
+    .hero-bg {
+      background: linear-gradient(135deg, #0d152e 0%, #1a254a 50%, #0d152e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(201,20,20,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+    }
+    .mode-tab {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .mode-tab.active {
+      background-color: var(--primary-red);
+      color: #fff;
+      border-color: var(--primary-red);
+    }
+    .mode-tab:not(.active) {
+      background-color: #fff;
+      color: var(--brand-dark);
+      border: 2px solid #e5e7eb;
+    }
+    .mode-tab:not(.active):hover {
+      border-color: var(--primary-red);
+      color: var(--primary-red);
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #e5e7eb;
+      border-top: 5px solid var(--primary-red);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .progress-bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-red), #ff4444);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    .result-ok {
+      background-color: #dcfce7;
+      color: #166534;
+      border-left: 4px solid #22c55e;
+    }
+    .result-broken {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border-left: 4px solid var(--primary-red);
+    }
+    .result-error {
+      background-color: #fef3c7;
+      color: #92400e;
+      border-left: 4px solid #f59e0b;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(13,21,46,0.08);
+      transition: transform 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-3px);
+    }
+    .filter-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid #e5e7eb;
+      background: #fff;
+      color: #6b7280;
+    }
+    .filter-btn.active {
+      background: var(--primary-red);
+      color: #fff;
+      border-color: var(--primary-red);
+    }
+    .filter-btn:not(.active):hover {
+      border-color: var(--primary-red);
+      color: var(--primary-red);
+    }
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .results-table th {
+      background: var(--brand-dark);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .results-table th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+    .results-table th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+    .results-table td {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .results-table tr:hover td {
+      background: #f9fafb;
+    }
+    .results-wrapper {
+      max-height: 500px;
+      overflow-y: auto;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .results-wrapper::-webkit-scrollbar {
+      width: 6px;
+    }
+    .results-wrapper::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+    .results-wrapper::-webkit-scrollbar-thumb {
+      background: #c91414;
+      border-radius: 3px;
+    }
+    .breadcrumb a {
+      color: rgba(255,255,255,0.7);
+      transition: color 0.3s ease;
+    }
+    .breadcrumb a:hover {
+      color: #fff;
+    }
+    .breadcrumb .separator {
+      color: rgba(255,255,255,0.4);
+      margin: 0 0.5rem;
+    }
+    .breadcrumb .current {
+      color: #fff;
+    }
+    #header-container .header-inner,
+    #footer-container .footer-inner {
+      background: var(--brand-dark) !important;
+    }
+    textarea:focus, input:focus {
+      outline: none;
+      border-color: var(--primary-red);
+      box-shadow: 0 0 0 3px rgba(201,20,20,0.15);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-ok {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .badge-broken {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .badge-error {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    @media (max-width: 640px) {
+      .results-table th, .results-table td {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+      }
+      .stat-card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <section class="hero-bg py-16 md:py-24">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <nav class="breadcrumb text-sm mb-6">
+          <a href="https://switdeveloper.com">Home</a>
+          <span class="separator">/</span>
+          <span class="current">Broken Link Checker</span>
+        </nav>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 heading">
+          <i class="fas fa-link text-red-primary mr-3"></i>Broken Link Checker
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+          Scan any webpage or HTML code to find broken links. Improve your SEO by fixing 404 errors today.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 md:py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+
+      <div class="flex flex-wrap gap-3 mb-8 justify-center">
+        <button class="mode-tab active px-6 py-3 rounded-lg text-sm font-semibold flex items-center gap-2" data-mode="url">
+          <i class="fas fa-globe"></i> URL Mode
+        </button>
+        <button class="mode-tab px-6 py-3 rounded-lg text-sm font-semibold flex items-center gap-2" data-mode="html">
+          <i class="fas fa-code"></i> Paste HTML Mode
+        </button>
+      </div>
+
+      <div id="url-mode" class="mode-content">
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+          <h2 class="text-2xl font-bold text-brand mb-2 heading">Enter a Webpage URL</h2>
+          <p class="text-gray-500 text-sm mb-6">We'll fetch the page and check all links for you.</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <input type="url" id="url-input" placeholder="https://example.com/page" class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-700 text-sm focus:border-red-primary transition">
+            <button id="scan-url-btn" class="btn-primary px-8 py-3 rounded-lg text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+              <i class="fas fa-search"></i> Scan Links
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="html-mode" class="mode-content hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+          <h2 class="text-2xl font-bold text-brand mb-2 heading">Paste HTML Source</h2>
+          <p class="text-gray-500 text-sm mb-6">Paste your HTML code and we'll analyze all links client-side.</p>
+          <div>
+            <textarea id="html-input" rows="8" placeholder="<html>... paste your HTML here ...</html>" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-700 text-sm font-mono focus:border-red-primary transition resize-y"></textarea>
+          </div>
+          <div class="mt-4">
+            <button id="scan-html-btn" class="btn-primary px-8 py-3 rounded-lg text-sm font-semibold flex items-center gap-2">
+              <i class="fas fa-search"></i> Analyze Links
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="loading-section" class="hidden mb-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+          <div class="spinner mb-4"></div>
+          <p class="text-gray-600 font-medium" id="loading-text">Scanning links...</p>
+          <p class="text-gray-400 text-sm mt-1" id="loading-detail">Found 0 links so far</p>
+          <div class="progress-bar mt-6 max-w-md mx-auto">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="text-gray-400 text-xs mt-2" id="progress-text">0%</p>
+        </div>
+      </div>
+
+      <div id="results-section" class="hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="stat-card text-center">
+            <p class="text-3xl font-bold text-brand" id="total-links">0</p>
+            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-link mr-1"></i> Total Links</p>
+          </div>
+          <div class="stat-card text-center">
+            <p class="text-3xl font-bold text-green-600" id="ok-count">0</p>
+            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-check-circle mr-1"></i> OK</p>
+          </div>
+          <div class="stat-card text-center">
+            <p class="text-3xl font-bold text-red-primary" id="broken-count">0</p>
+            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-exclamation-triangle mr-1"></i> Broken / Errors</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="ok">OK Only</button>
+            <button class="filter-btn" data-filter="broken">Broken Only</button>
+          </div>
+          <button id="export-csv-btn" class="btn-outline px-5 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <i class="fas fa-download"></i> Export CSV
+          </button>
+        </div>
+
+        <div class="results-wrapper">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th class="w-1/2">Link URL</th>
+                <th class="w-1/4">Anchor Text</th>
+                <th>Status</th>
+                <th>HTTP Code</th>
+              </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+        <p id="no-results-msg" class="text-center text-gray-400 py-8 hidden">
+          <i class="fas fa-inbox text-3xl block mb-2"></i> No links match this filter.
+        </p>
+      </div>
+
+      <div id="empty-state" class="text-center py-16">
+        <i class="fas fa-unlink text-6xl text-gray-300 mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-400">No links scanned yet</h3>
+        <p class="text-gray-400 text-sm mt-1">Enter a URL or paste HTML to get started.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script>
+    (function() {
+      const CORS_PROXIES = [
+        'https://corsproxy.io/?',
+        'https://api.allorigins.win/raw?url='
+      ];
+
+      let allResults = [];
+      let activeFilter = 'all';
+      let currentMode = 'url';
+      let isScanning = false;
+
+      const urlInput = document.getElementById('url-input');
+      const htmlInput = document.getElementById('html-input');
+      const scanUrlBtn = document.getElementById('scan-url-btn');
+      const scanHtmlBtn = document.getElementById('scan-html-btn');
+      const urlMode = document.getElementById('url-mode');
+      const htmlMode = document.getElementById('html-mode');
+      const loadingSection = document.getElementById('loading-section');
+      const loadingText = document.getElementById('loading-text');
+      const loadingDetail = document.getElementById('loading-detail');
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      const resultsSection = document.getElementById('results-section');
+      const resultsBody = document.getElementById('results-body');
+      const emptyState = document.getElementById('empty-state');
+      const totalLinksEl = document.getElementById('total-links');
+      const okCountEl = document.getElementById('ok-count');
+      const brokenCountEl = document.getElementById('broken-count');
+      const exportBtn = document.getElementById('export-csv-btn');
+      const noResultsMsg = document.getElementById('no-results-msg');
+
+      document.querySelectorAll('.mode-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentMode = this.dataset.mode;
+          if (currentMode === 'url') {
+            urlMode.classList.remove('hidden');
+            htmlMode.classList.add('hidden');
+          } else {
+            urlMode.classList.add('hidden');
+            htmlMode.classList.remove('hidden');
+          }
+        });
+      });
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          activeFilter = this.dataset.filter;
+          renderResults();
+        });
+      });
+
+      scanUrlBtn.addEventListener('click', startUrlScan);
+      urlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') startUrlScan();
+      });
+      scanHtmlBtn.addEventListener('click', startHtmlScan);
+
+      async function startUrlScan() {
+        let url = urlInput.value.trim();
+        if (!url) {
+          urlInput.focus();
+          alert('Please enter a URL.');
+          return;
+        }
+        if (!/^https?:\/\//i.test(url)) {
+          url = 'https://' + url;
+          urlInput.value = url;
+        }
+        allResults = [];
+        showLoading('Fetching webpage...');
+        let html = null;
+        for (const proxy of CORS_PROXIES) {
+          try {
+            const resp = await fetch(proxy + encodeURIComponent(url), {
+              signal: AbortSignal.timeout(15000)
+            });
+            if (resp.ok) {
+              html = await resp.text();
+              break;
+            }
+          } catch (_) {
+            continue;
+          }
+        }
+        if (!html) {
+          hideLoading();
+          alert('Could not fetch the webpage. The site may block CORS requests. Try Paste HTML Mode instead.');
+          return;
+        }
+        const links = extractLinks(html, url);
+        if (links.length === 0) {
+          hideLoading();
+          showEmpty('No links found on this page.');
+          return;
+        }
+        loadingDetail.textContent = 'Found ' + links.length + ' links. Checking each one...';
+        await checkLinks(links);
+      }
+
+      function startHtmlScan() {
+        const html = htmlInput.value.trim();
+        if (!html) {
+          alert('Please paste HTML code.');
+          return;
+        }
+        allResults = [];
+        const links = extractLinks(html, null);
+        if (links.length === 0) {
+          showEmpty('No links found in the HTML.');
+          return;
+        }
+        showLoading('Analyzing links...');
+        loadingDetail.textContent = 'Found ' + links.length + ' links. Checking each one...';
+        checkLinks(links);
+      }
+
+      function extractLinks(html, baseUrl) {
+        const links = [];
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const anchors = doc.querySelectorAll('a[href]');
+        const seen = new Set();
+        anchors.forEach(a => {
+          let href = a.getAttribute('href').trim();
+          if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+          if (baseUrl) {
+            try {
+              href = new URL(href, baseUrl).href;
+            } catch (_) {
+              return;
+            }
+          } else {
+            if (!/^https?:\/\//i.test(href)) return;
+          }
+          const key = href + '::' + (a.textContent || '').trim();
+          if (seen.has(key)) return;
+          seen.add(key);
+          links.push({
+            url: href,
+            text: (a.textContent || '').trim().substring(0, 100) || '(no text)'
+          });
+        });
+        return links;
+      }
+
+      async function checkLinks(links) {
+        isScanning = true;
+        allResults = [];
+        let completed = 0;
+        const total = links.length;
+        loadingText.textContent = 'Scanning links...';
+        loadingSection.classList.remove('hidden');
+        resultsSection.classList.add('hidden');
+        emptyState.classList.add('hidden');
+
+        const BATCH_SIZE = 5;
+        for (let i = 0; i < total; i += BATCH_SIZE) {
+          const batch = links.slice(i, i + BATCH_SIZE);
+          const promises = batch.map(link => checkSingleLink(link));
+          const results = await Promise.allSettled(promises);
+          results.forEach((r, idx) => {
+            if (r.status === 'fulfilled') {
+              allResults.push(r.value);
+            } else {
+              allResults.push({
+                url: batch[idx].url,
+                text: batch[idx].text,
+                status: 'error',
+                statusCode: 0
+              });
+            }
+          });
+          completed += batch.length;
+          const pct = Math.round((completed / total) * 100);
+          progressFill.style.width = pct + '%';
+          progressText.textContent = pct + '%';
+          loadingDetail.textContent = 'Checked ' + completed + ' of ' + total + ' links...';
+          await new Promise(r => setTimeout(r, 50));
+        }
+
+        isScanning = false;
+        hideLoading();
+        renderResults();
+        updateStats();
+        resultsSection.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+      }
+
+      async function checkSingleLink(link) {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 10000);
+          const resp = await fetch(link.url, {
+            method: 'HEAD',
+            signal: controller.signal,
+            mode: 'no-cors'
+          });
+          clearTimeout(timeout);
+          let statusCode = 0;
+          let status = 'error';
+          try {
+            if (resp.type === 'opaque') {
+              statusCode = 0;
+              status = 'ok';
+            } else {
+              statusCode = resp.status;
+              if (statusCode >= 200 && statusCode < 400) {
+                status = 'ok';
+              } else {
+                status = 'broken';
+              }
+            }
+          } catch (_) {
+            statusCode = 0;
+            status = 'error';
+          }
+          return {
+            url: link.url,
+            text: link.text,
+            status: status,
+            statusCode: statusCode
+          };
+        } catch (e) {
+          if (e.name === 'AbortError') {
+            return { url: link.url, text: link.text, status: 'error', statusCode: 0 };
+          }
+          try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 10000);
+            const resp = await fetch(link.url, {
+              method: 'GET',
+              signal: controller.signal,
+              mode: 'no-cors'
+            });
+            clearTimeout(timeout);
+            let statusCode = 0;
+            let status = 'error';
+            try {
+              if (resp.type === 'opaque') {
+                statusCode = 0;
+                status = 'ok';
+              } else {
+                statusCode = resp.status;
+                status = (statusCode >= 200 && statusCode < 400) ? 'ok' : 'broken';
+              }
+            } catch (_) {
+              statusCode = 0;
+              status = 'error';
+            }
+            return { url: link.url, text: link.text, status: status, statusCode: statusCode };
+          } catch (_) {
+            return { url: link.url, text: link.text, status: 'error', statusCode: 0 };
+          }
+        }
+      }
+
+      function renderResults() {
+        let filtered = allResults;
+        if (activeFilter === 'ok') {
+          filtered = allResults.filter(r => r.status === 'ok');
+        } else if (activeFilter === 'broken') {
+          filtered = allResults.filter(r => r.status !== 'ok');
+        }
+        if (filtered.length === 0) {
+          resultsBody.innerHTML = '';
+          noResultsMsg.classList.remove('hidden');
+          return;
+        }
+        noResultsMsg.classList.add('hidden');
+        let html = '';
+        filtered.forEach(r => {
+          let rowClass = 'result-ok';
+          let badgeClass = 'badge-ok';
+          let label = 'OK';
+          if (r.status === 'broken') {
+            rowClass = 'result-broken';
+            badgeClass = 'badge-broken';
+            label = 'Broken';
+          } else if (r.status === 'error') {
+            rowClass = 'result-error';
+            badgeClass = 'badge-error';
+            label = 'Error';
+          }
+          const code = r.statusCode > 0 ? r.statusCode : '—';
+          html += '<tr class="' + rowClass + '">';
+          html += '<td class="break-all"><a href="' + r.url.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener" class="text-blue-600 hover:underline">' + escapeHtml(r.url) + '</a></td>';
+          html += '<td class="truncate max-w-[200px]">' + escapeHtml(r.text) + '</td>';
+          html += '<td><span class="badge ' + badgeClass + '">' + label + '</span></td>';
+          html += '<td>' + code + '</td>';
+          html += '</tr>';
+        });
+        resultsBody.innerHTML = html;
+      }
+
+      function updateStats() {
+        totalLinksEl.textContent = allResults.length;
+        const ok = allResults.filter(r => r.status === 'ok').length;
+        const broken = allResults.filter(r => r.status !== 'ok').length;
+        okCountEl.textContent = ok;
+        brokenCountEl.textContent = broken;
+      }
+
+      function showLoading(msg) {
+        loadingText.textContent = msg || 'Scanning...';
+        loadingDetail.textContent = '';
+        progressFill.style.width = '0%';
+        progressText.textContent = '0%';
+        loadingSection.classList.remove('hidden');
+        resultsSection.classList.add('hidden');
+        emptyState.classList.add('hidden');
+      }
+
+      function hideLoading() {
+        loadingSection.classList.add('hidden');
+      }
+
+      function showEmpty(msg) {
+        emptyState.innerHTML = '<i class="fas fa-search text-6xl text-gray-300 mb-4"></i><h3 class="text-xl font-semibold text-gray-400">' + (msg || 'No links found') + '</h3><p class="text-gray-400 text-sm mt-1">Try a different URL or HTML source.</p>';
+        emptyState.classList.remove('hidden');
+        resultsSection.classList.add('hidden');
+        loadingSection.classList.add('hidden');
+      }
+
+      function escapeHtml(text) {
+        const d = document.createElement('div');
+        d.textContent = text;
+        return d.innerHTML;
+      }
+
+      exportBtn.addEventListener('click', function() {
+        if (allResults.length === 0) {
+          alert('No results to export.');
+          return;
+        }
+        let csv = 'Link URL,Anchor Text,Status,HTTP Status Code\n';
+        allResults.forEach(r => {
+          const url = '"' + r.url.replace(/"/g, '""') + '"';
+          const text = '"' + r.text.replace(/"/g, '""') + '"';
+          const status = r.status === 'ok' ? 'OK' : (r.status === 'broken' ? 'Broken' : 'Error');
+          const code = r.statusCode > 0 ? r.statusCode : '';
+          csv += url + ',' + text + ',' + status + ',' + code + '\n';
+        });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'broken-links-report.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+      });
+
+      function loadPartials() {
+        const header = document.getElementById('header-container');
+        const footer = document.getElementById('footer-container');
+        if (header) {
+          header.innerHTML = '<div class="header-inner bg-brand py-4"><div class="container mx-auto px-4"><a href="https://switdeveloper.com" class="text-white text-xl font-bold heading"><i class="fas fa-bolt text-red-primary mr-2"></i>SwitDeveloper</a></div></div>';
+        }
+        if (footer) {
+          footer.innerHTML = '<div class="footer-inner bg-brand py-8"><div class="container mx-auto px-4 text-center"><p class="text-gray-400 text-sm">&copy; 2026 SwitDeveloper. All rights reserved.</p></div></div>';
+        }
+        if (typeof loadPartialsFromFile === 'function') {
+          try { loadPartialsFromFile(); } catch(_) {}
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadPartials);
+      } else {
+        loadPartials();
+      }
+
+    })();
+  </script>
+  <script src="/js/load-partials.js"></script>
+</body>
+</html>
