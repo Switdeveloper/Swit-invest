@@ -273,6 +273,8 @@
     }
     @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
   </style>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="js/load-partials.js"></script>
 </head>
 <body>
 
@@ -887,42 +889,11 @@
       if (e.key === 'Escape') closeSettings();
     });
 
-    // ── Load partials ──
-    function loadPartials() {
-      const header = $('header-container');
-      const footer = $('footer-container');
-      if (header) {
-        fetch('/js/load-partials.js')
-          .then(r => r.text())
-          .then(code => { try { new Function(code)(); } catch(e) {} })
-          .catch(() => {
-            // Fallback: insert placeholder header/footer
-            if (header && !header.innerHTML.trim()) {
-              header.innerHTML = `<header style="background:#0d152e;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;">
-                <a href="/" style="color:#fff;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;text-decoration:none;">
-                  <span style="color:#c91414;">S</span>witDeveloper
-                </a>
-                <nav style="display:flex;gap:1.5rem;">
-                  <a href="/" style="color:#fff;text-decoration:none;font-size:0.9rem;">Home</a>
-                  <a href="/ai-tools" style="color:#fff;text-decoration:none;font-size:0.9rem;">AI Tools</a>
-                  <a href="/contact" style="color:#fff;text-decoration:none;font-size:0.9rem;">Contact</a>
-                </nav>
-              </header>`;
-            }
-            if (footer && !footer.innerHTML.trim()) {
-              footer.innerHTML = `<footer style="background:#0d152e;color:rgba(255,255,255,0.6);text-align:center;padding:2rem;font-size:0.85rem;">
-                &copy; ${new Date().getFullYear()} SwitDeveloper. All rights reserved.
-              </footer>`;
-            }
-          });
-      }
-    }
-
     // ── Run ──
     document.addEventListener('DOMContentLoaded', () => {
       init();
-      loadPartials();
     });
+  </script>
   </script>
 </body>
 </html>
