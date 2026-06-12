@@ -106,12 +106,9 @@
                             <div class="flex gap-2">
                                 <div class="relative flex-1">
                                     <select id="quickModel" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition appearance-none cursor-pointer">
-                                        <option value="nvidia/llama-nemotron-rerank-vl-1b-v2:free">Llama Nemotron Rerank 1B (free)</option>
-                                        <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
-                                        <option value="nvidia/nemotron-3.5-content-safety:free">Nemotron 3.5 Content Safety (free)</option>
+                                        <option value="nvidia/nemotron-3-ultra-550b-a55b:free" selected>Nemotron 3 Ultra 550B (free)</option>
                                         <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
                                         <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
-                                        <option value="openai/gpt-oss-20b:free">GPT OSS 20B (free)</option>
                                     </select>
                                     <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
                                 </div>
@@ -140,13 +137,9 @@
                 <div class="mb-3">
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Model</label>
                     <select id="modelSelect" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
-                        <option value="nvidia/llama-nemotron-rerank-vl-1b-v2:free" selected>Llama Nemotron Rerank 1B (free)</option>
-                        <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
-                        <option value="nvidia/nemotron-3.5-content-safety:free">Nemotron 3.5 Content Safety (free)</option>
+                        <option value="nvidia/nemotron-3-ultra-550b-a55b:free" selected>Nemotron 3 Ultra 550B (free)</option>
                         <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
                         <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
-                        <option value="openai/gpt-oss-20b:free">GPT OSS 20B (free)</option>
-                        <option value="__custom__">Custom model...</option>
                     </select>
                     <input type="text" id="customModel" placeholder="Enter model ID (e.g. meta-llama/llama-3.1-8b-instruct:free)" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition mt-2 hidden">
                 </div>
@@ -214,7 +207,7 @@ function getModel() {
 
 function loadSettings() {
     const key = localStorage.getItem('orApiKey') || '';
-    const model = localStorage.getItem('orModel') || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
+    const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
     document.getElementById('apiKey').value = key;
     const select = document.getElementById('modelSelect');
     const quick = document.getElementById('quickModel');
@@ -225,7 +218,7 @@ function loadSettings() {
         customInput.classList.remove('hidden');
         if (quick && [...quick.options].some(o => o.value === model)) quick.value = model;
     } else {
-        select.value = model || 'nvidia/llama-nemotron-rerank-vl-1b-v2:free';
+        select.value = model || 'nvidia/nemotron-3-ultra-550b-a55b:free';
         if (quick) quick.value = select.value;
     }
     document.getElementById('sendBtn').disabled = !key;

@@ -812,11 +812,9 @@
     <div class="mb-5">
       <label class="form-label">Model</label>
       <select class="form-select" id="modelSelect">
-        <option value="openai/gpt-4o-mini">GPT-4o Mini (fast, cheap)</option>
-        <option value="openai/gpt-4o">GPT-4o (best quality)</option>
-        <option value="google/gemini-2.0-flash-001">Gemini 2.0 Flash</option>
-        <option value="anthropic/claude-3.5-haiku">Claude 3.5 Haiku</option>
-        <option value="meta-llama/llama-3.3-70b-instruct">Llama 3.3 70B</option>
+        <option value="nvidia/nemotron-3-ultra-550b-a55b:free" selected>Nemotron 3 Ultra 550B (free)</option>
+        <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
+        <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
       </select>
     </div>
     <button onclick="saveSettings()" class="generate-btn">
@@ -849,7 +847,7 @@
     const savedKey = localStorage.getItem('orApiKey') || '';
     document.getElementById('apiKeyInput').value = savedKey;
 
-    const savedModel = localStorage.getItem('orModel') || 'openai/gpt-4o-mini';
+    const savedModel = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
     document.getElementById('modelSelect').value = savedModel;
 
     document.querySelectorAll('#platformSelector .platform-btn').forEach(btn => {
@@ -928,7 +926,7 @@ Format your response as a JSON array of strings. Each string is one post variati
 Example: ["Post content here", "Second post content here"]
 ONLY output the JSON array, no other text.`;
 
-    const model = localStorage.getItem('orModel') || 'openai/gpt-4o-mini';
+    const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
 
     try {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -1020,7 +1018,7 @@ Format your response as a JSON array with exactly one string.
 Example: ["Post content here"]
 ONLY output the JSON array, no other text.`;
 
-    const model = localStorage.getItem('orModel') || 'openai/gpt-4o-mini';
+    const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
 
     try {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
