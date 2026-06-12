@@ -712,7 +712,10 @@
               <img src="${photo.dataUrl}" class="thumb sm:h-full sm:w-40" alt="" />
             </div>
             <div class="p-4 flex-1">
-              <div class="text-xs font-semibold text-gray-500 uppercase mb-1">Room ${i + 1}</div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-semibold text-gray-500 uppercase">Photo ${i + 1}</span>
+                <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full category-badge-${i}">detecting...</span>
+              </div>
               <div class="desc"><span class="text-gray-400 italic">Analyzing...</span></div>
             </div>
           </div>
@@ -730,7 +733,7 @@
             body: JSON.stringify({
               model: model,
               messages: [{ role: 'user', content: [
-                { type: 'text', text: 'You are a real estate videographer. Describe this room/area in vivid detail for a luxury property video tour. Focus on: architectural features, materials, lighting, spatial feel, unique selling points. Keep it 3-4 sentences, professional and cinematic tone. Start with what room this is.' },
+                { type: 'text', text: 'You are a real estate photo classifier. Analyze this image and return EXACTLY ONE of the following categories followed by a short tag (max 10 words).\n\nCategories: Exterior, Living Room, Kitchen, Dining Room, Bedroom, Bathroom, Office, Hallway, Staircase, Basement, Garage, Backyard, Pool, Balcony, Agent Photo, Detail Shot, Other.\n\nFormat: CATEGORY: short tag\n\nExamples:\n- Kitchen: Modern kitchen with granite island\n- Exterior: Colonial home with landscaped front yard\n- Bedroom: Master bedroom with walk-in closet\n- Agent Photo: Professional headshot of listing agent\n- Detail Shot: Close-up of marble countertop\n\nNEVER refuse. If the photo shows a person, use "Agent Photo" or note what they are doing. Always respond with the category and tag only.' },
                 { type: 'image_url', image_url: { url: photo.dataUrl } }
               ]}],
               max_tokens: 512,
@@ -738,20 +741,52 @@
             })
           });
 
-          let description = 'Analysis failed. Please try again.';
+          let raw = 'Other: Unable to classify';
           if (res.ok) {
             const data = await res.json();
-            description = data.choices?.[0]?.message?.content || description;
+            raw = data.choices?.[0]?.message?.content || raw;
           } else {
             const err = await res.text();
-            try { const j = JSON.parse(err); description = 'Error: ' + (j.error?.message || j.error || err); } catch(e) { description = 'Error: ' + err; }
+            try { const j = JSON.parse(err); raw = 'Error: ' + (j.error?.message || j.error || err); } catch(e) { raw = 'Error: ' + err; }
           }
 
-          analysisResults.push({ photoIndex: i, description });
+          // Parse "CATEGORY: tag" format
+          const colonIdx = raw.indexOf(':');
+          let category = 'Other';
+          let tag = raw;
+          if (colonIdx > 0 && colonIdx < 30) {
+            category = raw.substring(0, colonIdx).trim();
+            tag = raw.substring(colonIdx + 1).trim();
+          }
+
+          analysisResults.push({ photoIndex: i, category, tag, raw });
+          const badge = card.querySelector('.category-badge-' + i);
+          if (badge) {
+            badge.textContent = category;
+            const colors = {
+              'Exterior': 'bg-green-100 text-green-700',
+              'Living Room': 'bg-blue-100 text-blue-700',
+              'Kitchen': 'bg-orange-100 text-orange-700',
+              'Dining Room': 'bg-amber-100 text-amber-700',
+              'Bedroom': 'bg-purple-100 text-purple-700',
+              'Bathroom': 'bg-cyan-100 text-cyan-700',
+              'Office': 'bg-indigo-100 text-indigo-700',
+              'Agent Photo': 'bg-pink-100 text-pink-700',
+              'Detail Shot': 'bg-gray-200 text-gray-700',
+              'Backyard': 'bg-emerald-100 text-emerald-700',
+              'Pool': 'bg-sky-100 text-sky-700',
+              'Balcony': 'bg-teal-100 text-teal-700',
+              'Garage': 'bg-stone-100 text-stone-700',
+              'Basement': 'bg-neutral-100 text-neutral-700',
+              'Hallway': 'bg-violet-100 text-violet-700',
+              'Staircase': 'bg-fuchsia-100 text-fuchsia-700',
+            };
+            badge.className = 'text-[10px] px-2 py-0.5 rounded-full ' + (colors[category] || 'bg-gray-100 text-gray-600');
+          }
           const descEl = card.querySelector('.desc');
-          descEl.innerHTML = description;
+          descEl.innerHTML = tag;
         } catch (err) {
-          analysisResults.push({ photoIndex: i, description: 'Network error: ' + err.message });
+          analysisResults.push({ photoIndex: i, category: 'Error', tag: err.message, raw: '' });
           const descEl = card.querySelector('.desc');
           descEl.innerHTML = '<span class="text-red-500">Network error: ' + err.message + '</span>';
         }
@@ -785,7 +820,7 @@
       $('step3Next').disabled = true;
 
       const model = getModelValue('script');
-      const roomDescs = analysisResults.map((r, i) => `Room ${i + 1}: ${r.description}`).join('\n\n');
+      const roomDescs = analysisResults.map((r, i) => `Photo ${i + 1} [${r.category || 'Other'}]: ${r.tag || r.raw || 'No description'}`).join('\n\n');
 
       const prompt = `You are a professional real estate video scriptwriter. Create a cinematic video tour script based on these room descriptions.
 
