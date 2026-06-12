@@ -124,7 +124,7 @@
       </div>
 
       <!-- Wizard Steps -->
-      <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+      <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6 relative">
         <div class="flex items-center gap-1 sm:gap-2">
           <div class="step-circle bg-brand-primary text-white" id="stepIcon1">1</div>
           <div class="step-line bg-brand-primary" id="stepLine1"></div>
@@ -143,55 +143,100 @@
           <span id="stepLabel4">Generate</span>
           <span id="stepLabel5">Export</span>
         </div>
+        <button onclick="openSettings()" class="absolute top-3 right-3 text-gray-400 hover:text-brand-dark transition text-sm" title="Settings">
+          <i class="fas fa-cog"></i>
+        </button>
       </div>
 
       <!-- Settings Modal -->
       <div id="settingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden transition-opacity duration-200">
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 w-full max-w-sm mx-4 animate-pop">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 w-full max-w-lg mx-4 animate-pop max-h-[90vh] overflow-y-auto custom-scroll">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-sm font-bold text-brand-dark flex items-center gap-2">
               <i class="fas fa-cog text-brand-primary"></i> Settings
             </h3>
             <button onclick="closeSettings()" class="text-gray-400 hover:text-gray-600 transition text-lg leading-none">&times;</button>
           </div>
-          <div class="mb-3">
+
+          <div class="mb-4">
             <label class="block text-xs font-semibold text-gray-600 mb-1">OpenRouter API Key</label>
             <input type="password" id="apiKey" placeholder="sk-or-..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
           </div>
-          <div class="mb-3">
+
+          <div class="mb-4">
             <label class="block text-xs font-semibold text-gray-600 mb-1">Vision Model (room analysis)</label>
-            <select id="visionModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
-              <option value="google/gemini-2.5-flash:free">Gemini 2.5 Flash (free)</option>
-              <option value="google/gemini-2.5-pro">Gemini 2.5 Pro</option>
-              <option value="openai/gpt-4o">GPT-4o</option>
-              <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+            <select id="visionModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" onchange="toggleCustom('vision')">
+              <optgroup label="Free Models">
+                <option value="google/gemini-2.5-flash:free">Gemini 2.5 Flash (free)</option>
+                <option value="google/gemini-2.0-flash-exp:free">Gemini 2.0 Flash Exp (free)</option>
+                <option value="meta-llama/llama-3.2-11b-vision-instruct:free">Llama 3.2 11B Vision (free)</option>
+                <option value="meta-llama/llama-3.2-90b-vision-instruct:free">Llama 3.2 90B Vision (free)</option>
+                <option value="microsoft/phi-3.5-vision-instruct:free">Phi 3.5 Vision (free)</option>
+                <option value="qwen/qwen-2.5-vl-72b-instruct:free">Qwen 2.5 VL 72B (free)</option>
+                <option value="qwen/qwen-vl-plus:free">Qwen VL Plus (free)</option>
+                <option value="mistral/pixtral-12b:free">Pixtral 12B (free)</option>
+              </optgroup>
+              <optgroup label="Paid Models">
+                <option value="openai/gpt-4o">GPT-4o</option>
+                <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+                <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+                <option value="anthropic/claude-3.5-haiku">Claude 3.5 Haiku</option>
+                <option value="google/gemini-2.5-pro">Gemini 2.5 Pro</option>
+              </optgroup>
+              <option value="__custom__">Custom...</option>
             </select>
+            <input type="text" id="visionModelCustom" placeholder="e.g. openai/gpt-4o-vision-preview" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition mt-2 hidden">
           </div>
-          <div class="mb-3">
+
+          <div class="mb-4">
             <label class="block text-xs font-semibold text-gray-600 mb-1">Script Model</label>
-            <select id="scriptModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
-              <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
-              <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
-              <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
-              <option value="openai/gpt-4o">GPT-4o</option>
+            <select id="scriptModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" onchange="toggleCustom('script')">
+              <optgroup label="Free Models">
+                <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nemotron 3 Ultra 550B (free)</option>
+                <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
+                <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
+                <option value="google/gemini-2.5-flash:free">Gemini 2.5 Flash (free)</option>
+                <option value="google/gemini-2.0-flash-exp:free">Gemini 2.0 Flash Exp (free)</option>
+                <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B (free)</option>
+                <option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B (free)</option>
+                <option value="mistral/mistral-7b-instruct:free">Mistral 7B (free)</option>
+              </optgroup>
+              <optgroup label="Paid Models">
+                <option value="openai/gpt-4o">GPT-4o</option>
+                <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+                <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+                <option value="anthropic/claude-3.5-haiku">Claude 3.5 Haiku</option>
+              </optgroup>
+              <option value="__custom__">Custom...</option>
             </select>
+            <input type="text" id="scriptModelCustom" placeholder="e.g. openai/gpt-4o" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition mt-2 hidden">
           </div>
-          <div class="mb-3">
+
+          <div class="mb-4">
             <label class="block text-xs font-semibold text-gray-600 mb-1">Video Model (clip generation)</label>
-            <select id="videoModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
-              <option value="kwaivgi/kling-video-v3-standard">Kling Video v3.0 Standard</option>
-              <option value="kwaivgi/kling-video-v3-pro">Kling Video v3.0 Pro</option>
-              <option value="google/veo-3.1-fast">Google Veo 3.1 Fast</option>
-              <option value="google/veo-3.1">Google Veo 3.1</option>
-              <option value="x-ai/grok-imagine-video">xAI Grok Imagine Video</option>
-              <option value="alibaba/wan-2.7">Alibaba Wan 2.7</option>
+            <select id="videoModel" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" onchange="toggleCustom('video')">
+              <optgroup label="Available Models">
+                <option value="kwaivgi/kling-video-v3-standard">Kling Video v3.0 Standard</option>
+                <option value="kwaivgi/kling-video-v3-pro">Kling Video v3.0 Pro</option>
+                <option value="google/veo-3.1-lite">Google Veo 3.1 Lite</option>
+                <option value="google/veo-3.1-fast">Google Veo 3.1 Fast</option>
+                <option value="google/veo-3.1">Google Veo 3.1</option>
+                <option value="x-ai/grok-imagine-video">xAI Grok Imagine Video</option>
+                <option value="alibaba/wan-2.7">Alibaba Wan 2.7</option>
+                <option value="runwayml/gen-4.5">Runway Gen-4.5</option>
+                <option value="runwayml/gen-4-turbo">Runway Gen-4 Turbo</option>
+              </optgroup>
+              <option value="__custom__">Custom...</option>
             </select>
+            <input type="text" id="videoModelCustom" placeholder="e.g. runware/gen-4" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition mt-2 hidden">
           </div>
+
           <button onclick="saveSettings()" class="w-full bg-brand-dark text-white px-3 py-2.5 rounded-lg text-xs font-semibold hover:bg-brand-dark/90 transition">Save Settings</button>
-          <div class="mt-4 pt-3 border-t border-gray-100">
+          <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
             <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-primary hover:underline flex items-center gap-1">
               <i class="fas fa-external-link-alt"></i> Get free API key
             </a>
+            <span class="text-[10px] text-gray-400">Models refresh automatically</span>
           </div>
         </div>
       </div>
@@ -458,18 +503,47 @@
       return localStorage.getItem('orApiKey') || '';
     }
 
+    function getModelValue(category) {
+      const select = $(category + 'Model');
+      if (select.value === '__custom__') {
+        const custom = $(category + 'ModelCustom').value.trim();
+        return custom || select.value;
+      }
+      return select.value;
+    }
+
+    function toggleCustom(category) {
+      const select = $(category + 'Model');
+      const custom = $(category + 'ModelCustom');
+      if (select.value === '__custom__') {
+        custom.classList.remove('hidden');
+        custom.focus();
+      } else {
+        custom.classList.add('hidden');
+      }
+    }
+
     function loadSettings() {
       const key = getApiKey();
       if (key) {
         $('apiKey').value = key;
         $('apiKeyReminder').classList.add('hidden');
       }
-      const vision = localStorage.getItem('orVisionModel') || 'google/gemini-2.5-flash:free';
-      const script = localStorage.getItem('orScriptModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
-      const video = localStorage.getItem('orVideoModel') || 'kwaivgi/kling-video-v3-standard';
-      if ($('visionModel')) $('visionModel').value = vision;
-      if ($('scriptModel')) $('scriptModel').value = script;
-      if ($('videoModel')) $('videoModel').value = video;
+      const categories = ['vision', 'script', 'video'];
+      categories.forEach(cat => {
+        const stored = localStorage.getItem('or' + cat.charAt(0).toUpperCase() + cat.slice(1) + 'Model');
+        const select = $(cat + 'Model');
+        const custom = $(cat + 'ModelCustom');
+        if (stored) {
+          if ([...select.options].some(o => o.value === stored)) {
+            select.value = stored;
+          } else {
+            select.value = '__custom__';
+            custom.value = stored;
+            custom.classList.remove('hidden');
+          }
+        }
+      });
     }
 
     function saveSettings() {
@@ -478,9 +552,12 @@
         localStorage.setItem('orApiKey', key);
         $('apiKeyReminder').classList.add('hidden');
       }
-      localStorage.setItem('orVisionModel', $('visionModel').value);
-      localStorage.setItem('orScriptModel', $('scriptModel').value);
-      localStorage.setItem('orVideoModel', $('videoModel').value);
+      const categories = ['vision', 'script', 'video'];
+      categories.forEach(cat => {
+        const model = getModelValue(cat);
+        const keyName = 'or' + cat.charAt(0).toUpperCase() + cat.slice(1) + 'Model';
+        localStorage.setItem(keyName, model);
+      });
       closeSettings();
       showToast('Settings saved!');
     }
@@ -617,7 +694,7 @@
       $('step2Next').disabled = true;
       analysisResults = [];
 
-      const model = $('visionModel').value;
+      const model = getModelValue('vision');
       const total = uploadedPhotos.length;
 
       for (let i = 0; i < total; i++) {
@@ -707,7 +784,7 @@
       $('scriptLoading').classList.remove('hidden');
       $('step3Next').disabled = true;
 
-      const model = $('scriptModel').value;
+      const model = getModelValue('script');
       const roomDescs = analysisResults.map((r, i) => `Room ${i + 1}: ${r.description}`).join('\n\n');
 
       const prompt = `You are a professional real estate video scriptwriter. Create a cinematic video tour script based on these room descriptions.
