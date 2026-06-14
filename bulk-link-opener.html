@@ -109,16 +109,47 @@
             </div>
 
             <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-4 mt-4">
-                <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
-                    <span class="flex items-center gap-1.5"><i class="fas fa-chart-simple text-primary-red"></i> Today's Opened Links</span>
-                    <span class="font-semibold text-dark-blue" id="todayCount">0</span>
-                </div>
-                <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-                    <div id="todayBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#c91414,#ef4444)"></div>
-                </div>
-                <div class="flex items-center justify-between text-[10px] text-gray-400 mt-1.5">
-                    <span>0</span>
-                    <span id="todayGoal">Goal: 100</span>
+                <h3 class="text-xs font-bold text-dark-blue mb-3 flex items-center gap-1.5"><i class="fas fa-chart-simple text-primary-red"></i> Links Progress</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
+                            <span>Daily</span>
+                            <span class="font-semibold text-dark-blue" id="todayCount">0</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                            <div id="todayBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#c91414,#ef4444)"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-400 mt-0.5">
+                            <span>0</span>
+                            <span id="todayGoal">Goal: 100</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
+                            <span>Weekly</span>
+                            <span class="font-semibold text-dark-blue" id="weekCount">0</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                            <div id="weekBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#2563eb,#3b82f6)"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-400 mt-0.5">
+                            <span>0</span>
+                            <span id="weekGoal">Goal: 700</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
+                            <span>Monthly</span>
+                            <span class="font-semibold text-dark-blue" id="monthCount">0</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                            <div id="monthBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#059669,#10b981)"></div>
+                        </div>
+                        <div class="flex justify-between text-[9px] text-gray-400 mt-0.5">
+                            <span>0</span>
+                            <span id="monthGoal">Goal: 2500</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -182,7 +213,59 @@ const urlListContainer = document.getElementById('urlListContainer');
 const todayCount = document.getElementById('todayCount');
 const todayBar = document.getElementById('todayBar');
 const todayGoal = document.getElementById('todayGoal');
+const weekCount = document.getElementById('weekCount');
+const weekBar = document.getElementById('weekBar');
+const weekGoal = document.getElementById('weekGoal');
+const monthCount = document.getElementById('monthCount');
+const monthBar = document.getElementById('monthBar');
+const monthGoal = document.getElementById('monthGoal');
 const DAILY_GOAL = 100;
+const WEEKLY_GOAL = 700;
+const MONTHLY_GOAL = 2500;
+
+function getWeekId(d) {
+    const start = new Date(d);
+    start.setDate(start.getDate() - start.getDay());
+    return start.toDateString();
+}
+
+function getMonthId(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+}
+
+function getPeriodCount(key) {
+    try { return parseInt(localStorage.getItem(key) || '0', 10); } catch(e) { return 0; }
+}
+
+function addPeriodCount(key, n) {
+    const total = getPeriodCount(key) + n;
+    try { localStorage.setItem(key, String(total)); } catch(e) {}
+}
+
+function getDailyKey() { return 'blo_' + new Date().toDateString(); }
+function getWeeklyKey() { return 'blo_wk_' + getWeekId(new Date()); }
+function getMonthlyKey() { return 'blo_mo_' + getMonthId(new Date()); }
+
+function addDailyCount(n) { addPeriodCount(getDailyKey(), n); }
+function getWeeklyCount() { return getPeriodCount(getWeeklyKey()); }
+function addWeeklyCount(n) { addPeriodCount(getWeeklyKey(), n); }
+function getMonthlyCount() { return getPeriodCount(getMonthlyKey()); }
+function addMonthlyCount(n) { addPeriodCount(getMonthlyKey(), n); }
+
+function updateAllStats() {
+    const d = getDailyCount();
+    const w = getWeeklyCount();
+    const m = getMonthlyCount();
+    todayCount.textContent = d;
+    weekCount.textContent = w;
+    monthCount.textContent = m;
+    todayBar.style.width = Math.min(100, (d / DAILY_GOAL) * 100) + '%';
+    weekBar.style.width = Math.min(100, (w / WEEKLY_GOAL) * 100) + '%';
+    monthBar.style.width = Math.min(100, (m / MONTHLY_GOAL) * 100) + '%';
+    todayGoal.textContent = d >= DAILY_GOAL ? 'Reached!' : 'Goal: ' + DAILY_GOAL;
+    weekGoal.textContent = w >= WEEKLY_GOAL ? 'Reached!' : 'Goal: ' + WEEKLY_GOAL;
+    monthGoal.textContent = m >= MONTHLY_GOAL ? 'Reached!' : 'Goal: ' + MONTHLY_GOAL;
+}
 let batchIndex = 0;
 let lastValidUrls = [];
 
@@ -212,26 +295,6 @@ function updateBatchUI() {
         el.textContent = 'Opened ' + batchIndex + ' of ' + total + ' (' + (total - batchIndex) + ' remaining)';
         resetBtn.classList.remove('hidden');
     }
-}
-
-function getDailyKey() { return 'blo_' + new Date().toDateString(); }
-
-function getDailyCount() {
-    try { return parseInt(localStorage.getItem(getDailyKey()) || '0', 10); } catch(e) { return 0; }
-}
-
-function addDailyCount(n) {
-    const total = getDailyCount() + n;
-    try { localStorage.setItem(getDailyKey(), String(total)); } catch(e) {}
-    updateDailyStats();
-}
-
-function updateDailyStats() {
-    const count = getDailyCount();
-    todayCount.textContent = count;
-    const pct = Math.min(100, (count / DAILY_GOAL) * 100);
-    todayBar.style.width = pct + '%';
-    todayGoal.textContent = count >= DAILY_GOAL ? 'Goal reached!' : 'Goal: ' + DAILY_GOAL;
 }
 
 function parseUrls(text) {
@@ -278,7 +341,7 @@ function updateStats() {
 
 urlInput.addEventListener('input', updateStats);
 updateStats();
-updateDailyStats();
+updateAllStats();
 
 document.getElementById('openBtn').addEventListener('click', () => {
     const result = parseUrls(urlInput.value);
@@ -291,6 +354,9 @@ document.getElementById('openBtn').addEventListener('click', () => {
         if (!confirm(`This will open ${urls.length} tabs. Continue?`)) return;
     }
     addDailyCount(urls.length);
+    addWeeklyCount(urls.length);
+    addMonthlyCount(urls.length);
+    updateAllStats();
     batchIndex = urls.length;
     saveBatchIndex();
     updateBatchUI();
@@ -338,6 +404,9 @@ document.getElementById('openBatchBtn').addEventListener('click', () => {
     }
     const batch = urls.slice(batchIndex, batchIndex + batchSize);
     addDailyCount(batch.length);
+    addWeeklyCount(batch.length);
+    addMonthlyCount(batch.length);
+    updateAllStats();
     batchIndex += batch.length;
     saveBatchIndex();
     updateBatchUI();
