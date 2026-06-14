@@ -327,32 +327,14 @@ function showLinkHub(urls, opened) {
     w.document.close();
 }
 
-function openSequentially(urls) {
-    const w = window.open('', '_blank');
-    if (!w) {
-        showLinkHub(urls, 0);
-        return;
+function openAll(urls) {
+    let opened = 0;
+    for (const url of urls) {
+        try { if (window.open(url, '_blank')) opened++; } catch(e) {}
     }
-    const items = urls.map((u, i) =>
-        `<div style="display:flex;align-items:center;gap:10px;padding:4px 0;border-bottom:1px solid #1e293b">
-            <span style="width:22px;height:22px;border-radius:50%;background:#c91414;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;flex-shrink:0">${i + 1}</span>
-            <span id="l${i}" style="color:#9ca3af;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">${u.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</span>
-            <span id="s${i}" style="font-size:10px;color:#9ca3af;width:40px;text-align:right">waiting</span>
-        </div>`
-    ).join('');
-    w.document.write('<!DOCTYPE html><html><head><title>Opening Tabs...</title><meta charset="utf-8">' +
-        '<style>body{font-family:sans-serif;background:#0d152e;color:#e5e7eb;margin:0;padding:12px;font-size:12px}' +
-        'h2{font-size:14px;margin:0 0 8px 0;color:#fff}.list{background:#1e293b;border-radius:8px;padding:6px 12px}' +
-        '.done{color:#22c55e!important}.open{color:#facc15!important}</style>' +
-        '</head><body><h2>Opening <span id="c">0</span> of ' + urls.length + ' tabs...</h2><div class="list">' + items + '</div>');
-    w.document.write('<script>var u=' + JSON.stringify(urls) + ',i=0,c=document.getElementById("c");' +
-        'function n(){if(i>=u.length){c.parentElement.innerHTML="<h2 style=color:#22c55e>Done! Close this tab.</h2>";return}' +
-        'document.getElementById("s"+i).textContent="opening";document.getElementById("s"+i).className="open";' +
-        'c.textContent=i+1;var a=document.createElement("a");a.href=u[i];a.target="_blank";' +
-        'document.body.appendChild(a);a.click();document.body.removeChild(a);' +
-        'document.getElementById("l"+i).className="done";document.getElementById("s"+i).textContent="done";' +
-        'i++;setTimeout(n,1000)}n()<' + '/script>');
-    w.document.close();
+    if (opened < urls.length) {
+        showLinkHub(urls, opened);
+    }
 }
 
 document.getElementById('openBtn').addEventListener('click', () => {
@@ -367,7 +349,7 @@ document.getElementById('openBtn').addEventListener('click', () => {
     addWeeklyCount(urls.length);
     addMonthlyCount(urls.length);
     updateAllStats();
-    openSequentially(urls);
+    openAll(urls);
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
