@@ -71,17 +71,17 @@
                 </h2>
                 <p class="text-xs text-gray-400 mb-3">Paste one URL per line. Duplicates will be ignored.</p>
                 <textarea id="urlList" rows="8" placeholder="https://example.com&#10;https://google.com&#10;https://github.com" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition"></textarea>
-    <div class="flex flex-wrap gap-3 mt-4">
-        <button id="openBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
-            <i class="fas fa-external-link-alt"></i> Open All Tabs
-        </button>
-        <button id="copyBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
-            <i class="fas fa-copy"></i> Copy URLs
-        </button>
-        <button id="clearBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
-            <i class="fas fa-trash-alt"></i> Clear
-        </button>
-    </div>
+                <div class="flex flex-wrap gap-3 mt-4">
+                    <button id="openBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
+                        <i class="fas fa-external-link-alt"></i> Open All Tabs
+                    </button>
+                    <button id="copyBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
+                        <i class="fas fa-copy"></i> Copy URLs
+                    </button>
+                    <button id="clearBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
+                        <i class="fas fa-trash-alt"></i> Clear
+                    </button>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -96,6 +96,20 @@
                 <div class="reveal delay-300 bg-white rounded-2xl shadow-sm border border-gray-200 p-5 text-center">
                     <div class="text-3xl font-bold text-red-500" id="invalidCount">0</div>
                     <div class="text-sm text-gray-500 mt-1">Invalid Lines</div>
+                </div>
+            </div>
+
+            <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-4 mt-4">
+                <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
+                    <span class="flex items-center gap-1.5"><i class="fas fa-chart-simple text-primary-red"></i> Today's Opened Links</span>
+                    <span class="font-semibold text-dark-blue" id="todayCount">0</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                    <div id="todayBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#c91414,#ef4444)"></div>
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-gray-400 mt-1.5">
+                    <span>0</span>
+                    <span id="todayGoal">Goal: 100</span>
                 </div>
             </div>
 
@@ -156,6 +170,30 @@ const validCount = document.getElementById('validCount');
 const invalidCount = document.getElementById('invalidCount');
 const urlPreview = document.getElementById('urlPreview');
 const urlListContainer = document.getElementById('urlListContainer');
+const todayCount = document.getElementById('todayCount');
+const todayBar = document.getElementById('todayBar');
+const todayGoal = document.getElementById('todayGoal');
+const DAILY_GOAL = 100;
+
+function getDailyKey() { return 'blo_' + new Date().toDateString(); }
+
+function getDailyCount() {
+    try { return parseInt(localStorage.getItem(getDailyKey()) || '0', 10); } catch(e) { return 0; }
+}
+
+function addDailyCount(n) {
+    const total = getDailyCount() + n;
+    try { localStorage.setItem(getDailyKey(), String(total)); } catch(e) {}
+    updateDailyStats();
+}
+
+function updateDailyStats() {
+    const count = getDailyCount();
+    todayCount.textContent = count;
+    const pct = Math.min(100, (count / DAILY_GOAL) * 100);
+    todayBar.style.width = pct + '%';
+    todayGoal.textContent = count >= DAILY_GOAL ? 'Goal reached!' : 'Goal: ' + DAILY_GOAL;
+}
 
 function parseUrls(text) {
     const lines = text.split(/[\n]+/).map(s => s.trim()).filter(s => s.length > 0);
@@ -196,6 +234,7 @@ function updateStats() {
 
 urlInput.addEventListener('input', updateStats);
 updateStats();
+updateDailyStats();
 
 document.getElementById('openBtn').addEventListener('click', () => {
     const result = parseUrls(urlInput.value);
@@ -207,6 +246,7 @@ document.getElementById('openBtn').addEventListener('click', () => {
     if (urls.length > 10) {
         if (!confirm(`This will open ${urls.length} tabs. Continue?`)) return;
     }
+    addDailyCount(urls.length);
     const w = window.open('', '_blank');
     if (!w) {
         alert('Popup blocked. Allow popups for this site or use Copy URLs instead.');
