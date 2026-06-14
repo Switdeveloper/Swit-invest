@@ -371,6 +371,31 @@ function showLinkHub(urls, opened) {
     w.document.close();
 }
 
+function openSequentially(urls) {
+    const wins = [];
+    for (const url of urls) {
+        try {
+            const w = window.open('', '_blank');
+            if (w) { wins.push({w, url}); } else break;
+        } catch(e) { break; }
+    }
+    if (wins.length === 0) {
+        showLinkHub(urls, 0);
+        return;
+    }
+    let i = 0;
+    function next() {
+        if (i >= wins.length) {
+            if (wins.length < urls.length) showLinkHub(urls.slice(wins.length), wins.length);
+            return;
+        }
+        wins[i].w.location.href = wins[i].url;
+        i++;
+        setTimeout(next, 1000);
+    }
+    next();
+}
+
 document.getElementById('openBtn').addEventListener('click', () => {
     const result = parseUrls(urlInput.value);
     if (result.valid.length === 0) {
@@ -378,9 +403,7 @@ document.getElementById('openBtn').addEventListener('click', () => {
         return;
     }
     const urls = result.valid;
-    if (urls.length > 10) {
-        if (!confirm(`This will open ${urls.length} tabs. Continue?`)) return;
-    }
+    if (urls.length > 10 && !confirm(`This will open ${urls.length} tabs. Continue?`)) return;
     addDailyCount(urls.length);
     addWeeklyCount(urls.length);
     addMonthlyCount(urls.length);
@@ -388,13 +411,7 @@ document.getElementById('openBtn').addEventListener('click', () => {
     batchIndex = urls.length;
     saveBatchIndex();
     updateBatchUI();
-    let opened = 0;
-    for (const url of urls) {
-        try { if (window.open(url, '_blank')) opened++; } catch(e) {}
-    }
-    if (opened < urls.length) {
-        showLinkHub(urls, opened);
-    }
+    openSequentially(urls);
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -437,13 +454,7 @@ document.getElementById('openBatchBtn').addEventListener('click', () => {
     batchIndex += batch.length;
     saveBatchIndex();
     updateBatchUI();
-    let opened = 0;
-    for (const url of batch) {
-        try { if (window.open(url, '_blank')) opened++; } catch(e) {}
-    }
-    if (opened < batch.length) {
-        showLinkHub(batch, opened);
-    }
+    openSequentially(batch);
 });
 
 document.getElementById('batchReset').addEventListener('click', () => {
