@@ -71,14 +71,17 @@
                 </h2>
                 <p class="text-xs text-gray-400 mb-3">Paste one URL per line. Duplicates will be ignored.</p>
                 <textarea id="urlList" rows="8" placeholder="https://example.com&#10;https://google.com&#10;https://github.com" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition"></textarea>
-                <div class="flex flex-wrap gap-3 mt-4">
-                    <button id="openBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
-                        <i class="fas fa-external-link-alt"></i> Open All Tabs
-                    </button>
-                    <button id="clearBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
-                        <i class="fas fa-trash-alt"></i> Clear
-                    </button>
-                </div>
+    <div class="flex flex-wrap gap-3 mt-4">
+        <button id="openBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
+            <i class="fas fa-external-link-alt"></i> Open All Tabs
+        </button>
+        <button id="copyBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
+            <i class="fas fa-copy"></i> Copy URLs
+        </button>
+        <button id="clearBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
+            <i class="fas fa-trash-alt"></i> Clear
+        </button>
+    </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -200,17 +203,35 @@ document.getElementById('openBtn').addEventListener('click', () => {
         alert('No valid URLs to open.');
         return;
     }
-    if (result.valid.length > 50) {
-        if (!confirm(`Open ${result.valid.length} tabs? Your browser may throttle this.`)) return;
+    if (result.valid.length > 10) {
+        if (!confirm(`This will open ${result.valid.length} tabs. Your browser may throttle or block some. Continue?`)) return;
     }
-    result.valid.forEach((url, i) => {
-        setTimeout(() => window.open(url, '_blank'), i * 150);
-    });
+    let opened = 0;
+    for (const url of result.valid) {
+        const w = window.open(url, '_blank');
+        if (w) opened++;
+    }
+    if (opened < result.valid.length) {
+        alert(`Opened ${opened} of ${result.valid.length} tabs. ${result.valid.length - opened} were blocked. Allow popups for this site and try again, or use Copy URLs instead.`);
+    }
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
     urlInput.value = '';
     updateStats();
+});
+
+document.getElementById('copyBtn').addEventListener('click', () => {
+    const result = parseUrls(urlInput.value);
+    if (result.valid.length === 0) {
+        alert('No valid URLs to copy.');
+        return;
+    }
+    navigator.clipboard.writeText(result.valid.join('\n')).then(() => {
+        alert(`Copied ${result.valid.length} URLs to clipboard.`);
+    }).catch(() => {
+        alert('Failed to copy. Make sure the page is served over HTTPS or try selecting manually.');
+    });
 });
 </script>
 

@@ -294,13 +294,7 @@
         <button onclick="closeSettings()" class="text-2xl text-gray-400 hover:text-gray-700 transition">&times;</button>
       </div>
       <div class="space-y-4">
-        <div>
-          <label class="form-label" for="modal-api-key">
-            <i class="fa-solid fa-key mr-1"></i>OpenRouter API Key
-          </label>
-          <input type="password" id="modal-api-key" class="form-input" placeholder="sk-or-v1-..." />
-          <p class="text-xs text-gray-400 mt-1">Stored locally in your browser.</p>
-        </div>
+
         <div>
           <label class="form-label" for="modal-model">
             <i class="fa-solid fa-microchip mr-1"></i>Model
@@ -380,11 +374,8 @@
             <div class="pt-2 border-t border-gray-100">
               <p class="text-xs text-gray-400">
                 <i class="fa-regular fa-circle-check text-green-500 mr-1"></i>
-                <span id="status-text">No API key set</span>
+                <span id="status-text">Ready to generate</span>
               </p>
-              <button onclick="openSettings()" class="text-xs text-brand-primary hover:underline mt-1">
-                Configure API key
-              </button>
             </div>
           </div>
 
@@ -625,17 +616,14 @@
 
     // ── Settings ──
     function loadSettingsIntoUI() {
-      const key = localStorage.getItem('orApiKey') || '';
       const model = localStorage.getItem('orModel') || MODELS[0].id;
-      if ($('modal-api-key')) $('modal-api-key').value = key;
       if ($('modal-model')) $('modal-model').value = model;
       if ($('sidebar-model')) $('sidebar-model').value = model;
     }
 
     function updateStatus() {
-      const key = localStorage.getItem('orApiKey') || '';
-      statusText.textContent = key ? 'API key configured' : 'No API key set';
-      statusText.style.color = key ? '#16a34a' : '#9ca3af';
+      statusText.textContent = 'Ready to generate';
+      statusText.style.color = '#16a34a';
     }
 
     function openSettings() {
@@ -648,9 +636,7 @@
     }
 
     function saveSettings() {
-      const key = $('modal-api-key').value.trim();
       const model = $('modal-model').value;
-      if (key) localStorage.setItem('orApiKey', key);
       localStorage.setItem('orModel', model);
       if ($('sidebar-model')) $('sidebar-model').value = model;
       updateStatus();
@@ -682,13 +668,6 @@
 
     // ── Generate ──
     async function generate() {
-      const apiKey = localStorage.getItem('orApiKey');
-      if (!apiKey) {
-        showToast('Please set your API key in Settings');
-        openSettings();
-        return;
-      }
-
       const topic = $('input-topic').value.trim();
       if (!topic) {
         showToast('Please enter a topic or keywords');
@@ -716,13 +695,10 @@
       $('generate-btn').innerHTML = '<span class="spinner mr-2"></span>Generating...';
 
       try {
-        const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        const resp = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-            'HTTP-Referer': window.location.origin,
-            'X-Title': 'SwitDeveloper AI Content Generator'
           },
           body: JSON.stringify({
             model,

@@ -804,11 +804,7 @@
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <div class="mb-4">
-      <label class="form-label">OpenRouter API Key</label>
-      <input class="form-input" id="apiKeyInput" type="password" placeholder="sk-or-v1-..." value="">
-      <p class="text-xs text-gray-400 mt-1.5">Get a free API key at <a href="https://openrouter.ai" target="_blank" class="text-primary-red underline">openrouter.ai</a>. Your key is stored locally.</p>
-    </div>
+
     <div class="mb-5">
       <label class="form-label">Model</label>
       <select class="form-select" id="modelSelect">
@@ -844,9 +840,6 @@
 
   document.addEventListener('DOMContentLoaded', () => {
 
-    const savedKey = localStorage.getItem('orApiKey') || '';
-    document.getElementById('apiKeyInput').value = savedKey;
-
     const savedModel = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
     document.getElementById('modelSelect').value = savedModel;
 
@@ -879,24 +872,13 @@
   }
 
   function saveSettings() {
-    const key = document.getElementById('apiKeyInput').value.trim();
     const model = document.getElementById('modelSelect').value;
-    if (key) {
-      localStorage.setItem('orApiKey', key);
-    }
     localStorage.setItem('orModel', model);
     closeSettings();
     showToast('Settings saved successfully');
   }
 
   async function generatePosts() {
-    const apiKey = localStorage.getItem('orApiKey');
-    if (!apiKey) {
-      openSettings();
-      showToast('Please enter your OpenRouter API key in settings');
-      return;
-    }
-
     const platform = getSelectedPlatform();
     const topic = document.getElementById('topic').value.trim();
     const tone = document.getElementById('tone').value;
@@ -929,13 +911,10 @@ ONLY output the JSON array, no other text.`;
     const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
 
     try {
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const res = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'SwitDeveloper Social Post Generator'
         },
         body: JSON.stringify({
           model: model,
@@ -992,13 +971,6 @@ ONLY output the JSON array, no other text.`;
   }
 
   async function regeneratePost(index) {
-    const apiKey = localStorage.getItem('orApiKey');
-    if (!apiKey) {
-      openSettings();
-      showToast('Please enter your OpenRouter API key in settings');
-      return;
-    }
-
     const platform = getSelectedPlatform();
     const topic = document.getElementById('topic').value.trim();
     const tone = document.getElementById('tone').value;
@@ -1021,13 +993,10 @@ ONLY output the JSON array, no other text.`;
     const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
 
     try {
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const res = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'SwitDeveloper Social Post Generator'
         },
         body: JSON.stringify({
           model: model,

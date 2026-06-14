@@ -215,12 +215,7 @@
                     <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
                 </select>
             </div>
-            <button id="saveKeyBtn" class="w-full bg-dark-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-dark-blue/90 transition">Save Key</button>
-            <div class="mt-4 pt-3 border-t border-gray-100">
-                <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" class="text-xs text-primary-red hover:underline flex items-center gap-1">
-                    <i class="fas fa-external-link-alt"></i> Get free API key
-                </a>
-            </div>
+            <button id="saveKeyBtn" class="w-full bg-dark-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-dark-blue/90 transition">Save Settings</button>
         </div>
     </div>
 
@@ -267,7 +262,7 @@ function getModel() {
 }
 
 function loadSettings() {
-    const key = localStorage.getItem('orApiKey') || '';
+    const key = ''  /* key now on server via Supabase proxy */;
     const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
     document.getElementById('apiKey').value = key;
     const select = document.getElementById('modelSelect');
@@ -277,7 +272,7 @@ function loadSettings() {
 function saveSettings() {
     const key = document.getElementById('apiKey').value.trim();
     const model = getModel();
-    if (key) localStorage.setItem('orApiKey', key);
+    if (key) ;
     localStorage.setItem('orModel', model);
 }
 
@@ -443,10 +438,7 @@ function copyPage() {
 document.getElementById('aiGenerateBtn').addEventListener('click', async function() {
     const prompt = document.getElementById('aiPrompt').value.trim();
     if (!prompt) return;
-    const apiKey = document.getElementById('apiKey').value.trim();
-    if (!apiKey) { alert('Enter your API key in Settings first.'); return; }
-
-    this.disabled = true;
+      /* API key handled by Supabase proxy */
     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
     isGenerating = true;
 
@@ -464,9 +456,9 @@ Rules:
 - The page must be standalone and work when opened in a browser`;
 
     try {
-        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        const res = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}`, 'HTTP-Referer': 'https://switdeveloper.github.io/Swit-invest/' },
+
             body: JSON.stringify({ model, messages: [{ role: 'system', content: sysPrompt }, { role: 'user', content: prompt }], max_tokens: 4096, temperature: 0.4 })
         });
         if (!res.ok) { alert('AI generation failed'); return; }

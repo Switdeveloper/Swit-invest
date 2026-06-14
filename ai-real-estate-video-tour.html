@@ -117,11 +117,7 @@
     <div class="max-w-6xl mx-auto px-4">
 
       <!-- API Key Reminder -->
-      <div id="apiKeyReminder" class="reveal mb-6 bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center gap-3 text-sm text-amber-800">
-        <i class="fas fa-key text-amber-500"></i>
-        <span class="flex-1">Set your OpenRouter API key in <button onclick="openSettings()" class="text-brand-primary underline font-semibold">Settings</button> to use this tool.</span>
-        <button onclick="openSettings()" class="bg-amber-500 text-white px-4 py-1.5 rounded-lg text-xs font-semibold hover:bg-amber-600 transition">Set Key</button>
-      </div>
+      
 
       <!-- Wizard Steps -->
       <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6 relative">
@@ -156,11 +152,6 @@
               <i class="fas fa-cog text-brand-primary"></i> Settings
             </h3>
             <button onclick="closeSettings()" class="text-gray-400 hover:text-gray-600 transition text-lg leading-none">&times;</button>
-          </div>
-
-          <div class="mb-4">
-            <label class="block text-xs font-semibold text-gray-600 mb-1">OpenRouter API Key</label>
-            <input type="password" id="apiKey" placeholder="sk-or-..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition">
           </div>
 
           <div class="mb-4">
@@ -232,12 +223,6 @@
           </div>
 
           <button onclick="saveSettings()" class="w-full bg-brand-dark text-white px-3 py-2.5 rounded-lg text-xs font-semibold hover:bg-brand-dark/90 transition">Save Settings</button>
-          <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-            <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-primary hover:underline flex items-center gap-1">
-              <i class="fas fa-external-link-alt"></i> Get free API key
-            </a>
-            <span class="text-[10px] text-gray-400">Models refresh automatically</span>
-          </div>
         </div>
       </div>
     </div>
@@ -478,7 +463,7 @@
 
   <script>
     // ── State ──
-    const API_BASE = 'https://openrouter.ai/api/v1';
+    const API_BASE = 'https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy';
     let uploadedPhotos = [];
     let analysisResults = [];
     let currentStep = 1;
@@ -498,10 +483,6 @@
     $('settingsModal').addEventListener('click', function(e) {
       if (e.target === e.currentTarget) closeSettings();
     });
-
-    function getApiKey() {
-      return localStorage.getItem('orApiKey') || '';
-    }
 
     function getModelValue(category) {
       const select = $(category + 'Model');
@@ -524,11 +505,6 @@
     }
 
     function loadSettings() {
-      const key = getApiKey();
-      if (key) {
-        $('apiKey').value = key;
-        $('apiKeyReminder').classList.add('hidden');
-      }
       const categories = ['vision', 'script', 'video'];
       categories.forEach(cat => {
         const stored = localStorage.getItem('or' + cat.charAt(0).toUpperCase() + cat.slice(1) + 'Model');
@@ -547,11 +523,6 @@
     }
 
     function saveSettings() {
-      const key = $('apiKey').value.trim();
-      if (key) {
-        localStorage.setItem('orApiKey', key);
-        $('apiKeyReminder').classList.add('hidden');
-      }
       const categories = ['vision', 'script', 'video'];
       categories.forEach(cat => {
         const model = getModelValue(cat);
@@ -674,12 +645,6 @@
 
     // ── Step 2: AI Analysis ──
     async function startAnalysis() {
-      const key = getApiKey();
-      if (!key) {
-        showToast('Please set your API key in Settings first.');
-        openSettings();
-        return;
-      }
       if (uploadedPhotos.length < 2) {
         showToast('Upload at least 2 photos to analyze.');
         return;
@@ -727,8 +692,6 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + key,
-              'HTTP-Referer': 'https://switdeveloper.github.io/Swit-invest/'
             },
             body: JSON.stringify({
               model: model,
@@ -802,13 +765,7 @@
 
     // ── Step 3: Script Generation ──
     async function generateScript() {
-      const key = getApiKey();
-      if (!key) {
-        showToast('Please set your API key in Settings first.');
-        openSettings();
-        return;
-      }
-      if (analysisResults.length < 2) {
+      if (analysisResults.length === 0) {
         showToast('Please analyze photos first.');
         return;
       }
@@ -845,8 +802,6 @@ Total target: ${analysisResults.length * 10} seconds.`;
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + key,
-            'HTTP-Referer': 'https://switdeveloper.github.io/Swit-invest/'
           },
           body: JSON.stringify({
             model: model,
