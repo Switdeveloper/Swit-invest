@@ -82,6 +82,15 @@
                         <i class="fas fa-trash-alt"></i> Clear
                     </button>
                 </div>
+                <div class="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-gray-100">
+                    <span class="text-xs text-gray-500 font-medium">Batch:</span>
+                    <input type="number" id="batchSize" value="10" min="1" max="100" class="w-16 border border-gray-300 rounded-lg px-2 py-1.5 text-xs text-center focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red" />
+                    <button id="openBatchBtn" class="bg-primary-red/10 text-primary-red px-5 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-red/20 transition flex items-center gap-1.5 border border-primary-red/20">
+                        <i class="fas fa-layer-group"></i> Open Batch
+                    </button>
+                    <span id="batchStatus" class="text-xs text-gray-400"></span>
+                    <button id="batchReset" class="text-xs text-gray-400 hover:text-primary-red transition hidden">Reset</button>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -174,6 +183,36 @@ const todayCount = document.getElementById('todayCount');
 const todayBar = document.getElementById('todayBar');
 const todayGoal = document.getElementById('todayGoal');
 const DAILY_GOAL = 100;
+let batchIndex = 0;
+let lastValidUrls = [];
+
+function getBatchKey() { return 'blo_batch_' + new Date().toDateString(); }
+
+function loadBatchIndex() {
+    try { batchIndex = parseInt(localStorage.getItem(getBatchKey()) || '0', 10); } catch(e) { batchIndex = 0; }
+}
+
+function saveBatchIndex() {
+    try { localStorage.setItem(getBatchKey(), String(batchIndex)); } catch(e) {}
+}
+
+function updateBatchUI() {
+    const el = document.getElementById('batchStatus');
+    const resetBtn = document.getElementById('batchReset');
+    const total = lastValidUrls.length;
+    if (total === 0) {
+        el.textContent = '';
+        resetBtn.classList.add('hidden');
+        return;
+    }
+    if (batchIndex >= total) {
+        el.innerHTML = '<span class="text-green-600 font-medium">All ' + total + ' URLs opened!</span>';
+        resetBtn.classList.remove('hidden');
+    } else {
+        el.textContent = 'Opened ' + batchIndex + ' of ' + total + ' (' + (total - batchIndex) + ' remaining)';
+        resetBtn.classList.remove('hidden');
+    }
+}
 
 function getDailyKey() { return 'blo_' + new Date().toDateString(); }
 
@@ -211,6 +250,7 @@ function parseUrls(text) {
 
 function updateStats() {
     const result = parseUrls(urlInput.value);
+    lastValidUrls = result.valid;
     totalCount.textContent = result.valid.length + result.invalid.length;
     validCount.textContent = result.valid.length;
     invalidCount.textContent = result.invalid.length;
@@ -218,8 +258,12 @@ function updateStats() {
     urlListContainer.innerHTML = '';
     if (result.valid.length === 0) {
         urlPreview.classList.add('hidden');
+        updateBatchUI();
         return;
     }
+    loadBatchIndex();
+    if (batchIndex > result.valid.length) batchIndex = 0;
+    updateBatchUI();
     urlPreview.classList.remove('hidden');
     result.valid.forEach((url, i) => {
         const div = document.createElement('div');
@@ -247,6 +291,9 @@ document.getElementById('openBtn').addEventListener('click', () => {
         if (!confirm(`This will open ${urls.length} tabs. Continue?`)) return;
     }
     addDailyCount(urls.length);
+    batchIndex = urls.length;
+    saveBatchIndex();
+    updateBatchUI();
     const w = window.open('', '_blank');
     if (!w) {
         alert('Popup blocked. Allow popups for this site or use Copy URLs instead.');
@@ -259,6 +306,8 @@ document.getElementById('openBtn').addEventListener('click', () => {
 
 document.getElementById('clearBtn').addEventListener('click', () => {
     urlInput.value = '';
+    batchIndex = 0;
+    saveBatchIndex();
     updateStats();
 });
 
@@ -273,6 +322,39 @@ document.getElementById('copyBtn').addEventListener('click', () => {
     }).catch(() => {
         alert('Failed to copy. Make sure the page is served over HTTPS or try selecting manually.');
     });
+});
+
+document.getElementById('openBatchBtn').addEventListener('click', () => {
+    const result = parseUrls(urlInput.value);
+    if (result.valid.length === 0) {
+        alert('No valid URLs to open.');
+        return;
+    }
+    const batchSize = parseInt(document.getElementById('batchSize').value) || 10;
+    const urls = result.valid;
+    if (batchIndex >= urls.length) {
+        alert('All URLs have been opened in this batch. Click Reset to start over.');
+        return;
+    }
+    const batch = urls.slice(batchIndex, batchIndex + batchSize);
+    addDailyCount(batch.length);
+    batchIndex += batch.length;
+    saveBatchIndex();
+    updateBatchUI();
+    const w = window.open('', '_blank');
+    if (!w) {
+        alert('Popup blocked. Allow popups for this site or use Copy URLs instead.');
+        return;
+    }
+    w.document.write('<!DOCTYPE html><html><head><title>Opening ' + batch.length + ' tabs...</title><meta charset="utf-8"><style>body{font-family:sans-serif;background:#0d152e;color:#e5e7eb;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;flex-direction:column;gap:12px;padding:20px;text-align:center}.spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.15);border-top-color:#c91414;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}p{font-size:14px;color:#9ca3af;margin:0}</style></head><body><div class="spinner"></div><p id="s">Opening <span id="c">0</span> of ' + batch.length + ' tabs...</p>');
+    w.document.write('<script id="boot">(function(){var u=' + JSON.stringify(batch) + ';var i=0;var s=document.getElementById("s");var c=document.getElementById("c");function next(){if(i>=u.length){document.body.innerHTML="<p style=color:#22c55e;font-weight:bold>Done! Close this tab.</p>";return;}c.textContent=i+1;window.open(u[i++],"_blank");setTimeout(next,1000)}next()})();<' + '/script>');
+    w.document.close();
+});
+
+document.getElementById('batchReset').addEventListener('click', () => {
+    batchIndex = 0;
+    saveBatchIndex();
+    updateBatchUI();
 });
 </script>
 
