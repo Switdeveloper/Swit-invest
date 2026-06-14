@@ -144,7 +144,13 @@
                 </div>
             </div>
 
-            <div id="urlPreview" class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mt-6 hidden">
+            <div id="linkHub" class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mt-6 hidden">
+                <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
+                    <i class="fas fa-external-link-alt text-primary-red"></i> Link Hub
+                </h2>
+                <p class="text-xs text-gray-500 mb-3" id="linkHubSummary"></p>
+                <div id="linkHubList" class="space-y-1.5 max-h-96 overflow-y-auto"></div>
+            </div>
                 <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
                     <i class="fas fa-list text-primary-red"></i> URL List
                 </h2>
@@ -297,32 +303,23 @@ urlInput.addEventListener('input', updateStats);
 updateStats();
 updateAllStats();
 
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
 function showLinkHub(urls, opened) {
-    const w = window.open('', '_blank');
-    if (!w) {
-        alert(`Opened ${opened} of ${urls.length}. To open the rest, allow popups or use Copy URLs.`);
-        return;
-    }
-    const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const items = urls.map((u, i) =>
-        `<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #1e293b">
-            <span style="width:24px;height:24px;border-radius:50%;background:${i < opened ? '#22c55e' : '#c91414'};
-                 color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;flex-shrink:0">${i + 1}</span>
-            <a href="${esc(u)}" target="_blank" rel="noopener noreferrer"
-               style="color:#f87171;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${esc(u)}</a>
+    const hub = document.getElementById('linkHub');
+    const list = document.getElementById('linkHubList');
+    const summary = document.getElementById('linkHubSummary');
+    hub.classList.remove('hidden');
+    summary.textContent = `Opened ${opened} of ${urls.length}. Click any link below to open in a new tab.`;
+    list.innerHTML = urls.map((u, i) =>
+        `<div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${i < opened ? 'bg-green-50' : 'hover:bg-gray-50'}">
+            <span class="w-6 h-6 rounded-full ${i < opened ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} flex items-center justify-center text-xs font-bold flex-shrink-0">${i < opened ? '✓' : i + 1}</span>
+            <a href="${esc(u)}" target="_blank" rel="noopener noreferrer" class="${i < opened ? 'text-green-600' : 'text-primary-red'} hover:underline truncate flex-1">${u}</a>
         </div>`
     ).join('');
-    w.document.write('<!DOCTYPE html><html><head><title>Link Hub</title><meta charset="utf-8">' +
-        '<style>body{font-family:sans-serif;background:#0d152e;color:#e5e7eb;margin:0;padding:16px;font-size:13px}' +
-        'h2{font-size:16px;margin:0 0 4px 0}h3{font-size:13px;color:#9ca3af;margin:0 0 12px 0;font-weight:normal}' +
-        '.s{background:#1e293b;padding:10px 14px;border-radius:8px;margin-bottom:12px;display:flex;gap:16px;align-items:center}' +
-        '.s span{font-size:13px}.l{color:#9ca3af}.g{color:#22c55e;font-weight:bold}.r{color:#f87171;font-weight:bold}' +
-        '.lk{background:#1e293b;border-radius:8px;padding:8px 14px}a:hover{text-decoration:underline!important}</style>' +
-        '</head><body><h2>Link Hub</h2><h3>Click any link to open in a new tab</h3>' +
-        '<div class="s"><span><span class="l">Opened:</span> <span class="g">' + opened + '</span></span>' +
-        '<span><span class="l">Blocked:</span> <span class="r">' + (urls.length - opened) + '</span></span></div>' +
-        '<div class="lk">' + items + '</div></body></html>');
-    w.document.close();
+    if (opened === 0) {
+        hub.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 function openAll(urls) {
