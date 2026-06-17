@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>School Fees System</title>
+  <link rel="manifest" href="school-fees-manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0d152e; color: #e2e8f0; min-height: 100vh; }
+    .bg-primary { background-color: #0d152e; }
+    .bg-accent { background-color: #c91414; }
+    .text-accent { color: #c91414; }
+    .border-accent { border-color: #c91414; }
+    .bg-card { background-color: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .btn-accent { background: #c91414; color: #fff; transition: all 0.3s ease; }
+    .btn-accent:hover { background: #a01010; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,20,20,0.4); }
+    .btn-outline { border: 1px solid rgba(255,255,255,0.2); color: #e2e8f0; transition: all 0.3s ease; }
+    .btn-outline:hover { border-color: #c91414; color: #c91414; }
+    .nav-btn { transition: all 0.3s ease; cursor: pointer; border-bottom: 2px solid transparent; }
+    .nav-btn.active { color: #c91414; border-bottom-color: #c91414; }
+    .nav-btn:not(.active):hover { color: #94a3b8; border-bottom-color: #94a3b8; }
+    .view { display: none; animation: fadeIn 0.4s ease; }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { animation: fadeIn 0.5s ease forwards; opacity: 0; }
+    .reveal-delay-1 { animation-delay: 0.1s; }
+    .reveal-delay-2 { animation-delay: 0.2s; }
+    .reveal-delay-3 { animation-delay: 0.3s; }
+    .reveal-delay-4 { animation-delay: 0.4s; }
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(201,20,20,0.2); }
+    input, select, textarea { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e2e8f0; border-radius: 0.5rem; padding: 0.625rem 1rem; width: 100%; outline: none; transition: all 0.3s ease; }
+    input:focus, select:focus, textarea:focus { border-color: #c91414; box-shadow: 0 0 0 3px rgba(201,20,20,0.2); }
+    select option { background: #0d152e; color: #e2e8f0; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; padding: 0.75rem 1rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 50; animation: fadeIn 0.3s ease; }
+    .modal-overlay.active { display: flex; }
+    .modal-content { background: #1a1f3a; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 2rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem; border-radius: 0.75rem; color: #fff; font-weight: 500; transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 100; max-width: 400px; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: #16a34a; }
+    .toast.error { background: #dc2626; }
+    .toast.info { background: #2563eb; }
+    .receipt { background: #fff; color: #1a202c; border-radius: 0.75rem; padding: 1.5rem; font-family: 'Courier New', monospace; }
+    .receipt h3 { color: #c91414; font-weight: 700; }
+    #scanner video { border-radius: 0.75rem; width: 100%; max-width: 500px; }
+    #scanner canvas { display: none; }
+    .badge-pending { background: rgba(234,179,8,0.15); color: #eab308; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+    .badge-paid { background: rgba(22,163,74,0.15); color: #22c55e; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0d152e; }
+    ::-webkit-scrollbar-thumb { background: #c91414; border-radius: 3px; }
+    @media (max-width: 768px) {
+      .nav-btn span { display: none; }
+      .stat-card { padding: 1rem; }
+      .modal-content { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app" class="min-h-screen flex flex-col">
+  <header class="bg-card border-b border-white/10 px-4 py-3 flex items-center justify-between sticky top-0 z-40 backdrop-blur-xl">
+    <div class="flex items-center gap-3">
+      <i class="fas fa-graduation-cap text-accent text-2xl"></i>
+      <div>
+        <h1 class="text-lg font-bold text-white leading-tight">School Fees</h1>
+        <p class="text-xs text-gray-400">Offline Recording System</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-sm">
+      <span id="onlineStatus" class="flex items-center gap-1.5 text-gray-400">
+        <i class="fas fa-circle text-xs text-green-500"></i> Online
+      </span>
+    </div>
+  </header>
+
+  <nav class="bg-card border-b border-white/10 px-2 py-1 flex overflow-x-auto gap-1 sticky top-[73px] z-30 backdrop-blur-xl" id="mainNav">
+    <button class="nav-btn active px-4 py-3 text-sm font-medium flex items-center gap-2 whitespace-nowrap" data-view="dashboard">
+      <i class="fas fa-chart-pie"></i><span>Dashboard</span>
+    </button>
+    <button class="nav-btn px-4 py-3 text-sm font-medium flex items-center gap-2 whitespace-nowrap" data-view="students">
+      <i class="fas fa-users"></i><span>Students</span>
+    </button>
+    <button class="nav-btn px-4 py-3 text-sm font-medium flex items-center gap-2 whitespace-nowrap" data-view="payments">
+      <i class="fas fa-money-bill-wave"></i><span>Record Payment</span>
+    </button>
+    <button class="nav-btn px-4 py-3 text-sm font-medium flex items-center gap-2 whitespace-nowrap" data-view="verify">
+      <i class="fas fa-qrcode"></i><span>Verify</span>
+    </button>
+    <button class="nav-btn px-4 py-3 text-sm font-medium flex items-center gap-2 whitespace-nowrap" data-view="search">
+      <i class="fas fa-search"></i><span>Search</span>
+    </button>
+  </nav>
+
+  <main class="flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full">
+    <!-- DASHBOARD VIEW -->
+    <section id="view-dashboard" class="view active">
+      <h2 class="text-2xl font-bold mb-6 reveal"><i class="fas fa-chart-pie text-accent mr-3"></i>Dashboard</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="stat-card bg-card rounded-xl p-5 reveal reveal-delay-1">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-gray-400 text-sm">Total Students</span>
+            <i class="fas fa-user-graduate text-accent"></i>
+          </div>
+          <p class="text-3xl font-bold" id="dashTotalStudents">0</p>
+        </div>
+        <div class="stat-card bg-card rounded-xl p-5 reveal reveal-delay-2">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-gray-400 text-sm">Total Collections</span>
+            <i class="fas fa-coins text-accent"></i>
+          </div>
+          <p class="text-3xl font-bold" id="dashTotalCollections">&#8358;0</p>
+        </div>
+        <div class="stat-card bg-card rounded-xl p-5 reveal reveal-delay-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-gray-400 text-sm">Payments This Term</span>
+            <i class="fas fa-check-circle text-green-500"></i>
+          </div>
+          <p class="text-3xl font-bold" id="dashTermPayments">0</p>
+        </div>
+        <div class="stat-card bg-card rounded-xl p-5 reveal reveal-delay-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-gray-400 text-sm">Pending Payments</span>
+            <i class="fas fa-clock text-yellow-500"></i>
+          </div>
+          <p class="text-3xl font-bold" id="dashPendingPayments">0</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-card rounded-xl p-5 reveal reveal-delay-2">
+          <h3 class="font-semibold mb-3"><i class="fas fa-clock text-yellow-500 mr-2"></i>Recent Payments</h3>
+          <div id="dashRecentPayments" class="text-sm text-gray-400">No payments recorded yet.</div>
+        </div>
+        <div class="bg-card rounded-xl p-5 reveal reveal-delay-3">
+          <h3 class="font-semibold mb-3"><i class="fas fa-users text-accent mr-2"></i>Student Overview</h3>
+          <div id="dashStudentOverview" class="text-sm text-gray-400">No students registered yet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STUDENTS VIEW -->
+    <section id="view-students" class="view">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <h2 class="text-2xl font-bold reveal"><i class="fas fa-users text-accent mr-3"></i>Students</h2>
+        <button onclick="openStudentModal()" class="btn-accent px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 reveal reveal-delay-1">
+          <i class="fas fa-plus"></i> Add Student
+        </button>
+      </div>
+      <div class="bg-card rounded-xl overflow-hidden reveal reveal-delay-2">
+        <div class="overflow-x-auto">
+          <table id="studentsTable">
+            <thead>
+              <tr>
+                <th>Admission No</th>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Parent</th>
+                <th>Phone</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentsBody">
+              <tr><td colspan="6" class="text-center text-gray-500 py-8">No students found.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECORD PAYMENT VIEW -->
+    <section id="view-payments" class="view">
+      <h2 class="text-2xl font-bold mb-6 reveal"><i class="fas fa-money-bill-wave text-accent mr-3"></i>Record Payment</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-card rounded-xl p-6 reveal reveal-delay-1">
+          <form id="paymentForm" onsubmit="return recordPayment(event)">
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1.5 text-gray-300">Student</label>
+              <select id="payStudent" required>
+                <option value="">-- Select Student --</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1.5 text-gray-300">Amount (&#8358;)</label>
+              <input type="number" id="payAmount" min="1" step="0.01" required placeholder="e.g. 50000">
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium mb-1.5 text-gray-300">Term</label>
+                <select id="payTerm" required>
+                  <option value="First">First</option>
+                  <option value="Second">Second</option>
+                  <option value="Third">Third</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1.5 text-gray-300">Session</label>
+                <select id="paySession" required>
+                  <option value="2024/2025">2024/2025</option>
+                  <option value="2025/2026">2025/2026</option>
+                  <option value="2026/2027">2026/2027</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-6">
+              <label class="block text-sm font-medium mb-1.5 text-gray-300">Date</label>
+              <input type="date" id="payDate" required>
+            </div>
+            <button type="submit" class="btn-accent w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2">
+              <i class="fas fa-save"></i> Save &amp; Generate Receipt
+            </button>
+          </form>
+        </div>
+        <div class="bg-card rounded-xl p-6 reveal reveal-delay-2" id="receiptContainer">
+          <div class="flex flex-col items-center justify-center h-full text-gray-400">
+            <i class="fas fa-receipt text-5xl mb-3"></i>
+            <p>Complete the form and save to generate a payment receipt with QR code.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VERIFY PAYMENT VIEW -->
+    <section id="view-verify" class="view">
+      <h2 class="text-2xl font-bold mb-6 reveal"><i class="fas fa-qrcode text-accent mr-3"></i>Verify Payment</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-card rounded-xl p-6 reveal reveal-delay-1">
+          <h3 class="font-semibold mb-4">Scan QR Code</h3>
+          <div id="scanner" class="relative">
+            <video id="scannerVideo" autoplay playsinline class="rounded-xl w-full bg-black"></video>
+            <canvas id="scannerCanvas"></canvas>
+            <div id="scannerOverlay" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div class="w-48 h-48 border-2 border-dashed border-accent rounded-xl opacity-60"></div>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-4">
+            <button id="btnStartScan" onclick="startScanner()" class="btn-accent px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 flex-1 justify-center">
+              <i class="fas fa-camera"></i> Start Camera
+            </button>
+            <button id="btnStopScan" onclick="stopScanner()" class="btn-outline px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 flex-1 justify-center" style="display:none">
+              <i class="fas fa-stop"></i> Stop
+            </button>
+          </div>
+        </div>
+        <div class="bg-card rounded-xl p-6 reveal reveal-delay-2">
+          <h3 class="font-semibold mb-4">Verification Result</h3>
+          <div id="verifyResult" class="flex flex-col items-center justify-center h-full text-gray-400">
+            <i class="fas fa-camera text-5xl mb-3"></i>
+            <p>Point your camera at a receipt QR code to verify.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEARCH VIEW -->
+    <section id="view-search" class="view">
+      <h2 class="text-2xl font-bold mb-6 reveal"><i class="fas fa-search text-accent mr-3"></i>Search Payments</h2>
+      <div class="bg-card rounded-xl p-6 mb-6 reveal reveal-delay-1">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1.5 text-gray-300">Student Name</label>
+            <input type="text" id="searchName" placeholder="Search by name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1.5 text-gray-300">Admission No</label>
+            <input type="text" id="searchAdmission" placeholder="e.g. ADM-001">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1.5 text-gray-300">From Date</label>
+            <input type="date" id="searchDateFrom">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1.5 text-gray-300">To Date</label>
+            <input type="date" id="searchDateTo">
+          </div>
+        </div>
+        <button onclick="searchPayments()" class="btn-accent mt-4 px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </div>
+      <div class="bg-card rounded-xl overflow-hidden reveal reveal-delay-2">
+        <div class="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Receipt No</th>
+                <th>Student</th>
+                <th>Amount</th>
+                <th>Term</th>
+                <th>Session</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="searchResults">
+              <tr><td colspan="6" class="text-center text-gray-500 py-8">Use the filters above to search payments.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-card border-t border-white/10 px-4 py-3 text-center text-xs text-gray-500">
+    &copy; 2026 Swit Invest &middot; Offline School Fees System
+  </footer>
+</div>
+
+<!-- STUDENT MODAL -->
+<div id="studentModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-xl font-bold" id="studentModalTitle">Add Student</h3>
+      <button onclick="closeStudentModal()" class="text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+    </div>
+    <form id="studentForm" onsubmit="return saveStudent(event)">
+      <input type="hidden" id="studentId">
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1.5 text-gray-300">Admission No</label>
+        <input type="text" id="stuAdmission" required placeholder="e.g. ADM-001">
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1.5 text-gray-300">Full Name</label>
+        <input type="text" id="stuName" required placeholder="e.g. John Doe">
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1.5 text-gray-300">Class</label>
+        <input type="text" id="stuClass" required placeholder="e.g. SS1A">
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1.5 text-gray-300">Parent Name</label>
+        <input type="text" id="stuParent" required placeholder="e.g. Mr. Doe">
+      </div>
+      <div class="mb-6">
+        <label class="block text-sm font-medium mb-1.5 text-gray-300">Phone</label>
+        <input type="tel" id="stuPhone" required placeholder="e.g. 08012345678">
+      </div>
+      <div class="flex gap-3">
+        <button type="submit" class="btn-accent flex-1 py-3 rounded-lg font-semibold"><i class="fas fa-save mr-2"></i> Save</button>
+        <button type="button" onclick="closeStudentModal()" class="btn-outline flex-1 py-3 rounded-lg font-semibold">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- RECEIPT MODAL -->
+<div id="receiptModal" class="modal-overlay">
+  <div class="modal-content" style="max-width:420px;">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-bold text-white">Payment Receipt</h3>
+      <button onclick="closeReceiptModal()" class="text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+    </div>
+    <div id="receiptContent"></div>
+    <button onclick="printReceipt()" class="btn-accent w-full mt-4 py-3 rounded-lg font-semibold flex items-center justify-center gap-2">
+      <i class="fas fa-print"></i> Print Receipt
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script>
+// ===== SchoolDB - IndexedDB Layer =====
+class SchoolDB {
+  constructor() {
+    this.db = null;
+    this.DB_NAME = 'SchoolFeesDB';
+    this.DB_VERSION = 1;
+  }
+
+  async open() {
+    if (this.db) return this.db;
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(this.DB_NAME, this.DB_VERSION);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('students')) {
+          const store = db.createObjectStore('students', { keyPath: 'id', autoIncrement: true });
+          store.createIndex('admission_no', 'admission_no', { unique: false });
+          store.createIndex('name', 'name', { unique: false });
+        }
+        if (!db.objectStoreNames.contains('payments')) {
+          const store = db.createObjectStore('payments', { keyPath: 'id', autoIncrement: true });
+          store.createIndex('student_id', 'student_id', { unique: false });
+          store.createIndex('receipt_no', 'receipt_no', { unique: true });
+          store.createIndex('date', 'date', { unique: false });
+          store.createIndex('student_name', 'student_name', { unique: false });
+        }
+      };
+      req.onsuccess = (e) => { this.db = e.target.result; resolve(this.db); };
+      req.onerror = (e) => { reject(e.target.error); };
+    });
+  }
+
+  async _transaction(storeName, mode, callback) {
+    const db = await this.open();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(storeName, mode);
+      const store = tx.objectStore(storeName);
+      try {
+        const result = callback(store, tx);
+        tx.oncomplete = () => resolve(result);
+        tx.onerror = (e) => reject(e.target.error);
+      } catch (err) { reject(err); }
+    });
+  }
+
+  async addStudent(student) {
+    return this._transaction('students', 'readwrite', (store) => store.add(student));
+  }
+  async getStudents() {
+    return this._transaction('students', 'readonly', (store) => new Promise((res, rej) => {
+      const req = store.getAll();
+      req.onsuccess = () => res(req.result || []);
+      req.onerror = () => rej(req.error);
+    }));
+  }
+  async getStudent(id) {
+    return this._transaction('students', 'readonly', (store) => new Promise((res, rej) => {
+      const req = store.get(Number(id));
+      req.onsuccess = () => res(req.result);
+      req.onerror = () => rej(req.error);
+    }));
+  }
+  async updateStudent(id, data) {
+    return this._transaction('students', 'readwrite', (store) => store.put({ ...data, id: Number(id) }));
+  }
+  async deleteStudent(id) {
+    return this._transaction('students', 'readwrite', (store) => store.delete(Number(id)));
+  }
+
+  async addPayment(payment) {
+    return this._transaction('payments', 'readwrite', (store) => store.add(payment));
+  }
+  async getPayments() {
+    return this._transaction('payments', 'readonly', (store) => new Promise((res, rej) => {
+      const req = store.getAll();
+      req.onsuccess = () => res(req.result || []);
+      req.onerror = () => rej(req.error);
+    }));
+  }
+  async getPaymentByReceipt(receiptNo) {
+    return this._transaction('payments', 'readonly', (store) => new Promise((res, rej) => {
+      const idx = store.index('receipt_no');
+      const req = idx.get(receiptNo);
+      req.onsuccess = () => res(req.result || null);
+      req.onerror = () => rej(req.error);
+    }));
+  }
+  async getPaymentsByStudent(studentId) {
+    return this._transaction('payments', 'readonly', (store) => new Promise((res, rej) => {
+      const idx = store.index('student_id');
+      const req = idx.getAll(Number(studentId));
+      req.onsuccess = () => res(req.result || []);
+      req.onerror = () => rej(req.error);
+    }));
+  }
+  async searchByDateRange(from, to) {
+    const all = await this.getPayments();
+    if (!from && !to) return all;
+    const fromDate = from ? new Date(from) : new Date(0);
+    const toDate = to ? new Date(to + 'T23:59:59') : new Date('2100-01-01');
+    return all.filter(p => {
+      const d = new Date(p.date);
+      return d >= fromDate && d <= toDate;
+    });
+  }
+  async searchPayments(query) {
+    const all = await this.getPayments();
+    if (!query) return all;
+    const q = query.toLowerCase();
+    return all.filter(p =>
+      (p.student_name && p.student_name.toLowerCase().includes(q)) ||
+      (p.receipt_no && p.receipt_no.toLowerCase().includes(q)) ||
+      (p.term && p.term.toLowerCase().includes(q)) ||
+      (p.admission_no && p.admission_no.toLowerCase().includes(q))
+    );
+  }
+  async getDashboardStats() {
+    const students = await this.getStudents();
+    const payments = await this.getPayments();
+    const totalStudents = students.length;
+    const totalCollections = payments.reduce((sum, p) => sum + Number(p.amount || 0), 0);
+    const currentSession = '2025/2026';
+    const currentTerm = 'First';
+    const termPayments = payments.filter(p => p.session === currentSession && p.term === currentTerm);
+    const termCount = termPayments.length;
+    const pendingCount = Math.max(0, totalStudents - termCount);
+    return { totalStudents, totalCollections, termPaymentsCount: termCount, pendingPayments: pendingCount, recentPayments: payments.slice(-5).reverse(), students };
+  }
+}
+
+const db = new SchoolDB();
+
+// ===== Toast =====
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== Navigation =====
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + btn.dataset.view).classList.add('active');
+    if (btn.dataset.view === 'dashboard') loadDashboard();
+    if (btn.dataset.view === 'students') loadStudents();
+    if (btn.dataset.view === 'payments') loadPaymentForm();
+    if (btn.dataset.view === 'search') { /* on demand */ }
+  });
+});
+
+// ===== Dashboard =====
+async function loadDashboard() {
+  try {
+    const stats = await db.getDashboardStats();
+    document.getElementById('dashTotalStudents').textContent = stats.totalStudents;
+    document.getElementById('dashTotalCollections').textContent = '\u20A6' + stats.totalCollections.toLocaleString();
+    document.getElementById('dashTermPayments').textContent = stats.termPaymentsCount;
+    document.getElementById('dashPendingPayments').textContent = stats.pendingPayments;
+
+    const rp = document.getElementById('dashRecentPayments');
+    if (stats.recentPayments.length === 0) {
+      rp.innerHTML = '<p class="text-gray-400">No payments recorded yet.</p>';
+    } else {
+      rp.innerHTML = '<div class="space-y-2">' + stats.recentPayments.map(p =>
+        '<div class="flex items-center justify-between py-2 border-b border-white/5">' +
+          '<div><span class="font-medium">' + escHtml(p.student_name) + '</span><br><span class="text-xs text-gray-500">' + escHtml(p.receipt_no) + '</span></div>' +
+          '<div class="text-right"><span class="font-semibold text-green-400">\u20A6' + Number(p.amount).toLocaleString() + '</span><br><span class="text-xs text-gray-500">' + p.date + '</span></div>' +
+        '</div>'
+      ).join('') + '</div>';
+    }
+
+    const so = document.getElementById('dashStudentOverview');
+    if (stats.students.length === 0) {
+      so.innerHTML = '<p class="text-gray-400">No students registered yet.</p>';
+    } else {
+      const classCounts = {};
+      stats.students.forEach(s => { classCounts[s.class] = (classCounts[s.class] || 0) + 1; });
+      so.innerHTML = '<div class="space-y-2">' +
+        Object.entries(classCounts).map(([cls, cnt]) =>
+          '<div class="flex items-center justify-between py-2 border-b border-white/5">' +
+            '<span>' + escHtml(cls) + '</span>' +
+            '<span class="font-semibold text-accent">' + cnt + ' student' + (cnt > 1 ? 's' : '') + '</span>' +
+          '</div>'
+        ).join('') +
+      '</div>';
+    }
+  } catch (e) {
+    console.error('Dashboard error:', e);
+  }
+}
+
+// ===== Students =====
+async function loadStudents() {
+  const tbody = document.getElementById('studentsBody');
+  try {
+    const students = await db.getStudents();
+    if (students.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray-500 py-8">No students found. Add a student to get started.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = students.map(s =>
+      '<tr>' +
+        '<td class="font-medium">' + escHtml(s.admission_no) + '</td>' +
+        '<td>' + escHtml(s.name) + '</td>' +
+        '<td>' + escHtml(s.class) + '</td>' +
+        '<td>' + escHtml(s.parent_name) + '</td>' +
+        '<td>' + escHtml(s.phone) + '</td>' +
+        '<td class="text-right">' +
+          '<button onclick="editStudent(' + s.id + ')" class="text-blue-400 hover:text-blue-300 mr-3" title="Edit"><i class="fas fa-edit"></i></button>' +
+          '<button onclick="deleteStudent(' + s.id + ')" class="text-red-400 hover:text-red-300" title="Delete"><i class="fas fa-trash"></i></button>' +
+        '</td>' +
+      '</tr>'
+    ).join('');
+  } catch (e) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-red-400 py-8">Error loading students.</td></tr>';
+    console.error(e);
+  }
+}
+
+function openStudentModal(data) {
+  document.getElementById('studentModal').classList.add('active');
+  document.getElementById('studentModalTitle').textContent = data ? 'Edit Student' : 'Add Student';
+  document.getElementById('studentId').value = data ? data.id : '';
+  document.getElementById('stuAdmission').value = data ? data.admission_no : '';
+  document.getElementById('stuName').value = data ? data.name : '';
+  document.getElementById('stuClass').value = data ? data.class : '';
+  document.getElementById('stuParent').value = data ? data.parent_name : '';
+  document.getElementById('stuPhone').value = data ? data.phone : '';
+}
+
+function closeStudentModal() {
+  document.getElementById('studentModal').classList.remove('active');
+  document.getElementById('studentForm').reset();
+  document.getElementById('studentId').value = '';
+}
+
+async function saveStudent(e) {
+  e.preventDefault();
+  const id = document.getElementById('studentId').value;
+  const data = {
+    admission_no: document.getElementById('stuAdmission').value.trim(),
+    name: document.getElementById('stuName').value.trim(),
+    class: document.getElementById('stuClass').value.trim(),
+    parent_name: document.getElementById('stuParent').value.trim(),
+    phone: document.getElementById('stuPhone').value.trim()
+  };
+  try {
+    if (id) {
+      await db.updateStudent(id, data);
+      showToast('Student updated successfully.');
+    } else {
+      await db.addStudent(data);
+      showToast('Student added successfully.');
+    }
+    closeStudentModal();
+    loadStudents();
+    loadPaymentForm();
+  } catch (e) {
+    showToast('Error saving student: ' + e.message, 'error');
+  }
+}
+
+async function editStudent(id) {
+  try {
+    const s = await db.getStudent(id);
+    if (s) openStudentModal(s);
+  } catch (e) { showToast('Error loading student.', 'error'); }
+}
+
+async function deleteStudent(id) {
+  if (!confirm('Delete this student? This does NOT delete their payment records.')) return;
+  try {
+    await db.deleteStudent(id);
+    showToast('Student deleted.');
+    loadStudents();
+    loadPaymentForm();
+  } catch (e) { showToast('Error deleting student.', 'error'); }
+}
+
+// ===== Record Payment =====
+async function loadPaymentForm() {
+  const sel = document.getElementById('payStudent');
+  try {
+    const students = await db.getStudents();
+    sel.innerHTML = '<option value="">-- Select Student --</option>' +
+      students.map(s => '<option value="' + s.id + '">' + escHtml(s.admission_no) + ' - ' + escHtml(s.name) + '</option>').join('');
+  } catch (e) {
+    console.error(e);
+  }
+  document.getElementById('payDate').value = new Date().toISOString().split('T')[0];
+}
+
+async function recordPayment(e) {
+  e.preventDefault();
+  const studentId = document.getElementById('payStudent').value;
+  const amount = parseFloat(document.getElementById('payAmount').value);
+  const term = document.getElementById('payTerm').value;
+  const session = document.getElementById('paySession').value;
+  const date = document.getElementById('payDate').value;
+
+  if (!studentId) { showToast('Please select a student.', 'error'); return; }
+  if (!amount || amount <= 0) { showToast('Please enter a valid amount.', 'error'); return; }
+
+  try {
+    const student = await db.getStudent(studentId);
+    if (!student) { showToast('Student not found.', 'error'); return; }
+
+    const receiptNo = 'RCP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+    const payment = {
+      student_id: Number(studentId),
+      student_name: student.name,
+      admission_no: student.admission_no,
+      amount,
+      term,
+      session,
+      date,
+      receipt_no: receiptNo,
+      created_at: new Date().toISOString()
+    };
+    await db.addPayment(payment);
+    showToast('Payment recorded successfully!');
+    document.getElementById('paymentForm').reset();
+    document.getElementById('payDate').value = new Date().toISOString().split('T')[0];
+    loadPaymentForm();
+
+    generateReceiptQR(payment, student);
+  } catch (e) {
+    showToast('Error recording payment: ' + e.message, 'error');
+  }
+}
+
+function generateReceiptQR(payment, student) {
+  const container = document.getElementById('receiptContainer');
+  const qrData = JSON.stringify({
+    type: 'fee_receipt',
+    receipt_no: payment.receipt_no,
+    student_name: student.name,
+    amount: payment.amount,
+    date: payment.date,
+    term: payment.term,
+    session: payment.session
+  });
+
+  container.innerHTML = `
+    <div class="receipt" id="receiptPreview">
+      <div class="text-center border-b border-gray-300 pb-3 mb-3">
+        <h3 class="text-lg font-bold">SCHOOL FEES RECEIPT</h3>
+        <p class="text-xs text-gray-600">Offline School Fees System</p>
+      </div>
+      <div class="text-sm space-y-1.5 mb-3">
+        <div class="flex justify-between"><span class="font-semibold">Receipt No:</span><span>${escHtml(payment.receipt_no)}</span></div>
+        <div class="flex justify-between"><span class="font-semibold">Student:</span><span>${escHtml(student.name)}</span></div>
+        <div class="flex justify-between"><span class="font-semibold">Class:</span><span>${escHtml(student.class)}</span></div>
+        <div class="flex justify-between"><span class="font-semibold">Amount:</span><span>\u20A6${Number(payment.amount).toLocaleString()}</span></div>
+        <div class="flex justify-between"><span class="font-semibold">Term:</span><span>${escHtml(payment.term)}</span></div>
+        <div class="flex justify-between"><span class="font-semibold">Session:</span><span>${escHtml(payment.session)}</span></div>
+        <div class="flex justify-between"><span class="font-semibold">Date:</span><span>${payment.date}</span></div>
+      </div>
+      <div id="receiptQRCode" class="flex justify-center my-3"></div>
+      <p class="text-center text-xs text-gray-500 mt-2">Scan QR to verify payment</p>
+    </div>
+  `;
+
+  new QRCode(document.getElementById('receiptQRCode'), {
+    text: qrData,
+    width: 180,
+    height: 180,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  document.getElementById('receiptContent').innerHTML = container.innerHTML;
+  new QRCode(document.getElementById('receiptContent').querySelector('#receiptQRCode'), {
+    text: qrData,
+    width: 180,
+    height: 180,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+  document.getElementById('receiptModal').classList.add('active');
+}
+
+function closeReceiptModal() {
+  document.getElementById('receiptModal').classList.remove('active');
+}
+
+function printReceipt() {
+  const content = document.getElementById('receiptContent').innerHTML;
+  const win = window.open('', '', 'width=500,height=700');
+  win.document.write('<html><head><title>Print Receipt</title>');
+  win.document.write('<style>body{font-family:"Courier New",monospace;padding:20px;color:#000}.receipt{max-width:380px;margin:0 auto}#receiptQRCode{text-align:center}img{display:inline-block}</style>');
+  win.document.write('</head><body>');
+  win.document.write(content);
+  win.document.write('<script>window.onload=function(){window.print();window.close();}<\/script>');
+  win.document.write('</body></html>');
+  win.document.close();
+}
+
+// ===== Verify Payment (QR Scanner) =====
+let scannerStream = null;
+let scannerInterval = null;
+
+async function startScanner() {
+  const video = document.getElementById('scannerVideo');
+  const canvas = document.getElementById('scannerCanvas');
+  try {
+    scannerStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } } });
+    video.srcObject = scannerStream;
+    await video.play();
+    document.getElementById('btnStartScan').style.display = 'none';
+    document.getElementById('btnStopScan').style.display = 'flex';
+    document.getElementById('verifyResult').innerHTML = '<div class="flex flex-col items-center justify-center h-full text-gray-400"><i class="fas fa-spinner fa-spin text-3xl mb-3"></i><p>Scanning for QR code...</p></div>';
+
+    scannerInterval = setInterval(() => {
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        try {
+          const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+          if (code && code.data) {
+            processScannedQR(code.data);
+          }
+        } catch (e) { /* ignore scan errors */ }
+      }
+    }, 300);
+  } catch (e) {
+    showToast('Camera access denied or not available.', 'error');
+    document.getElementById('verifyResult').innerHTML = '<div class="flex flex-col items-center justify-center h-full text-gray-400"><i class="fas fa-exclamation-triangle text-5xl mb-3 text-red-400"></i><p>Camera not available. Please allow camera permissions.</p></div>';
+  }
+}
+
+function stopScanner() {
+  if (scannerInterval) { clearInterval(scannerInterval); scannerInterval = null; }
+  if (scannerStream) {
+    scannerStream.getTracks().forEach(t => t.stop());
+    scannerStream = null;
+  }
+  document.getElementById('scannerVideo').srcObject = null;
+  document.getElementById('btnStartScan').style.display = 'flex';
+  document.getElementById('btnStopScan').style.display = 'none';
+}
+
+async function processScannedQR(data) {
+  let parsed;
+  try {
+    parsed = JSON.parse(data);
+  } catch (e) {
+    showVerifyResult(false, 'Invalid QR code. Not a valid receipt.');
+    return;
+  }
+  if (!parsed || parsed.type !== 'fee_receipt' || !parsed.receipt_no) {
+    showVerifyResult(false, 'Not a valid fee receipt QR code.');
+    return;
+  }
+  try {
+    const payment = await db.getPaymentByReceipt(parsed.receipt_no);
+    if (payment) {
+      const matched =
+        payment.student_name === parsed.student_name &&
+        Number(payment.amount) === Number(parsed.amount) &&
+        payment.term === parsed.term &&
+        payment.session === parsed.session;
+      if (matched) {
+        showVerifyResult(true, payment, parsed);
+      } else {
+        showVerifyResult(false, 'Receipt found but data mismatch. Possible tampering.', payment, parsed);
+      }
+    } else {
+      showVerifyResult(false, 'Receipt not found in database. Not a valid record.', null, parsed);
+    }
+  } catch (e) {
+    showVerifyResult(false, 'Error verifying receipt.');
+  }
+}
+
+function showVerifyResult(valid, paymentOrMsg, parsedData) {
+  stopScanner();
+  const div = document.getElementById('verifyResult');
+  if (valid && paymentOrMsg) {
+    const p = paymentOrMsg;
+    div.innerHTML = `
+      <div class="text-center w-full">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-4">
+          <i class="fas fa-check-circle text-green-400 text-3xl"></i>
+        </div>
+        <h4 class="text-green-400 font-bold text-lg mb-2">VERIFIED</h4>
+        <div class="text-left bg-green-900/20 border border-green-500/30 rounded-lg p-4 text-sm space-y-2">
+          <div class="flex justify-between"><span class="text-gray-400">Receipt No:</span><span class="font-medium">${escHtml(p.receipt_no)}</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Student:</span><span class="font-medium">${escHtml(p.student_name)}</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Amount:</span><span class="font-medium">\u20A6${Number(p.amount).toLocaleString()}</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Term:</span><span class="font-medium">${escHtml(p.term)}</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Session:</span><span class="font-medium">${escHtml(p.session)}</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">Date:</span><span class="font-medium">${p.date}</span></div>
+        </div>
+      </div>
+    `;
+  } else {
+    const msg = typeof paymentOrMsg === 'string' ? paymentOrMsg : 'Receipt could not be verified.';
+    div.innerHTML = `
+      <div class="text-center w-full">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/20 mb-4">
+          <i class="fas fa-times-circle text-red-400 text-3xl"></i>
+        </div>
+        <h4 class="text-red-400 font-bold text-lg mb-2">INVALID</h4>
+        <p class="text-gray-400 text-sm">${escHtml(msg)}</p>
+        ${parsedData ? `
+          <div class="text-left bg-red-900/20 border border-red-500/30 rounded-lg p-4 mt-4 text-sm space-y-2">
+            <div class="flex justify-between"><span class="text-gray-400">Receipt No:</span><span>${escHtml(parsedData.receipt_no || 'N/A')}</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Student:</span><span>${escHtml(parsedData.student_name || 'N/A')}</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Amount:</span><span>${parsedData.amount ? '\u20A6' + Number(parsedData.amount).toLocaleString() : 'N/A'}</span></div>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+}
+
+// ===== Search =====
+async function searchPayments() {
+  const name = document.getElementById('searchName').value.trim();
+  const admission = document.getElementById('searchAdmission').value.trim();
+  const dateFrom = document.getElementById('searchDateFrom').value;
+  const dateTo = document.getElementById('searchDateTo').value;
+  const tbody = document.getElementById('searchResults');
+
+  try {
+    let results = await db.getPayments();
+
+    if (name) {
+      const q = name.toLowerCase();
+      results = results.filter(p => p.student_name && p.student_name.toLowerCase().includes(q));
+    }
+    if (admission) {
+      const q = admission.toLowerCase();
+      results = results.filter(p => p.admission_no && p.admission_no.toLowerCase().includes(q));
+    }
+    if (dateFrom || dateTo) {
+      const from = dateFrom ? new Date(dateFrom) : new Date(0);
+      const to = dateTo ? new Date(dateTo + 'T23:59:59') : new Date('2100-01-01');
+      results = results.filter(p => {
+        const d = new Date(p.date);
+        return d >= from && d <= to;
+      });
+    }
+
+    if (results.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray-500 py-8">No matching payments found.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = results.map(p =>
+      '<tr>' +
+        '<td class="font-mono text-xs">' + escHtml(p.receipt_no) + '</td>' +
+        '<td>' + escHtml(p.student_name) + '</td>' +
+        '<td class="font-semibold text-green-400">\u20A6' + Number(p.amount).toLocaleString() + '</td>' +
+        '<td>' + escHtml(p.term) + '</td>' +
+        '<td>' + escHtml(p.session) + '</td>' +
+        '<td>' + p.date + '</td>' +
+      '</tr>'
+    ).join('');
+  } catch (e) {
+    showToast('Search error: ' + e.message, 'error');
+  }
+}
+
+// ===== Utilities =====
+function escHtml(str) {
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ===== Online / Offline Status =====
+function updateOnlineStatus() {
+  const el = document.getElementById('onlineStatus');
+  if (navigator.onLine) {
+    el.innerHTML = '<i class="fas fa-circle text-xs text-green-500"></i> Online';
+  } else {
+    el.innerHTML = '<i class="fas fa-circle text-xs text-red-500"></i> Offline';
+  }
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+
+// ===== Init =====
+(async function init() {
+  try {
+    await db.open();
+    console.log('SchoolDB opened successfully.');
+  } catch (e) {
+    console.error('Failed to open SchoolDB:', e);
+    showToast('Failed to initialize database.', 'error');
+  }
+  loadDashboard();
+  loadPaymentForm();
+})();
+
+// ===== Service Worker Registration =====
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('school-fees-sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.error('SW registration failed:', err));
+  });
+}
+</script>
+</body>
+</html>
