@@ -345,6 +345,8 @@ document.getElementById('openBtn').addEventListener('click', () => {
     addMonthlyCount(urls.length);
     updateAllStats();
     openAll(urls);
+    trackUsage('bulk-link-opener', 'open_all', { count: urls.length });
+    recordLinkOpenerStats(urls.length);
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
