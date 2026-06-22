@@ -60,3 +60,26 @@ create index if not exists idx_tool_usage_user on tool_usage(user_id);
 create index if not exists idx_tool_usage_tool on tool_usage(tool_name);
 create index if not exists idx_link_stats_user on link_opener_stats(user_id);
 create index if not exists idx_link_stats_date on link_opener_stats(date);
+
+-- 5. AI API Providers (managed via api-settings.html)
+create table if not exists public.api_providers (
+  id uuid default gen_random_uuid() primary key,
+  name text not null unique,
+  display_name text not null,
+  api_key text not null,
+  base_url text,
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+alter table public.api_providers enable row level security;
+create policy "Admins can manage api_providers" on api_providers
+  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+
+-- Seed default providers
+insert into public.api_providers (name, display_name, api_key, base_url) values
+  ('openrouter', 'OpenRouter', '', 'https://openrouter.ai/api/v1'),
+  ('openai', 'OpenAI', '', 'https://api.openai.com/v1'),
+  ('anthropic', 'Anthropic', '', 'https://api.anthropic.com/v1')
+on conflict (name) do nothing;
