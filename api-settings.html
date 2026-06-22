@@ -45,7 +45,29 @@
 
             <div id="emptyState" class="hidden text-center py-12 bg-white rounded-2xl border border-gray-200">
                 <i class="fas fa-database text-4xl text-gray-300 mb-3"></i>
-                <p class="text-gray-500">No API providers found. Run the SQL schema first.</p>
+                <p class="text-gray-500 mb-2">No API providers found.</p>
+                <p class="text-gray-400 text-xs">Run this SQL in your Supabase SQL Editor first:</p>
+                <pre class="mt-3 text-left text-[10px] bg-gray-50 p-4 rounded-lg overflow-x-auto max-w-xl mx-auto text-gray-600">create table if not exists public.api_providers (
+  id uuid default gen_random_uuid() primary key,
+  name text not null unique,
+  display_name text not null,
+  api_key text not null default '',
+  base_url text
+);
+alter table public.api_providers enable row level security;
+create policy "Users can manage api_providers"
+  on api_providers for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+insert into public.api_providers (name, display_name, api_key, base_url) values
+  ('openrouter', 'OpenRouter', '', 'https://openrouter.ai/api/v1'),
+  ('openai', 'OpenAI', '', 'https://api.openai.com/v1')
+on conflict (name) do nothing;</pre>
+            </div>
+
+            <div id="errorState" class="hidden text-center py-12 bg-white rounded-2xl border border-red-200">
+                <i class="fas fa-exclamation-circle text-4xl text-red-300 mb-3"></i>
+                <p id="errorMsg" class="text-red-600 text-sm"></p>
             </div>
         </div>
     </section>
@@ -59,6 +81,8 @@
         const list = document.getElementById('providersList');
         const empty = document.getElementById('emptyState');
         const warning = document.getElementById('authWarning');
+        const errorState = document.getElementById('errorState');
+        const errorMsg = document.getElementById('errorMsg');
         const signInLink = document.getElementById('signInLink');
 
         signInLink.addEventListener('click', (e) => {
@@ -67,7 +91,18 @@
             if (btn) btn.click();
         });
 
+        // Timeout guard
+        const timeout = setTimeout(() => {
+            if (!loading.classList.contains('hidden')) {
+                loading.classList.add('hidden');
+                errorState.classList.remove('hidden');
+                errorMsg.textContent = 'Request timed out. Check your Supabase connection.';
+            }
+        }, 10000);
+
         const session = await getSession();
+        clearTimeout(timeout);
+
         if (!session) {
             loading.classList.add('hidden');
             warning.classList.remove('hidden');
@@ -85,7 +120,12 @@
 
             loading.classList.add('hidden');
             if (error || !providers || providers.length === 0) {
-                empty.classList.remove('hidden');
+                if (error) {
+                    errorState.classList.remove('hidden');
+                    errorMsg.textContent = 'Database error: ' + (error.message || 'Table may not exist. Run the SQL above.');
+                } else {
+                    empty.classList.remove('hidden');
+                }
                 return;
             }
 
