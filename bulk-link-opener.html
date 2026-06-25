@@ -13,6 +13,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/load-partials.js"></script>
+    <style>
+        /* Match brand colors for header and footer */
+        #header-container,
+        #footer-container {
+            background-color: #0d152e !important; /* dark blue */
+            color: #fff !important;               /* white text */
+        }
+        #header-container a,
+        #footer-container a {
+            color: #fff !important;
+        }
+        #header-container a:hover,
+        #footer-container a:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body class="overflow-x-hidden">
     <div id="header-container"></div>
@@ -50,7 +66,7 @@ https://github.com
                     url = 'http://' + url;
                 }
                 window.open(url, '_blank');
-            Kanpo
+            });
         }
     </script>
 </body>
