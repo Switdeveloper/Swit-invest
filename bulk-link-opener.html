@@ -2,383 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free bulk link opener tool by SwitDeveloper - Open multiple URLs at once in new tabs. Paste, open, and go.">
-    <meta name="keywords" content="bulk link opener, open multiple URLs, multi URL opener, tab opener, free browser tool">
-    <meta property="og:title" content="Bulk Link Opener - SwitDeveloper">
-    <meta property="og:description" content="Open multiple URLs at once in new tabs. Paste your links and go.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://switdeveloper.github.io/Swit-invest/bulk-link-opener.html">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://switdeveloper.github.io/Swit-invest/bulk-link-opener.html">
-    <title>Bulk Link Opener - Open Multiple URLs | SwitDeveloper</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Bulk Link Opener</title>
     <style>
-        body { font-family: 'Inter', sans-serif; color: #333; }
-        h1, h2, h3, h4, h5, h6, .serif { font-family: 'Playfair Display', serif; }
-        .bg-dark-blue { background-color: #0d152e; }
-        .text-dark-blue { color: #0d152e; }
-        .bg-primary-red { background-color: #c91414; }
-        .text-primary-red { color: #c91414; }
-        .border-primary-red { border-color: #c91414; }
-        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
-        .reveal.visible { opacity:1; transform:translateY(0); }
-        .delay-100 { transition-delay:0.1s; }
-        .delay-200 { transition-delay:0.2s; }
-        .delay-300 { transition-delay:0.3s; }
-        .delay-400 { transition-delay:0.4s; }
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        textarea { width: 100%; height: 150px; }
+        button { margin-top: 1rem; padding: 0.5rem 1rem; font-size: 1rem; }
+        .note { margin-top: 1rem; font-size: 0.9em; color: #555; }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<script src="js/load-partials.js"></script>
 </head>
-<body class="overflow-x-hidden">
-
-    <div id="header-container"></div>
-
-    <section class="relative bg-[#0d152e] pt-20 pb-32 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <div class="absolute top-20 -left-20 w-80 h-80 bg-primary-red/10 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="max-w-3xl">
-                <div class="flex items-center text-[10px] text-gray-400 mb-6 uppercase tracking-wider">
-                    <span class="hover:text-white cursor-pointer" onclick="window.location='index.html'">Home</span> <span class="mx-2">/</span> <span class="text-white">Bulk Link Opener</span>
-                </div>
-                <div class="flex items-center text-xs tracking-wider text-primary-red mb-6 uppercase">
-                    <div class="w-2 h-2 border border-primary-red transform rotate-45 mr-3"></div>
-                    Free Browser Tool
-                </div>
-                <h1 class="reveal text-5xl md:text-7xl font-bold mb-4 leading-[1.1] serif text-white">
-                    Bulk Link <span class="text-primary-red">Opener</span>
-                </h1>
-                <p class="reveal delay-100 text-lg text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
-                    Paste multiple URLs and open them all at once in new tabs.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
-                <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
-                    <i class="fas fa-paste text-primary-red"></i> Enter URLs
-                </h2>
-                <p class="text-xs text-gray-400 mb-3">Paste one URL per line.</p>
-                <textarea id="urlList" rows="8" placeholder="https://example.com&#10;https://google.com&#10;https://github.com" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red resize-none transition"></textarea>
-                <div class="flex flex-wrap gap-3 mt-4">
-                    <button id="openBtn" class="bg-primary-red text-white px-8 py-3 rounded-xl font-bold hover:bg-red-800 transition flex items-center gap-2 shadow-sm">
-                        <i class="fas fa-external-link-alt"></i> Open All Tabs
-                    </button>
-                    <button id="copyBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
-                        <i class="fas fa-copy"></i> Copy URLs
-                    </button>
-                    <button id="clearBtn" class="border border-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition flex items-center gap-2">
-                        <i class="fas fa-trash-alt"></i> Clear
-                    </button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-5 text-center">
-                    <div class="text-3xl font-bold text-dark-blue" id="totalCount">0</div>
-                    <div class="text-sm text-gray-500 mt-1">Total URLs</div>
-                </div>
-                <div class="reveal delay-200 bg-white rounded-2xl shadow-sm border border-gray-200 p-5 text-center">
-                    <div class="text-3xl font-bold text-green-600" id="validCount">0</div>
-                    <div class="text-sm text-gray-500 mt-1">Valid URLs</div>
-                </div>
-                <div class="reveal delay-300 bg-white rounded-2xl shadow-sm border border-gray-200 p-5 text-center">
-                    <div class="text-3xl font-bold text-red-500" id="invalidCount">0</div>
-                    <div class="text-sm text-gray-500 mt-1">Invalid Lines</div>
-                </div>
-            </div>
-
-            <div class="reveal bg-white rounded-2xl shadow-sm border border-gray-200 p-4 mt-4">
-                <h3 class="text-xs font-bold text-dark-blue mb-3 flex items-center gap-1.5"><i class="fas fa-chart-simple text-primary-red"></i> Links Progress</h3>
-                <div class="space-y-3">
-                    <div>
-                        <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
-                            <span>Daily</span>
-                            <span class="font-semibold text-dark-blue" id="todayCount">0</span>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-                            <div id="todayBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#c91414,#ef4444)"></div>
-                        </div>
-                        <div class="flex justify-between text-[9px] text-gray-400 mt-0.5">
-                            <span>0</span>
-                            <span id="todayGoal">Goal: 100</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
-                            <span>Weekly</span>
-                            <span class="font-semibold text-dark-blue" id="weekCount">0</span>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-                            <div id="weekBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#2563eb,#3b82f6)"></div>
-                        </div>
-                        <div class="flex justify-between text-[9px] text-gray-400 mt-0.5">
-                            <span>0</span>
-                            <span id="weekGoal">Goal: 700</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1">
-                            <span>Monthly</span>
-                            <span class="font-semibold text-dark-blue" id="monthCount">0</span>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-                            <div id="monthBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#059669,#10b981)"></div>
-                        </div>
-                        <div class="flex justify-between text-[9px] text-gray-400 mt-0.5">
-                            <span>0</span>
-                            <span id="monthGoal">Goal: 2500</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="linkHub" class="reveal delay-100 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mt-6 hidden">
-                <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
-                    <i class="fas fa-external-link-alt text-primary-red"></i> Link Hub
-                </h2>
-                <p class="text-xs text-gray-500 mb-3" id="linkHubSummary"></p>
-                <div id="linkHubList" class="space-y-1.5 max-h-96 overflow-y-auto"></div>
-            </div>
-                <h2 class="text-lg font-bold text-dark-blue mb-4 flex items-center gap-2">
-                    <i class="fas fa-list text-primary-red"></i> URL List
-                </h2>
-                <div id="urlListContainer" class="space-y-1.5 max-h-64 overflow-y-auto"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-dark-blue text-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
-            <svg class="relative block w-full h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M1200 120L0 120 0 0 1200 120z" class="fill-gray-50"></path>
-            </svg>
-        </div>
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 pt-16">
-            <div class="reveal">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 serif">Need More?</h2>
-                <p class="reveal delay-100 text-gray-300 mb-8 text-lg">Check out our other free developer tools.</p>
-                <div class="reveal delay-200 flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="email-scraper.html" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-lg font-bold hover:bg-white/20 transition inline-flex items-center gap-2">
-                        <i class="fas fa-envelope"></i> Email Scraper
-                    </a>
-                    <a href="link-scraper.html" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-lg font-bold hover:bg-white/20 transition inline-flex items-center gap-2">
-                        <i class="fas fa-link"></i> Link Scraper
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="footer-container"></div>
-
-<script>
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-
-if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        const icon = mobileMenuBtn.querySelector('i');
-        if (mobileMenu.classList.contains('hidden')) {
-            icon.className = 'fas fa-bars fa-lg';
-        } else {
-            icon.className = 'fas fa-times fa-lg';
+<body>
+    <h1>Bulk Link Opener</h1>
+    <p>Paste one URL per line, then click "Open Links" to open each in a new tab.</p>
+    <textarea id="urls" placeholder="https://example.com
+https://github.com
+..."></textarea><br>
+    <button onclick="openLinks()">Open Links</button>
+    <div class="note">
+        Note: Your browser may block pop-ups. Allow pop-ups for this site to let links open in new tabs.
+    </div>
+    <script>
+        function openLinks() {
+            const textarea = document.getElementById('urls');
+            const text = textarea.value.trim();
+            if (!text) {
+                alert('Please enter at least one URL.');
+                return;
+            }
+            const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            lines.forEach(url => {
+                // Ensure URL has a scheme; if not, prepend http://
+                if (!/^https?:\/\//i.test(url)) {
+                    url = 'http://' + url;
+                }
+                window.open(url, '_blank');
+            });
         }
-    });
-}
-</script>
-
-<script>
-const urlInput = document.getElementById('urlList');
-const totalCount = document.getElementById('totalCount');
-const validCount = document.getElementById('validCount');
-const invalidCount = document.getElementById('invalidCount');
-const urlPreview = document.getElementById('urlPreview');
-const urlListContainer = document.getElementById('urlListContainer');
-const todayCount = document.getElementById('todayCount');
-const todayBar = document.getElementById('todayBar');
-const todayGoal = document.getElementById('todayGoal');
-const weekCount = document.getElementById('weekCount');
-const weekBar = document.getElementById('weekBar');
-const weekGoal = document.getElementById('weekGoal');
-const monthCount = document.getElementById('monthCount');
-const monthBar = document.getElementById('monthBar');
-const monthGoal = document.getElementById('monthGoal');
-const DAILY_GOAL = 100;
-const WEEKLY_GOAL = 700;
-const MONTHLY_GOAL = 2500;
-
-function getWeekId(d) {
-    const start = new Date(d);
-    start.setDate(start.getDate() - start.getDay());
-    return start.toDateString();
-}
-
-function getMonthId(d) {
-    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
-}
-
-function getPeriodCount(key) {
-    try { return parseInt(localStorage.getItem(key) || '0', 10); } catch(e) { return 0; }
-}
-
-function addPeriodCount(key, n) {
-    const total = getPeriodCount(key) + n;
-    try { localStorage.setItem(key, String(total)); } catch(e) {}
-}
-
-function getDailyKey() { return 'blo_' + new Date().toDateString(); }
-function getWeeklyKey() { return 'blo_wk_' + getWeekId(new Date()); }
-function getMonthlyKey() { return 'blo_mo_' + getMonthId(new Date()); }
-function addDailyCount(n) { addPeriodCount(getDailyKey(), n); }
-function getWeeklyCount() { return getPeriodCount(getWeeklyKey()); }
-function addWeeklyCount(n) { addPeriodCount(getWeeklyKey(), n); }
-function getMonthlyCount() { return getPeriodCount(getMonthlyKey()); }
-function addMonthlyCount(n) { addPeriodCount(getMonthlyKey(), n); }
-
-function updateAllStats() {
-    const d = getDailyCount();
-    const w = getWeeklyCount();
-    const m = getMonthlyCount();
-    todayCount.textContent = d;
-    weekCount.textContent = w;
-    monthCount.textContent = m;
-    todayBar.style.width = Math.min(100, (d / DAILY_GOAL) * 100) + '%';
-    weekBar.style.width = Math.min(100, (w / WEEKLY_GOAL) * 100) + '%';
-    monthBar.style.width = Math.min(100, (m / MONTHLY_GOAL) * 100) + '%';
-    todayGoal.textContent = d >= DAILY_GOAL ? 'Reached!' : 'Goal: ' + DAILY_GOAL;
-    weekGoal.textContent = w >= WEEKLY_GOAL ? 'Reached!' : 'Goal: ' + WEEKLY_GOAL;
-    monthGoal.textContent = m >= MONTHLY_GOAL ? 'Reached!' : 'Goal: ' + MONTHLY_GOAL;
-}
-
-function parseUrls(text) {
-    const lines = text.split(/[\n]+/).map(s => s.trim()).filter(s => s.length > 0);
-    const valid = [];
-    const invalid = [];
-    lines.forEach(line => {
-        try {
-            const u = new URL(line);
-            if (u.protocol === 'http:' || u.protocol === 'https:') valid.push(u.href);
-            else invalid.push(line);
-        } catch(e) { invalid.push(line); }
-    });
-    return { valid: [...new Set(valid)], invalid: [...new Set(invalid)] };
-}
-
-function updateStats() {
-    const result = parseUrls(urlInput.value);
-    totalCount.textContent = result.valid.length + result.invalid.length;
-    validCount.textContent = result.valid.length;
-    invalidCount.textContent = result.invalid.length;
-    urlListContainer.innerHTML = '';
-    if (result.valid.length === 0) {
-        urlPreview.classList.add('hidden');
-        return;
-    }
-    urlPreview.classList.remove('hidden');
-    result.valid.forEach((url, i) => {
-        const div = document.createElement('div');
-        div.className = 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm';
-        div.innerHTML = `
-            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold flex-shrink-0">${i + 1}</span>
-            <a href="${url}" target="_blank" rel="noopener noreferrer" class="text-primary-red hover:underline truncate flex-1">${url}</a>
-        `;
-        urlListContainer.appendChild(div);
-    });
-}
-
-urlInput.addEventListener('input', updateStats);
-updateStats();
-updateAllStats();
-
-const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-function showLinkHub(urls, opened) {
-    const hub = document.getElementById('linkHub');
-    const list = document.getElementById('linkHubList');
-    const summary = document.getElementById('linkHubSummary');
-    hub.classList.remove('hidden');
-    summary.textContent = `Opened ${opened} of ${urls.length}. Click any link below to open in a new tab.`;
-    list.innerHTML = urls.map((u, i) =>
-        `<div class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${i < opened ? 'bg-green-50' : 'hover:bg-gray-50'}">
-            <span class="w-6 h-6 rounded-full ${i < opened ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} flex items-center justify-center text-xs font-bold flex-shrink-0">${i < opened ? '✓' : i + 1}</span>
-            <a href="${esc(u)}" target="_blank" rel="noopener noreferrer" class="${i < opened ? 'text-green-600' : 'text-primary-red'} hover:underline truncate flex-1">${u}</a>
-        </div>`
-    ).join('');
-    if (opened === 0) {
-        hub.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-}
-
-function openAll(urls) {
-    let opened = 0;
-    for (const url of urls) {
-        try { if (window.open(url, '_blank')) opened++; } catch(e) {}
-    }
-    if (opened < urls.length) {
-        showLinkHub(urls, opened);
-    }
-}
-
-document.getElementById('openBtn').addEventListener('click', () => {
-    const result = parseUrls(urlInput.value);
-    if (result.valid.length === 0) {
-        alert('No valid URLs to open.');
-        return;
-    }
-    const urls = result.valid;
-    if (urls.length > 10 && !confirm(`This will open ${urls.length} tabs. Continue?`)) return;
-    addDailyCount(urls.length);
-    addWeeklyCount(urls.length);
-    addMonthlyCount(urls.length);
-    updateAllStats();
-    openAll(urls);
-    trackUsage('bulk-link-opener', 'open_all', { count: urls.length });
-    recordLinkOpenerStats(urls.length);
-});
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-    urlInput.value = '';
-    updateStats();
-});
-
-document.getElementById('copyBtn').addEventListener('click', () => {
-    const result = parseUrls(urlInput.value);
-    if (result.valid.length === 0) {
-        alert('No valid URLs to copy.');
-        return;
-    }
-    navigator.clipboard.writeText(result.valid.join('\n')).then(() => {
-        alert(`Copied ${result.valid.length} URLs to clipboard.`);
-    }).catch(() => {
-        alert('Failed to copy. Make sure the page is served over HTTPS or try selecting manually.');
-    });
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
-        revealObserver.observe(el);
-    });
-});
-</script>
+    </script>
 </body>
 </html>
