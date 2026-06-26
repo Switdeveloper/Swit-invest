@@ -1,8 +1,6 @@
-const API_BASE = 'api';
-
 const api = {
     async proxy(endpoint, body) {
-        const url = `${API_BASE}/proxy.php?endpoint=${encodeURIComponent(endpoint)}`;
+        const url = `proxy.php?endpoint=${encodeURIComponent(endpoint)}`;
         const res = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
