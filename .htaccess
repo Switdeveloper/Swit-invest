@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block .env files
+    RewriteRule ^\.env - [F,L]
+
+    # Block sensitive files
+    RewriteRule ^install\.sql$ - [F,L]
+    RewriteRule ^\.env\.example$ - [F,L]
+</IfModule>
+
+<FilesMatch "\.(sql|md|log)$">
+    Require all denied
+</FilesMatch>

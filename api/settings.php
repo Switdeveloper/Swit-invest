@@ -3,6 +3,15 @@ require_once __DIR__ . '/db.php';
 
 header('Content-Type: application/json');
 
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.use_strict_mode', 1);
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_samesite', 'Lax');
+    ini_set('session.gc_maxlifetime', 7200);
+    session_start();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -29,8 +38,9 @@ if ($method === 'POST' && $_GET['action'] === 'auth') {
 
     if (password_verify($password, $adminHash)) {
         $token = bin2hex(random_bytes(32));
-        session_start();
+        session_regenerate_id(true);
         $_SESSION['api_admin_token'] = $token;
+        $_SESSION['api_admin_expires'] = time() + 7200;
         session_write_close();
         sendJSON(['token' => $token, 'success' => true]);
     } else {
@@ -39,9 +49,15 @@ if ($method === 'POST' && $_GET['action'] === 'auth') {
 }
 
 if ($method === 'GET' && $_GET['action'] === 'check') {
-    session_start();
     $token = $_GET['token'] ?? $_COOKIE['api_admin_token'] ?? '';
-    $valid = !empty($token) && ($_SESSION['api_admin_token'] ?? '') === $token;
+    $valid = !empty($token)
+        && ($_SESSION['api_admin_token'] ?? '') === $token
+        && ($_SESSION['api_admin_expires'] ?? 0) > time();
+    if (!$valid) {
+        $_SESSION['api_admin_token'] = '';
+        $_SESSION['api_admin_expires'] = 0;
+    }
+    session_write_close();
     sendJSON(['authenticated' => $valid]);
 }
 
@@ -124,7 +140,10 @@ sendJSON(['error' => 'Invalid action'], 400);
 
 function verifyAuth(): void {
     $headers = getallheaders();
-    $authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? '';
+    $authHeader = '';
+    foreach (['Authorization', 'authorization', 'AUTHORIZATION'] as $h) {
+        if (isset($headers[$h])) { $authHeader = $headers[$h]; break; }
+    }
     $token = '';
 
     if (preg_match('/^Bearer\s+(.+)$/i', $authHeader, $m)) {
@@ -132,20 +151,23 @@ function verifyAuth(): void {
     }
 
     if (empty($token)) {
-        session_start();
         $token = $_SESSION['api_admin_token'] ?? '';
-        session_write_close();
     }
 
     if (empty($token)) {
         sendJSON(['error' => 'Authentication required'], 401);
     }
 
-    session_start();
-    $valid = ($_SESSION['api_admin_token'] ?? '') === $token;
-    session_write_close();
+    $valid = ($_SESSION['api_admin_token'] ?? '') === $token
+          && ($_SESSION['api_admin_expires'] ?? 0) > time();
 
     if (!$valid) {
+        $_SESSION['api_admin_token'] = '';
+        $_SESSION['api_admin_expires'] = 0;
+        session_write_close();
         sendJSON(['error' => 'Invalid or expired session'], 401);
     }
+
+    $_SESSION['api_admin_expires'] = time() + 7200;
+    session_write_close();
 }

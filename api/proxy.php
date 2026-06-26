@@ -49,8 +49,13 @@ try {
         $baseUrl = $defaults[$providerName] ?? '';
     }
 
-    $requestPath = $_GET['endpoint'] ?? '/chat/completions';
-    $targetUrl = rtrim($baseUrl, '/') . '/' . ltrim($requestPath, '/');
+$allowedEndpoints = ['chat/completions', 'completions', 'messages', 'moderations'];
+$requestPath = $_GET['endpoint'] ?? '/chat/completions';
+$requestPath = ltrim($requestPath, '/');
+if (!in_array($requestPath, $allowedEndpoints)) {
+    sendJSON(['error' => 'Invalid endpoint'], 400);
+}
+$targetUrl = rtrim($baseUrl, '/') . '/' . $requestPath;
 
     $requestHeaders = [
         'Content-Type: application/json',
@@ -69,6 +74,10 @@ try {
     }
     $requestHeaders[] = 'X-Title: SwitDeveloper';
 
+    if (strlen(json_encode($body)) > 500000) {
+        sendJSON(['error' => 'Request too large'], 413);
+    }
+
     $ch = curl_init();
     curl_setopt_array($ch, [
         CURLOPT_URL            => $targetUrl,
@@ -79,6 +88,8 @@ try {
         CURLOPT_TIMEOUT        => 120,
         CURLOPT_CONNECTTIMEOUT => 15,
         CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
     ]);
 
     $response = curl_exec($ch);

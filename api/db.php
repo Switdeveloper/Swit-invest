@@ -1,4 +1,8 @@
 <?php
+if (basename($_SERVER['SCRIPT_FILENAME'] ?? '') === 'db.php') {
+    http_response_code(403);
+    exit;
+}
 require_once __DIR__ . '/config.php';
 
 function getDB(): PDO {
