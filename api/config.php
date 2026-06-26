@@ -8,6 +8,24 @@ ini_set('display_errors', 0);
 
 header_remove('X-Powered-By');
 
+$envFile = __DIR__ . '/../.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '' || $line[0] === '#') continue;
+        if (str_contains($line, '=')) {
+            [$key, $val] = explode('=', $line, 2);
+            $key = trim($key);
+            $val = trim($val);
+            if (!getenv($key)) {
+                putenv("$key=$val");
+                $_ENV[$key] = $val;
+            }
+        }
+    }
+}
+
 $required = ['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS'];
 foreach ($required as $key) {
     if (!getenv($key)) {
