@@ -14,7 +14,7 @@ if (file_exists($envFile)) {
     foreach ($lines as $line) {
         $line = trim($line);
         if ($line === '' || $line[0] === '#') continue;
-        if (str_contains($line, '=')) {
+        if (strpos($line, '=') !== false) {
             [$key, $val] = explode('=', $line, 2);
             $key = trim($key);
             $val = trim($val);
