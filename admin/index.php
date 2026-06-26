@@ -26,6 +26,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    if ($action === 'setup') {
+        $new = $_POST['new_password'] ?? '';
+        $confirm = $_POST['confirm_password'] ?? '';
+        if (strlen($new) < 6) {
+            die('Password must be at least 6 characters.');
+        }
+        if ($new !== $confirm) {
+            die('Passwords do not match.');
+        }
+        $hash = password_hash($new, PASSWORD_BCRYPT);
+        $stmt = $pdo->prepare("INSERT INTO admin_settings (setting_key, setting_value) VALUES ('password_hash', ?) ON DUPLICATE KEY UPDATE setting_value = ?");
+        $stmt->execute([$hash, $hash]);
+        session_regenerate_id(true);
+        $_SESSION['admin_auth'] = true;
+        $_SESSION['admin_expires'] = time() + 7200;
+        header('Location: /admin/');
+        exit;
+    }
+
     if ($action === 'change_password') {
         if (empty($_SESSION['admin_auth'])) {
             http_response_code(401);
@@ -133,6 +152,11 @@ $loggedIn = !empty($_SESSION['admin_auth']) && ($_SESSION['admin_expires'] ?? 0)
 
 if (!$loggedIn) {
     $_SESSION['admin_auth'] = false;
+
+    $stmt = $pdo->prepare("SELECT setting_value FROM admin_settings WHERE setting_key = 'password_hash' LIMIT 1");
+    $stmt->execute();
+    $row = $stmt->fetch();
+    $hasPassword = !empty($row['setting_value']);
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,12 +164,13 @@ if (!$loggedIn) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>Admin Login - SwitDeveloper</title>
+<title>Admin Panel - SwitDeveloper</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>body{font-family:Inter,sans-serif;background:#0d152e;}</style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+<?php if ($hasPassword): ?>
     <div class="text-center mb-8">
         <h1 class="text-3xl font-bold text-gray-800">Admin Panel</h1>
         <p class="text-gray-500 mt-2">Enter your admin password to continue</p>
@@ -155,6 +180,18 @@ if (!$loggedIn) {
         <input type="password" name="password" required placeholder="Admin Password" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary-red focus:ring-1 focus:ring-primary-red transition">
         <button type="submit" class="w-full bg-primary-red text-white py-3 rounded-lg font-semibold hover:bg-red-800 transition">Sign In</button>
     </form>
+<?php else: ?>
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">First-Time Setup</h1>
+        <p class="text-gray-500 mt-2">Create your admin password to secure the panel</p>
+    </div>
+    <form method="POST" class="space-y-4" onsubmit="return this.querySelector('[name=new_password]').value === this.querySelector('[name=confirm_password]').value || (alert('Passwords do not match.'), false)">
+        <input type="hidden" name="action" value="setup">
+        <input type="password" name="new_password" required minlength="6" placeholder="New Password (min 6 chars)" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary-red focus:ring-1 focus:ring-primary-red transition">
+        <input type="password" name="confirm_password" required minlength="6" placeholder="Confirm Password" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary-red focus:ring-1 focus:ring-primary-red transition">
+        <button type="submit" class="w-full bg-primary-red text-white py-3 rounded-lg font-semibold hover:bg-red-800 transition">Set Password &amp; Login</button>
+    </form>
+<?php endif; ?>
 </div>
 </body>
 </html>
