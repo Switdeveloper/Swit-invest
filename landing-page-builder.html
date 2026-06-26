@@ -210,9 +210,6 @@
             <div class="mb-3">
                 <label class="block text-xs font-semibold text-gray-600 mb-1">Model</label>
                 <select id="modelSelect" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red transition">
-                    <option value="nvidia/nemotron-3-ultra-550b-a55b:free" selected>Nemotron 3 Ultra 550B (free)</option>
-                    <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
-                    <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
                 </select>
             </div>
             <button id="saveKeyBtn" class="w-full bg-dark-blue text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-dark-blue/90 transition">Save Settings</button>
@@ -261,12 +258,23 @@ function getModel() {
     return select.value;
 }
 
-function loadSettings() {
-    const key = ''  /* key now on server via Supabase proxy */;
-    const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
-    document.getElementById('apiKey').value = key;
+async function loadModels() {
     const select = document.getElementById('modelSelect');
-    if (model && [...select.options].some(o => o.value === model)) select.value = model;
+    select.innerHTML = '<option value="">Loading...</option>';
+    try {
+        const res = await fetch('api/models.php?provider=openrouter');
+        const data = await res.json();
+        select.innerHTML = '';
+        (data.models || []).forEach(m => {
+            const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
+            if (m === data.default) opt.selected = true;
+            select.appendChild(opt);
+        });
+    } catch (e) {
+        select.innerHTML = '<option value="gpt-4o" selected>gpt-4o</option><option value="claude-3.5-sonnet">claude-3.5-sonnet</option>';
+    }
+    const saved = localStorage.getItem('orModel');
+    if (saved && [...select.options].some(o => o.value === saved)) select.value = saved;
 }
 
 function saveSettings() {
@@ -481,7 +489,7 @@ Rules:
     }
 });
 
-loadSettings();
+loadModels();
 buildPage();
 </script>
 

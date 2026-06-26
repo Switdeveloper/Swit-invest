@@ -474,9 +474,6 @@
         <div>
           <label class="block text-sm font-semibold text-gray-700 mb-1.5">Model</label>
           <select id="modelSelect" class="input-field">
-            <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nvidia Nemotron 3 Ultra 550B</option>
-            <option value="nex-agi/nex-n2-pro:free">Nex AGI N2 Pro</option>
-            <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nvidia Nemotron 3 Nano Omni</option>
           </select>
         </div>
         <div class="flex justify-end gap-3 pt-2">
@@ -502,8 +499,7 @@
       results: [],
       history: JSON.parse(localStorage.getItem('dngHistory') || '[]'),
       favorites: JSON.parse(localStorage.getItem('dngFavorites') || '[]'),
-      apiKey: ''  /* key now on server via Supabase proxy */,
-      model: localStorage.getItem('dngModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free',
+      model: localStorage.getItem('dngModel') || 'gpt-4o',
       currentPrompt: '',
     };
 
@@ -534,6 +530,25 @@
     const modelSelect = $('#modelSelect');
     const favoritesModal = $('#favoritesModal');
     const favoritesList = $('#favoritesList');
+
+    // ======================== Model Loading ========================
+    fetch('api/models.php?provider=openrouter')
+      .then(r => r.json())
+      .then(data => {
+        modelSelect.innerHTML = '';
+        (data.models || []).forEach(m => {
+          const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
+          modelSelect.appendChild(opt);
+        });
+        if (state.model && [...modelSelect.options].some(o => o.value === state.model)) {
+          modelSelect.value = state.model;
+        } else if (data.models && data.models.length) {
+          state.model = data.models[0];
+        }
+      })
+      .catch(() => {
+        modelSelect.innerHTML = '<option value="gpt-4o">gpt-4o</option><option value="claude-3.5-sonnet">claude-3.5-sonnet</option>';
+      });
 
     // ======================== Choice Buttons ========================
     function bindChoices(btns, key) {

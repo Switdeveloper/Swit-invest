@@ -95,7 +95,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $displayName = trim($_POST['display_name'] ?? '');
         $apiKey = $_POST['api_key'] ?? '';
         $baseUrl = trim($_POST['base_url'] ?? '');
+        $modelsRaw = trim($_POST['models'] ?? '');
+        $defaultModel = trim($_POST['default_model'] ?? '');
         $isActive = !empty($_POST['is_active']) ? 1 : 0;
+
+        // Normalize models: comma-separated to JSON array
+        $models = '[]';
+        if ($modelsRaw) {
+            $parts = array_map('trim', explode(',', $modelsRaw));
+            $parts = array_values(array_filter($parts));
+            $models = json_encode($parts);
+        }
 
         if (empty($name) || empty($displayName)) {
             $_SESSION['provider_error'] = 'Name and display name are required.';
@@ -111,11 +121,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             if ($id) {
                 if ($apiKey) {
-                    $stmt = $pdo->prepare("UPDATE api_providers SET name = ?, display_name = ?, api_key = ?, base_url = ?, is_active = ? WHERE id = ?");
-                    $stmt->execute([$name, $displayName, $apiKey, $baseUrl ?: null, $isActive, $id]);
+                    $stmt = $pdo->prepare("UPDATE api_providers SET name = ?, display_name = ?, api_key = ?, base_url = ?, models = ?, default_model = ?, is_active = ? WHERE id = ?");
+                    $stmt->execute([$name, $displayName, $apiKey, $baseUrl ?: null, $models, $defaultModel ?: null, $isActive, $id]);
                 } else {
-                    $stmt = $pdo->prepare("UPDATE api_providers SET name = ?, display_name = ?, base_url = ?, is_active = ? WHERE id = ?");
-                    $stmt->execute([$name, $displayName, $baseUrl ?: null, $isActive, $id]);
+                    $stmt = $pdo->prepare("UPDATE api_providers SET name = ?, display_name = ?, base_url = ?, models = ?, default_model = ?, is_active = ? WHERE id = ?");
+                    $stmt->execute([$name, $displayName, $baseUrl ?: null, $models, $defaultModel ?: null, $isActive, $id]);
                 }
             } else {
                 if (empty($apiKey)) {
@@ -123,8 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header('Location: /admin/');
                     exit;
                 }
-                $stmt = $pdo->prepare("INSERT INTO api_providers (name, display_name, api_key, base_url, is_active) VALUES (?, ?, ?, ?, ?)");
-                $stmt->execute([$name, $displayName, $apiKey, $baseUrl ?: null, $isActive]);
+                $stmt = $pdo->prepare("INSERT INTO api_providers (name, display_name, api_key, base_url, models, default_model, is_active) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([$name, $displayName, $apiKey, $baseUrl ?: null, $models, $defaultModel ?: null, $isActive]);
             }
             $_SESSION['provider_saved'] = true;
         } catch (PDOException $e) {
@@ -204,7 +214,7 @@ if (!$loggedIn) {
     exit;
 }
 
-$stmt = $pdo->query("SELECT id, name, display_name, CASE WHEN api_key != '' THEN 1 ELSE 0 END as has_key, COALESCE(base_url, '') as base_url, is_active, updated_at FROM api_providers ORDER BY id");
+$stmt = $pdo->query("SELECT id, name, display_name, CASE WHEN api_key != '' THEN 1 ELSE 0 END as has_key, COALESCE(base_url, '') as base_url, COALESCE(models, '[]') as models, COALESCE(default_model, '') as default_model, is_active, updated_at FROM api_providers ORDER BY id");
 $providers = $stmt->fetchAll();
 
 $success = $_SESSION['provider_saved'] ?? false;
@@ -257,6 +267,7 @@ unset($_SESSION['provider_saved'], $_SESSION['provider_error'], $_SESSION['passw
                     <th class="pb-3 font-semibold">Display Name</th>
                     <th class="pb-3 font-semibold">API Key</th>
                     <th class="pb-3 font-semibold">Base URL</th>
+                    <th class="pb-3 font-semibold">Default Model</th>
                     <th class="pb-3 font-semibold">Active</th>
                     <th class="pb-3 font-semibold">Actions</th>
                 </tr>
@@ -268,9 +279,10 @@ unset($_SESSION['provider_saved'], $_SESSION['provider_error'], $_SESSION['passw
                     <td class="py-3"><?= htmlspecialchars($p['display_name']) ?></td>
                     <td class="py-3"><?= $p['has_key'] ? '<span class="text-green-600 font-medium">Saved</span>' : '<span class="text-red-500">Missing</span>' ?></td>
                     <td class="py-3 text-gray-500"><?= htmlspecialchars($p['base_url'] ?: 'Default') ?></td>
+                    <td class="py-3"><span class="text-xs text-gray-500"><?= htmlspecialchars($p['default_model'] ?: '—') ?></span></td>
                     <td class="py-3"><?= $p['is_active'] ? '<span class="text-green-600">Active</span>' : '<span class="text-gray-400">Inactive</span>' ?></td>
                     <td class="py-3 flex gap-2">
-                        <button onclick="editProvider(<?= $p['id'] ?>, '<?= addslashes($p['name']) ?>', '<?= addslashes($p['display_name']) ?>', '<?= addslashes($p['base_url']) ?>', <?= $p['is_active'] ?>)" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                        <button onclick="editProvider(<?= $p['id'] ?>, '<?= addslashes($p['name']) ?>', '<?= addslashes($p['display_name']) ?>', '<?= addslashes($p['base_url']) ?>', '<?= addslashes($p['models']) ?>', '<?= addslashes($p['default_model']) ?>', <?= $p['is_active'] ?>)" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
                         <a href="?delete=<?= $p['id'] ?>" onclick="return confirm('Delete <?= addslashes($p['name']) ?>?')" class="text-red-600 hover:text-red-800 text-sm font-medium">Delete</a>
                     </td>
                 </tr>
@@ -298,6 +310,14 @@ unset($_SESSION['provider_saved'], $_SESSION['provider_error'], $_SESSION['passw
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-1">Base URL (optional)</label>
                 <input type="url" name="base_url" id="providerUrl" placeholder="e.g. https://openrouter.ai/api/v1" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary-red">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Models (comma-separated)</label>
+                <input type="text" name="models" id="providerModels" placeholder="e.g. gpt-4o,claude-3.5-sonnet" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary-red">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Default Model</label>
+                <input type="text" name="default_model" id="providerDefaultModel" placeholder="e.g. gpt-4o" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary-red">
             </div>
         </div>
         <label class="flex items-center gap-2">
@@ -334,12 +354,19 @@ unset($_SESSION['provider_saved'], $_SESSION['provider_error'], $_SESSION['passw
 
 </main>
 <script>
-function editProvider(id, name, display, url, active) {
+function editProvider(id, name, display, url, models, defaultModel, active) {
     document.getElementById('providerId').value = id;
     document.getElementById('providerName').value = name;
     document.getElementById('providerDisplay').value = display;
     document.getElementById('providerUrl').value = url === '' ? '' : url;
     document.getElementById('providerKey').value = '';
+    try {
+        const m = JSON.parse(models);
+        document.getElementById('providerModels').value = Array.isArray(m) ? m.join(', ') : '';
+    } catch(e) {
+        document.getElementById('providerModels').value = '';
+    }
+    document.getElementById('providerDefaultModel').value = defaultModel === '' ? '' : defaultModel;
     document.querySelector('[name="is_active"]').checked = active === 1;
     document.getElementById('providerForm').classList.remove('hidden');
 }

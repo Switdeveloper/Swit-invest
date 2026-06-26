@@ -519,10 +519,10 @@
 
   <script>
     // ── Models ──
-    const MODELS = [
-      { id: 'nvidia/nemotron-3-ultra-550b-a55b:free', name: 'Nemotron 3 Ultra 550B (free)' },
-      { id: 'nex-agi/nex-n2-pro:free', name: 'Nex N2 Pro (free)' },
-      { id: 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free', name: 'Nemotron Nano Omni 30B (free)' }
+    let MODELS = [
+      { id: 'gpt-4o', name: 'gpt-4o' },
+      { id: 'claude-3.5-sonnet', name: 'claude-3.5-sonnet' },
+      { id: 'gemini-pro', name: 'gemini-pro' }
     ];
 
     // ── Content Types ──
@@ -587,9 +587,19 @@
       selects.forEach(id => {
         const sel = $(id);
         if (!sel) return;
-        sel.innerHTML = MODELS.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+        sel.innerHTML = MODELS.map(m => `<option value="${m.id}">${m.name || m.id}</option>`).join('');
       });
     }
+
+    // Load models from server, fall back to defaults
+    fetch('api/models.php?provider=openrouter')
+      .then(r => r.json())
+      .then(data => {
+        MODELS = (data.models || []).map(m => ({ id: m, name: m }));
+        populateModels();
+        loadSettingsIntoUI();
+      })
+      .catch(() => {});
 
     function populateTypeCards() {
       typeGrid.innerHTML = CONTENT_TYPES.map(t => `

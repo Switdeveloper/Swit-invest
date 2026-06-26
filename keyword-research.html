@@ -413,9 +413,6 @@
             <i class="fas fa-microchip text-red-500 mr-1"></i>AI Model
           </label>
             <select id="modelSelect" class="input-field appearance-none">
-            <option value="nvidia/nemotron-3-ultra-550b-a55b:free" selected>Nemotron 3 Ultra 550B (free)</option>
-            <option value="nex-agi/nex-n2-pro:free">Nex N2 Pro (free)</option>
-            <option value="nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free">Nemotron Nano Omni 30B (free)</option>
           </select>
         </div>
         <div class="flex items-center gap-3 pt-2">
@@ -435,8 +432,34 @@
     (function() {
       'use strict';
 
+      let loadedModels = [];
+
+      async function loadModels() {
+        const select = $('#modelSelect');
+        try {
+          const res = await fetch('api/models.php?provider=openrouter');
+          const data = await res.json();
+          loadedModels = data.models || [];
+          select.innerHTML = '';
+          loadedModels.forEach(m => {
+            const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
+            select.appendChild(opt);
+          });
+        } catch (e) {
+          loadedModels = ['gpt-4o', 'claude-3.5-sonnet'];
+          select.innerHTML = loadedModels.map(m => '<option value="' + m + '">' + m + '</option>').join('');
+        }
+        const saved = localStorage.getItem('orModel');
+        if (saved && loadedModels.indexOf(saved) !== -1) {
+          select.value = saved;
+        } else if (loadedModels.length) {
+          select.value = loadedModels[0];
+        }
+        state.model = select.value;
+      }
+
       const DEFAULTS = {
-        model: 'nvidia/nemotron-3-ultra-550b-a55b:free'
+        model: 'gpt-4o'
       };
 
       const state = {
@@ -810,7 +833,7 @@
         showToast('Settings saved');
       });
 
-      renderHistory();
+      loadModels().then(renderHistory);
     })();
   </script>
 </body>
