@@ -695,7 +695,7 @@
       $('generate-btn').innerHTML = '<span class="spinner mr-2"></span>Generating...';
 
       try {
-        const resp = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
+        const resp = await fetch('api/proxy.php?endpoint=chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -911,7 +911,7 @@ ONLY output the JSON array, no other text.`;
     const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
 
     try {
-      const res = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
+      const res = await fetch('api/proxy.php?endpoint=chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -993,7 +993,7 @@ ONLY output the JSON array, no other text.`;
     const model = localStorage.getItem('orModel') || 'nvidia/nemotron-3-ultra-550b-a55b:free';
 
     try {
-      const res = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
+      const res = await fetch('api/proxy.php?endpoint=chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

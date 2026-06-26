@@ -179,7 +179,7 @@ if (mobileMenuBtn && mobileMenu) {
 </script>
 
 <script>
-const API_BASE = 'https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy';
+const API_BASE = 'api/proxy.php';
 let chatHistory = JSON.parse(localStorage.getItem('aiChatHistory') || '[]');
 let isProcessing = false;
 
@@ -314,7 +314,7 @@ async function sendMessage() {
     const messages = [{ role: 'system', content: 'You are a helpful AI assistant. Answer concisely and accurately.' }, ...chatHistory.slice(-20)];
 
     try {
-        const res = await fetch(`${API_BASE}/chat/completions`, {
+        const res = await fetch(`${API_BASE}?endpoint=chat/completions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

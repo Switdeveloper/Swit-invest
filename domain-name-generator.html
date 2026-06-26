@@ -653,7 +653,7 @@ Return the response as a valid JSON array only, with objects having keys "domain
       errorAlert.classList.add('hidden');
 
       try {
-        const response = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
+        const response = await fetch('api/proxy.php?endpoint=chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

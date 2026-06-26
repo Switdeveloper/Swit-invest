@@ -463,7 +463,7 @@
 
   <script>
     // ── State ──
-    const API_BASE = 'https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy';
+    const API_BASE = 'api/proxy.php';
     let uploadedPhotos = [];
     let analysisResults = [];
     let currentStep = 1;
@@ -688,7 +688,7 @@
         $('analysisResults').appendChild(card);
 
         try {
-          const res = await fetch(API_BASE + '/chat/completions', {
+          const res = await fetch(API_BASE + '?endpoint=chat/completions', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -798,7 +798,7 @@ ${roomDescs}
 Total target: ${analysisResults.length * 10} seconds.`;
 
       try {
-        const res = await fetch(API_BASE + '/chat/completions', {
+        const res = await fetch(API_BASE + '?endpoint=chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

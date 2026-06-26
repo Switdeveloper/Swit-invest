@@ -456,7 +456,7 @@ Rules:
 - The page must be standalone and work when opened in a browser`;
 
     try {
-        const res = await fetch('https://PROJECT_REF.supabase.co/functions/v1/openrouter-proxy/chat/completions', {
+        const res = await fetch('api/proxy.php?endpoint=chat/completions', {
             method: 'POST',
 
             body: JSON.stringify({ model, messages: [{ role: 'system', content: sysPrompt }, { role: 'user', content: prompt }], max_tokens: 4096, temperature: 0.4 })
