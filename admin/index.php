@@ -17,6 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $stmt->fetch();
         $storedHash = $row['setting_value'] ?? '';
 
+        // Fallback to .env constant if no password in DB yet
+        if (empty($storedHash) && defined('ADMIN_PASSWORD_HASH') && ADMIN_PASSWORD_HASH) {
+            $storedHash = ADMIN_PASSWORD_HASH;
+        }
+
         if ($storedHash && password_verify($password, $storedHash)) {
             session_regenerate_id(true);
             $_SESSION['admin_auth'] = true;
@@ -156,7 +161,7 @@ if (!$loggedIn) {
     $stmt = $pdo->prepare("SELECT setting_value FROM admin_settings WHERE setting_key = 'password_hash' LIMIT 1");
     $stmt->execute();
     $row = $stmt->fetch();
-    $hasPassword = !empty($row['setting_value']);
+    $hasPassword = !empty($row['setting_value']) || (defined('ADMIN_PASSWORD_HASH') && ADMIN_PASSWORD_HASH);
     ?>
 <!DOCTYPE html>
 <html lang="en">
